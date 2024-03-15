@@ -119,7 +119,7 @@ public class NhanVien {
     public Object[]toDataRow(){
         return new Object[]{
             this.getMaNV(),this.getHoTen(),this.getGioiTinh(),this.getNamSinh(),this.getCaLam(),this.getVaiTro(),this.getSDT(),this.getQueQuan()
-        }
+        };
     }
     
 }
