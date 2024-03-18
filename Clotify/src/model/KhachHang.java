@@ -7,9 +7,4 @@ package model;
 /**
  *
  * @author Dell
- */
-public class KhachHang {
-    
-    
-    
-}
+
