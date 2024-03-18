@@ -32,27 +32,27 @@ sdt varchar(13) not null
 );
 create table ThuongHieu(
 idThuongHieu int identity(1,1) primary key,
-maThuongHieu varchar(20) not null unique,
+maThuongHieu AS RIGHT('TH' + CAST(idThuongHieu AS varchar), 5) PERSISTED ,
 tenThuongHieu nvarchar(50) not null,
-ghiChu nvarchar(50) not null
+ghiChu nvarchar(50) 
 );
 create table ChatLieu(
 idChatLieu int identity(1,1) primary key,
-maChatLieu varchar(20) not null unique,
+maChatLieu AS RIGHT('CL' + CAST(idChatLieu AS varchar), 5) PERSISTED,
 tenChatLieu nvarchar(50) not null,
-ghiChu nvarchar(50) not null
+ghiChu nvarchar(50) 
 );
 create table Size(
 idSize int identity(1,1) primary key,
-maSize varchar(20) not null unique,
+maSize AS RIGHT('SZ' + CAST(idSize AS varchar), 5) PERSISTED,
 tenSize nvarchar(50) not null,
-ghiChu nvarchar(50) not null
+ghiChu nvarchar(50) 
 );
 create table MauSac(
 idMauSac int identity(1,1) primary key,
-maMauSac varchar(20) not null unique,
+maMauSac AS RIGHT('MS' + CAST(idMauSac AS varchar), 5) PERSISTED,
 tenMauSac nvarchar(50) not null,
-ghiChu nvarchar(50) not null
+ghiChu nvarchar(50) 
 );
 create table SanPham(
 maSP varchar(20) primary key,
@@ -162,52 +162,52 @@ VALUES
     ( N'Trần Văn Q', N'Nam Định', '1994-04-04', N'Nam', '0987654321');
 
 -- Thêm dữ liệu vào bảng ThuongHieu
-INSERT INTO ThuongHieu (maThuongHieu, tenThuongHieu, ghiChu)
+INSERT INTO ThuongHieu ( tenThuongHieu, ghiChu)
 VALUES 
-    ('TH001', N'Adidas', N'Nhãn hiệu thể thao'),
-    ('TH002', N'Nike', N'Nhãn hiệu thể thao'),
-    ('TH003', N'Gucci', N'Nhãn hiệu thời trang'),
-    ('TH004', N'Puma', N'Nhãn hiệu thể thao'),
-    ('TH005', N'New Balance', N'Nhãn hiệu thể thao'),
-    ('TH006', N'Zara', N'Nhãn hiệu thời trang'),
-    ('TH007', N'Uniqlo', N'Nhãn hiệu thời trang'),
-    ('TH008', N'Converse', N'Nhãn hiệu thời trang');
+    ( N'Adidas', N'Nhãn hiệu thể thao'),
+    ( N'Nike', N'Nhãn hiệu thể thao'),
+    ( N'Gucci', N'Nhãn hiệu thời trang'),
+    ( N'Puma', N'Nhãn hiệu thể thao'),
+    ( N'New Balance', N'Nhãn hiệu thể thao'),
+    ( N'Zara', N'Nhãn hiệu thời trang'),
+    ( N'Uniqlo', N'Nhãn hiệu thời trang'),
+    ( N'Converse', N'Nhãn hiệu thời trang');
 
 -- Thêm dữ liệu vào bảng ChatLieu
-INSERT INTO ChatLieu (maChatLieu, tenChatLieu, ghiChu)
+INSERT INTO ChatLieu ( tenChatLieu, ghiChu)
 VALUES 
-    ('CL001', N'Cotton', N'Chất liệu vải'),
-    ('CL002', N'Polyester', N'Chất liệu vải'),
-    ('CL003', N'Denim', N'Chất liệu vải'),
-    ('CL004', N'Lụa', N'Chất liệu vải'),
-    ('CL005', N'Len', N'Chất liệu vải'),
-    ('CL006', N'Satin', N'Chất liệu vải'),
-    ('CL007', N'Thun lạnh', N'Chất liệu vải'),
-    ('CL008', N'Cashmere', N'Chất liệu vải');
+    ( N'Cotton', N'Chất liệu vải'),
+    ( N'Polyester', N'Chất liệu vải'),
+    ( N'Denim', N'Chất liệu vải'),
+    ( N'Lụa', N'Chất liệu vải'),
+    ( N'Len', N'Chất liệu vải'),
+    ( N'Satin', N'Chất liệu vải'),
+    ( N'Thun lạnh', N'Chất liệu vải'),
+    ( N'Cashmere', N'Chất liệu vải');
 
 -- Thêm dữ liệu vào bảng Size
-INSERT INTO Size (maSize, tenSize, ghiChu)
+INSERT INTO Size ( tenSize, ghiChu)
 VALUES 
-    ('S001', N'S', N'Size S'),
-    ('S002', N'M', N'Size M'),
-    ('S003', N'L', N'Size L'),
-    ('S004', N'XL', N'Size XL'),
-    ('S005', N'XXL', N'Size XXL'),
-    ('S006', N'XS', N'Size XS'),
-    ('S007', N'XXXL', N'Size XXXL'),
-    ('S008', N'XXS', N'Size XXS');
+    ( N'S', N'Size S'),
+    ( N'M', N'Size M'),
+    ( N'L', N'Size L'),
+    ( N'XL', N'Size XL'),
+    ( N'XXL', N'Size XXL'),
+    ( N'XS', N'Size XS'),
+    ( N'XXXL', N'Size XXXL'),
+    ( N'XXS', N'Size XXS');
 
 -- Thêm dữ liệu vào bảng MauSac
-INSERT INTO MauSac (maMauSac, tenMauSac, ghiChu)
+INSERT INTO MauSac ( tenMauSac, ghiChu)
 VALUES 
-    ('MS001', N'Trắng', N'Màu trắng'),
-    ('MS002', N'Den', N'Màu đen'),
-    ('MS003', N'Xanh', N'Màu xanh'),
-    ('MS004', N'Hồng', N'Màu hồng'),
-    ('MS005', N'Cam', N'Màu cam'),
-    ('MS006', N'Vàng', N'Màu vàng'),
-    ('MS007', N'Hồng đậm', N'Màu hồng đậm'),
-    ('MS008', N'Xám', N'Màu xám');
+    ( N'Trắng', N'Màu trắng'),
+    ( N'Den', N'Màu đen'),
+    ( N'Xanh', N'Màu xanh'),
+    ( N'Hồng', N'Màu hồng'),
+    ( N'Cam', N'Màu cam'),
+    ( N'Vàng', N'Màu vàng'),
+    ( N'Hồng đậm', N'Màu hồng đậm'),
+    ( N'Xám', N'Màu xám');
 
 -- Thêm dữ liệu vào bảng SanPham
 INSERT INTO SanPham (maSP, tenSP, ngayNhap, maNV)
