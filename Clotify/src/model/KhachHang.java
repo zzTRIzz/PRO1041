@@ -9,6 +9,7 @@ package model;
  * @author Dell
  */
 public class KhachHang {
-    String maKH,tenKH;
+    String maKH,tenKH,mk;
+    
     
 }
