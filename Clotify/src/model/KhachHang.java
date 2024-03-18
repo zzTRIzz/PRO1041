@@ -11,5 +11,5 @@ package model;
 public class KhachHang {
     String maKH;
     String tenKH;
-    String 
+    
 }
