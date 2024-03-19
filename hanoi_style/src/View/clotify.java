@@ -195,7 +195,7 @@ public class clotify extends javax.swing.JFrame {
         jButton15 = new javax.swing.JButton();
         jPanel20 = new javax.swing.JPanel();
         jScrollPane11 = new javax.swing.JScrollPane();
-        tblSP1 = new javax.swing.JTable();
+        tb = new javax.swing.JTable();
         HoaDon = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jTextField7 = new javax.swing.JTextField();
@@ -641,6 +641,7 @@ public class clotify extends javax.swing.JFrame {
             new String [] {
                 "Mã", "Tên SP", "Thương Hiệu", "Loại", "Size", "Chất liệu", "Màu sắc", "Giá bán", "Số lượng", "Ngày nhập", "Trạng thái"
             }
+<<<<<<< Updated upstream:hanoi_style/src/View/clotify.java
         ) {
             boolean[] canEdit = new boolean [] {
                 true, true, true, true, true, true, true, true, true, true, false
@@ -650,6 +651,9 @@ public class clotify extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+=======
+        ));
+>>>>>>> Stashed changes:Clotify/src/clotify_product/clotify.java
         jScrollPane1.setViewportView(tbSanPham);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -1603,6 +1607,7 @@ public class clotify extends javax.swing.JFrame {
                     .addComponent(jComboBox7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel62)
                     .addComponent(jTextField26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+<<<<<<< Updated upstream:hanoi_style/src/View/clotify.java
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1623,6 +1628,45 @@ public class clotify extends javax.swing.JFrame {
                     .addComponent(jTextField19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel50))
                 .addGap(41, 41, 41))
+=======
+                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel19Layout.createSequentialGroup()
+                        .addGap(0, 13, Short.MAX_VALUE)
+                        .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextField17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel48)))
+                    .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel63)
+                        .addComponent(jTextField27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel19Layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel49)
+                            .addComponent(jRadioButton1)
+                            .addComponent(jRadioButton2))
+                        .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel19Layout.createSequentialGroup()
+                                .addGap(33, 33, 33)
+                                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jTextField19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel50))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jTextField20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel51)))
+                            .addGroup(jPanel19Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jTextField21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel56)))))
+                    .addGroup(jPanel19Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextField18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel55))))
+                .addGap(13, 13, 13))
+>>>>>>> Stashed changes:Clotify/src/clotify_product/clotify.java
         );
 
         jPanel21.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Chức năng", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Noto Sans", 1, 14), new java.awt.Color(204, 0, 0))); // NOI18N
@@ -1653,7 +1697,7 @@ public class clotify extends javax.swing.JFrame {
 
         jPanel20.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Danh sách nhân viên", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(255, 102, 102))); // NOI18N
 
-        tblSP1.setModel(new javax.swing.table.DefaultTableModel(
+        tb.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null},
@@ -1672,12 +1716,12 @@ public class clotify extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tblSP1.addMouseListener(new java.awt.event.MouseAdapter() {
+        tb.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblSP1MouseClicked(evt);
+                tbMouseClicked(evt);
             }
         });
-        jScrollPane11.setViewportView(tblSP1);
+        jScrollPane11.setViewportView(tb);
 
         javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
         jPanel20.setLayout(jPanel20Layout);
@@ -2291,10 +2335,10 @@ public class clotify extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton14ActionPerformed
 
-    private void tblSP1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSP1MouseClicked
+    private void tbMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbMouseClicked
         // TODO add your handling code here:
        
-    }//GEN-LAST:event_tblSP1MouseClicked
+    }//GEN-LAST:event_tbMouseClicked
 
     private void NhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NhanVienMouseClicked
         // TODO add your handling code here:
@@ -2546,15 +2590,18 @@ public class clotify extends javax.swing.JFrame {
     private javax.swing.JLabel menuThongKe2;
     private javax.swing.JLabel menuThongKe3;
     private javax.swing.JLabel menuThongKe4;
+<<<<<<< Updated upstream:hanoi_style/src/View/clotify.java
     private javax.swing.JRadioButton rdConHang;
     private javax.swing.JRadioButton rdHetHang;
+=======
+    private javax.swing.JTable tb;
+>>>>>>> Stashed changes:Clotify/src/clotify_product/clotify.java
     private javax.swing.JTable tbSanPham;
     private javax.swing.JTable tblChiTietHoaDon;
     private javax.swing.JTable tblGioHang;
     private javax.swing.JTable tblHoaDon;
     private javax.swing.JTable tblHoaDon1;
     private javax.swing.JTable tblSP;
-    private javax.swing.JTable tblSP1;
     private javax.swing.JTable tblSP2;
     private javax.swing.JTable tblSP3;
     private javax.swing.JTable tblSP4;
