@@ -9,117 +9,117 @@ package model;
  * @author THE PC
  */
 public class NhanVien {
-    String MaNV;
-    String HoTen;
-    String GioiTinh;
-    String NamSinh;
-    String CaLam;
-    String VaiTro;
-    String Luong;
-    String SDT;
-    String QueQuan;
+   String maNV;
+   String tenNV;
+   String ngaySinh;
+   String gioiTinh;
+   String diaChi;
+   String sdt;
+   String taiKhoan;
+   String matKhau;
+   String vaiTro;
 
     public NhanVien() {
     }
 
-    public NhanVien(String MaNV, String HoTen, String GioiTinh, String NamSinh, String CaLam, String VaiTro, String Luong, String SDT, String QueQuan) {
-        this.MaNV = MaNV;
-        this.HoTen = HoTen;
-        this.GioiTinh = GioiTinh;
-        this.NamSinh = NamSinh;
-        this.CaLam = CaLam;
-        this.VaiTro = VaiTro;
-        this.Luong = Luong;
-        this.SDT = SDT;
-        this.QueQuan = QueQuan;
+    public NhanVien(String maNV, String tenNV, String ngaySinh, String gioiTinh, String diaChi, String sdt, String taiKhoan, String matKhau, String vaiTro) {
+        this.maNV = maNV;
+        this.tenNV = tenNV;
+        this.ngaySinh = ngaySinh;
+        this.gioiTinh = gioiTinh;
+        this.diaChi = diaChi;
+        this.sdt = sdt;
+        this.taiKhoan = taiKhoan;
+        this.matKhau = matKhau;
+        this.vaiTro = vaiTro;
     }
 
     public String getMaNV() {
-        return MaNV;
+        return maNV;
     }
 
-    public void setMaNV(String MaNV) {
-        this.MaNV = MaNV;
+    public void setMaNV(String maNV) {
+        this.maNV = maNV;
     }
 
-    public String getHoTen() {
-        return HoTen;
+    public String getTenNV() {
+        return tenNV;
     }
 
-    public void setHoTen(String HoTen) {
-        this.HoTen = HoTen;
+    public void setTenNV(String tenNV) {
+        this.tenNV = tenNV;
+    }
+
+    public String getNgaySinh() {
+        return ngaySinh;
+    }
+
+    public void setNgaySinh(String ngaySinh) {
+        this.ngaySinh = ngaySinh;
     }
 
     public String getGioiTinh() {
-        return GioiTinh;
+        return gioiTinh;
     }
 
-    public void setGioiTinh(String GioiTinh) {
-        this.GioiTinh = GioiTinh;
+    public void setGioiTinh(String gioiTinh) {
+        this.gioiTinh = gioiTinh;
     }
 
-    public String getNamSinh() {
-        return NamSinh;
+    public String getDiaChi() {
+        return diaChi;
     }
 
-    public void setNamSinh(String NamSinh) {
-        this.NamSinh = NamSinh;
+    public void setDiaChi(String diaChi) {
+        this.diaChi = diaChi;
     }
 
-    public String getCaLam() {
-        return CaLam;
+    public String getSdt() {
+        return sdt;
     }
 
-    public void setCaLam(String CaLam) {
-        this.CaLam = CaLam;
+    public void setSdt(String sdt) {
+        this.sdt = sdt;
+    }
+
+    public String getTaiKhoan() {
+        return taiKhoan;
+    }
+
+    public void setTaiKhoan(String taiKhoan) {
+        this.taiKhoan = taiKhoan;
+    }
+
+    public String getMatKhau() {
+        return matKhau;
+    }
+
+    public void setMatKhau(String matKhau) {
+        this.matKhau = matKhau;
     }
 
     public String getVaiTro() {
-        return VaiTro;
+        return vaiTro;
     }
 
-    public void setVaiTro(String VaiTro) {
-        this.VaiTro = VaiTro;
+    public void setVaiTro(String vaiTro) {
+        this.vaiTro = vaiTro;
     }
-
-    public String getLuong() {
-        return Luong;
-    }
-
-    public void setLuong(String Luong) {
-        this.Luong = Luong;
-    }
-
-    public String getSDT() {
-        return SDT;
-    }
-
-    public void setSDT(String SDT) {
-        this.SDT = SDT;
-    }
-
-    public String getQueQuan() {
-        return QueQuan;
-    }
-
-    public void setQueQuan(String QueQuan) {
-        this.QueQuan = QueQuan;
-    }
-    
-    
 
     @Override
-    protected Object clone() throws CloneNotSupportedException {
-        return super.clone(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    public String toString() {
+        return "NhanVien{" + "maNV=" + maNV + ", tenNV=" + tenNV + ", ngaySinh=" + ngaySinh + ", gioiTinh=" + gioiTinh + ", diaChi=" + diaChi + ", sdt=" + sdt + ", taiKhoan=" + taiKhoan + ", matKhau=" + matKhau + ", vaiTro=" + vaiTro + '}';
     }
+   
+   
+   
 
-    
-    
+                                   
     
     public Object[]toDataRow(){
         return new Object[]{
-            this.getMaNV(),this.getHoTen(),this.getGioiTinh(),this.getNamSinh(),this.getCaLam(),this.getVaiTro(),this.getSDT(),this.getQueQuan()
-        }
+            this.getMaNV(),this.getTenNV(),this.getNgaySinh(),this.getGioiTinh(),this.getDiaChi(),this.getSdt(),this.getTaiKhoan(),this.getMatKhau(),this.getVaiTro()
+        };
     }
     
 }

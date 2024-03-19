@@ -2389,14 +2389,9 @@
                                           </Group>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="102" attributes="0">
-                                                  <EmptySpace min="-2" pref="85" max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="jLabel54" min="-2" max="-2" attributes="0"/>
-                                                      <Group type="102" alignment="0" attributes="0">
-                                                          <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                                                          <Component id="jLabel56" min="-2" max="-2" attributes="0"/>
-                                                      </Group>
-                                                  </Group>
+                                                  <EmptySpace min="-2" pref="89" max="-2" attributes="0"/>
+                                                  <Component id="jLabel56" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                                               </Group>
                                               <Group type="102" alignment="1" attributes="0">
                                                   <EmptySpace max="-2" attributes="0"/>
@@ -2420,7 +2415,6 @@
                               <Component id="jTextField18" max="32767" attributes="0"/>
                               <Component id="jTextField21" pref="160" max="32767" attributes="0"/>
                               <Component id="jTextField20" alignment="0" min="-2" pref="159" max="-2" attributes="0"/>
-                              <Component id="jComboBox7" min="-2" pref="86" max="-2" attributes="0"/>
                               <Component id="jTextField27" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
@@ -2432,12 +2426,9 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel54" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jComboBox7" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel62" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jTextField26" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <EmptySpace min="0" pref="13" max="32767" attributes="0"/>
@@ -2446,12 +2437,9 @@
                                       <Component id="jLabel48" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel63" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jTextField27" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="32767" attributes="0"/>
+                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel63" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jTextField27" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -2518,11 +2506,6 @@
                     <Property name="text" type="java.lang.String" value="Qu&#xea; qu&#xe1;n"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel54">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Ca l&#xe0;m"/>
-                  </Properties>
-                </Component>
                 <Component class="javax.swing.JLabel" name="jLabel55">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="L&#x1b0;&#x1a1;ng"/>
@@ -2542,20 +2525,6 @@
                 <Component class="javax.swing.JTextField" name="jTextField20">
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTextField21">
-                </Component>
-                <Component class="javax.swing.JComboBox" name="jComboBox7">
-                  <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="3">
-                        <StringItem index="0" value="Ca 1"/>
-                        <StringItem index="1" value="Ca 2"/>
-                        <StringItem index="2" value="Ca 3"/>
-                      </StringArray>
-                    </Property>
-                  </Properties>
-                  <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                  </AuxValues>
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="jRadioButton1">
                   <Properties>
