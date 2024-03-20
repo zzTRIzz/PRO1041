@@ -65,6 +65,22 @@ public class KhachHangService {
             return false;
         }
     }
+    public void update(KhachHang kh){
+        String sql = "Update KhachHang set tenKH=?,gioiTinh=?,sdt=?,diaChi=? where idKH=? ";
+        try{
+            Connection conn = DBconnect.getConnection();
+            PreparedStatement stm = conn.prepareStatement(sql);
+            stm.setString(1, kh.getTenKH());
+            stm.setString(2, kh.getGioiTinh());
+            stm.setString(3, kh.getSdt());
+            stm.setString(4, kh.getDiaChi());
+            stm.setInt(5, kh.getIdKH());
+            stm.executeUpdate();
+            conn.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
     public List<KhachHang> searchKhachHang(String key){
         String sql = "select idKH, maKH,tenKH, gioiTinh, sdt, diaChi from KhachHang where maKH like ? or tenKH like ? or sdt like ?";
        list.clear();

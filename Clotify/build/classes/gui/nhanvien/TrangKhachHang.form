@@ -378,7 +378,7 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="btnThemKH" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="btnVoHieu" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnCapNhat" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -412,7 +412,7 @@
                           <EmptySpace pref="26" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="btnThemKH" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnVoHieu" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnCapNhat" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                       </Group>
@@ -470,10 +470,13 @@
                     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnThemKHMouseClicked"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="btnVoHieu">
+                <Component class="javax.swing.JButton" name="btnCapNhat">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="V&#xf4; hi&#x1ec7;u"/>
+                    <Property name="text" type="java.lang.String" value="C&#x1ead;p nh&#x1ead;t KH"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnCapNhatMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
