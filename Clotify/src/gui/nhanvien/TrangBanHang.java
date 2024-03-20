@@ -4,9 +4,18 @@
  */
 package gui.nhanvien;
 
-
+import Interface.HoaDonCTService;
+import Interface.HoaDonService;
 import gui.admin.*;
-
+import javax.swing.table.DefaultTableModel;
+import Interface.SanPhamCTService;
+import Service.HoaDonCTImpl;
+import Service.HoaDonImpl;
+import Service.SanPhamICTmpl;
+import javax.swing.JOptionPane;
+import model.HoaDon;
+import model.HoaDonCT;
+import model.SanPhamCT;
 
 /**
  *
@@ -14,12 +23,68 @@ import gui.admin.*;
  */
 public class TrangBanHang extends javax.swing.JInternalFrame {
 
+    DefaultTableModel defaultTableModel;
+    SanPhamCTService svSPCT = new SanPhamICTmpl();
+    HoaDonService svHd = new HoaDonImpl();
+    HoaDonCTService svHDCT = new HoaDonCTImpl();
+
     /**
      * Creates new form Trang0
      */
     public TrangBanHang() {
         initComponents();
         ui_custom.deleteTitle(this);
+        loadData();
+        loadHoaDon();
+    }
+
+    void loadData() {
+        defaultTableModel = (DefaultTableModel) tblSP.getModel();
+        defaultTableModel.setRowCount(0);
+        for (SanPhamCT sanPhamCT : svSPCT.getSanPhamAll()) {
+            defaultTableModel.addRow(new Object[]{
+                sanPhamCT.getIdSP(),
+                sanPhamCT.getMaSP(),
+                sanPhamCT.getTenSP(),
+                sanPhamCT.getMauSac(),
+                sanPhamCT.getChatLieu(),
+                sanPhamCT.getSize(),
+                sanPhamCT.getThuongHieu(),
+                sanPhamCT.getGiaBan(),
+                sanPhamCT.getSoLuong(),
+                sanPhamCT.getTrangThai(),});
+        }
+    }
+
+    void loadHoaDon() {
+        defaultTableModel = (DefaultTableModel) tblHoaDon.getModel();
+        defaultTableModel.setRowCount(0);
+        for (HoaDon hoaDon : svHd.getHoaDonAll()) {
+            defaultTableModel.addRow(new Object[]{
+                hoaDon.getIdHD(),
+                hoaDon.getMaHD(),
+                hoaDon.getNgayTao(),
+                hoaDon.getTenNV(),
+                hoaDon.getTenKH(),
+                hoaDon.getTrangThai()
+            });
+        }
+    }
+
+    void loadHoaDonCT(int idHD) {
+        defaultTableModel = (DefaultTableModel) tblGioHang.getModel();
+        defaultTableModel.setRowCount(0);
+        for (HoaDonCT hoaDonCT : svHDCT.getHoaDonCTAll(idHD)) {
+            defaultTableModel.addRow(new Object[]{
+                hoaDonCT.getIdHoaDonCT(),
+                hoaDonCT.getTenSP(),
+                hoaDonCT.getGiaBan(),
+                hoaDonCT.getSoLuongMua(),
+                hoaDonCT.getTenKM(),
+                hoaDonCT.getKhuyenMaiPT(),
+                hoaDonCT.getTongTien()
+            });
+        }
     }
 
     /**
@@ -79,17 +144,17 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
 
         tblGioHang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Mã HD", "Tên SP", "Giá Bán", "SL Mua", "Thành Tiền"
+                "ID", "Tên SP", "Giá bán", "Số lượng mua", "Tên KM", "Giảm %", "Thành Tiền"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, true, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -120,7 +185,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addComponent(btnDoi)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 607, Short.MAX_VALUE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 681, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel9Layout.setVerticalGroup(
@@ -135,17 +200,17 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
 
         tblHoaDon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "STT", "Mã HĐ", "Ngày Tạo", "Tên NV", "Trạng Thái"
+                "STT", "Mã HĐ", "Ngày tạo", "Tên nhân viên", "Tên khách hàng", "Trạng thái"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, true, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -177,17 +242,17 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
 
         tblSP.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Mã Sản Phẩm", "Tên Sản Phẩm", "Số Lượng Tồn", "Giá Bán", "Màu Sắc"
+                "ID", "Mã Sản Phẩm", "Tên Sản Phẩm", "Màu sắc", "Chất liệu", "Size", "Thương hiệu", "Giá bán", "Số lượng", "Trạng thái"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, true, true, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -207,7 +272,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane4)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 1029, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel11Layout.setVerticalGroup(
@@ -240,7 +305,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
                         .addComponent(jLabel18)
                         .addGap(18, 18, 18)
                         .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -375,24 +440,22 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
                     .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 177, Short.MAX_VALUE)
+                            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(65, 65, 65))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(25, 25, 25)
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(79, Short.MAX_VALUE))
@@ -414,11 +477,50 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
 
     private void tblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonMouseClicked
         // TODO add your handling code here:
+        int row = tblHoaDon.getSelectedRow();
+        if (row >= 0) {
+            HoaDon hd = svHd.getRowHD(row);
+            int idHD = hd.getIdHD();
+            loadHoaDonCT(idHD);
+        }
 
     }//GEN-LAST:event_tblHoaDonMouseClicked
 
     private void tblSPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSPMouseClicked
         // TODO add your handling code here:
+        int rowHoaDon = tblHoaDon.getSelectedRow();
+        if (rowHoaDon >= 0) {
+            int rowSanPham = tblSP.getSelectedRow();
+            if (rowSanPham >= 0) {
+                // Hiển thị hộp thoại yêu cầu nhập số lượng
+                int option = JOptionPane.showConfirmDialog(null, "Bạn có muốn nhập số lượng không?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+
+                // Nếu người dùng chọn Yes
+                if (option == JOptionPane.YES_OPTION) {
+                    String input = JOptionPane.showInputDialog(null, "Nhập số lượng:", "Thêm sản phẩm vào giỏ hàng", HEIGHT);
+                    if (input != null && !input.isEmpty()) {
+                        try {
+                            int soLuong = Integer.parseInt(input);
+//                            int soLuongCo =
+                            do {                                
+                              System.out.println("Số lượng đã nhập: " + soLuong);  
+                            } while (soLuong >0);
+                            
+//                            System.out.println("Số lượng đã nhập: " + soLuong);
+                            
+                        } catch (NumberFormatException e) {
+                            JOptionPane.showMessageDialog(null, "Nhập số nguyên hợp lệ!");
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Bạn chưa nhập số lượng!");
+                    }
+                } else {
+
+                }
+
+            }
+
+        }
 
     }//GEN-LAST:event_tblSPMouseClicked
 

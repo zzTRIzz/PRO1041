@@ -6,21 +6,48 @@ package gui.admin;
 
 
 
+import Service.SanPhamICTmpl;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.table.DefaultTableModel;
+import model.SanPhamCT;
+import Interface.SanPhamCTService;
 
 /**
  *
  * @author ADMIN
  */
+
 public class TrangSP extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form Trang0
      */
-    
+    SanPhamCTService svSPCT = new SanPhamICTmpl();
+    DefaultTableModel defaultTableModel;
     public TrangSP() {
         initComponents();
         ui_custom.deleteTitle(this);
+        loadData();
+    }
+    void loadData(){
+        defaultTableModel = (DefaultTableModel) tblSanPhamCT.getModel();
+        defaultTableModel.setRowCount(0);
+        for (SanPhamCT sanPhamCT : svSPCT.getSanPhamAll()) {
+            defaultTableModel.addRow(new Object[]{
+                sanPhamCT.getIdSP(),
+                sanPhamCT.getMaSP(),
+                sanPhamCT.getTenSP(),
+                sanPhamCT.getMauSac(),
+                sanPhamCT.getChatLieu(),
+                sanPhamCT.getSize(),
+                sanPhamCT.getThuongHieu(),
+                sanPhamCT.getGiaNhap(),
+                sanPhamCT.getGiaBan(),
+                sanPhamCT.getSoLuong(),
+                sanPhamCT.getNgayNhap(),
+                sanPhamCT.getTrangThai(),
+            });
+        }
     }
 
     /**
@@ -61,7 +88,7 @@ public class TrangSP extends javax.swing.JInternalFrame {
         jLabel12 = new javax.swing.JLabel();
         jTextField6 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblSanPhamCT = new javax.swing.JTable();
         jPanel7 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         jTextField8 = new javax.swing.JTextField();
@@ -281,18 +308,18 @@ public class TrangSP extends javax.swing.JInternalFrame {
                         .addComponent(jLabel11))))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblSanPhamCT.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "STT", "Mã", "Tên SP", "Số lượng", "Giá bán", "Màu sắc", "Chất liệu", "Size", "Ngày tạo", "Trạng thái"
+                "STT", "Mã", "Tên SP", "Màu sắc", "Chất liệu", "Size", "Thương hiệu", "Giá nhập", "Giá bán", "Số lượng", "Ngày tạo", "Trạng thái"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblSanPhamCT);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -493,7 +520,6 @@ public class TrangSP extends javax.swing.JInternalFrame {
     private javax.swing.JRadioButton jRadioButton7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
@@ -502,5 +528,6 @@ public class TrangSP extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField8;
+    private javax.swing.JTable tblSanPhamCT;
     // End of variables declaration//GEN-END:variables
 }

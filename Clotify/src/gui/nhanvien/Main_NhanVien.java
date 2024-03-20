@@ -30,6 +30,7 @@ public class Main_NhanVien extends javax.swing.JFrame {
 
     private void init() {
         setLocationRelativeTo(null);
+        trang2();
     }
 
     void trang1() {
