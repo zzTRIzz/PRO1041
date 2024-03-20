@@ -4,6 +4,7 @@
  */
 package gui.admin;
 
+<<<<<<< Updated upstream
 import model.SanPham;
 import Service.SanPhamService;
 import javax.swing.table.DefaultTableModel;
@@ -11,6 +12,16 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+=======
+
+
+import Interface.SanPhamCTImpl;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.table.DefaultTableModel;
+import model.SanPhamCT;
+
+import Service.SanPhamCTService;
+>>>>>>> Stashed changes
 
 /**
  *
@@ -24,12 +35,18 @@ public class TrangSP extends javax.swing.JInternalFrame {
     /**
      * Creates new form Trang0
      */
+<<<<<<< Updated upstream
+=======
+    SanPhamCTImpl svSPCT = new SanPhamCTService();
+    DefaultTableModel defaultTableModel;
+>>>>>>> Stashed changes
     public TrangSP() {
         initComponents();
         ui_custom.deleteTitle(this);
         model = (DefaultTableModel) tbSanPham.getModel();
         loadData();
     }
+<<<<<<< Updated upstream
 
     void loadData() {
         model.setRowCount(0);
@@ -64,6 +81,27 @@ public class TrangSP extends javax.swing.JInternalFrame {
             };
 >>>>>>> Stashed changes
             model.addRow(row);
+=======
+    void loadData(){
+        defaultTableModel = (DefaultTableModel) tblSanPhamCT.getModel();
+        defaultTableModel.setRowCount(0);
+        for (SanPhamCT sanPhamCT : svSPCT.getAll()) {
+            defaultTableModel.addRow(new Object[]{
+                sanPhamCT.getIdSP(),
+                sanPhamCT.getMaSP(),
+                sanPhamCT.getTenSP(),
+                sanPhamCT.getLoaiSP(),
+                sanPhamCT.getMauSac(),
+                sanPhamCT.getChatLieu(),
+                sanPhamCT.getSize(),
+                sanPhamCT.getThuongHieu(),
+                sanPhamCT.getGiaNhap(),
+                sanPhamCT.getGiaBan(),
+                sanPhamCT.getSoLuong(),
+                sanPhamCT.getNgayNhap(),
+                sanPhamCT.getTrangThai(),
+            });
+>>>>>>> Stashed changes
         }
     }
 
@@ -139,9 +177,15 @@ public class TrangSP extends javax.swing.JInternalFrame {
         SanPham1 = new javax.swing.JTabbedPane();
         jPanel6 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
+<<<<<<< Updated upstream
         btNew = new javax.swing.JButton();
         btSave = new javax.swing.JButton();
         btDeleteSanPham = new javax.swing.JButton();
+=======
+        jButton1 = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+>>>>>>> Stashed changes
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         txtMaSP = new javax.swing.JTextField();
@@ -154,10 +198,14 @@ public class TrangSP extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
         cboChatLieu = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
+<<<<<<< Updated upstream
         txtThuongHieu = new javax.swing.JTextField();
+=======
+>>>>>>> Stashed changes
         jLabel9 = new javax.swing.JLabel();
         cboMauSac = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
+<<<<<<< Updated upstream
         cboLoaiSP = new javax.swing.JComboBox<>();
         cboSize = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
@@ -168,6 +216,16 @@ public class TrangSP extends javax.swing.JInternalFrame {
         rdHoatDong = new javax.swing.JRadioButton();
         rdKhongHoatDong = new javax.swing.JRadioButton();
         jLabel4 = new javax.swing.JLabel();
+=======
+        jComboBox4 = new javax.swing.JComboBox<>();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jTextField6 = new javax.swing.JTextField();
+        jComboBox5 = new javax.swing.JComboBox<>();
+        txtLoai = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        txtGiaNhap = new javax.swing.JTextField();
+>>>>>>> Stashed changes
         jScrollPane1 = new javax.swing.JScrollPane();
         tbSanPham = new javax.swing.JTable();
         btUpdate = new javax.swing.JButton();
@@ -204,6 +262,7 @@ public class TrangSP extends javax.swing.JInternalFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Chức năng", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Noto Sans", 1, 14), new java.awt.Color(20, 70, 128))); // NOI18N
         jPanel3.setLayout(new java.awt.GridLayout(3, 1));
 
+<<<<<<< Updated upstream
         btNew.setFont(new java.awt.Font("Dosis", 1, 14)); // NOI18N
         btNew.setForeground(new java.awt.Color(20, 70, 128));
         btNew.setText("New   ");
@@ -213,6 +272,22 @@ public class TrangSP extends javax.swing.JInternalFrame {
             }
         });
         jPanel3.add(btNew);
+=======
+        jButton1.setFont(new java.awt.Font("Dosis", 1, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(20, 70, 128));
+        jButton1.setText("New   ");
+        jPanel3.add(jButton1);
+
+        btnSave.setFont(new java.awt.Font("Dosis", 1, 14)); // NOI18N
+        btnSave.setForeground(new java.awt.Color(20, 70, 128));
+        btnSave.setText("   Lưu");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btnSave);
+>>>>>>> Stashed changes
 
         btSave.setFont(new java.awt.Font("Dosis", 1, 14)); // NOI18N
         btSave.setForeground(new java.awt.Color(20, 70, 128));
@@ -265,8 +340,11 @@ public class TrangSP extends javax.swing.JInternalFrame {
         jLabel8.setFont(new java.awt.Font("Noto Sans", 1, 12)); // NOI18N
         jLabel8.setText("Thương hiệu");
 
+<<<<<<< Updated upstream
         txtThuongHieu.setFont(new java.awt.Font("Noto Sans", 0, 12)); // NOI18N
 
+=======
+>>>>>>> Stashed changes
         jLabel9.setFont(new java.awt.Font("Noto Sans", 1, 12)); // NOI18N
         jLabel9.setText("Màu sắc");
 
@@ -276,11 +354,16 @@ public class TrangSP extends javax.swing.JInternalFrame {
         jLabel10.setFont(new java.awt.Font("Noto Sans", 1, 12)); // NOI18N
         jLabel10.setText("Loại");
 
+<<<<<<< Updated upstream
         cboLoaiSP.setFont(new java.awt.Font("Noto Sans", 0, 12)); // NOI18N
         cboLoaiSP.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Áo thun", "Áo khoác", "Quần jeans", "Áo sơ mi", "Váy đầm", "Quần tây", "Chân váy" }));
 
         cboSize.setFont(new java.awt.Font("Noto Sans", 0, 12)); // NOI18N
         cboSize.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "S", "M", "L", "XL", "XXL", "XS", "XXXL", "XXS" }));
+=======
+        jComboBox4.setFont(new java.awt.Font("Noto Sans", 0, 12)); // NOI18N
+        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "XS", "S", "M", "L", "XL", "XXL" }));
+>>>>>>> Stashed changes
 
         jLabel11.setFont(new java.awt.Font("Noto Sans", 1, 12)); // NOI18N
         jLabel11.setText("Size");
@@ -300,11 +383,23 @@ public class TrangSP extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Trạng thái");
 
+        jComboBox5.setFont(new java.awt.Font("Noto Sans", 0, 12)); // NOI18N
+        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Áo", "Quần" }));
+
+        txtLoai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtLoaiActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Giá nhập");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+<<<<<<< Updated upstream
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
@@ -371,15 +466,73 @@ public class TrangSP extends javax.swing.JInternalFrame {
                                 .addGap(259, 259, 259)
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
+=======
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel11)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jComboBox4, 0, 118, Short.MAX_VALUE)
+                                    .addComponent(jComboBox5, 0, 118, Short.MAX_VALUE)
+                                    .addComponent(txtLoai)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(82, 82, 82))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 234, Short.MAX_VALUE)))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(51, 51, 51)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addGap(18, 18, 18)
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addGap(24, 24, 24)
+                                .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(58, 58, 58)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel12)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel6)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jTextField6)
+                            .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtGiaNhap))))
+>>>>>>> Stashed changes
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+<<<<<<< Updated upstream
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtIdSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+=======
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+>>>>>>> Stashed changes
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(cboChatLieu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -390,10 +543,32 @@ public class TrangSP extends javax.swing.JInternalFrame {
                             .addComponent(txtMaSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2))))
                 .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel9))
+                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel1)
+                                    .addComponent(txtGiaNhap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel3)
+                        .addGap(28, 28, 28)
+                        .addComponent(jLabel8)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
+<<<<<<< Updated upstream
                                 .addGap(10, 10, 10)
                                 .addComponent(jLabel3))
                             .addComponent(txtTenSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -421,6 +596,24 @@ public class TrangSP extends javax.swing.JInternalFrame {
                                 .addGap(10, 10, 10)
                                 .addComponent(jLabel10)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+=======
+                                .addGap(18, 18, 18)
+                                .addComponent(txtLoai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(14, 14, 14)
+                                .addComponent(jLabel10)))
+                        .addGap(32, 32, 32))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+>>>>>>> Stashed changes
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cboSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -440,13 +633,17 @@ public class TrangSP extends javax.swing.JInternalFrame {
 
         tbSanPham.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
+<<<<<<< Updated upstream
                 "STT", "Mã", "Tên SP", "Thương Hiệu", "Loại SP", "Size", "Chất liệu", "Màu sắc", "Giá bán", "Số lượng", "Ngày nhập", "Trạng thái"
+=======
+                "STT", "Mã", "Tên SP", "Loại", "Màu sắc", "Chất liệu", "Size", "Thương hiệu", "Giá nhập", "Giá bán", "Số lượng", "Ngày tạo", "Trạng thái"
+>>>>>>> Stashed changes
             }
         ));
         tbSanPham.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -493,7 +690,11 @@ public class TrangSP extends javax.swing.JInternalFrame {
                             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+<<<<<<< Updated upstream
                 .addContainerGap(99, Short.MAX_VALUE))
+=======
+                .addContainerGap(95, Short.MAX_VALUE))
+>>>>>>> Stashed changes
         );
 
         SanPham1.addTab("Thông tin sản phẩm", jPanel6);
@@ -595,7 +796,11 @@ public class TrangSP extends javax.swing.JInternalFrame {
                     .addComponent(jButton5))
                 .addGap(51, 51, 51)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+<<<<<<< Updated upstream
                 .addContainerGap(74, Short.MAX_VALUE))
+=======
+                .addContainerGap(77, Short.MAX_VALUE))
+>>>>>>> Stashed changes
         );
 
         SanPham1.addTab("Thuộc tính sản phẩm", jPanel7);
@@ -613,7 +818,11 @@ public class TrangSP extends javax.swing.JInternalFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+<<<<<<< Updated upstream
             .addGap(0, 703, Short.MAX_VALUE)
+=======
+            .addGap(0, 706, Short.MAX_VALUE)
+>>>>>>> Stashed changes
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(14, 14, 14)
@@ -626,15 +835,23 @@ public class TrangSP extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+<<<<<<< Updated upstream
     private void btSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSaveActionPerformed
         // TODO add your handling code here:
         
     }//GEN-LAST:event_btSaveActionPerformed
+=======
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        // TODO add your handling code here:
+        String trangThai = "Hoạt động";
+    }//GEN-LAST:event_btnSaveActionPerformed
+>>>>>>> Stashed changes
 
     private void jRadioButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton4ActionPerformed
 
+<<<<<<< Updated upstream
     private void tbSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbSanPhamMouseClicked
         // TODO add your handling code here:
         int row = tbSanPham.getSelectedRow();
@@ -696,10 +913,16 @@ public class TrangSP extends javax.swing.JInternalFrame {
 
         }
     }//GEN-LAST:event_btUpdateActionPerformed
+=======
+    private void txtLoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLoaiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtLoaiActionPerformed
+>>>>>>> Stashed changes
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane SanPham1;
+<<<<<<< Updated upstream
     private javax.swing.JButton btDeleteSanPham;
     private javax.swing.JButton btNew;
     private javax.swing.JButton btSave;
@@ -709,8 +932,19 @@ public class TrangSP extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> cboLoaiSP;
     private javax.swing.JComboBox<String> cboMauSac;
     private javax.swing.JComboBox<String> cboSize;
+=======
+    private javax.swing.JButton btnSave;
+    private javax.swing.JButton jButton1;
+>>>>>>> Stashed changes
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
+<<<<<<< Updated upstream
+=======
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JComboBox<String> jComboBox4;
+    private javax.swing.JComboBox<String> jComboBox5;
+>>>>>>> Stashed changes
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -737,6 +971,7 @@ public class TrangSP extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable2;
+<<<<<<< Updated upstream
     private javax.swing.JTextField jTextField8;
     private javax.swing.JRadioButton rdHoatDong;
     private javax.swing.JRadioButton rdKhongHoatDong;
@@ -748,5 +983,16 @@ public class TrangSP extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtSoLuong;
     private javax.swing.JTextField txtTenSP;
     private javax.swing.JTextField txtThuongHieu;
+=======
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField6;
+    private javax.swing.JTextField jTextField8;
+    private javax.swing.JTable tblSanPhamCT;
+    private javax.swing.JTextField txtGiaNhap;
+    private javax.swing.JTextField txtLoai;
+>>>>>>> Stashed changes
     // End of variables declaration//GEN-END:variables
 }
