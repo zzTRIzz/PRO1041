@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Pro1041/Clotify/src/gui/nhanvien/Main_NhanVien.java</file>
             <file>file:/C:/Pro1041/Clotify/src/Service/HoaDonCTImpl.java</file>
             <file>file:/C:/Pro1041/Clotify/src/model/HoaDon.java</file>
@@ -11,6 +12,12 @@
             <file>file:/C:/Pro1041/Clotify/src/gui/admin/Main_admin.java</file>
             <file>file:/C:/Pro1041/Clotify/src/gui/nhanvien/TrangBanHang.java</file>
             <file>file:/C:/Pro1041/Clotify/src/model/HoaDonCT.java</file>
+=======
+            <file>file:/D:/desktop/FPT%20Polytechnic/DuAn1/PRO1041/Pro1041/Clotify/src/Service/SanPhamCTService.java</file>
+            <file>file:/D:/desktop/FPT%20Polytechnic/DuAn1/PRO1041/Pro1041/Clotify/src/model/SanPhamCT.java</file>
+            <file>file:/D:/desktop/FPT%20Polytechnic/DuAn1/PRO1041/Pro1041/Clotify/src/gui/admin/TrangSP.java</file>
+            <file>file:/D:/desktop/FPT%20Polytechnic/DuAn1/PRO1041/Pro1041/Clotify/src/gui/admin/Main_admin.java</file>
+>>>>>>> f01d77871f73b68a7adcf6160037e252185cb37d
         </group>
     </open-files>
 </project-private>
