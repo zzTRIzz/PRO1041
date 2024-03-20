@@ -35,6 +35,7 @@ public class TrangSP extends javax.swing.JInternalFrame {
         model.setRowCount(0);
         for (SanPham sp : service.getAll()) {
             Object[] row = new Object[]{
+<<<<<<< Updated upstream
                 sp.getIdSP(),
                 sp.getMaSP(),
                 sp.getTenSP(),
@@ -47,6 +48,21 @@ public class TrangSP extends javax.swing.JInternalFrame {
                 sp.getSoLuong(),
                 sp.getNgayNhap(),
                 sp.getTrangThai(),};
+=======
+                spCT.getIdSP(),
+                spCT.getMaSP(),
+                spCT.getTenSP(),
+                spCT.getThuongHieu(),
+                spCT.getLoaiSP(),
+                spCT.getSize(),
+                spCT.getChatLieu(),
+                spCT.getMauSac(),
+                spCT.getGiaBan(),
+                spCT.getSoLuong(),
+                spCT.getNgayNhap(),
+                spCT.getTrangThai(),
+            };
+>>>>>>> Stashed changes
             model.addRow(row);
         }
     }
