@@ -4,21 +4,21 @@
  */
 package Service;
 
-import Interface.SanPhamCTimplements;
 import java.util.ArrayList;
 import java.util.List;
 import model.SanPhamCT;
 import java.sql.*;
+import Interface.SanPhamCTImpl;
 /**
  *
  * @author ZznamnhizZ
  */
-public class SanPhamCTService implements SanPhamCTimplements{
+public class SanPhamCTService implements SanPhamCTImpl{
 
     List<SanPhamCT> listspct = new ArrayList<>();
     @Override
     public List<SanPhamCT> getAll() {
-        String sql = "SELECT SanPhamCT.idSP,SanPhamCT.maSP,tenSP,tenThuongHieu,LoaiSP,tenSize,tenChatLieu,tenMauSac,gia,soLuong, ngayNhap, trangThai \n"
+        String sql = "SELECT SanPhamCT.idSP,SanPhamCT.maSP,tenSP,tenThuongHieu,LoaiSP,tenSize,tenChatLieu,tenMauSac,giaNhap,gia,soLuong, ngayNhap, trangThai \n"
                 + "FROM SanPhamCT INNER JOIN \n"
                 + " SanPham ON SanPham.maSP = SanPhamCT.maSP INNER JOIN \n "
                 + " ThuongHieu on ThuongHieu.idThuongHieu = SanPhamCT.idThuongHieu INNER JOIN \n"
@@ -43,10 +43,11 @@ public class SanPhamCTService implements SanPhamCTimplements{
                 spct.setSize(rs.getString(6));
                 spct.setChatLieu(rs.getString(7));
                 spct.setMauSac(rs.getString(8));
-                spct.setSoLuong(rs.getInt(10));
-                spct.setGiaBan(rs.getDouble(9));
-                spct.setNgayNhap(rs.getString(11));
-                spct.setTrangThai(rs.getString(12));
+                spct.setGiaNhap(rs.getDouble(9));
+                spct.setGiaBan(rs.getDouble(10));
+                spct.setSoLuong(rs.getInt(11));
+                spct.setNgayNhap(rs.getString(12));
+                spct.setTrangThai(rs.getString(13));
 
                 listspct.add(spct);
             }

@@ -11,7 +11,7 @@ import model.SanPhamCT;
  *
  * @author ZznamnhizZ
  */
-public interface SanPhamCTimplements {
+public interface SanPhamCTImpl {
     List<SanPhamCT> getAll();
     SanPhamCT getRow(int row);
     void addSanPhamCT(SanPhamCT spct);
