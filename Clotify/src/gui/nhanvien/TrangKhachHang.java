@@ -117,7 +117,7 @@ public class TrangKhachHang extends javax.swing.JInternalFrame {
         rdNam = new javax.swing.JRadioButton();
         rdNu = new javax.swing.JRadioButton();
         btnThemKH = new javax.swing.JButton();
-        btnVoHieu = new javax.swing.JButton();
+        btnCapNhat = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(153, 255, 153));
         setBorder(null);
@@ -255,7 +255,12 @@ public class TrangKhachHang extends javax.swing.JInternalFrame {
             }
         });
 
-        btnVoHieu.setText("Vô hiệu");
+        btnCapNhat.setText("Cập nhật KH");
+        btnCapNhat.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCapNhatMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -285,7 +290,7 @@ public class TrangKhachHang extends javax.swing.JInternalFrame {
                         .addContainerGap()
                         .addComponent(btnThemKH)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnVoHieu)))
+                        .addComponent(btnCapNhat)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -311,7 +316,7 @@ public class TrangKhachHang extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnThemKH)
-                    .addComponent(btnVoHieu))
+                    .addComponent(btnCapNhat))
                 .addGap(20, 20, 20))
         );
 
@@ -458,11 +463,42 @@ public class TrangKhachHang extends javax.swing.JInternalFrame {
       
     }//GEN-LAST:event_txtTimKiemKHKeyReleased
 
+    private void btnCapNhatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCapNhatMouseClicked
+        // TODO add your handling code here:
+        int i = tblKhachHang.getSelectedRow();
+           int kiemTra = JOptionPane.showConfirmDialog(this, "Bạn có muốn sửa không","",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+        if(txtTenKH.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Tên không được bỏ trống");
+            return;
+        }else if(txtSDT.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Số điện thoại không được bỏ trống");
+            return;
+        }else if(txtDiaChi.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Địa chỉ không được bỏ trống");
+            return;
+        }else if(!rdNam.isSelected()&&!rdNu.isSelected()){
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn giới tính");
+            return;
+        }else{
+            if(kiemTra == JOptionPane.YES_OPTION){
+            if(i>=0){
+                Integer idKH = khs.getRow(i).getIdKH();
+                KhachHang kh = getForm();
+                kh.setIdKH(idKH);
+                khs.update(kh);
+                loadDataKhachHang();
+            }
+            }else{
+                
+            }
+        }
+    }//GEN-LAST:event_btnCapNhatMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel KhachHang;
+    private javax.swing.JButton btnCapNhat;
     private javax.swing.JButton btnThemKH;
-    private javax.swing.JButton btnVoHieu;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JLabel jLabel57;
