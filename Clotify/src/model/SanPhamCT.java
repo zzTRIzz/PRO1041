@@ -9,14 +9,14 @@ package model;
  * @author Surface
  */
 public class SanPhamCT {
-    Integer idSP,soLuong,idMauSac,idSize,idThuongHieu,idChatLieu;
+    int idSP,soLuong,idMauSac,idSize,idThuongHieu,idChatLieu;
     String maSP,loaiSP,tenSP,mauSac,size,thuongHieu,chatLieu,ngayNhap,trangThai;
-    Double giaNhap,giaBan;   
+    double giaNhap,giaBan;   
 
     public SanPhamCT() {
     }
 
-    public SanPhamCT(Integer idSP, Integer soLuong, Integer idMauSac, Integer idSize, Integer idThuongHieu, Integer idChatLieu, String maSP, String loaiSP, String tenSP, String mauSac, String size, String thuongHieu, String chatLieu, String ngayNhap, String trangThai, Double giaNhap, Double giaBan) {
+    public SanPhamCT(int idSP, int soLuong, int idMauSac, int idSize, int idThuongHieu, int idChatLieu, String maSP, String loaiSP, String tenSP, String mauSac, String size, String thuongHieu, String chatLieu, String ngayNhap, String trangThai, double giaNhap, double giaBan) {
         this.idSP = idSP;
         this.soLuong = soLuong;
         this.idMauSac = idMauSac;
@@ -36,51 +36,51 @@ public class SanPhamCT {
         this.giaBan = giaBan;
     }
 
-    public Integer getIdSP() {
+    public int getIdSP() {
         return idSP;
     }
 
-    public void setIdSP(Integer idSP) {
+    public void setIdSP(int idSP) {
         this.idSP = idSP;
     }
 
-    public Integer getSoLuong() {
+    public int getSoLuong() {
         return soLuong;
     }
 
-    public void setSoLuong(Integer soLuong) {
+    public void setSoLuong(int soLuong) {
         this.soLuong = soLuong;
     }
 
-    public Integer getIdMauSac() {
+    public int getIdMauSac() {
         return idMauSac;
     }
 
-    public void setIdMauSac(Integer idMauSac) {
+    public void setIdMauSac(int idMauSac) {
         this.idMauSac = idMauSac;
     }
 
-    public Integer getIdSize() {
+    public int getIdSize() {
         return idSize;
     }
 
-    public void setIdSize(Integer idSize) {
+    public void setIdSize(int idSize) {
         this.idSize = idSize;
     }
 
-    public Integer getIdThuongHieu() {
+    public int getIdThuongHieu() {
         return idThuongHieu;
     }
 
-    public void setIdThuongHieu(Integer idThuongHieu) {
+    public void setIdThuongHieu(int idThuongHieu) {
         this.idThuongHieu = idThuongHieu;
     }
 
-    public Integer getIdChatLieu() {
+    public int getIdChatLieu() {
         return idChatLieu;
     }
 
-    public void setIdChatLieu(Integer idChatLieu) {
+    public void setIdChatLieu(int idChatLieu) {
         this.idChatLieu = idChatLieu;
     }
 
@@ -156,22 +156,20 @@ public class SanPhamCT {
         this.trangThai = trangThai;
     }
 
-    public Double getGiaNhap() {
+    public double getGiaNhap() {
         return giaNhap;
     }
 
-    public void setGiaNhap(Double giaNhap) {
+    public void setGiaNhap(double giaNhap) {
         this.giaNhap = giaNhap;
     }
 
-    public Double getGiaBan() {
+    public double getGiaBan() {
         return giaBan;
     }
 
-    public void setGiaBan(Double giaBan) {
+    public void setGiaBan(double giaBan) {
         this.giaBan = giaBan;
     }
-
-
     
 }
