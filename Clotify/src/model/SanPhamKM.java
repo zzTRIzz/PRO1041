@@ -9,15 +9,15 @@ package model;
  * @author Surface
  */
 public class SanPhamKM {
-    int idSPKM,idSP;
+    Integer idSPKM,idSP;
     String maKM,tenKM,ngayTao,ngayKetThuc,trangThai,maNV,tenNV,tenSP,mauSac,chatLieu,thuongHieu,size;
-    int giamTheoGia,giamTheoPT;
-    double mucApDung;
+    Integer giamTheoGia,giamTheoPT;
+    Double mucApDung;
 
     public SanPhamKM() {
     }
 
-    public SanPhamKM(int idSPKM, int idSP, String maKM, String tenKM, String ngayTao, String ngayKetThuc, String trangThai, String maNV, String tenNV, String tenSP, String mauSac, String chatLieu, String thuongHieu, String size, int giamTheoGia, int giamTheoPT, double mucApDung) {
+    public SanPhamKM(Integer idSPKM, Integer idSP, String maKM, String tenKM, String ngayTao, String ngayKetThuc, String trangThai, String maNV, String tenNV, String tenSP, String mauSac, String chatLieu, String thuongHieu, String size, Integer giamTheoGia, Integer giamTheoPT, Double mucApDung) {
         this.idSPKM = idSPKM;
         this.idSP = idSP;
         this.maKM = maKM;
@@ -37,19 +37,19 @@ public class SanPhamKM {
         this.mucApDung = mucApDung;
     }
 
-    public int getIdSPKM() {
+    public Integer getIdSPKM() {
         return idSPKM;
     }
 
-    public void setIdSPKM(int idSPKM) {
+    public void setIdSPKM(Integer idSPKM) {
         this.idSPKM = idSPKM;
     }
 
-    public int getIdSP() {
+    public Integer getIdSP() {
         return idSP;
     }
 
-    public void setIdSP(int idSP) {
+    public void setIdSP(Integer idSP) {
         this.idSP = idSP;
     }
 
@@ -149,28 +149,30 @@ public class SanPhamKM {
         this.size = size;
     }
 
-    public int getGiamTheoGia() {
+    public Integer getGiamTheoGia() {
         return giamTheoGia;
     }
 
-    public void setGiamTheoGia(int giamTheoGia) {
+    public void setGiamTheoGia(Integer giamTheoGia) {
         this.giamTheoGia = giamTheoGia;
     }
 
-    public int getGiamTheoPT() {
+    public Integer getGiamTheoPT() {
         return giamTheoPT;
     }
 
-    public void setGiamTheoPT(int giamTheoPT) {
+    public void setGiamTheoPT(Integer giamTheoPT) {
         this.giamTheoPT = giamTheoPT;
     }
 
-    public double getMucApDung() {
+    public Double getMucApDung() {
         return mucApDung;
     }
 
-    public void setMucApDung(double mucApDung) {
+    public void setMucApDung(Double mucApDung) {
         this.mucApDung = mucApDung;
     }
+
+
     
 }

@@ -10,13 +10,13 @@ package model;
  */
 public class Voucher {
     String maVC,tenVC,ghiChu,maNV;
-    int pTram;
-    double dkAD;
+    Integer pTram;
+    Double dkAD;
 
     public Voucher() {
     }
 
-    public Voucher(String maVC, String tenVC, String ghiChu, String maNV, int pTram, double dkAD) {
+    public Voucher(String maVC, String tenVC, String ghiChu, String maNV, Integer pTram, Double dkAD) {
         this.maVC = maVC;
         this.tenVC = tenVC;
         this.ghiChu = ghiChu;
@@ -57,21 +57,23 @@ public class Voucher {
         this.maNV = maNV;
     }
 
-    public int getpTram() {
+    public Integer getpTram() {
         return pTram;
     }
 
-    public void setpTram(int pTram) {
+    public void setpTram(Integer pTram) {
         this.pTram = pTram;
     }
 
-    public double getDkAD() {
+    public Double getDkAD() {
         return dkAD;
     }
 
-    public void setDkAD(double dkAD) {
+    public void setDkAD(Double dkAD) {
         this.dkAD = dkAD;
     }
+
+
 
 
     
