@@ -13,14 +13,14 @@ import model.NhanVien;
  * @author THE PC
  */
 public class NhanVienService {
-  private List<NhanVien>ListNV;
+    private List<NhanVien>ListNV;
   private Connection con = null;
   private PreparedStatement ps = null;
   private ResultSet rs = null;
   private String sql= null;
   public  List<NhanVien>getAll(){
       ListNV= new ArrayList<>();
-      sql="SELECT maNV,tenNV,ngaySinh,gioiTinh,diaChi,sdt,taiKhoan,matKhau,vaiTro FROM NhanVien";
+      sql="SELECT maNV,vaiTro,tenNV,ngaySinh,gioiTinh,diaChi,sdt,taiKhoan,matKhau FROM NhanVien";
       try {
           con=DBconnect.getConnection();
           ps= con.prepareStatement(sql);

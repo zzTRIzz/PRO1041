@@ -6,24 +6,19 @@ package model;
 
 /**
  *
- * @author THE PC
+ * @author Surface
  */
 public class NhanVien {
-   String maNV;
-   String tenNV;
-   String ngaySinh;
-   String gioiTinh;
-   String diaChi;
-   String sdt;
-   String taiKhoan;
-   String matKhau;
-   String vaiTro;
+    String maNV;
+    String  vaiTro;
+    String tenNV, ngaySinh,gioiTinh,diaChi,sdt,taiKhoan,matKhau;
 
     public NhanVien() {
     }
 
-    public NhanVien(String maNV, String tenNV, String ngaySinh, String gioiTinh, String diaChi, String sdt, String taiKhoan, String matKhau, String vaiTro) {
+    public NhanVien(String maNV, String vaiTro, String tenNV, String ngaySinh, String gioiTinh, String diaChi, String sdt, String taiKhoan, String matKhau) {
         this.maNV = maNV;
+        this.vaiTro = vaiTro;
         this.tenNV = tenNV;
         this.ngaySinh = ngaySinh;
         this.gioiTinh = gioiTinh;
@@ -31,7 +26,6 @@ public class NhanVien {
         this.sdt = sdt;
         this.taiKhoan = taiKhoan;
         this.matKhau = matKhau;
-        this.vaiTro = vaiTro;
     }
 
     public String getMaNV() {
@@ -40,6 +34,14 @@ public class NhanVien {
 
     public void setMaNV(String maNV) {
         this.maNV = maNV;
+    }
+
+    public String getVaiTro() {
+        return vaiTro;
+    }
+
+    public void setVaiTro(String vaiTro) {
+        this.vaiTro = vaiTro;
     }
 
     public String getTenNV() {
@@ -98,28 +100,19 @@ public class NhanVien {
         this.matKhau = matKhau;
     }
 
-    public String getVaiTro() {
-        return vaiTro;
-    }
-
-    public void setVaiTro(String vaiTro) {
-        this.vaiTro = vaiTro;
-    }
-
     @Override
     public String toString() {
-        return "NhanVien{" + "maNV=" + maNV + ", tenNV=" + tenNV + ", ngaySinh=" + ngaySinh + ", gioiTinh=" + gioiTinh + ", diaChi=" + diaChi + ", sdt=" + sdt + ", taiKhoan=" + taiKhoan + ", matKhau=" + matKhau + ", vaiTro=" + vaiTro + '}';
+        return "NhanVien{" + "maNV=" + maNV + ", vaiTro=" + vaiTro + ", tenNV=" + tenNV + ", ngaySinh=" + ngaySinh + ", gioiTinh=" + gioiTinh + ", diaChi=" + diaChi + ", sdt=" + sdt + ", taiKhoan=" + taiKhoan + ", matKhau=" + matKhau + '}';
     }
-   
-   
-   
 
-                                   
-    
+  
+   
+      
     public Object[]toDataRow(){
         return new Object[]{
             this.getMaNV(),this.getTenNV(),this.getNgaySinh(),this.getGioiTinh(),this.getDiaChi(),this.getSdt(),this.getTaiKhoan(),this.getMatKhau(),this.getVaiTro()
         };
     }
+    
     
 }
