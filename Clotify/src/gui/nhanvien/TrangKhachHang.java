@@ -487,6 +487,7 @@ public class TrangKhachHang extends javax.swing.JInternalFrame {
                 KhachHang kh = getForm();
                 kh.setIdKH(idKH);
                 khs.update(kh);
+                JOptionPane.showMessageDialog(this,"Cập nhật thành công");
                 loadDataKhachHang();
             }
             }else{
