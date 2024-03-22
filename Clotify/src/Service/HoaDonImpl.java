@@ -52,4 +52,44 @@ public class HoaDonImpl implements HoaDonService {
         return listHoaDon.get(row);
     }
 
+    @Override
+    public void addHoaDon(HoaDon hd) {
+        try {
+            String sql = "INSERT INTO HoaDon\n"
+                    + "             (ngayTao, maNV, idKH, trangThai)\n"
+                    + "VALUES (?,?,?,?)";
+            Connection conn = DBconnect.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, hd.getNgayTao());
+            ps.setString(2, hd.getMaNV());
+            ps.setInt(3, hd.getIdKH());
+            ps.setString(4, hd.getTrangThai());
+            ps.executeUpdate();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void upDateHoaDon(HoaDon hd) {
+        try {
+            String sql = "UPDATE HoaDon\n"
+                    + "SET       ngayTao =?, maNV =?, idKH =?, maVoucher =?, trangThai =? where idHD=?";
+            Connection conn = DBconnect.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, hd.getNgayTao());
+            ps.setString(2, hd.getMaNV());
+            ps.setInt(3, hd.getIdKH());
+            ps.setString(4, hd.getMaVoucher());
+            ps.setString(5, hd.getTrangThai());
+            ps.setInt(6, hd.getIdHD());
+            ps.executeUpdate();
+            conn.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

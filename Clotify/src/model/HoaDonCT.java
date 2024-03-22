@@ -9,19 +9,26 @@ package model;
  * @author Surface
  */
 public class HoaDonCT {
-    int idHoaDonCT,idSP,soLuongMua,khuyeMaiGia,khuyenMaiPT;
+    int idHoaDonCT,idSP,soLuongMua,khuyeMaiGia,khuyenMaiPT,idHD;
     String tenSP,tenKM;
     double giaBan,tongTien;
 
     public HoaDonCT() {
     }
-
-    public HoaDonCT(int idHoaDonCT, int idSP, int soLuongMua, int khuyeMaiGia, int khuyenMaiPT, String tenSP, String tenKM, double giaBan, double tongTien) {
+    public HoaDonCT(int idSP,int idHD, double tongTien, int soLuongMua){
+        this.idSP = idSP;
+        this.idHD = idHD;
+        this.tongTien = tongTien;
+        this.soLuongMua = soLuongMua;
+    }
+    
+    public HoaDonCT(int idHoaDonCT, int idSP, int soLuongMua, int khuyeMaiGia, int khuyenMaiPT, int idHD, String tenSP, String tenKM, double giaBan, double tongTien) {
         this.idHoaDonCT = idHoaDonCT;
         this.idSP = idSP;
         this.soLuongMua = soLuongMua;
         this.khuyeMaiGia = khuyeMaiGia;
         this.khuyenMaiPT = khuyenMaiPT;
+        this.idHD = idHD;
         this.tenSP = tenSP;
         this.tenKM = tenKM;
         this.giaBan = giaBan;
@@ -68,6 +75,14 @@ public class HoaDonCT {
         this.khuyenMaiPT = khuyenMaiPT;
     }
 
+    public int getIdHD() {
+        return idHD;
+    }
+
+    public void setIdHD(int idHD) {
+        this.idHD = idHD;
+    }
+
     public String getTenSP() {
         return tenSP;
     }
@@ -99,6 +114,8 @@ public class HoaDonCT {
     public void setTongTien(double tongTien) {
         this.tongTien = tongTien;
     }
+
+
 
 
     
