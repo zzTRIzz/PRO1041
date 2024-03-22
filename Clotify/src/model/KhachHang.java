@@ -9,19 +9,29 @@ package model;
  * @author Surface
  */
 public class KhachHang {
-    int idKH,maKH;
-    String tenKH,diaChi,gioiTinh,sdt;
+    int idKH,maKH,maHD;
+    String tenKH,diaChi,gioiTinh,sdt,tenSP,maSP,tenMS,tenTH,tenCL,tenSize,ngayTao;
+    Double tongTien;
 
     public KhachHang() {
     }
 
-    public KhachHang(int idKH, int maKH, String tenKH, String diaChi, String gioiTinh, String sdt) {
+    public KhachHang(int idKH, int maKH, int maHD, String tenKH, String diaChi, String gioiTinh, String sdt, String tenSP, String maSP, String tenMS, String tenTH, String tenCL, String tenSize, String ngayTao, Double tongTien) {
         this.idKH = idKH;
         this.maKH = maKH;
+        this.maHD = maHD;
         this.tenKH = tenKH;
         this.diaChi = diaChi;
         this.gioiTinh = gioiTinh;
         this.sdt = sdt;
+        this.tenSP = tenSP;
+        this.maSP = maSP;
+        this.tenMS = tenMS;
+        this.tenTH = tenTH;
+        this.tenCL = tenCL;
+        this.tenSize = tenSize;
+        this.ngayTao = ngayTao;
+        this.tongTien = tongTien;
     }
 
     public int getIdKH() {
@@ -38,6 +48,14 @@ public class KhachHang {
 
     public void setMaKH(int maKH) {
         this.maKH = maKH;
+    }
+
+    public int getMaHD() {
+        return maHD;
+    }
+
+    public void setMaHD(int maHD) {
+        this.maHD = maHD;
     }
 
     public String getTenKH() {
@@ -71,5 +89,72 @@ public class KhachHang {
     public void setSdt(String sdt) {
         this.sdt = sdt;
     }
+
+    public String getTenSP() {
+        return tenSP;
+    }
+
+    public void setTenSP(String tenSP) {
+        this.tenSP = tenSP;
+    }
+
+    public String getMaSP() {
+        return maSP;
+    }
+
+    public void setMaSP(String maSP) {
+        this.maSP = maSP;
+    }
+
+    public String getTenMS() {
+        return tenMS;
+    }
+
+    public void setTenMS(String tenMS) {
+        this.tenMS = tenMS;
+    }
+
+    public String getTenTH() {
+        return tenTH;
+    }
+
+    public void setTenTH(String tenTH) {
+        this.tenTH = tenTH;
+    }
+
+    public String getTenCL() {
+        return tenCL;
+    }
+
+    public void setTenCL(String tenCL) {
+        this.tenCL = tenCL;
+    }
+
+    public String getTenSize() {
+        return tenSize;
+    }
+
+    public void setTenSize(String tenSize) {
+        this.tenSize = tenSize;
+    }
+
+    public String getNgayTao() {
+        return ngayTao;
+    }
+
+    public void setNgayTao(String ngayTao) {
+        this.ngayTao = ngayTao;
+    }
+
+    public Double getTongTien() {
+        return tongTien;
+    }
+
+    public void setTongTien(Double tongTien) {
+        this.tongTien = tongTien;
+    }
+
     
+   
+   
 }

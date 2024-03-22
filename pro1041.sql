@@ -248,13 +248,13 @@ VALUES
 	-- Thêm dữ liệu vào bảng SanPhamCT
 INSERT INTO SanPhamCT (maSP, loaiSP, soLuong, giaNhap, trangThai, idMauSac, idSize, idThuongHieu, idChatLieu)
 VALUES 
-    ('SP001', N'Áo thun', 100, 50000, N'Hoạt động', 1, 1, 1, 1),
+    ('SP001', N'Áo thun', 100, 50000, N'Không hoạt động', 1, 1, 1, 1),
     ('SP002', N'Áo khoác', 50, 100000, N'Hoạt động', 2, 2, 2, 2),
-    ('SP003', N'Quần jeans', 80, 150000, N'Hoạt động', 3, 3, 3, 3),
+    ('SP003', N'Quần jeans', 80, 150000, N'Không hoạt động', 3, 3, 3, 3),
     ('SP004', N'Áo sơ mi', 50, 80000, N'Hoạt động', 4, 4, 4, 4),
-    ('SP005', N'Váy đầm', 30, 120000, N'Hoạt động', 5, 5, 5, 5),
+    ('SP005', N'Váy đầm', 30, 120000, N'Không hoạt động', 5, 5, 5, 5),
     ('SP006', N'Quần tây', 40, 150000, N'Hoạt động', 6, 6, 6, 6),
-    ('SP007', N'Chân váy', 35, 100000, N'Hoạt động', 7, 7, 7, 7),
+    ('SP007', N'Chân váy', 35, 100000, N'Không hoạt động', 7, 7, 7, 7),
     ('SP008', N'Áo khoác', 45, 200000, N'Hoạt động', 8, 8, 8, 8);
 	INSERT INTO SanPhamCT (maSP, loaiSP, soLuong, giaNhap, trangThai, idMauSac, idSize, idThuongHieu, idChatLieu)
 VALUES 
@@ -309,6 +309,7 @@ FROM   HoaDon INNER JOIN
              SanPham ON SanPhamCT.maSP = SanPham.maSP INNER JOIN
              SanPhamKM ON SanPhamCT.idSP = SanPhamKM.idSP INNER JOIN
              KhuyenMai ON SanPhamKM.maKM = KhuyenMai.maKM
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 where HoaDon.idHD ='';
 =======
@@ -325,3 +326,7 @@ FROM   HoaDon INNER JOIN
 where HoaDon.idHD =2 and SanPhamCT.idSP=3
 delete from HoaDonChiTiet where idHD =2
 >>>>>>> Stashed changes
+=======
+where HoaDon.idHD ='';
+select * from MauSac
+>>>>>>> main

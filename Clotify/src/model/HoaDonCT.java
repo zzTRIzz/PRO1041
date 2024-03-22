@@ -15,7 +15,13 @@ public class HoaDonCT {
 
     public HoaDonCT() {
     }
-
+    public HoaDonCT(int idSP,int idHD, double tongTien, int soLuongMua){
+        this.idSP = idSP;
+        this.idHD = idHD;
+        this.tongTien = tongTien;
+        this.soLuongMua = soLuongMua;
+    }
+    
     public HoaDonCT(int idHoaDonCT, int idSP, int soLuongMua, int khuyeMaiGia, int khuyenMaiPT, int idHD, String tenSP, String tenKM, double giaBan, double tongTien) {
         this.idHoaDonCT = idHoaDonCT;
         this.idSP = idSP;

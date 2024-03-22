@@ -12,6 +12,8 @@ import model.HoaDon;
 public interface HoaDonService {
     List<HoaDon> getHoaDonAll();
     HoaDon getRowHD(int row);
+
     void addHoaDon(HoaDon hd);
     void upDateHoaDon(HoaDon hd);
+
 }

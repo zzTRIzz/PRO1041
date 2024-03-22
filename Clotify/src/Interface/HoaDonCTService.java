@@ -13,6 +13,7 @@ import model.HoaDonCT;
  */
 public interface HoaDonCTService {
     List<HoaDonCT> getHoaDonCTAll(int idHD);
+
     void addHoaDonCT(HoaDonCT hdct);
     List<HoaDonCT> getSanPhamTonTai(int idHD,int idSP);
     void gopSanPhamTonTai(int idHDCT,int soLuongMua,double tongTien);
