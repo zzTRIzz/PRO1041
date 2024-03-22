@@ -23,6 +23,7 @@ public class login extends javax.swing.JFrame {
      */
     TaiKhoanService taiKhoanService = new TaiKhoanService();
 
+    //by Tri
     public login() {
         initComponents();
         setLocationRelativeTo(null);
