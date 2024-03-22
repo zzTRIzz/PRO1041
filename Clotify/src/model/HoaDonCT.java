@@ -9,30 +9,14 @@ package model;
  * @author Surface
  */
 public class HoaDonCT {
-<<<<<<< Updated upstream
-    int idHoaDonCT,idSP,soLuongMua,khuyeMaiGia,khuyenMaiPT;
-    String tenSP;
-=======
     int idHoaDonCT,idSP,soLuongMua,khuyeMaiGia,khuyenMaiPT,idHD;
     String tenSP,tenKM;
->>>>>>> Stashed changes
     double giaBan,tongTien;
 
     public HoaDonCT() {
     }
-<<<<<<< Updated upstream
 
-    public HoaDonCT(int idHoaDonCT, int idSP, int soLuongMua, int khuyeMaiGia, int khuyenMaiPT, String tenSP, double giaBan, double tongTien) {
-=======
-    public HoaDonCT(int idSP,int idHD,double tongTien,int soLuongMua){
-        this.idSP = idSP;
-        this.idHD = idHD;
-        this.soLuongMua = soLuongMua;
-        this.tongTien = tongTien;
-        
-    }
     public HoaDonCT(int idHoaDonCT, int idSP, int soLuongMua, int khuyeMaiGia, int khuyenMaiPT, int idHD, String tenSP, String tenKM, double giaBan, double tongTien) {
->>>>>>> Stashed changes
         this.idHoaDonCT = idHoaDonCT;
         this.idSP = idSP;
         this.soLuongMua = soLuongMua;
@@ -40,6 +24,7 @@ public class HoaDonCT {
         this.khuyenMaiPT = khuyenMaiPT;
         this.idHD = idHD;
         this.tenSP = tenSP;
+        this.tenKM = tenKM;
         this.giaBan = giaBan;
         this.tongTien = tongTien;
     }
@@ -100,6 +85,14 @@ public class HoaDonCT {
         this.tenSP = tenSP;
     }
 
+    public String getTenKM() {
+        return tenKM;
+    }
+
+    public void setTenKM(String tenKM) {
+        this.tenKM = tenKM;
+    }
+
     public double getGiaBan() {
         return giaBan;
     }
@@ -115,12 +108,9 @@ public class HoaDonCT {
     public void setTongTien(double tongTien) {
         this.tongTien = tongTien;
     }
-<<<<<<< Updated upstream
-=======
 
 
 
 
->>>>>>> Stashed changes
     
 }
