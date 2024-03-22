@@ -9,13 +9,13 @@ package model;
  * @author Surface
  */
 public class NhanVien {
-    int maNV,vaiTro;
+    String  maNV,vaiTro;
     String tenNV, ngaySinh,gioiTinh,diaChi,sdt,taiKhoan,matKhau;
 
     public NhanVien() {
     }
 
-    public NhanVien(int maNV, int vaiTro, String tenNV, String ngaySinh, String gioiTinh, String diaChi, String sdt, String taiKhoan, String matKhau) {
+    public NhanVien(String maNV, String vaiTro, String tenNV, String ngaySinh, String gioiTinh, String diaChi, String sdt, String taiKhoan, String matKhau) {
         this.maNV = maNV;
         this.vaiTro = vaiTro;
         this.tenNV = tenNV;
@@ -27,19 +27,19 @@ public class NhanVien {
         this.matKhau = matKhau;
     }
 
-    public int getMaNV() {
+    public String getMaNV() {
         return maNV;
     }
 
-    public void setMaNV(int maNV) {
+    public void setMaNV(String maNV) {
         this.maNV = maNV;
     }
 
-    public int getVaiTro() {
+    public String getVaiTro() {
         return vaiTro;
     }
 
-    public void setVaiTro(int vaiTro) {
+    public void setVaiTro(String vaiTro) {
         this.vaiTro = vaiTro;
     }
 
@@ -98,5 +98,18 @@ public class NhanVien {
     public void setMatKhau(String matKhau) {
         this.matKhau = matKhau;
     }
+
+    @Override
+    public String toString() {
+        return "NhanVien{" + "maNV=" + maNV + ", vaiTro=" + vaiTro + ", tenNV=" + tenNV + ", ngaySinh=" + ngaySinh + ", gioiTinh=" + gioiTinh + ", diaChi=" + diaChi + ", sdt=" + sdt + ", taiKhoan=" + taiKhoan + ", matKhau=" + matKhau + '}';
+    }
+
+      
+     public Object[]toDataRow(){
+        return new Object[]{
+            this.getMaNV(),this.getTenNV(),this.getNgaySinh(),this.getGioiTinh(),this.getDiaChi(),this.getSdt(),this.getTaiKhoan(),this.getMatKhau(),this.getVaiTro()
+        };
+    }
     
+   
 }
