@@ -84,7 +84,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                       <Component id="KhachHang" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="29" max="32767" attributes="0"/>
+                      <EmptySpace pref="25" max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -146,11 +146,11 @@
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                     <TitledBorder justification="1" position="2" title="Danh s&#xe1;ch kh&#xe1;ch h&#xe0;ng&#xa;">
-                      <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                        <TitledBorder/>
+                      <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                        <LineBorder/>
                       </Border>
                       <Font PropertyName="font" name="Segoe UI" size="14" style="1"/>
-                      <Color PropertyName="color" blue="66" green="0" red="0" type="rgb"/>
+                      <Color PropertyName="color" blue="66" green="66" red="ff" type="rgb"/>
                     </TitledBorder>
                   </Border>
                 </Property>
@@ -209,12 +209,12 @@
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                    <TitledBorder justification="1" position="2" title="Danh s&#xe1;ch kh&#xe1;ch h&#xe0;ng&#xa;">
-                      <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                        <TitledBorder/>
+                    <TitledBorder justification="1" position="2" title="Chi ti&#xea;u kh&#xe1;ch h&#xe0;ng ">
+                      <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                        <LineBorder/>
                       </Border>
                       <Font PropertyName="font" name="Segoe UI" size="14" style="1"/>
-                      <Color PropertyName="color" blue="66" green="0" red="0" type="rgb"/>
+                      <Color PropertyName="color" blue="66" green="66" red="ff" type="rgb"/>
                     </TitledBorder>
                   </Border>
                 </Property>
@@ -335,12 +335,12 @@
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                    <TitledBorder justification="1" position="2" title="Danh s&#xe1;ch kh&#xe1;ch h&#xe0;ng&#xa;">
-                      <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                        <TitledBorder/>
+                    <TitledBorder title="Kh&#xe1;ch h&#xe0;ng">
+                      <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                        <LineBorder/>
                       </Border>
                       <Font PropertyName="font" name="Segoe UI" size="14" style="1"/>
-                      <Color PropertyName="color" blue="66" green="0" red="0" type="rgb"/>
+                      <Color PropertyName="color" blue="66" green="66" red="ff" type="rgb"/>
                     </TitledBorder>
                   </Border>
                 </Property>

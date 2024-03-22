@@ -5,8 +5,12 @@
 package gui.admin;
 
 
+
+
+import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.FlatLightLaf;
-import com.formdev.flatlaf.themes.FlatMacLightLaf;
+import com.formdev.flatlaf.intellijthemes.FlatLightFlatIJTheme;
 import java.util.Locale;
 import javax.swing.*;
 /**
@@ -88,7 +92,6 @@ public class Main_admin extends javax.swing.JFrame {
         DesktopPane = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        backLogin = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
@@ -213,15 +216,6 @@ public class Main_admin extends javax.swing.JFrame {
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/icons8-clothes-24 (1).png"))); // NOI18N
         jMenu1.setText("File");
-
-        backLogin.setText("Về trang đăng nhập");
-        backLogin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                backLoginActionPerformed(evt);
-            }
-        });
-        jMenu1.add(backLogin);
-
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Edit");
@@ -257,15 +251,6 @@ public class Main_admin extends javax.swing.JFrame {
         trang4();
     }//GEN-LAST:event_trang4MouseClicked
 
-    
-    
-    private void backLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backLoginActionPerformed
-        // TODO add your handling code here:
-        dispose();
-        login l = new login();
-        l.setVisible(true);
-    }//GEN-LAST:event_backLoginActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -276,7 +261,7 @@ public class Main_admin extends javax.swing.JFrame {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
-            UIManager.setLookAndFeel(new FlatMacLightLaf());
+            UIManager.setLookAndFeel(new FlatLightLaf());
         } catch (Exception ex) {
             System.err.println("Failed to initialize LaF");
         }
@@ -292,7 +277,6 @@ public class Main_admin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane DesktopPane;
-    private javax.swing.JMenuItem backLogin;
     private javax.swing.JPanel background;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenu jMenu1;
