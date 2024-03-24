@@ -9,15 +9,18 @@ import java.util.List;
 import model.SanPhamCT;
 import java.sql.*;
 import Interface.SanPhamCTImpl;
+
 /**
  *
  * @author ZznamnhizZ
  */
-public class SanPhamCTService implements SanPhamCTImpl{
+public class SanPhamCTService implements SanPhamCTImpl {
 
     List<SanPhamCT> listspct = new ArrayList<>();
+
     @Override
     public List<SanPhamCT> getAll() {
+        listspct.clear();
         String sql = "SELECT SanPhamCT.idSP,SanPhamCT.maSP,tenSP,tenThuongHieu,LoaiSP,tenSize,tenChatLieu,tenMauSac,giaNhap,gia,soLuong, ngayNhap, trangThai \n"
                 + "FROM SanPhamCT INNER JOIN \n"
                 + " SanPham ON SanPham.maSP = SanPhamCT.maSP INNER JOIN \n "
@@ -76,5 +79,23 @@ public class SanPhamCTService implements SanPhamCTImpl{
     public List<SanPhamCT> searchSanPhamCT(String key) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
+
+    @Override
+    public void updateSanPhamCTSauMua(int idSPCT, int soLuongCon) {
+        try {
+            String sql = "UPDATE SanPhamCT\n"
+                    + "SET       soLuong =?\n"
+                    + "WHERE (idSP=?)";
+            Connection conn = DBconnect.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, soLuongCon);
+            ps.setInt(2, idSPCT);
+            ps.executeUpdate();
+            conn.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

@@ -41,12 +41,12 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
         initComponents();
         ui_custom.deleteTitle(this);
         String trangThai = "Hoạt động";
-        loadSanPham(trangThai);
+        loadSanPham();
         loadHoaDon();
 
     }
 
-    void loadSanPham(String trangThai) {
+    void loadSanPham() {
         defaultTableModel = (DefaultTableModel) tblSP.getModel();
         defaultTableModel.setRowCount(0);
         for (SanPhamCT spct : svSP.getAll()) {
@@ -109,7 +109,8 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
         jPanel9 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblGioHang = new javax.swing.JTable();
-        btnXoa = new javax.swing.JButton();
+        btnXoaSPGH = new javax.swing.JButton();
+        btlDoiSL = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         tblHoaDon = new javax.swing.JTable();
@@ -134,7 +135,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
         jLabel53 = new javax.swing.JLabel();
         lblTenNV = new javax.swing.JLabel();
         lblTongTien = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        lblCanTra = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         lblTienThua = new javax.swing.JLabel();
 
@@ -179,10 +180,17 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
         });
         jScrollPane3.setViewportView(tblGioHang);
 
-        btnXoa.setText("Xóa");
-        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+        btnXoaSPGH.setText("Xóa");
+        btnXoaSPGH.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnXoaActionPerformed(evt);
+                btnXoaSPGHActionPerformed(evt);
+            }
+        });
+
+        btlDoiSL.setText("Đổi SL");
+        btlDoiSL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btlDoiSLActionPerformed(evt);
             }
         });
 
@@ -195,7 +203,9 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 711, Short.MAX_VALUE)
                     .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addComponent(btnXoa)
+                        .addComponent(btnXoaSPGH)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btlDoiSL)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -204,7 +214,9 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnXoa))
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnXoaSPGH)
+                    .addComponent(btlDoiSL)))
         );
 
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), "Hóa Đơn", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(20, 70, 128))); // NOI18N
@@ -371,7 +383,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
 
         lblTongTien.setText("0");
 
-        jLabel1.setText("0");
+        lblCanTra.setText("0");
 
         jLabel2.setText("Cần trả");
 
@@ -409,7 +421,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
                         .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextField12)
                             .addComponent(lblTongTien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblCanTra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblTienThua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
             .addGroup(jPanel12Layout.createSequentialGroup()
@@ -436,7 +448,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
                     .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(9, 9, 9)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                    .addComponent(lblCanTra)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -496,10 +508,38 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_tblGioHangMouseClicked
 
-    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+    private void btnXoaSPGHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaSPGHActionPerformed
         // TODO add your handling code here:
+        int row = tblGioHang.getSelectedRow();
+        if (row >= 0) {
+            HoaDonCT hdct = svHDCT.getRowHDCT(row);
+            int idHDCT = hdct.getIdHoaDonCT();
+            int idHD = hdct.getIdHD();
+            int idSP = hdct.getIdSP();
+            int soLuongMua = hdct.getSoLuongMua();
+            svHDCT.deleteHDCT(idHDCT);
+            loadHoaDonCT(idHD);
+            double tongTienTra = 0;
+            for (HoaDonCT hoaDonCT : svHDCT.getHoaDonCTAll(idHD)) {
+                if (hoaDonCT.getIdHD() == idHD) {
+                    tongTienTra += hoaDonCT.getTongTien();
+                }
+            }
+//                            System.out.println(tongTienTra);
+            String tien = String.valueOf(tongTienTra);
 
-    }//GEN-LAST:event_btnXoaActionPerformed
+            lblTongTien.setText(tien);
+            lblCanTra.setText(tien);
+            for (SanPhamCT sanPhamCT : svSP.getAll()) {
+                if (sanPhamCT.getIdSP().equals(idSP)) {
+                    int soLuongTon = sanPhamCT.getSoLuong();
+                    int soLuongMoi = soLuongMua + soLuongTon;
+                    svSP.updateSanPhamCTSauMua(idSP, soLuongMoi);
+                }
+            }
+            loadSanPham();
+        }
+    }//GEN-LAST:event_btnXoaSPGHActionPerformed
 
     private void tblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonMouseClicked
         // TODO add your handling code here:
@@ -521,12 +561,14 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
             int idSP = sp.getIdSP();
             double giaSP = sp.getGiaBan();
             int soLuong;
-            int tongSoLuong=0;
+            int tongSoLuong = 0;
             double thanhTien;
+            int soLuongCon;
+//            String trangThai = "Hoạt động";
             HoaDon hd = svHd.getRowHD(rowHoaDon);
             int idHD = hd.getIdHD();
             //data gắn
-            int phanTramKM =10;
+            int phanTramKM = 10;
             //
             double tongTien;
             if (rowSanPham >= 0) {
@@ -550,39 +592,42 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
                                 } while (soLuong <= 0 || soLuong > soLuongTonTai);
 
                             }
-                            System.out.println("Số lượng đã nhập: " + soLuong);    
-                            
-                            double phanTramDouble = Double.valueOf(phanTramKM);
-                            tongTien = soLuong*giaSP*(1-phanTramDouble/100);
-                            System.out.println(tongTien);
-//                            svHDCT.addHoaDonCT(new HoaDonCT(idSP, idHD, tongTien, soLuong));
-//                            loadHoaDonCT(idHD);
+                            System.out.println("Số lượng đã nhập: " + soLuong);
+                            soLuongCon = soLuongTonTai - soLuong;
+                            System.out.println("So luong con:" + soLuongCon);
+                            svSP.updateSanPhamCTSauMua(idSP, soLuongCon);
 
+                            double phanTramDouble = Double.valueOf(phanTramKM);
+                            tongTien = soLuong * giaSP * (1 - phanTramDouble / 100);
+                            System.out.println(tongTien);
                             int count = svHDCT.getSanPhamTonTai(idHD, idSP).size();
-                            System.out.println("count"+count);
-                            if (count ==1) {
-                                HoaDonCT hdct =svHDCT.getSanPhamTonTai(idHD, idSP).get(0);
-                                int idHDCT =hdct.getIdHoaDonCT();
-                                System.out.println(idHDCT);
-                                tongSoLuong =hdct.getSoLuongMua() +soLuong;
-                                System.out.println(tongSoLuong);
-                                thanhTien =tongSoLuong*giaSP*(1-phanTramDouble/100);
-                                System.out.println(thanhTien);
+                            System.out.println("count" + count);
+                            if (count == 1) {
+                                HoaDonCT hdct = svHDCT.getSanPhamTonTai(idHD, idSP).get(0);
+                                int idHDCT = hdct.getIdHoaDonCT();
+//                                System.out.println(idHDCT);
+                                tongSoLuong = hdct.getSoLuongMua() + soLuong;
+//                                System.out.println(tongSoLuong);
+                                thanhTien = tongSoLuong * giaSP * (1 - phanTramDouble / 100);
+//                                System.out.println(thanhTien);
                                 svHDCT.gopSanPhamTonTai(idHDCT, tongSoLuong, thanhTien);
                                 loadHoaDonCT(idHD);
-                            }else{
-                            svHDCT.addHoaDonCT(new HoaDonCT(idSP, idHD, tongTien, soLuong));
-                            loadHoaDonCT(idHD);
+                            } else {
+                                svHDCT.addHoaDonCT(new HoaDonCT(idSP, idHD, tongTien, soLuong));
+                                loadHoaDonCT(idHD);
                             }
-                            double tongTienTra=0;
+                            double tongTienTra = 0;
                             for (HoaDonCT hoaDonCT : svHDCT.getHoaDonCTAll(idHD)) {
-                                if (hoaDonCT.getIdHD()==idHD) {
+                                if (hoaDonCT.getIdHD() == idHD) {
                                     tongTienTra += hoaDonCT.getTongTien();
                                 }
                             }
-                            System.out.println(tongTienTra);
+//                            System.out.println(tongTienTra);
                             String tien = String.valueOf(tongTienTra);
+
                             lblTongTien.setText(tien);
+                            lblCanTra.setText(tien);
+
                         } catch (NumberFormatException e) {
                             JOptionPane.showMessageDialog(null, "Nhập số nguyên hợp lệ!");
                         }
@@ -591,11 +636,12 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
                         JOptionPane.showMessageDialog(null, "Bạn chưa nhập số lượng!");
                     }
                 } else {
-
                 }
 
             }
+
         }
+        loadSanPham();
 
     }//GEN-LAST:event_tblSPMouseClicked
 
@@ -664,14 +710,83 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
+    private void btlDoiSLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btlDoiSLActionPerformed
+        // TODO add your handling code here:
+        int row = tblGioHang.getSelectedRow();
+        if (row >= 0) {
+            HoaDonCT hdct = svHDCT.getRowHDCT(row);
+            int soLuongMua = hdct.getSoLuongMua();
+            int soLuongDoi;
+            int idHDCT = hdct.getIdHoaDonCT();
+            int idHD = hdct.getIdHD();
+            int idSP = hdct.getIdSP();
+            double giaSP = hdct.getGiaBan();
+            double thanhTien;
+            int phanTramKM = hdct.getKhuyenMaiPT();
+            double phanTramDouble = Double.valueOf(phanTramKM);
+            int option = JOptionPane.showConfirmDialog(null, "Bạn có muốn nhập số lượng không?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+
+            // Nếu người dùng chọn Yes
+            if (option == JOptionPane.YES_OPTION) {
+                String input = JOptionPane.showInputDialog(null, "Nhập số lượng:", "Thêm sản phẩm vào giỏ hàng", HEIGHT);
+                if (input != null && !input.isEmpty()) {
+
+                    try {
+                        soLuongDoi = Integer.parseInt(input);
+                        if (soLuongDoi <= 0) {
+                            do {
+                                String input2 = JOptionPane.showInputDialog(null, "Số lượng không hợp lệ, mời nhập lại:", "Thêm sản phẩm vào giỏ hàng", HEIGHT);
+                                soLuongDoi = Integer.parseInt(input2);
+                            } while (soLuongDoi <= 0);
+                        }
+                        if (soLuongDoi <= soLuongMua) {
+                            System.out.println("Số lượng đã nhập: " + soLuongDoi);
+                            thanhTien = soLuongDoi * giaSP * (1 - phanTramDouble / 100);
+                            svHDCT.gopSanPhamTonTai(idHDCT, soLuongDoi, thanhTien);
+                            loadHoaDonCT(idHD);
+                            for (SanPhamCT sanPhamCT : svSP.getAll()) {
+                                if (sanPhamCT.getIdSP().equals(idSP)) {
+                                    int soLuongTon = sanPhamCT.getSoLuong();
+                                    int soLuongMoi = soLuongMua-soLuongDoi + soLuongTon;
+                                    svSP.updateSanPhamCTSauMua(idSP, soLuongMoi);
+                                }
+                            }
+                        } else if (soLuongDoi > soLuongMua) {
+                            System.out.println("Số lượng đã nhập: " + soLuongDoi);
+                            thanhTien = soLuongDoi * giaSP * (1 - phanTramDouble / 100);
+                            svHDCT.gopSanPhamTonTai(idHDCT, soLuongDoi, thanhTien);
+                            loadHoaDonCT(idHD);
+                            for (SanPhamCT sanPhamCT : svSP.getAll()) {
+                                if (sanPhamCT.getIdSP().equals(idSP)) {
+                                    int soLuongTon = sanPhamCT.getSoLuong();
+                                    int soLuongMoi =soLuongTon- (soLuongDoi-soLuongMua) ;
+                                    svSP.updateSanPhamCTSauMua(idSP, soLuongMoi);
+                                }
+                            }
+                        }
+                    } catch (NumberFormatException e) {
+                        JOptionPane.showMessageDialog(null, "Nhập số nguyên hợp lệ!");
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Bạn chưa nhập số lượng!");
+                }
+            } else {
+            }
+
+        }
+        loadSanPham();
+
+    }//GEN-LAST:event_btlDoiSLActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btlDoiSL;
     private javax.swing.JButton btnHuy;
     private javax.swing.JButton btnTaoHD;
     private javax.swing.JButton btnThanhToan;
-    private javax.swing.JButton btnXoa;
+    private javax.swing.JButton btnXoaSPGH;
     private javax.swing.JComboBox<String> jComboBox6;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
@@ -690,6 +805,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTextField jTextField12;
+    private javax.swing.JLabel lblCanTra;
     private javax.swing.JLabel lblTenKH;
     private javax.swing.JLabel lblTenNV;
     private javax.swing.JLabel lblTienThua;
