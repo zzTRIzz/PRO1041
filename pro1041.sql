@@ -311,3 +311,15 @@ FROM   HoaDon INNER JOIN
              KhuyenMai ON SanPhamKM.maKM = KhuyenMai.maKM
 where HoaDon.idHD ='';
 select * from MauSac
+SELECT KhuyenMai.maKM, KhuyenMai.tenKM, KhuyenMai.ngayTao, KhuyenMai.ngayKetThuc, SanPhamCT.loaiSP, KhuyenMai.giamTheoPT, KhuyenMai.trangThai
+FROM   KhuyenMai INNER JOIN
+             SanPhamKM ON KhuyenMai.maKM = SanPhamKM.maKM INNER JOIN
+             SanPhamCT ON SanPhamKM.idSP = SanPhamCT.idSP
+			 insert into KhuyenMai(KhuyenMai.maKM,KhuyenMai.tenKM,KhuyenMai.ngayTao,KhuyenMai.ngayKetThuc,SanPhamCT.loaiSP,KhuyenMai.giamTheoPT,KhuyenMai.trangThai) values ()
+
+SELECT SanPhamCT.idSP, SanPhamCT.maSP, SanPham.tenSP, Size.tenSize, MauSac.tenMauSac, ChatLieu.tenChatLieu, SanPhamCT.giaNhap
+FROM   ChatLieu INNER JOIN
+             SanPhamCT ON ChatLieu.idChatLieu = SanPhamCT.idChatLieu INNER JOIN
+             Size ON SanPhamCT.idSize = Size.idSize INNER JOIN
+             MauSac ON SanPhamCT.idMauSac = MauSac.idMauSac INNER JOIN
+             SanPham ON SanPhamCT.maSP = SanPham.maSP

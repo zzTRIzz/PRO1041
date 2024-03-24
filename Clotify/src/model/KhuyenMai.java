@@ -9,14 +9,14 @@ package model;
  * @author Surface
  */
 public class KhuyenMai {
-    String maKM,tenKM,ngayTao,ngayKetThuc,trangThai,maNV,tenNV;
+    String maKM,tenKM,ngayTao,ngayKetThuc,trangThai,maNV,tenNV,loaiSP;
     int giamTheoGia,giamTheoPT;
     double mucApDung;
 
     public KhuyenMai() {
     }
 
-    public KhuyenMai(String maKM, String tenKM, String ngayTao, String ngayKetThuc, String trangThai, String maNV, String tenNV, int giamTheoGia, int giamTheoPT, double mucApDung) {
+    public KhuyenMai(String maKM, String tenKM, String ngayTao, String ngayKetThuc, String trangThai, String maNV, String tenNV, String loaiSP, int giamTheoGia, int giamTheoPT, double mucApDung) {
         this.maKM = maKM;
         this.tenKM = tenKM;
         this.ngayTao = ngayTao;
@@ -24,6 +24,7 @@ public class KhuyenMai {
         this.trangThai = trangThai;
         this.maNV = maNV;
         this.tenNV = tenNV;
+        this.loaiSP = loaiSP;
         this.giamTheoGia = giamTheoGia;
         this.giamTheoPT = giamTheoPT;
         this.mucApDung = mucApDung;
@@ -85,6 +86,14 @@ public class KhuyenMai {
         this.tenNV = tenNV;
     }
 
+    public String getLoaiSP() {
+        return loaiSP;
+    }
+
+    public void setLoaiSP(String loaiSP) {
+        this.loaiSP = loaiSP;
+    }
+
     public int getGiamTheoGia() {
         return giamTheoGia;
     }
@@ -108,5 +117,6 @@ public class KhuyenMai {
     public void setMucApDung(double mucApDung) {
         this.mucApDung = mucApDung;
     }
+
     
 }

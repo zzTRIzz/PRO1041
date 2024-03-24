@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 import model.KhuyenMai;
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import model.KhachHang;
+import model.SanPhamCT;
 
 /**
  *
@@ -18,17 +22,101 @@ public class KhuyenMaiService {
     public List<KhuyenMai> getKhuyenMai(){
         list.clear();
         try{
-        String sql = "select maKM,tenKM,giamTheoGia,giamTheoPT,ngayTao,ngayKetThuc,trangThai from KhuyenMai ";
+        String sql = "SELECT KhuyenMai.maKM, KhuyenMai.tenKM, KhuyenMai.ngayTao, KhuyenMai.ngayKetThuc, SanPhamCT.loaiSP, KhuyenMai.giamTheoPT, KhuyenMai.trangThai\n" +
+"FROM   KhuyenMai INNER JOIN\n" +
+"             SanPhamKM ON KhuyenMai.maKM = SanPhamKM.maKM INNER JOIN\n" +
+"             SanPhamCT ON SanPhamKM.idSP = SanPhamCT.idSP";
         Connection conn = DBconnect.getConnection();
         Statement stm = conn.createStatement();
         ResultSet rs = stm.executeQuery(sql);
         while(rs.next()){
             KhuyenMai km = new KhuyenMai();
-            
+            km.setMaKM(rs.getString(1));
+            km.setTenKM(rs.getString(2));
+            km.setNgayTao(rs.getString(3));
+            km.setNgayKetThuc(rs.getString(4));
+            km.setLoaiSP(rs.getString(5));
+
+            km.setGiamTheoPT(rs.getInt(6));
+            km.setTrangThai(rs.getString(7));
+            list.add(km);
         }
     }catch(Exception e){
         e.printStackTrace();
     }
         return list;
+    }
+   
+       public boolean addKhuyenMai(KhuyenMai km){
+    String sql = "INSERT INTO KhuyenMai (maKM, tenKM, ngayTao, ngayKetThuc, loaiSP, giamTheoPT, trangThai) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    try{
+        Connection conn = DBconnect.getConnection();
+        PreparedStatement stm = conn.prepareStatement(sql);
+        stm.setString(1, km.getMaKM());
+        stm.setString(2, km.getTenKM());
+        
+        // Chuyển đổi ngày từ chuỗi sang đối tượng Date
+        Date ngayTao = (Date) chuyenChuoiSangDate(km.getNgayTao());
+        Date ngayKetThuc = (Date) chuyenChuoiSangDate(km.getNgayKetThuc());
+        
+        // Đặt tham số ngày vào câu lệnh SQL
+        stm.setDate(3, new java.sql.Date(ngayTao.getTime()));
+        stm.setDate(4, new java.sql.Date(ngayKetThuc.getTime()));
+        
+        stm.setString(5, km.getLoaiSP());
+        stm.setInt(6, km.getGiamTheoPT());
+        stm.setString(7, km.getTrangThai());
+        
+        stm.executeUpdate();
+        conn.close();
+        return true;
+    } catch(Exception e){
+        e.printStackTrace();
+    }
+    return false;
+}
+    
+    public KhuyenMai getRow(int row){
+        return list.get(row);
+    }
+    List<SanPhamCT> listSPCT = new ArrayList<>();
+    public List<SanPhamCT> getSanPhamCT(){
+        listSPCT.clear();
+        try{
+            String sql = "SELECT SanPhamCT.idSP, SanPhamCT.maSP, SanPham.tenSP, Size.tenSize, MauSac.tenMauSac, ChatLieu.tenChatLieu, SanPhamCT.giaNhap\n" +
+"FROM   ChatLieu INNER JOIN\n" +
+"             SanPhamCT ON ChatLieu.idChatLieu = SanPhamCT.idChatLieu INNER JOIN\n" +
+"             Size ON SanPhamCT.idSize = Size.idSize INNER JOIN\n" +
+"             MauSac ON SanPhamCT.idMauSac = MauSac.idMauSac INNER JOIN\n" +
+"             SanPham ON SanPhamCT.maSP = SanPham.maSP";
+            Connection conn = DBconnect.getConnection();
+            Statement stm = conn.createStatement();
+            ResultSet rs = stm.executeQuery(sql);
+            while(rs.next()){
+                SanPhamCT spct = new SanPhamCT();
+                spct.setIdSP(rs.getInt(1));
+                spct.setMaSP(rs.getString(2));
+                spct.setTenSP(rs.getString(3));
+                spct.setSize(rs.getString(4));
+                spct.setMauSac(rs.getString(5));
+                spct.setChatLieu(rs.getString(6));
+                spct.setGiaBan(rs.getDouble(7));
+                listSPCT.add(spct);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return listSPCT;
+    }
+    private static java.util.Date chuyenChuoiSangDate(String ngayNhap) {
+        // Chuyển đổi chuỗi thành đối tượng Date
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            return (java.util.Date) sdf.parse(ngayNhap.replace("thg", ""));
+           
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
