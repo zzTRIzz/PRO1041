@@ -9,14 +9,8 @@ package model;
  * @author Surface
  */
 public class NhanVien {
-<<<<<<< Updated upstream
-    String maNV;
-    String  vaiTro;
-    String tenNV, ngaySinh,gioiTinh,diaChi,sdt,taiKhoan,matKhau;
-=======
     String  maNV,vaiTro;
     String tenNV, ngaySinh,gioiTinh,diaChi,sdt,taiKhoan,matKhau,email;
->>>>>>> Stashed changes
 
     public NhanVien() {
     }
@@ -119,20 +113,15 @@ public class NhanVien {
         return "NhanVien{" + "maNV=" + maNV + ", vaiTro=" + vaiTro + ", tenNV=" + tenNV + ", ngaySinh=" + ngaySinh + ", gioiTinh=" + gioiTinh + ", diaChi=" + diaChi + ", sdt=" + sdt + ", taiKhoan=" + taiKhoan + ", matKhau=" + matKhau + ", email=" + email + '}';
     }
 
-<<<<<<< Updated upstream
-  
    
-=======
-    
     
 
->>>>>>> Stashed changes
       
-    public Object[]toDataRow(){
+     public Object[]toDataRow(){
         return new Object[]{
             this.getMaNV(),this.getTenNV(),this.getNgaySinh(),this.getGioiTinh(),this.getDiaChi(),this.getSdt(),this.getTaiKhoan(),this.getMatKhau(),this.getVaiTro(),this.getEmail()
         };
     }
     
-    
+   
 }

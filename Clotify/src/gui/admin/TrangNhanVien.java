@@ -3,12 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
 package gui.admin;
+
 import Service.NhanVienService;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.NhanVien;
-
 
 
 
@@ -29,7 +29,8 @@ private int index=-1;
         ui_custom.deleteTitle(this);
         fillTable(service.getAll());
     }
-public void fillTable(List<NhanVien>list){
+    
+    public void fillTable(List<NhanVien>list){
         model=(DefaultTableModel) tblSP1.getModel();
         model.setRowCount(0);
         for(NhanVien nhanvien : list){
@@ -118,21 +119,15 @@ public void fillTable(List<NhanVien>list){
         jLabel2 = new javax.swing.JLabel();
         txtTaiKhoan = new javax.swing.JTextField();
         txtMatKhau = new javax.swing.JTextField();
-<<<<<<< Updated upstream
-=======
         jLabel3 = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
         jPanel20 = new javax.swing.JPanel();
         jScrollPane11 = new javax.swing.JScrollPane();
         tblSP1 = new javax.swing.JTable();
->>>>>>> Stashed changes
         jPanel21 = new javax.swing.JPanel();
         btnXoa = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
-        jPanel20 = new javax.swing.JPanel();
-        jScrollPane11 = new javax.swing.JScrollPane();
-        tblSP1 = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(153, 255, 153));
         setBorder(null);
@@ -278,42 +273,6 @@ public void fillTable(List<NhanVien>list){
                 .addGap(13, 13, 13))
         );
 
-        jPanel21.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Chức năng", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Noto Sans", 1, 14), new java.awt.Color(204, 0, 0))); // NOI18N
-        jPanel21.setLayout(new java.awt.GridLayout(3, 1));
-
-        btnXoa.setFont(new java.awt.Font("Dosis", 1, 14)); // NOI18N
-        btnXoa.setForeground(new java.awt.Color(153, 0, 0));
-        btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/new.png"))); // NOI18N
-        btnXoa.setText("Vô hiệu");
-        btnXoa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnXoaActionPerformed(evt);
-            }
-        });
-        jPanel21.add(btnXoa);
-
-        btnAdd.setFont(new java.awt.Font("Dosis", 1, 14)); // NOI18N
-        btnAdd.setForeground(new java.awt.Color(153, 0, 0));
-        btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/save-22.png"))); // NOI18N
-        btnAdd.setText("   Lưu");
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddActionPerformed(evt);
-            }
-        });
-        jPanel21.add(btnAdd);
-
-        btnUpdate.setFont(new java.awt.Font("Dosis", 1, 14)); // NOI18N
-        btnUpdate.setForeground(new java.awt.Color(153, 0, 0));
-        btnUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/find-22.png"))); // NOI18N
-        btnUpdate.setText("Sửa");
-        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateActionPerformed(evt);
-            }
-        });
-        jPanel21.add(btnUpdate);
-
         jPanel20.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Danh sách nhân viên", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(255, 102, 102))); // NOI18N
 
         tblSP1.setModel(new javax.swing.table.DefaultTableModel(
@@ -359,6 +318,42 @@ public void fillTable(List<NhanVien>list){
                 .addContainerGap())
         );
 
+        jPanel21.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Chức năng", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Noto Sans", 1, 14), new java.awt.Color(204, 0, 0))); // NOI18N
+        jPanel21.setLayout(new java.awt.GridLayout(3, 1));
+
+        btnXoa.setFont(new java.awt.Font("Dosis", 1, 14)); // NOI18N
+        btnXoa.setForeground(new java.awt.Color(153, 0, 0));
+        btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/new.png"))); // NOI18N
+        btnXoa.setText("Vô hiệu");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
+            }
+        });
+        jPanel21.add(btnXoa);
+
+        btnAdd.setFont(new java.awt.Font("Dosis", 1, 14)); // NOI18N
+        btnAdd.setForeground(new java.awt.Color(153, 0, 0));
+        btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/save-22.png"))); // NOI18N
+        btnAdd.setText("   Lưu");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
+        jPanel21.add(btnAdd);
+
+        btnUpdate.setFont(new java.awt.Font("Dosis", 1, 14)); // NOI18N
+        btnUpdate.setForeground(new java.awt.Color(153, 0, 0));
+        btnUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/find-22.png"))); // NOI18N
+        btnUpdate.setText("Sửa");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
+        jPanel21.add(btnUpdate);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -389,6 +384,12 @@ public void fillTable(List<NhanVien>list){
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tblSP1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSP1MouseClicked
+        // TODO add your handling code here:
+        index=tblSP1.getSelectedRow();
+        showData(index);
+    }//GEN-LAST:event_tblSP1MouseClicked
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
@@ -421,13 +422,7 @@ public void fillTable(List<NhanVien>list){
             this.fillTable(service.getAll());
         }
     }//GEN-LAST:event_btnUpdateActionPerformed
-
-    private void tblSP1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSP1MouseClicked
-        // TODO add your handling code here:
-        index=tblSP1.getSelectedRow();
-        showData(index);
-    }//GEN-LAST:event_tblSP1MouseClicked
-Boolean checkNull(){
+    Boolean checkNull(){
     String ma=txtMa.getText();
     if (ma.isEmpty()) {
         JOptionPane.showMessageDialog(this, "Khong duoc bo trong Ma NhanVien");
@@ -440,7 +435,6 @@ Boolean checkNull(){
     }
     return true;
 }
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
