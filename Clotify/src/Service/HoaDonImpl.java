@@ -22,7 +22,7 @@ public class HoaDonImpl implements HoaDonService {
     public List<HoaDon> getHoaDonAll() {
         listHoaDon.clear();
         try {
-            String sql = "	SELECT HoaDon.idHD, HoaDon.maHD, HoaDon.ngayTao, NhanVien.tenNV, KhachHang.tenKH, HoaDon.trangThai\n"
+            String sql = "	SELECT HoaDon.idHD, HoaDon.maHD, HoaDon.ngayTao, NhanVien.tenNV, KhachHang.tenKH, HoaDon.trangThai,KhachHang.idKH\n"
                     + "FROM   HoaDon INNER JOIN\n"
                     + "             KhachHang ON HoaDon.idKH = KhachHang.idKH INNER JOIN\n"
                     + "             NhanVien ON HoaDon.maNV = NhanVien.maNV\n"
@@ -38,6 +38,7 @@ public class HoaDonImpl implements HoaDonService {
                 hd.setTenNV(rs.getString(4));
                 hd.setTenKH(rs.getString(5));
                 hd.setTrangThai(rs.getString(6));
+                hd.setIdKH(7);
                 listHoaDon.add(hd);
             }
             conn.close();
