@@ -39,7 +39,7 @@ public class NhanVienService {
  
   public int add(NhanVien nv ){
       int kq=0;
-      sql="INSERT INTO NhanVien(maNV,vaiTro,tenNV,ngaySinh,gioiTinh ,diaChi,sdt,taiKhoan,matKhau,email) VALUES(?,?,?,?,?,?,?,?,?,?)";
+      sql="INSERT INTO NhanVien(maNV,tenNV,ngaySinh,gioiTinh ,diaChi,sdt,taiKhoan,matKhau,vaiTro,email) VALUES(?,?,?,?,?,?,?,?,?,?)";
       try {
           con=DBconnect.getConnection();
           ps=con.prepareStatement(sql);
