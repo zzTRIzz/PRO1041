@@ -46,6 +46,7 @@ public void fillTable(List<NhanVien>list){
         }else{
             rdNu.setSelected(true);
         }
+           txtEmail.setText(nv.getEmail());
         txtQueQuan.setText(nv.getDiaChi());
         txtSDT.setText(nv.getSdt());
         txtTaiKhoan.setText(nv.getTaiKhoan());
@@ -56,7 +57,7 @@ public void fillTable(List<NhanVien>list){
         }else{
             rdNV.setSelected(true);
         }
-        
+     
     }
     NhanVien readFrom(){
          NhanVien nv = service.getAll().get(index);
@@ -69,6 +70,7 @@ public void fillTable(List<NhanVien>list){
         }else{
             Gioitinh="Nữ";
         }
+         String Email=txtEmail.getText();
         String DiaChi=txtQueQuan.getText();
         String Sdt=txtSDT.getText();
         String taiKhoan=txtTaiKhoan.getText();
@@ -80,7 +82,8 @@ public void fillTable(List<NhanVien>list){
         }else{
             VaiTro= "0";
         }
-        return new NhanVien(Ma, VaiTro, ten, NgaySinh, Gioitinh, DiaChi, Sdt, taiKhoan, MatKhau);
+       
+        return new NhanVien(Ma, VaiTro, ten, NgaySinh, Gioitinh, DiaChi, Sdt, taiKhoan, MatKhau, Email);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -115,6 +118,14 @@ public void fillTable(List<NhanVien>list){
         jLabel2 = new javax.swing.JLabel();
         txtTaiKhoan = new javax.swing.JTextField();
         txtMatKhau = new javax.swing.JTextField();
+<<<<<<< Updated upstream
+=======
+        jLabel3 = new javax.swing.JLabel();
+        txtEmail = new javax.swing.JTextField();
+        jPanel20 = new javax.swing.JPanel();
+        jScrollPane11 = new javax.swing.JScrollPane();
+        tblSP1 = new javax.swing.JTable();
+>>>>>>> Stashed changes
         jPanel21 = new javax.swing.JPanel();
         btnXoa = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
@@ -168,41 +179,43 @@ public void fillTable(List<NhanVien>list){
 
         jLabel2.setText("Mật Khẩu");
 
+        jLabel3.setText("Email");
+
         javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
         jPanel19.setLayout(jPanel19Layout);
         jPanel19Layout.setHorizontalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel19Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel48)
+                    .addComponent(jLabel49)
+                    .addComponent(jLabel50)
+                    .addComponent(jLabel62)
+                    .addComponent(jLabel3))
+                .addGap(26, 26, 26)
                 .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel19Layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel48)
-                            .addComponent(jLabel49)
-                            .addComponent(jLabel50)
-                            .addComponent(jLabel62))
-                        .addGap(26, 26, 26)
-                        .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNamSinh, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel19Layout.createSequentialGroup()
-                                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jPanel19Layout.createSequentialGroup()
-                                        .addComponent(rdNam)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(rdNu))
-                                    .addComponent(txtTen)
-                                    .addComponent(txtMa, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE))
-                                .addGap(89, 89, 89)
-                                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel56)
-                                    .addComponent(jLabel63)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2))))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel19Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(rdNam)
+                                .addGap(18, 18, 18)
+                                .addComponent(rdNu))
+                            .addComponent(txtTen)
+                            .addComponent(txtMa, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE))
+                        .addGap(89, 89, 89)
+                        .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel56)
+                            .addComponent(jLabel63)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)))
+                    .addGroup(jPanel19Layout.createSequentialGroup()
+                        .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtEmail)
+                            .addComponent(txtNamSinh, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE))
+                        .addGap(89, 89, 89)
                         .addComponent(jLabel51)))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtSDT, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtQueQuan, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -245,14 +258,20 @@ public void fillTable(List<NhanVien>list){
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel19Layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
                         .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtNamSinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel50))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtQueQuan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel51)))
+                        .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel19Layout.createSequentialGroup()
+                                .addGap(28, 28, 28)
+                                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtQueQuan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel51)))
+                            .addGroup(jPanel19Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel3)
+                                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtSDT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel56)))
@@ -299,17 +318,17 @@ public void fillTable(List<NhanVien>list){
 
         tblSP1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã Nhân viên", "Tên NV", "Giới Tính", "Năm Sinh", "Quê Quán", "SDT", "Tài Khoản", "Mật Khẩu", "Vai Trò"
+                "Mã Nhân viên", "Tên NV", "Giới Tính", "Năm Sinh", "Email", "SDT", "Tài Khoản", "Mật Khẩu", "Vai Trò", "Que Quan"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, true, true, true
+                false, false, false, false, false, false, true, true, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -361,7 +380,7 @@ public void fillTable(List<NhanVien>list){
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 136, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 147, Short.MAX_VALUE)
                 .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(47, 47, 47))
         );
@@ -431,6 +450,7 @@ Boolean checkNull(){
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel48;
     private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel50;
@@ -448,6 +468,7 @@ Boolean checkNull(){
     private javax.swing.JRadioButton rdNu;
     private javax.swing.JRadioButton rdQl;
     private javax.swing.JTable tblSP1;
+    private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtMa;
     private javax.swing.JTextField txtMatKhau;
     private javax.swing.JTextField txtNamSinh;

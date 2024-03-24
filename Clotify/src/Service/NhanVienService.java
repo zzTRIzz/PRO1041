@@ -20,13 +20,13 @@ public class NhanVienService {
   private String sql= null;
   public  List<NhanVien>getAll(){
       ListNV= new ArrayList<>();
-      sql="SELECT maNV,vaiTro,tenNV,ngaySinh,gioiTinh,diaChi,sdt,taiKhoan,matKhau FROM NhanVien";
+      sql="SELECT maNV,vaiTro,tenNV,ngaySinh,gioiTinh ,diaChi,sdt,taiKhoan,matKhau,email FROM NhanVien";
       try {
           con=DBconnect.getConnection();
           ps= con.prepareStatement(sql);
           rs=ps.executeQuery();
           while (rs.next()) {
-             NhanVien nv =new NhanVien(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9));
+             NhanVien nv =new NhanVien(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9),rs.getString(10));
              ListNV.add(nv);
               
           }
@@ -39,7 +39,7 @@ public class NhanVienService {
  
   public int add(NhanVien nv ){
       int kq=0;
-      sql="INSERT INTO NhanVien(maNV,tenNV,ngaySinh,gioiTinh,diaChi,sdt,taiKhoan,matKhau,vaiTro) VALUES(?,?,?,?,?,?,?,?,?)";
+      sql="INSERT INTO NhanVien(maNV,vaiTro,tenNV,ngaySinh,gioiTinh ,diaChi,sdt,taiKhoan,matKhau,email) VALUES(?,?,?,?,?,?,?,?,?,?)";
       try {
           con=DBconnect.getConnection();
           ps=con.prepareStatement(sql);
@@ -47,11 +47,13 @@ public class NhanVienService {
           ps.setString(2, nv.getTenNV());
           ps.setString(3, nv.getNgaySinh());
           ps.setString(4, nv.getGioiTinh());
+          
           ps.setString(5, nv.getDiaChi());
           ps.setString(6, nv.getSdt());
           ps.setString(7, nv.getTaiKhoan());
           ps.setString(8, nv.getMatKhau());
           ps.setString(9, nv.getVaiTro());
+          ps.setString(10, nv.getEmail());
           kq=ps.executeUpdate();
           return kq;
           
@@ -61,7 +63,7 @@ public class NhanVienService {
       }    
   }
    public int update(String ma,NhanVien nv){
-       sql="UPDATE NhanVien SET maNV=?,tenNV=?,ngaySinh=?,gioiTinh=?,diaChi=?,sdt=?,mataiKhoanNV=?,matKhau=?,vaiTro=?WHERE  maNV=?";
+       sql="UPDATE NhanVien SET tenNV=?,ngaySinh=?,gioiTinh=?,diaChi=?,sdt=?,taiKhoanNV=?,matKhau=?,vaiTro=?,email=?WHERE  maNV=?";
        try {
            con=DBconnect.getConnection();
            ps=con.prepareStatement(sql);
@@ -74,7 +76,7 @@ public class NhanVienService {
    }
   
   public int delete(String ma){
-      sql="DELETE FROM NhanVien WHERE MaNV=?";
+      sql="DELETE FROM NhanVien WHERE maNV=?";
       try {
           con=DBconnect.getConnection();
           ps=con.prepareStatement(sql);
