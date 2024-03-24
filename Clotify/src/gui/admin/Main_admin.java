@@ -89,6 +89,10 @@ public class Main_admin extends javax.swing.JFrame {
         trang4 = new javax.swing.JLabel();
         trang5 = new javax.swing.JLabel();
         menu1 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        lblMaNV = new javax.swing.JLabel();
+        lblTenNV = new javax.swing.JLabel();
         DesktopPane = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -193,6 +197,20 @@ public class Main_admin extends javax.swing.JFrame {
         menu1.setText("Admin");
         menubar.add(menu1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 160, 18));
 
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Mã");
+        menubar.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
+
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Tên");
+        menubar.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, -1));
+
+        lblMaNV.setForeground(new java.awt.Color(255, 255, 255));
+        menubar.add(lblMaNV, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 100, 20));
+
+        lblTenNV.setForeground(new java.awt.Color(255, 255, 255));
+        menubar.add(lblTenNV, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 90, 100, 20));
+
         background.add(menubar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 160, 900));
 
         DesktopPane.setBackground(new java.awt.Color(244, 244, 244));
@@ -279,9 +297,13 @@ public class Main_admin extends javax.swing.JFrame {
     private javax.swing.JDesktopPane DesktopPane;
     private javax.swing.JPanel background;
     private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JLabel lblMaNV;
+    private javax.swing.JLabel lblTenNV;
     private javax.swing.JLabel menu;
     private javax.swing.JLabel menu1;
     private keeptoo.KGradientPanel menubar;

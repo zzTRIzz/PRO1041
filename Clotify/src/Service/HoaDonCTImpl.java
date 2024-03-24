@@ -19,7 +19,7 @@ public class HoaDonCTImpl implements HoaDonCTService{
     public List<HoaDonCT> getHoaDonCTAll(int idHD) {
         listHoaDonCT.clear();
         try {
-            String sql="SELECT HoaDonChiTiet.idHoaDonCT, SanPham.tenSP, HoaDonChiTiet.soLuongMua, LichSuGia.gia, KhuyenMai.tenKM, KhuyenMai.giamTheoPT,HoaDonChiTiet.tongTien,HoaDon.idHD\n" +
+            String sql="SELECT HoaDonChiTiet.idHoaDonCT, SanPham.tenSP, HoaDonChiTiet.soLuongMua, LichSuGia.gia, KhuyenMai.tenKM, KhuyenMai.giamTheoPT,HoaDonChiTiet.tongTien,HoaDon.idHD,SanPhamCT.idSP\n" +
 "FROM   HoaDon INNER JOIN\n" +
 "             HoaDonChiTiet ON HoaDon.idHD = HoaDonChiTiet.idHD INNER JOIN\n" +
 "             SanPhamCT ON HoaDonChiTiet.idSP = SanPhamCT.idSP INNER JOIN\n" +
@@ -43,6 +43,7 @@ public class HoaDonCTImpl implements HoaDonCTService{
                 
                 hdct.setTongTien(rs.getDouble(7));
                 hdct.setIdHD(rs.getInt(8));
+                hdct.setIdSP(rs.getInt(9));
                 listHoaDonCT.add(hdct);
             }
             conn.close();
@@ -124,6 +125,25 @@ public class HoaDonCTImpl implements HoaDonCTService{
             ps.executeUpdate();
             conn.close();
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public HoaDonCT getRowHDCT(int row) {
+        return listHoaDonCT.get(row);
+    }
+
+    @Override
+    public void deleteHDCT(int idHDCT) {
+                try {
+            String sql = "delete from HoaDonChiTiet where idHoaDonCT=?";
+            Connection conn = DBconnect.getConnection();
+            PreparedStatement stm = conn.prepareStatement(sql);
+            stm.setInt(1, idHDCT);
+            stm.executeUpdate();
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

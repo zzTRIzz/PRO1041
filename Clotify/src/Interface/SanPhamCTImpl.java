@@ -18,4 +18,5 @@ public interface SanPhamCTImpl {
 //    void deleteSanPhamCT(Integer id);
     void updateSanPhamCT(SanPhamCT spct);
     List<SanPhamCT> searchSanPhamCT(String key);
+    void updateSanPhamCTSauMua(int idSPCT,int soLuongCon);
 }
