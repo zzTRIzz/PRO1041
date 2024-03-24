@@ -323,3 +323,4 @@ FROM   ChatLieu INNER JOIN
              Size ON SanPhamCT.idSize = Size.idSize INNER JOIN
              MauSac ON SanPhamCT.idMauSac = MauSac.idMauSac INNER JOIN
              SanPham ON SanPhamCT.maSP = SanPham.maSP
+			 insert into KhuyenMai(maKM,tenKM,ngayTao,ngayKetThuc,giamTheoPT)

@@ -4,7 +4,11 @@
  */
 package gui.admin;
 
+import Interface.SanPhamCTimplements;
+import Interface.SanPhamKMInterface;
 import Service.KhuyenMaiService;
+import Service.SanPhamCTService;
+import Service.SanPhamKMService;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -13,6 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.KhuyenMai;
 import model.SanPhamCT;
+import model.SanPhamKM;
 
 
 
@@ -28,8 +33,9 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
      * Creates new form Trang0
      */
     DefaultTableModel model;
-    KhuyenMaiService kms = new KhuyenMaiService();
-    
+    SanPhamKMInterface svSPKM = new SanPhamKMService();
+    SanPhamCTimplements svCT = new SanPhamCTService();
+    KhuyenMaiService svKM = new KhuyenMaiService();
     public TrangKhuyenMai() {
         initComponents();
         ui_custom.deleteTitle(this);
@@ -39,22 +45,22 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
     void loadDataKhuyenMai(){
         model = (DefaultTableModel) tblKhuyenMai.getModel();
         model.setRowCount(0);
-        for (KhuyenMai km : kms.getKhuyenMai()) {
+        for (SanPhamKM spkm : svSPKM.getSanPhamKM()) {
             model.addRow(new Object[]{
-                km.getMaKM(),
-                km.getTenKM(),
-                km.getNgayTao(),
-                km.getNgayKetThuc(),
-                km.getLoaiSP(),
-                km.getGiamTheoPT(),
-                km.getTrangThai()
+                spkm.getMaKM(),
+                spkm.getTenKM(),
+                spkm.getNgayTao(),
+                spkm.getNgayKetThuc(),
+                spkm.getLoaiSP(),
+                spkm.getGiamTheoPT(),
+                spkm.getTrangThai()
             });
         }
     }
     void loadDataSPCT(){
         model = (DefaultTableModel) tblSPCT.getModel();
         model.setRowCount(0);
-        for (SanPhamCT spct : kms.getSanPhamCT()) {
+        for (SanPhamCT spct : svCT.getAll()) {
             model.addRow(new Object[]{
                 spct.getIdSP(),
                 spct.getMaSP(),
@@ -68,19 +74,46 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
     }
     KhuyenMai getForm(){
         KhuyenMai km = new KhuyenMai();
-        Date ngayBatDau = txtNgayBatDau.getDate();
-        Date ngayKetThuc = txtNgayKetThuc.getDate();
-        km.setMaKM(txtMaKM.getText());
-        km.setTenKM(txtTenKM.getText());
-        km.setNgayTao(ngayBatDau.toString());
-        km.setNgayKetThuc(ngayKetThuc.toString());
-        km.setLoaiSP(cboLoaiSP.getSelectedItem().toString());
-        km.setGiamTheoPT(Integer.valueOf(txtMucGiam.getText()));
-        String trangThai = "Đang áp dụng";
-        km.setTrangThai(trangThai);
-        return km;
+//        Date ngayBatDau = txtNgayBatDau.getDate();
+//        Date ngayKetThuc = txtNgayKetThuc.getDate();
+//        km.setMaKM(txtMaKM.getText());
+//        km.setTenKM(txtTenKM.getText());
+//        km.setNgayTao(txtNgayBatDau.getDate().toString());
+//        km.setNgayKetThuc(txtNgayKetThuc.getDate().toString());
+//        km.setLoaiSP(cboLoaiSP.getSelectedItem().toString());
+//        km.setGiamTheoPT(Integer.valueOf(txtMucGiam.getText()));
+//        String trangThai = "Đang áp dụng";
+//        km.setTrangThai(trangThai);
+//        return km;
+   
+    km.setMaKM(txtMaKM.getText());
+    km.setTenKM(txtTenKM.getText());
+    
+    // Lấy ngày bắt đầu và kết thúc từ các thành phần GUI
+//    Date ngayBatDau = (Date) txtNgayBatDau.getDate();
+//    Date ngayKetThuc = (Date) txtNgayKetThuc.getDate();
+//    // Kiểm tra null để tránh lỗi NullPointerException
+//    if (ngayBatDau != null) {
+//        km.setNgayTao(ngayBatDau.toString());
+//    }
+//    if (ngayKetThuc != null) {
+//        km.setNgayKetThuc(ngayKetThuc.toString());
+//    }
+    km.setNgayTao(txtNgayBatDau.getDate());
+    km.setNgayKetThuc(txtNgayKetThuc.getDate());
+    km.setLoaiSP(cboLoaiSP.getSelectedItem().toString());
+    km.setGiamTheoPT(Integer.parseInt(txtMucGiam.getText()));
+    
+    // Lấy trạng thái từ thành phần GUI nếu có
+    // Ví dụ: String trangThai = cboTrangThai.getSelectedItem().toString();
+    // km.setTrangThai(trangThai);
+    String trangThai = "Đang áp dụng";
+    km.setTrangThai(trangThai);
+    return km;
+     
+    
     }
-    void setForm(KhuyenMai km){
+    void setForm(SanPhamKM km){
     txtMaKM.setText(km.getMaKM());
     txtTenKM.setText(km.getTenKM());
     
@@ -210,6 +243,10 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
             }
         });
 
+        txtNgayBatDau.setDateFormatString("yyyy-MM-dd");
+
+        txtNgayKetThuc.setDateFormatString("yyyy-MM-dd");
+
         jLabel27.setText("Mã KM");
 
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
@@ -282,6 +319,11 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
         );
 
         cboLoaiSP.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Áo", "Quần", "Váy", "Chân váy", "Tất cả sản phẩm" }));
+        cboLoaiSP.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                cboLoaiSPKeyReleased(evt);
+            }
+        });
 
         jLabel1.setText("Gia bat dau");
 
@@ -418,18 +460,62 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
 
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
         // TODO add your handling code here:
-        kms.addKhuyenMai(getForm());
-        loadDataKhuyenMai();
+    
+    
+    // Kiểm tra hợp lệ của các trường ngày
+//    Date batDau = txtNgayBatDau.getDate();
+//    Date ketThuc = txtNgayKetThuc.getDate();
+//    if (batDau == null || ketThuc == null) {
+//        JOptionPane.showMessageDialog(this, "Vui lòng chọn ngày bắt đầu và kết thúc.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+//        return;
+//    }
+//    
+//    // Kiểm tra xem ngày bắt đầu có sau ngày kết thúc không
+//    if (batDau.after(ketThuc)) {
+//        JOptionPane.showMessageDialog(this, "Ngày kết thúc phải sau ngày bắt đầu.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+//        return;
+//    }
+//    
+//    // Thêm khuyến mãi vào cơ sở dữ liệu
+//    // Lưu ý: Đảm bảo rằng phương thức addKhuyenMai đã được triển khai đúng cách
+//    // và xử lý các trường hợp ngoại lệ một cách phù hợp.
+//    if (svSPKM. {
+//        JOptionPane.showMessageDialog(this, "Thêm khuyến mãi thành công.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+//        // Tải lại dữ liệu khuyến mãi sau khi đã thêm mới
+//        loadDataKhuyenMai();
+//    } else {
+//        JOptionPane.showMessageDialog(this, "Đã xảy ra lỗi khi thêm khuyến mãi.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+//    }
+         int row = tblSPCT.getSelectedRow();
+         if(row>=0){
+             
+             SanPhamCT spct = svCT.getRow(row);
+             int idSP = spct.getIdSP();
+             String maKM = txtMaKM.getText();
+//             svKM.addKhuyenMai(getForm());
+             svSPKM.addSPKM(new SanPhamKM(idSP, maKM));
+             loadDataKhuyenMai();
+         }
     }//GEN-LAST:event_btnAddMouseClicked
 
     private void tblKhuyenMaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblKhuyenMaiMouseClicked
         // TODO add your handling code here:
         int i = tblKhuyenMai.getSelectedRow();
         if(i>=0){
-            setForm(kms.getRow(i));
+            setForm(svSPKM.getRow(i));
             loadDataKhuyenMai();
         }
     }//GEN-LAST:event_tblKhuyenMaiMouseClicked
+
+    private void cboLoaiSPKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cboLoaiSPKeyReleased
+        // TODO add your handling code here:
+//        String key = cboLoaiSP.getSelectedItem().toString();
+//        DefaultTableModel modelLoaiSP = (DefaultTableModel) tblSPCT.getModel();
+//        modelLoaiSP.setRowCount(0);
+//        for (SanPhamCT spct : kms.searchTheoLoaiSP(key)) {
+//            
+//        }
+    }//GEN-LAST:event_cboLoaiSPKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

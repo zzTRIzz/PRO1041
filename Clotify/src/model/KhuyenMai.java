@@ -4,23 +4,24 @@
  */
 package model;
 
+import java.util.Date;
+
 /**
  *
  * @author Surface
  */
 public class KhuyenMai {
-    String maKM,tenKM,ngayTao,ngayKetThuc,trangThai,maNV,tenNV,loaiSP;
+    String maKM,tenKM,trangThai,maNV,tenNV,loaiSP;
     int giamTheoGia,giamTheoPT;
     double mucApDung;
+    Date ngayTao,ngayKetThuc;
 
     public KhuyenMai() {
     }
 
-    public KhuyenMai(String maKM, String tenKM, String ngayTao, String ngayKetThuc, String trangThai, String maNV, String tenNV, String loaiSP, int giamTheoGia, int giamTheoPT, double mucApDung) {
+    public KhuyenMai(String maKM, String tenKM, String trangThai, String maNV, String tenNV, String loaiSP, int giamTheoGia, int giamTheoPT, double mucApDung, Date ngayTao, Date ngayKetThuc) {
         this.maKM = maKM;
         this.tenKM = tenKM;
-        this.ngayTao = ngayTao;
-        this.ngayKetThuc = ngayKetThuc;
         this.trangThai = trangThai;
         this.maNV = maNV;
         this.tenNV = tenNV;
@@ -28,6 +29,8 @@ public class KhuyenMai {
         this.giamTheoGia = giamTheoGia;
         this.giamTheoPT = giamTheoPT;
         this.mucApDung = mucApDung;
+        this.ngayTao = ngayTao;
+        this.ngayKetThuc = ngayKetThuc;
     }
 
     public String getMaKM() {
@@ -44,22 +47,6 @@ public class KhuyenMai {
 
     public void setTenKM(String tenKM) {
         this.tenKM = tenKM;
-    }
-
-    public String getNgayTao() {
-        return ngayTao;
-    }
-
-    public void setNgayTao(String ngayTao) {
-        this.ngayTao = ngayTao;
-    }
-
-    public String getNgayKetThuc() {
-        return ngayKetThuc;
-    }
-
-    public void setNgayKetThuc(String ngayKetThuc) {
-        this.ngayKetThuc = ngayKetThuc;
     }
 
     public String getTrangThai() {
@@ -118,5 +105,21 @@ public class KhuyenMai {
         this.mucApDung = mucApDung;
     }
 
-    
+    public Date getNgayTao() {
+        return ngayTao;
+    }
+
+    public void setNgayTao(Date ngayTao) {
+        this.ngayTao = ngayTao;
+    }
+
+    public Date getNgayKetThuc() {
+        return ngayKetThuc;
+    }
+
+    public void setNgayKetThuc(Date ngayKetThuc) {
+        this.ngayKetThuc = ngayKetThuc;
+    }
+
+   
 }

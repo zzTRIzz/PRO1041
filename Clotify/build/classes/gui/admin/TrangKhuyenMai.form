@@ -413,8 +413,14 @@
                     <Component class="javax.swing.JTextField" name="txtMucGiam">
                     </Component>
                     <Component class="com.toedter.calendar.JDateChooser" name="txtNgayBatDau">
+                      <Properties>
+                        <Property name="dateFormatString" type="java.lang.String" value="yyyy-MM-dd"/>
+                      </Properties>
                     </Component>
                     <Component class="com.toedter.calendar.JDateChooser" name="txtNgayKetThuc">
+                      <Properties>
+                        <Property name="dateFormatString" type="java.lang.String" value="yyyy-MM-dd"/>
+                      </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtMaKM">
                     </Component>
@@ -437,6 +443,9 @@
                       </StringArray>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cboLoaiSPKeyReleased"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                   </AuxValues>

@@ -33,8 +33,8 @@ public class KhuyenMaiService {
             KhuyenMai km = new KhuyenMai();
             km.setMaKM(rs.getString(1));
             km.setTenKM(rs.getString(2));
-            km.setNgayTao(rs.getString(3));
-            km.setNgayKetThuc(rs.getString(4));
+            km.setNgayTao(rs.getDate(3));
+            km.setNgayKetThuc(rs.getDate(4));
             km.setLoaiSP(rs.getString(5));
 
             km.setGiamTheoPT(rs.getInt(6));
@@ -48,29 +48,29 @@ public class KhuyenMaiService {
     }
    
        public boolean addKhuyenMai(KhuyenMai km){
-    String sql = "INSERT INTO KhuyenMai (maKM, tenKM, ngayTao, ngayKetThuc, loaiSP, giamTheoPT, trangThai) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    String sql = "INSERT INTO KhuyenMai (maKM, tenKM, ngayTao, ngayKetThuc, giamTheoPT, trangThai) VALUES (?, ?, ?, ?, ?, ?)";
     try{
         Connection conn = DBconnect.getConnection();
         PreparedStatement stm = conn.prepareStatement(sql);
         stm.setString(1, km.getMaKM());
         stm.setString(2, km.getTenKM());
         
-        // Chuyển đổi ngày từ chuỗi sang đối tượng Date
-        Date ngayTao = (Date) chuyenChuoiSangDate(km.getNgayTao());
-        Date ngayKetThuc = (Date) chuyenChuoiSangDate(km.getNgayKetThuc());
+// Chuyển đổi ngày từ chuỗi sang đối tượng Date
+//        java.sql.Date sqlBatDau = new java.sql.Date(batDau.getTime());
+//           java.sql.Date sqlKetThuc = new java.sql.Date(ketThuc.getTime());
+////        
+////        // Đặt tham số ngày vào câu lệnh SQL
+//      stm.setDate(3, new java.sql.Date(batDau.getTime()));
+//       stm.setDate(4, new java.sql.Date(ketThuc.getTime()));
+     stm.setDate(3, (Date) km.getNgayTao());
+        stm.setDate(4, (Date) km.getNgayKetThuc());
         
-        // Đặt tham số ngày vào câu lệnh SQL
-        stm.setDate(3, new java.sql.Date(ngayTao.getTime()));
-        stm.setDate(4, new java.sql.Date(ngayKetThuc.getTime()));
-        
-        stm.setString(5, km.getLoaiSP());
-        stm.setInt(6, km.getGiamTheoPT());
-        stm.setString(7, km.getTrangThai());
+        stm.setInt(5, km.getGiamTheoPT());
+        stm.setString(6, km.getTrangThai());
         
         stm.executeUpdate();
         conn.close();
-        return true;
-    } catch(Exception e){
+    } catch(SQLException e){
         e.printStackTrace();
     }
     return false;
@@ -117,6 +117,35 @@ public class KhuyenMaiService {
         } catch (ParseException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+    public void searchTheoLoaiSP(String key){
+        String sql = "SELECT SanPhamCT.idSP, SanPhamCT.maSP, SanPham.tenSP, Size.tenSize, MauSac.tenMauSac, ChatLieu.tenChatLieu, SanPhamCT.giaNhap\n" +
+"FROM   ChatLieu INNER JOIN\n" +
+"             SanPhamCT ON ChatLieu.idChatLieu = SanPhamCT.idChatLieu INNER JOIN\n" +
+"             Size ON SanPhamCT.idSize = Size.idSize INNER JOIN\n" +
+"             MauSac ON SanPhamCT.idMauSac = MauSac.idMauSac INNER JOIN\n" +
+"             SanPham ON SanPhamCT.maSP = SanPham.maSP"
+                + "where SanPhamCT.loaiSP like ?";
+        listSPCT.clear();
+        try{
+            Connection conn = DBconnect.getConnection();
+            PreparedStatement stm = conn.prepareStatement(sql);
+            stm.setString(1, "%" + key + "%");
+            ResultSet rs = stm.executeQuery();
+            while(rs.next()){
+                SanPhamCT spct = new SanPhamCT();
+                spct.setIdSP(rs.getInt(1));
+                spct.setMaSP(rs.getString(2));
+                spct.setTenSP(rs.getString(3));
+                spct.setSize(rs.getString(4));
+                spct.setMauSac(rs.getString(5));
+                spct.setChatLieu(rs.getString(6));
+                spct.setGiaBan(rs.getDouble(7));
+                listSPCT.add(spct);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
         }
     }
 }
