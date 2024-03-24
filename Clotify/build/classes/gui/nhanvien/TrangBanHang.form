@@ -120,7 +120,7 @@
                           <Group type="102" attributes="0">
                               <Component id="btnXoaSPGH" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="btlDoiSL" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnDoiSL" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -135,7 +135,7 @@
                       <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btnXoaSPGH" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btlDoiSL" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnDoiSL" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -177,12 +177,12 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnXoaSPGHActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="btlDoiSL">
+            <Component class="javax.swing.JButton" name="btnDoiSL">
               <Properties>
                 <Property name="text" type="java.lang.String" value="&#x110;&#x1ed5;i SL"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btlDoiSLActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDoiSLActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
