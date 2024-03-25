@@ -14,7 +14,7 @@ import model.SanPhamCT;
 public interface SanPhamCTImpl {
     List<SanPhamCT> getAll();
     SanPhamCT getRow(int row);
-    void addSanPhamCT(SanPhamCT spct);
+    boolean addSanPhamCT(SanPhamCT spct);
 //    void deleteSanPhamCT(Integer id);
     void updateSanPhamCT(SanPhamCT spct);
     List<SanPhamCT> searchSanPhamCT(String key);
