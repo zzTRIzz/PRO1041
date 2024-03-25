@@ -33,10 +33,11 @@ public class KhuyenMaiService {
             KhuyenMai km = new KhuyenMai();
             km.setMaKM(rs.getString(1));
             km.setTenKM(rs.getString(2));
-            km.setNgayTao(rs.getDate(3));
-            km.setNgayKetThuc(rs.getDate(4));
+//            km.setNgayTao(rs.getDate(3));
+//            km.setNgayKetThuc(rs.getDate(4));
+            km.setNgayTao(rs.getString(3));
+            km.setNgayKetThuc(rs.getString(4));
             km.setLoaiSP(rs.getString(5));
-
             km.setGiamTheoPT(rs.getInt(6));
             km.setTrangThai(rs.getString(7));
             list.add(km);
@@ -62,9 +63,10 @@ public class KhuyenMaiService {
 ////        // Đặt tham số ngày vào câu lệnh SQL
 //      stm.setDate(3, new java.sql.Date(batDau.getTime()));
 //       stm.setDate(4, new java.sql.Date(ketThuc.getTime()));
-     stm.setDate(3, (Date) km.getNgayTao());
-        stm.setDate(4, (Date) km.getNgayKetThuc());
-        
+//     stm.setDate(3, (Date) km.getNgayTao());
+//        stm.setDate(4, (Date) km.getNgayKetThuc());
+        stm.setString(3,  km.getNgayTao());
+        stm.setString(4, km.getNgayKetThuc());
         stm.setInt(5, km.getGiamTheoPT());
         stm.setString(6, km.getTrangThai());
         
@@ -147,5 +149,33 @@ public class KhuyenMaiService {
         }catch(Exception e){
             e.printStackTrace();
         }
+    }
+    public List<KhuyenMai> searchKhuyeMaiTheoMa(String maKM){
+        String sql = "SELECT  maKM, tenKM, giamTheoGia, giamTheoPT, ngayTao, ngayKetThuc, trangThai, mucGiaApDung, maNV\n" +
+"FROM      KhuyenMai\n" +
+"WHERE   (maKM = ?)";
+        list.clear();
+        try{
+            Connection conn = DBconnect.getConnection();
+            PreparedStatement stm = conn.prepareStatement(sql);
+            stm.setString(1,   maKM );
+            ResultSet rs = stm.executeQuery();
+            while(rs.next()){
+                KhuyenMai km = new KhuyenMai();
+                km.setMaKM(rs.getString(1));
+                km.setTenKM(rs.getString(2));
+                km.setGiamTheoGia(rs.getInt(3));
+                km.setGiamTheoPT(rs.getInt(4));
+                km.setNgayTao(rs.getString(5));
+                km.setNgayKetThuc(rs.getString(6));
+                km.setTrangThai(rs.getString(7));
+                km.setMucApDung(rs.getDouble(8));
+                km.setMaNV(rs.getString(9));
+                list.add(km);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return list;
     }
 }

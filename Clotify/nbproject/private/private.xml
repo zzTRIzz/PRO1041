@@ -3,12 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/DuAn1/Pro1041/Clotify/src/gui/admin/Main_admin.java</file>
-            <file>file:/C:/DuAn1/Pro1041/Clotify/src/Interface/SanPhamKMInterface.java</file>
-            <file>file:/C:/DuAn1/Pro1041/Clotify/src/Service/KhuyenMaiService.java</file>
-            <file>file:/C:/DuAn1/Pro1041/Clotify/src/model/SanPhamKM.java</file>
-            <file>file:/C:/DuAn1/Pro1041/Clotify/src/Service/SanPhamKMService.java</file>
-            <file>file:/C:/DuAn1/Pro1041/Clotify/src/gui/admin/TrangKhuyenMai.java</file>
+            <file>file:/D:/Pro1041/Clotify/src/gui/admin/TrangKhuyenMai.java</file>
+            <file>file:/D:/Pro1041/Clotify/src/Service/KhuyenMaiService.java</file>
+            <file>file:/D:/Pro1041/Clotify/src/Interface/SanPhamCTService.java</file>
+            <file>file:/D:/Pro1041/Clotify/src/gui/admin/Main_admin.java</file>
+            <file>file:/D:/Pro1041/Clotify/src/Interface/SanPhamCTimplements.java</file>
+            <file>file:/D:/Pro1041/Clotify/src/Service/SanPhamKMService.java</file>
+            <file>file:/D:/Pro1041/Clotify/src/model/KhuyenMai.java</file>
+            <file>file:/D:/Pro1041/Clotify/src/gui/nhanvien/TrangBanHang.java</file>
+            <file>file:/D:/Pro1041/Clotify/src/Interface/SanPhamKMInterface.java</file>
         </group>
     </open-files>
 </project-private>

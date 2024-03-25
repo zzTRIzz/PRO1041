@@ -11,26 +11,12 @@ import java.util.Date;
  * @author Surface
  */
 public class KhuyenMai {
-    String maKM,tenKM,trangThai,maNV,tenNV,loaiSP;
+    String maKM,tenKM,trangThai,maNV,tenNV,loaiSP,ngayTao,ngayKetThuc;
     int giamTheoGia,giamTheoPT;
     double mucApDung;
-    Date ngayTao,ngayKetThuc;
+//    Date ngayTao,ngayKetThuc;
 
     public KhuyenMai() {
-    }
-
-    public KhuyenMai(String maKM, String tenKM, String trangThai, String maNV, String tenNV, String loaiSP, int giamTheoGia, int giamTheoPT, double mucApDung, Date ngayTao, Date ngayKetThuc) {
-        this.maKM = maKM;
-        this.tenKM = tenKM;
-        this.trangThai = trangThai;
-        this.maNV = maNV;
-        this.tenNV = tenNV;
-        this.loaiSP = loaiSP;
-        this.giamTheoGia = giamTheoGia;
-        this.giamTheoPT = giamTheoPT;
-        this.mucApDung = mucApDung;
-        this.ngayTao = ngayTao;
-        this.ngayKetThuc = ngayKetThuc;
     }
 
     public String getMaKM() {
@@ -81,6 +67,22 @@ public class KhuyenMai {
         this.loaiSP = loaiSP;
     }
 
+    public String getNgayTao() {
+        return ngayTao;
+    }
+
+    public void setNgayTao(String ngayTao) {
+        this.ngayTao = ngayTao;
+    }
+
+    public String getNgayKetThuc() {
+        return ngayKetThuc;
+    }
+
+    public void setNgayKetThuc(String ngayKetThuc) {
+        this.ngayKetThuc = ngayKetThuc;
+    }
+
     public int getGiamTheoGia() {
         return giamTheoGia;
     }
@@ -105,21 +107,20 @@ public class KhuyenMai {
         this.mucApDung = mucApDung;
     }
 
-    public Date getNgayTao() {
-        return ngayTao;
-    }
-
-    public void setNgayTao(Date ngayTao) {
+    public KhuyenMai(String maKM, String tenKM, String trangThai, String maNV, String tenNV, String loaiSP, String ngayTao, String ngayKetThuc, int giamTheoGia, int giamTheoPT, double mucApDung) {
+        this.maKM = maKM;
+        this.tenKM = tenKM;
+        this.trangThai = trangThai;
+        this.maNV = maNV;
+        this.tenNV = tenNV;
+        this.loaiSP = loaiSP;
         this.ngayTao = ngayTao;
-    }
-
-    public Date getNgayKetThuc() {
-        return ngayKetThuc;
-    }
-
-    public void setNgayKetThuc(Date ngayKetThuc) {
         this.ngayKetThuc = ngayKetThuc;
+        this.giamTheoGia = giamTheoGia;
+        this.giamTheoPT = giamTheoPT;
+        this.mucApDung = mucApDung;
     }
 
+    
    
 }
