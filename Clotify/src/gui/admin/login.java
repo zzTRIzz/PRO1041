@@ -4,8 +4,6 @@ package gui.admin;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
-
 import Service.TaiKhoanService;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
@@ -14,6 +12,9 @@ import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import raven.toast.Notifications;
 import gui.nhanvien.Main_NhanVien;
+import java.awt.Font;
+import static java.awt.Font.BOLD;
+import java.util.prefs.Preferences;
 /**
  *
  * @author ADMIN
@@ -30,6 +31,16 @@ public class login extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         Notifications.getInstance().setJFrame(this);
+        init();
+    }
+
+    void init() {
+        lblBackLogin.setVisible(false);
+    }
+    
+    void rememberCheckBoxLogin(){
+        Preferences pres = Preferences.userNodeForPackage(login.class);
+        
     }
 
     /**
@@ -43,15 +54,22 @@ public class login extends javax.swing.JFrame {
 
         txtUser = new javax.swing.JTextField();
         txtPassword = new javax.swing.JPasswordField();
+        lblNhapGmail = new javax.swing.JLabel();
+        lblNhapGmail1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         btnLogin = new javax.swing.JButton();
+        checkBoxRememberAccount = new javax.swing.JCheckBox();
+        lblBackLogin = new javax.swing.JLabel();
+        lblQuenPassword = new javax.swing.JLabel();
+        btnGuiMaOTP = new javax.swing.JButton();
+        btnXacNhanChangePassword = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         kGradientPanel1 = new keeptoo.KGradientPanel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        lblTrangDangNhap = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -95,7 +113,14 @@ public class login extends javax.swing.JFrame {
         });
         getContentPane().add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 300, 40));
 
+        lblNhapGmail.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        getContentPane().add(lblNhapGmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, -1, -1));
+
+        lblNhapGmail1.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        getContentPane().add(lblNhapGmail1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, -1, 20));
+
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnLogin.setBackground(new java.awt.Color(0, 51, 153));
         btnLogin.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
@@ -106,23 +131,57 @@ public class login extends javax.swing.JFrame {
                 btnLoginActionPerformed(evt);
             }
         });
+        jPanel3.add(btnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 38, 344, 49));
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(146, Short.MAX_VALUE))
-        );
+        checkBoxRememberAccount.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        checkBoxRememberAccount.setText("Nhớ tài khoản");
+        checkBoxRememberAccount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxRememberAccountActionPerformed(evt);
+            }
+        });
+        jPanel3.add(checkBoxRememberAccount, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 6, -1, -1));
+
+        lblBackLogin.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        lblBackLogin.setForeground(new java.awt.Color(0, 102, 0));
+        lblBackLogin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblBackLoginMouseClicked(evt);
+            }
+        });
+        jPanel3.add(lblBackLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 190, 30));
+
+        lblQuenPassword.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        lblQuenPassword.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblQuenPassword.setText("Quên mật khẩu ?");
+        lblQuenPassword.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblQuenPasswordMouseClicked(evt);
+            }
+        });
+        jPanel3.add(lblQuenPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(276, 8, -1, -1));
+
+        btnGuiMaOTP.setBackground(new java.awt.Color(0, 51, 153));
+        btnGuiMaOTP.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        btnGuiMaOTP.setForeground(new java.awt.Color(252, 252, 252));
+        btnGuiMaOTP.setText("Xác nhận mã OTP");
+        btnGuiMaOTP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuiMaOTPActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btnGuiMaOTP, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 38, 344, 49));
+
+        btnXacNhanChangePassword.setBackground(new java.awt.Color(0, 153, 0));
+        btnXacNhanChangePassword.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        btnXacNhanChangePassword.setForeground(new java.awt.Color(252, 252, 252));
+        btnXacNhanChangePassword.setText("Xác nhận");
+        btnXacNhanChangePassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXacNhanChangePasswordActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btnXacNhanChangePassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 38, 344, 49));
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 380, 210));
 
@@ -150,50 +209,48 @@ public class login extends javax.swing.JFrame {
         jLabel2.setText("  Thật là tuyệt khi gặp lại bạn.");
         jLabel2.setToolTipText("");
 
-        jLabel3.setFont(new java.awt.Font("Montserrat", 1, 24)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Wellcome back !");
-        jLabel3.setToolTipText("");
-
         jLabel4.setFont(new java.awt.Font("Montserrat Light", 0, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Chúng tôi rất vui mừng khi bạn ở đây");
         jLabel4.setToolTipText("");
 
+        jLabel5.setFont(new java.awt.Font("Montserrat", 1, 48)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Clotify");
+        jLabel5.setToolTipText("");
+
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
         kGradientPanel1Layout.setHorizontalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE))
+                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
-                .addContainerGap(188, Short.MAX_VALUE)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                .addGap(167, 167, 167)
+                .addComponent(jLabel5)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
-                .addGap(208, 208, 208))
+                .addContainerGap(208, Short.MAX_VALUE))
         );
 
         getContentPane().add(kGradientPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 0, 400, 500));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel5.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 102));
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Trang đăng nhập");
+        lblTrangDangNhap.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
+        lblTrangDangNhap.setForeground(new java.awt.Color(0, 0, 102));
+        lblTrangDangNhap.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTrangDangNhap.setText("Trang đăng nhập");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -201,15 +258,15 @@ public class login extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
+                .addComponent(lblTrangDangNhap, javax.swing.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(42, Short.MAX_VALUE)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(34, Short.MAX_VALUE)
+                .addComponent(lblTrangDangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(17, 17, 17))
         );
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 370, 90));
@@ -224,7 +281,7 @@ public class login extends javax.swing.JFrame {
 
     private void txtUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtUserMouseClicked
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_txtUserMouseClicked
 
     private void txtUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserActionPerformed
@@ -239,10 +296,22 @@ public class login extends javax.swing.JFrame {
         String username = txtUser.getText();
         String password = txtPassword.getText();
         boolean truycap = taiKhoanService.dangnhap(username, password);
-        if (truycap) {
-            // Thêm Action vào InputMap và ActionMap của JTextField
-            txtPassword.getInputMap().put(KeyStroke.getKeyStroke("ENTER"), "doEnterAction");
-            dispose();
+        if (username.trim().isEmpty() && password.trim().isEmpty()) {
+            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.BOTTOM_LEFT, "Username và password đang bị trống");
+            return;
+        } else if (username.trim().isEmpty()) {
+            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.BOTTOM_LEFT, "Username đang bị trống");
+            return;
+        } else if (password.trim().isEmpty()) {
+            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.BOTTOM_LEFT, "Password đang bị trống");
+        } else {
+            if (truycap) {
+                // Thêm Action vào InputMap và ActionMap của JTextField
+                txtPassword.getInputMap().put(KeyStroke.getKeyStroke("ENTER"), "doEnterAction");
+                dispose();
+            } else {
+                Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.BOTTOM_LEFT, "Username hoặc password không đúng");
+            }
         }
     }//GEN-LAST:event_txtPasswordActionPerformed
 
@@ -258,18 +327,82 @@ public class login extends javax.swing.JFrame {
         if (username.trim().isEmpty() && password.trim().isEmpty()) {
             Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.BOTTOM_LEFT, "Username và password đang bị trống");
             return;
-        }else if(username.trim().isEmpty()){
+        } else if (username.trim().isEmpty()) {
             Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.BOTTOM_LEFT, "Username đang bị trống");
             return;
-        }else if (password.trim().isEmpty()) {
+        } else if (password.trim().isEmpty()) {
             Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.BOTTOM_LEFT, "Password đang bị trống");
-        }else{
+        } else {
             if (truycap) {
                 dispose();
+            } else {
+                Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.BOTTOM_LEFT, "Username hoặc password không đúng");
             }
         }
-        
+
     }//GEN-LAST:event_btnLoginActionPerformed
+
+    void trangQuenMatKhau() {
+        lblQuenPassword.setVisible(false);
+        lblTrangDangNhap.setFont(new Font("Roboto", WIDTH, 22));
+        lblTrangDangNhap.setText("Quên mật khẩu");
+        lblNhapGmail.setText("Nhập gmail của tài khoản muốn khôi phục");
+        lblNhapGmail1.setText("Nhập mã OTP");
+        lblBackLogin.setText("Quay lại trang đăng nhập");
+        lblBackLogin.setVisible(true);
+        checkBoxRememberAccount.setVisible(false);
+        btnLogin.setVisible(false);
+    }
+
+    void TrangLogin() {
+        lblQuenPassword.setVisible(true);
+        lblTrangDangNhap.setFont(new Font("Verdana", BOLD, 24));
+        lblTrangDangNhap.setText("Trang đăng nhập");
+        lblNhapGmail.setText("");
+        lblNhapGmail1.setText("");
+        lblBackLogin.setText("");
+        lblBackLogin.setVisible(false);
+        checkBoxRememberAccount.setVisible(true);
+        btnLogin.setVisible(true);
+        btnGuiMaOTP.setVisible(true);
+    }
+
+    void trangXacNhanChangePassword() {
+        lblQuenPassword.setVisible(false);
+        lblTrangDangNhap.setFont(new Font("Roboto", WIDTH, 22));
+        lblTrangDangNhap.setText("Thay đổi mật khẩu");
+        lblNhapGmail.setText("Mật khẩu mới");
+        lblNhapGmail1.setText("Nhập lại mật khẩu");
+        lblBackLogin.setText("Quay lại trang đăng nhập");
+        lblBackLogin.setVisible(true);
+        checkBoxRememberAccount.setVisible(false);
+        btnLogin.setVisible(false);
+        btnGuiMaOTP.setVisible(false);
+        btnXacNhanChangePassword.setVisible(true);
+    }
+    private void lblQuenPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQuenPasswordMouseClicked
+        // TODO add your handling code here:
+        trangQuenMatKhau();
+
+    }//GEN-LAST:event_lblQuenPasswordMouseClicked
+
+    private void btnGuiMaOTPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuiMaOTPActionPerformed
+        // TODO add your handling code here:
+        trangXacNhanChangePassword();
+    }//GEN-LAST:event_btnGuiMaOTPActionPerformed
+
+    private void lblBackLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBackLoginMouseClicked
+        // TODO add your handling code here:
+        TrangLogin();
+    }//GEN-LAST:event_lblBackLoginMouseClicked
+
+    private void btnXacNhanChangePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXacNhanChangePasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnXacNhanChangePasswordActionPerformed
+
+    private void checkBoxRememberAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxRememberAccountActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkBoxRememberAccountActionPerformed
 
     /**
      * @param args the command line arguments
@@ -296,10 +429,12 @@ public class login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnGuiMaOTP;
     private javax.swing.JButton btnLogin;
+    private javax.swing.JButton btnXacNhanChangePassword;
+    private javax.swing.JCheckBox checkBoxRememberAccount;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
@@ -307,6 +442,11 @@ public class login extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private keeptoo.KGradientPanel kGradientPanel1;
+    private javax.swing.JLabel lblBackLogin;
+    private javax.swing.JLabel lblNhapGmail;
+    private javax.swing.JLabel lblNhapGmail1;
+    private javax.swing.JLabel lblQuenPassword;
+    private javax.swing.JLabel lblTrangDangNhap;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables

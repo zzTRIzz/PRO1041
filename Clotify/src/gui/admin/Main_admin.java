@@ -120,11 +120,11 @@ public class Main_admin extends javax.swing.JFrame {
         menubar.setPreferredSize(new java.awt.Dimension(90, 900));
         menubar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        menu.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        menu.setFont(new java.awt.Font("Montserrat", 1, 14)); // NOI18N
         menu.setForeground(new java.awt.Color(255, 255, 255));
         menu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         menu.setText("Clotify");
-        menubar.add(menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 650, 160, 18));
+        menubar.add(menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 638, 160, 30));
 
         trang1.setFont(new java.awt.Font("Raleway SemiBold", 1, 13)); // NOI18N
         trang1.setForeground(new java.awt.Color(255, 255, 255));

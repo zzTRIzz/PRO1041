@@ -119,7 +119,7 @@ public class NhanVien {
       
      public Object[]toDataRow(){
         return new Object[]{
-            this.getMaNV(),this.getTenNV(),this.getNgaySinh(),this.getGioiTinh(),this.getDiaChi(),this.getSdt(),this.getTaiKhoan(),this.getMatKhau(),this.getVaiTro(),this.getEmail()
+            this.getMaNV(),this.getTenNV(),this.getGioiTinh(),this.getNgaySinh(),this.getDiaChi(),this.getSdt(),this.getTaiKhoan(),this.getMatKhau(),this.getVaiTro().equals("1")? "Quản lý" : "Nhân Viên",this.getEmail()
         };
     }
     
