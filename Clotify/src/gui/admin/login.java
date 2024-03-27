@@ -14,7 +14,10 @@ import raven.toast.Notifications;
 import gui.nhanvien.Main_NhanVien;
 import java.awt.Font;
 import static java.awt.Font.BOLD;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.prefs.Preferences;
+
 /**
  *
  * @author ADMIN
@@ -29,18 +32,53 @@ public class login extends javax.swing.JFrame {
     //by Tri
     public login() {
         initComponents();
-        setLocationRelativeTo(null);
-        Notifications.getInstance().setJFrame(this);
         init();
+        Notifications.getInstance().setJFrame(this);
+        rememberCheckBoxLogin();
+
+
     }
 
     void init() {
+        setLocationRelativeTo(null);
         lblBackLogin.setVisible(false);
     }
-    
-    void rememberCheckBoxLogin(){
-        Preferences pres = Preferences.userNodeForPackage(login.class);
-        
+
+    Preferences pres = Preferences.userNodeForPackage(login.class);
+
+    void rememberCheckBoxLogin() {  // Ghi nhớ sự kiện : Nhớ tài khoản
+        Boolean saveCheck = pres.getBoolean("checkBoxState", false);
+        checkBoxRememberAccount.setSelected(saveCheck);
+        if (saveCheck) {
+            RememberTextField();
+        }
+        checkBoxRememberAccount.addActionListener((ActionEvent e) -> {
+            boolean isChecked = checkBoxRememberAccount.isSelected();
+            pres.putBoolean("checkBoxState", isChecked);
+
+            if (isChecked) {
+                SuccesRememberLogin();
+            } else {
+                DeleteRememberWrongLogin();
+            }
+        });
+    }
+
+    void RememberTextField() {
+        String saveTextUsername = pres.get("saveUsername", "");
+        String saveTextPassword = pres.get("savePassword", "");
+        txtUser.setText(saveTextUsername);
+        txtPassword.setText(saveTextPassword);
+    }
+
+    void DeleteRememberWrongLogin() {
+        pres.remove("saveUsername");
+        pres.remove("savePassword");
+    }
+
+    void SuccesRememberLogin() {
+        pres.put("saveUsername", txtUser.getText());
+        pres.put("savePassword", txtPassword.getText());
     }
 
     /**
@@ -74,6 +112,11 @@ public class login extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtUser.setBackground(new java.awt.Color(239, 239, 239));
@@ -308,9 +351,13 @@ public class login extends javax.swing.JFrame {
             if (truycap) {
                 // Thêm Action vào InputMap và ActionMap của JTextField
                 txtPassword.getInputMap().put(KeyStroke.getKeyStroke("ENTER"), "doEnterAction");
+                //Ghi nhớ tài khoản đúng
+                SuccesRememberLogin();
                 dispose();
             } else {
                 Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.BOTTOM_LEFT, "Username hoặc password không đúng");
+                //xóa mấy tài khoản sai khỏi nhớ
+                DeleteRememberWrongLogin();
             }
         }
     }//GEN-LAST:event_txtPasswordActionPerformed
@@ -334,9 +381,13 @@ public class login extends javax.swing.JFrame {
             Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.BOTTOM_LEFT, "Password đang bị trống");
         } else {
             if (truycap) {
+                //Ghi nhớ tài khoản đúng để sau chỉ việc ấn login
+                SuccesRememberLogin();
                 dispose();
             } else {
                 Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.BOTTOM_LEFT, "Username hoặc password không đúng");
+                //xóa mấy tài khoản sai khỏi nhớ
+                DeleteRememberWrongLogin();
             }
         }
 
@@ -352,6 +403,14 @@ public class login extends javax.swing.JFrame {
         lblBackLogin.setVisible(true);
         checkBoxRememberAccount.setVisible(false);
         btnLogin.setVisible(false);
+
+//        txtGmail.setVisible(true);
+//        txtUser.setVisible(false);
+//        txtNewPassword.setVisible(false);
+//
+//        txtOTP.setVisible(true);
+//        txtPassword.setVisible(false);
+//        txtNewPasswordAgian.setVisible(false);
     }
 
     void TrangLogin() {
@@ -365,6 +424,16 @@ public class login extends javax.swing.JFrame {
         checkBoxRememberAccount.setVisible(true);
         btnLogin.setVisible(true);
         btnGuiMaOTP.setVisible(true);
+
+//        txtGmail.setVisible(false);
+//        txtUser.setVisible(true);
+//        txtNewPassword.setVisible(false);
+//
+//        txtOTP.setVisible(false);
+//        txtPassword.setVisible(true);
+//        txtNewPasswordAgian.setVisible(false);
+        
+//        txtUser1.setVisible(false);
     }
 
     void trangXacNhanChangePassword() {
@@ -379,6 +448,14 @@ public class login extends javax.swing.JFrame {
         btnLogin.setVisible(false);
         btnGuiMaOTP.setVisible(false);
         btnXacNhanChangePassword.setVisible(true);
+
+//        txtGmail.setVisible(false);
+//        txtUser.setVisible(false);
+//        txtNewPassword.setVisible(true);
+//
+//        txtOTP.setVisible(false);
+//        txtPassword.setVisible(false);
+//        txtNewPasswordAgian.setVisible(true);
     }
     private void lblQuenPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQuenPasswordMouseClicked
         // TODO add your handling code here:
@@ -402,7 +479,13 @@ public class login extends javax.swing.JFrame {
 
     private void checkBoxRememberAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxRememberAccountActionPerformed
         // TODO add your handling code here:
+
     }//GEN-LAST:event_checkBoxRememberAccountActionPerformed
+
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
