@@ -5,6 +5,7 @@
 package model;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -120,7 +121,13 @@ public class KhuyenMai {
         this.giamTheoPT = giamTheoPT;
         this.mucApDung = mucApDung;
     }
-
+// private List<Integer> danhSachIdSP;
+//
+//    // Constructor và các phương thức khác...
+//
+//    public void setDanhSachIdSP(List<Integer> danhSachIdSP) {
+//        this.danhSachIdSP = danhSachIdSP;
+//    }
     
    
 }

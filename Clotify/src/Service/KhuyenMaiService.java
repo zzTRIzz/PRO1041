@@ -121,13 +121,13 @@ public class KhuyenMaiService {
             return null;
         }
     }
-    public void searchTheoLoaiSP(String key){
-        String sql = "SELECT SanPhamCT.idSP, SanPhamCT.maSP, SanPham.tenSP, Size.tenSize, MauSac.tenMauSac, ChatLieu.tenChatLieu, SanPhamCT.giaNhap\n" +
-"FROM   ChatLieu INNER JOIN\n" +
-"             SanPhamCT ON ChatLieu.idChatLieu = SanPhamCT.idChatLieu INNER JOIN\n" +
-"             Size ON SanPhamCT.idSize = Size.idSize INNER JOIN\n" +
-"             MauSac ON SanPhamCT.idMauSac = MauSac.idMauSac INNER JOIN\n" +
-"             SanPham ON SanPhamCT.maSP = SanPham.maSP"
+    public List<SanPhamCT> searchTheoLoaiSP(String key){
+        String sql = "SELECT SanPhamCT.idSP, SanPhamCT.maSP, SanPham.tenSP, Size.tenSize, MauSac.tenMauSac, ChatLieu.tenChatLieu, SanPhamCT.giaNhap\n"
+                + "FROM   ChatLieu INNER JOIN\n"
+                + "             SanPhamCT ON ChatLieu.idChatLieu = SanPhamCT.idChatLieu INNER JOIN\n"
+                + "             Size ON SanPhamCT.idSize = Size.idSize INNER JOIN\n"
+                + "             MauSac ON SanPhamCT.idMauSac = MauSac.idMauSac INNER JOIN\n"
+                + "             SanPham ON SanPhamCT.maSP = SanPham.maSP\n"
                 + "where SanPhamCT.loaiSP like ?";
         listSPCT.clear();
         try{
@@ -149,6 +149,7 @@ public class KhuyenMaiService {
         }catch(Exception e){
             e.printStackTrace();
         }
+        return listSPCT;
     }
     public List<KhuyenMai> searchKhuyeMaiTheoMa(String maKM){
         String sql = "SELECT  maKM, tenKM, giamTheoGia, giamTheoPT, ngayTao, ngayKetThuc, trangThai, mucGiaApDung, maNV\n" +
@@ -178,4 +179,65 @@ public class KhuyenMaiService {
         }
         return list;
     }
+    public List<SanPhamCT> searchTheoKhoangGia(Double giaBatDau, Double giaKetThuc){
+        String sql = " SELECT SanPhamCT.idSP, SanPhamCT.maSP, SanPham.tenSP, Size.tenSize, MauSac.tenMauSac, ChatLieu.tenChatLieu, SanPhamCT.giaNhap\n" +
+"FROM   SanPhamCT INNER JOIN\n" +
+"             SanPham ON SanPhamCT.maSP = SanPham.maSP INNER JOIN\n" +
+"             Size ON SanPhamCT.idSize = Size.idSize INNER JOIN\n" +
+"             MauSac ON SanPhamCT.idMauSac = MauSac.idMauSac INNER JOIN\n" +
+"             ChatLieu ON SanPhamCT.idChatLieu = ChatLieu.idChatLieu\n" +
+"			 where SanPhamCT.giaNhap between ? and ?";
+        listSPCT.clear();
+        try{
+            Connection conn = DBconnect.getConnection();
+            PreparedStatement stm = conn.prepareStatement(sql);
+            stm.setDouble(1, giaBatDau);
+            stm.setDouble(2, giaKetThuc);
+            ResultSet rs = stm.executeQuery();
+            while(rs.next()){
+                SanPhamCT spct = new SanPhamCT();
+                 spct.setIdSP(rs.getInt(1));
+                spct.setMaSP(rs.getString(2));
+                spct.setTenSP(rs.getString(3));
+                spct.setSize(rs.getString(4));
+                spct.setMauSac(rs.getString(5));
+                spct.setChatLieu(rs.getString(6));
+                spct.setGiaBan(rs.getDouble(7));
+                listSPCT.add(spct);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return listSPCT;
+    }
+    public void updateKhuyenMai(KhuyenMai km){
+        String sql = "update KhuyenMai set tenKM = ?,ngayTao = ?, ngayKetThuc=?,giamTheoPT=? where maKM =?";
+        try{
+            Connection conn = DBconnect.getConnection();
+            PreparedStatement stm = conn.prepareStatement(sql);
+            stm.setString(1, km.getTenKM());
+            stm.setString(2, km.getNgayTao());
+            stm.setString(3, km.getNgayKetThuc());
+            stm.setInt(4, km.getGiamTheoPT());
+           
+            stm.executeUpdate();
+            conn.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    public void updateTrangThai(String maKM,String trangThai){
+        String sql = "update KhuyenMai set trangThai =? where maKM = ?";
+        try{
+            Connection conn = DBconnect.getConnection();
+            PreparedStatement stm = conn.prepareStatement(sql);
+            stm.setString(1, trangThai);
+            stm.setString(2, maKM);
+            stm.executeUpdate();
+            conn.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
 }

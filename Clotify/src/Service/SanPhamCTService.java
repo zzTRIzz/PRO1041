@@ -18,6 +18,7 @@ public class SanPhamCTService implements SanPhamCTimplements{
     List<SanPhamCT> listspct = new ArrayList<>();
     @Override
     public List<SanPhamCT> getAll() {
+        listspct.clear();
         String sql = "SELECT SanPhamCT.idSP,SanPhamCT.maSP,tenSP,tenThuongHieu,LoaiSP,tenSize,tenChatLieu,tenMauSac,gia,soLuong, ngayNhap, trangThai \n"
                 + "FROM SanPhamCT INNER JOIN \n"
                 + " SanPham ON SanPham.maSP = SanPhamCT.maSP INNER JOIN \n "

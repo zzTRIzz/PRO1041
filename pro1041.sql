@@ -323,4 +323,13 @@ FROM   ChatLieu INNER JOIN
              Size ON SanPhamCT.idSize = Size.idSize INNER JOIN
              MauSac ON SanPhamCT.idMauSac = MauSac.idMauSac INNER JOIN
              SanPham ON SanPhamCT.maSP = SanPham.maSP
-			 insert into KhuyenMai(maKM,tenKM,ngayTao,ngayKetThuc,giamTheoPT)
+			 SELECT SanPhamCT.idSP, SanPhamCT.maSP, SanPham.tenSP, Size.tenSize, MauSac.tenMauSac, ChatLieu.tenChatLieu, SanPhamCT.giaNhap
+FROM   SanPhamCT INNER JOIN
+             SanPham ON SanPhamCT.maSP = SanPham.maSP INNER JOIN
+             Size ON SanPhamCT.idSize = Size.idSize INNER JOIN
+             MauSac ON SanPhamCT.idMauSac = MauSac.idMauSac INNER JOIN
+             ChatLieu ON SanPhamCT.idChatLieu = ChatLieu.idChatLieu
+			 where SanPhamCT.giaNhap between ? and ?
+			 
+
+			 
