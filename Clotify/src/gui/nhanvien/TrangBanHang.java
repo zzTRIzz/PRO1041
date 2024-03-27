@@ -6,11 +6,10 @@ package gui.nhanvien;
 
 import Interface.HoaDonCTService;
 import Interface.HoaDonService;
-import Interface.SanPhamCTImpl;
 import Service.HoaDonCTImpl;
 import Service.HoaDonImpl;
 import Service.KhachHangService;
-import Service.SanPhamCTService;
+import Service.SanPhamCTImpl;
 import gui.admin.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -20,6 +19,7 @@ import model.HoaDon;
 import model.HoaDonCT;
 import model.KhachHang;
 import model.SanPhamCT;
+import Interface.SanPhamCTService;
 
 /**
  *
@@ -29,7 +29,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
 
     LocalDate thoiGian = LocalDate.now();
     DefaultTableModel defaultTableModel;
-    SanPhamCTImpl svSP = new SanPhamCTService();
+    SanPhamCTService svSP = new SanPhamCTImpl();
     HoaDonService svHd = new HoaDonImpl();
     HoaDonCTService svHDCT = new HoaDonCTImpl();
     KhachHangService svKH = new KhachHangService();

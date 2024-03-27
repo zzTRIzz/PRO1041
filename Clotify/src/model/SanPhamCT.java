@@ -16,6 +16,18 @@ public class SanPhamCT {
     public SanPhamCT() {
     }
 
+    public SanPhamCT(Integer soLuong, Integer idMauSac, Integer idSize, Integer idThuongHieu, Integer idChatLieu, String maSP, String loaiSP, String trangThai, Double giaNhap) {
+        this.soLuong = soLuong;
+        this.idMauSac = idMauSac;
+        this.idSize = idSize;
+        this.idThuongHieu = idThuongHieu;
+        this.idChatLieu = idChatLieu;
+        this.maSP = maSP;
+        this.loaiSP = loaiSP;
+        this.trangThai = trangThai;
+        this.giaNhap = giaNhap;
+    }
+    
     public SanPhamCT(Integer idSP, Integer soLuong, Integer idMauSac, Integer idSize, Integer idThuongHieu, Integer idChatLieu, String maSP, String loaiSP, String tenSP, String mauSac, String size, String thuongHieu, String chatLieu, String ngayNhap, String trangThai, Double giaNhap, Double giaBan) {
         this.idSP = idSP;
         this.soLuong = soLuong;

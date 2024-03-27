@@ -16,6 +16,13 @@ public class LichSuGia {
     public LichSuGia() {
     }
 
+    public LichSuGia(int idSP, double giaBan, String ngayBatDau, String ngayKetThuc) {
+        this.idSP = idSP;
+        this.giaBan = giaBan;
+        this.ngayBatDau = ngayBatDau;
+        this.ngayKetThuc = ngayKetThuc;
+    }
+    
     public LichSuGia(int idLS, int idSP, double giaNhap, double giaBan, String ngayBatDau, String ngayKetThuc, String tenSP, String mauSac, String chatLieu, String thuongHieu, String size) {
         this.idLS = idLS;
         this.idSP = idSP;

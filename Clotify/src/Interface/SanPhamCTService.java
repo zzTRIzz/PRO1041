@@ -11,12 +11,12 @@ import model.SanPhamCT;
  *
  * @author ZznamnhizZ
  */
-public interface SanPhamCTImpl {
+public interface SanPhamCTService {
     List<SanPhamCT> getAll();
     SanPhamCT getRow(int row);
     void addSanPhamCT(SanPhamCT spct);
-//    void deleteSanPhamCT(Integer id);
-    void updateSanPhamCT(SanPhamCT spct);
-    List<SanPhamCT> searchSanPhamCT(String key);
+    void updateSanPhamCT(int soLuong, int idSP);
     void updateSanPhamCTSauMua(int idSPCT,int soLuongCon);
+    List<SanPhamCT> searchID(String maSP,String loaiSP,int idTH,int idMS,int idSize,int idCL);
+    List<SanPhamCT> searchSP(String key);
 }

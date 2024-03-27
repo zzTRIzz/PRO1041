@@ -30,6 +30,7 @@ public class Main_admin extends javax.swing.JFrame {
 
     private void init() {
         setLocationRelativeTo(null);
+        trang1();
     }
 
     void trang1() {
