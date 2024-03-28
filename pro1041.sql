@@ -1,4 +1,4 @@
-﻿create database PRO1041;
+﻿create drop database PRO1041;
 go 
 use PRO1041
 go
@@ -18,6 +18,7 @@ create table Voucher(
 maVoucher varchar(20) primary key,
 tenVoucher nvarchar(50) not null,
 dkApDung money not null,
+giamTheoGia money not null,
 ghiChu nvarchar(50)
 );
 alter table Voucher add maNV varchar(20) references NhanVien(maNV);
@@ -330,6 +331,7 @@ FROM   SanPhamCT INNER JOIN
              MauSac ON SanPhamCT.idMauSac = MauSac.idMauSac INNER JOIN
              ChatLieu ON SanPhamCT.idChatLieu = ChatLieu.idChatLieu
 			 where SanPhamCT.giaNhap between ? and ?
-			 
+			 select * from SanPhamKM
+			 SELECT * FROM KhuyenMai
 
 			 
