@@ -52,12 +52,12 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
         for (SanPhamCT spct : svSP.getAll()) {
             defaultTableModel.addRow(new Object[]{
                 spct.getIdSP(),
-                spct.getMaSP(),
+//                spct.getMaSP(),
                 spct.getTenSP(),
-                spct.getThuongHieu(),
-                spct.getSize(),
-                spct.getChatLieu(),
-                spct.getMauSac(),
+                spct.getTenTH(),
+                spct.getTenSize(),
+                spct.getTenCL(),
+                spct.getTenMS(),
                 spct.getGiaBan(),
                 spct.getSoLuong(),
                 spct.getTrangThai()
@@ -265,17 +265,17 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
 
         tblSP.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Mã SP", "Tên SP", "Thương hiệu", "Size", "Chất liệu", "Màu Sắc", "Giá bán", "Số lượng", "Trạng thái"
+                "ID", "Tên SP", "Thương hiệu", "Size", "Chất liệu", "Màu Sắc", "Giá bán", "Số lượng", "Trạng thái"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true, false, true, true, true
+                false, false, false, false, true, false, true, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -540,7 +540,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
                 if (sanPhamCT.getIdSP().equals(idSP)) {
                     int soLuongTon = sanPhamCT.getSoLuong();
                     int soLuongMoi = soLuongMua + soLuongTon;
-                    svSP.updateSanPhamCTSauMua(idSP, soLuongMoi);
+                    svSP.updateSanPhamCT(idSP, soLuongMoi);
                 }
             }
             loadSanPham();
@@ -612,7 +612,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
                             System.out.println("Số lượng đã nhập: " + soLuong);
                             soLuongCon = soLuongTonTai - soLuong;
                             System.out.println("So luong con:" + soLuongCon);
-                            svSP.updateSanPhamCTSauMua(idSP, soLuongCon);
+                            svSP.updateSanPhamCT(idSP, soLuongCon);
 
                             double phanTramDouble = Double.valueOf(phanTramKM);
                             tongTien = soLuong * giaSP * (1 - phanTramDouble / 100);
@@ -780,7 +780,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
                                 if (sanPhamCT.getIdSP().equals(idSP)) {
                                     int soLuongTon = sanPhamCT.getSoLuong();
                                     int soLuongMoi = soLuongMua - soLuongDoi + soLuongTon;
-                                    svSP.updateSanPhamCTSauMua(idSP, soLuongMoi);
+                                    svSP.updateSanPhamCT(idSP, soLuongMoi);
                                 }
                             }
                         } else if (soLuongDoi > soLuongMua) {
@@ -792,7 +792,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
                                 if (sanPhamCT.getIdSP().equals(idSP)) {
                                     int soLuongTon = sanPhamCT.getSoLuong();
                                     int soLuongMoi = soLuongTon - (soLuongDoi - soLuongMua);
-                                    svSP.updateSanPhamCTSauMua(idSP, soLuongMoi);
+                                    svSP.updateSanPhamCT(idSP, soLuongMoi);
                                 }
                             }
                         }

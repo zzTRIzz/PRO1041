@@ -60,5 +60,35 @@ public class SanPhamImpl implements SanPhamService{
         }
         return listSanPham;
     }
+
+    @Override
+    public List<SanPham> getSPAll() {
+          listSanPham.clear();
+        try {
+            String sql="SELECT  SanPham.maSP, SanPham.tenSP, SanPham.ngayNhap, NhanVien.tenNV\n" +
+"FROM      SanPham INNER JOIN\n" +
+"                 NhanVien ON SanPham.maNV = NhanVien.maNV";
+            Connection conn =(Connection) DBconnect.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs =ps.executeQuery();
+            while (rs.next()) {                
+                SanPham sp =new SanPham();
+                sp.setMaSP(rs.getString(1));
+                sp.setTenSP(rs.getString(2));
+                sp.setNgayNhap(rs.getString(3));
+                sp.setTenNV(rs.getString(4));
+                listSanPham.add(sp);
+            }
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listSanPham;
+    }
+
+    @Override
+    public SanPham getRow(int row) {
+        return listSanPham.get(row);
+    }
     
 }

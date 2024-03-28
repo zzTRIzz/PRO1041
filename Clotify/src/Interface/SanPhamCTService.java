@@ -15,8 +15,9 @@ public interface SanPhamCTService {
     List<SanPhamCT> getAll();
     SanPhamCT getRow(int row);
     void addSanPhamCT(SanPhamCT spct);
-    void updateSanPhamCT(int soLuong, int idSP);
-    void updateSanPhamCTSauMua(int idSPCT,int soLuongCon);
+//    void updateSanPhamCT(int soLuong, int idSP);
+    void updateSanPhamCT(int idSPCT,int soLuongCon);
     List<SanPhamCT> searchID(String maSP,String loaiSP,int idTH,int idMS,int idSize,int idCL);
-    List<SanPhamCT> searchSP(String key);
+    List<SanPhamCT> searchSPCT(String key);
+    void upDateTrangThai(String trangThai,int idSP);
 }

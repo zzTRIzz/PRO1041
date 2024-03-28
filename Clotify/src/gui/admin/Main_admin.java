@@ -26,11 +26,12 @@ public class Main_admin extends javax.swing.JFrame {
     public Main_admin() {
         initComponents();
         init();
+        trang1();
     }
 
     private void init() {
         setLocationRelativeTo(null);
-        trang1();
+//        trang1();
     }
 
     void trang1() {

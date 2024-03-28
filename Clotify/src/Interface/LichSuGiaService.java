@@ -16,4 +16,6 @@ public interface LichSuGiaService {
     
     void addLSGia(LichSuGia lsg);
     List<LichSuGia> listLSNull();
+    List<LichSuGia> getAllLSG();
+    void upDateLSG(String ngayKetThuc,int idLS);
 }

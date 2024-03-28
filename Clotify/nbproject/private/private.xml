@@ -3,20 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Pro1041/Clotify/src/Service/LichSuGiaImpl.java</file>
-            <file>file:/D:/Pro1041/Clotify/src/Interface/LichSuGiaService.java</file>
-            <file>file:/D:/Pro1041/Clotify/src/Service/HoaDonImpl.java</file>
-            <file>file:/D:/Pro1041/Clotify/src/gui/nhanvien/TrangBanHang.java</file>
-            <file>file:/D:/Pro1041/Clotify/src/Service/SanPhamImpl.java</file>
-            <file>file:/D:/Pro1041/Clotify/src/Service/HoaDonCTImpl.java</file>
-            <file>file:/D:/Pro1041/Clotify/src/model/LichSuGia.java</file>
             <file>file:/D:/Pro1041/Clotify/src/Interface/SanPhamService.java</file>
             <file>file:/D:/Pro1041/Clotify/src/gui/admin/TrangSP.java</file>
             <file>file:/D:/Pro1041/Clotify/src/Interface/SanPhamCTService.java</file>
-            <file>file:/D:/Pro1041/Clotify/src/Service/KhachHangService.java</file>
+            <file>file:/D:/Pro1041/Clotify/src/gui/admin/SanPhanAnDialog.java</file>
             <file>file:/D:/Pro1041/Clotify/src/gui/admin/Main_admin.java</file>
+            <file>file:/D:/Pro1041/Clotify/src/gui/nhanvien/TrangKhachHang.java</file>
+            <file>file:/D:/Pro1041/Clotify/src/model/SanPham.java</file>
             <file>file:/D:/Pro1041/Clotify/src/model/SanPhamCT.java</file>
             <file>file:/D:/Pro1041/Clotify/src/Service/SanPhamCTImpl.java</file>
+            <file>file:/D:/Pro1041/Clotify/src/gui/admin/LichSuGiaDialog.java</file>
+            <file>file:/D:/Pro1041/Clotify/src/Service/SanPhamImpl.java</file>
         </group>
     </open-files>
 </project-private>

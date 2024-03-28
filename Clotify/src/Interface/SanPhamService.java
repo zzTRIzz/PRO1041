@@ -12,6 +12,9 @@ import model.SanPham;
  * @author Ngo Nhan
  */
 public interface SanPhamService {
+    
     void addSanPham(SanPham sp);
     List<SanPham> searchSanPham(String maSP);
+    List<SanPham> getSPAll();
+    SanPham getRow(int row);
 }
