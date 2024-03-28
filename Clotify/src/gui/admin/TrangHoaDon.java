@@ -4,9 +4,15 @@
  */
 package gui.admin;
 
-
-
-
+import Interface.HoaDonCTService;
+import Interface.HoaDonService;
+import Service.HoaDonCTImpl;
+import Service.HoaDonImpl;
+import java.util.Date;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.HoaDon;
+import model.HoaDonCT;
 
 /**
  *
@@ -14,12 +20,65 @@ package gui.admin;
  */
 public class TrangHoaDon extends javax.swing.JInternalFrame {
 
+    DefaultTableModel model;
+    HoaDonService svHD = new HoaDonImpl();
+    HoaDonCTService svHDCT = new HoaDonCTImpl();
+
     /**
      * Creates new form Trang0
      */
     public TrangHoaDon() {
         initComponents();
         ui_custom.deleteTitle(this);
+        model = (DefaultTableModel) tbHoaDon.getModel();
+        loadDataHD();
+    }
+
+    void loadDataHD() {
+        model.setRowCount(0);
+        for (HoaDon hd : svHD.getHoaDonAllAdmin()) {
+            Object[] row = new Object[]{
+                hd.getIdHD(),
+                hd.getMaHD(),
+                hd.getNgayTao(),
+                hd.getMaNV(),
+                hd.getTrangThai()
+            };
+            model.addRow(row);
+        }
+    }
+
+    void loadDataHDCT(int idHD) {
+        DefaultTableModel modelCTHD = (DefaultTableModel) tbHDCT.getModel();
+        modelCTHD.setRowCount(0);
+        for (HoaDonCT hdct : svHDCT.getHDCTAllAdmin(idHD)) {
+            modelCTHD.addRow(new Object[]{
+                hdct.getIdHoaDonCT(),
+                hdct.getMaHD(),
+                hdct.getMaNV(),
+                hdct.getNgayTao(),
+                hdct.getTenKH(),
+                hdct.getCtMaSP(),
+                hdct.getTenSP(),
+                hdct.getSoLuongMua(),
+                hdct.getTongTien()
+            });
+        }
+    }
+
+    void setForm(HoaDon hd) {
+        String tt = hd.getTrangThai();
+        if ("Đã thanh toán".equals(tt)) {
+            rdDaThanhToan.setSelected(true);
+        } else {
+            rdChuaThanhToan.setSelected(true);
+        }
+    }
+
+    HoaDon getForm() {
+        HoaDon hd = new HoaDon();
+        hd.setTrangThai(rdDaThanhToan.isSelected() ? "Đã thanh toán" : "Chưa thanh toán");
+        return hd;
     }
 
     /**
@@ -31,22 +90,33 @@ public class TrangHoaDon extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         HoaDon = new javax.swing.JPanel();
-        jLabel13 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
+        txtSearch = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         txtNgayBatDau = new com.toedter.calendar.JDateChooser();
-        txtNgayBatDau1 = new com.toedter.calendar.JDateChooser();
+        txtNgayKetThuc = new com.toedter.calendar.JDateChooser();
         jScrollPane9 = new javax.swing.JScrollPane();
-        tblHoaDon1 = new javax.swing.JTable();
+        tbHoaDon = new javax.swing.JTable();
         jScrollPane8 = new javax.swing.JScrollPane();
-        tblChiTietHoaDon = new javax.swing.JTable();
-        jRadioButton10 = new javax.swing.JRadioButton();
-        jRadioButton11 = new javax.swing.JRadioButton();
-        jPanel5 = new javax.swing.JPanel();
-        jPanel24 = new javax.swing.JPanel();
+        tbHDCT = new javax.swing.JTable();
+        rdDaThanhToan = new javax.swing.JRadioButton();
+        rdChuaThanhToan = new javax.swing.JRadioButton();
+        btSearch = new javax.swing.JButton();
+        btSearchDay = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+
+        jButton1.setText("jButton1");
+
+        jButton2.setText("jButton2");
+
+        jButton3.setText("jButton3");
 
         setBackground(new java.awt.Color(153, 255, 153));
         setBorder(null);
@@ -61,13 +131,17 @@ public class TrangHoaDon extends javax.swing.JInternalFrame {
         jPanel1.setBackground(new java.awt.Color(246, 246, 246));
         jPanel1.setPreferredSize(new java.awt.Dimension(1140, 700));
 
-        jLabel13.setText("Tìm kiếm");
+        txtSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSearchActionPerformed(evt);
+            }
+        });
 
         jLabel14.setText("Bắt đầu ");
 
         jLabel15.setText("Kết thúc");
 
-        tblHoaDon1.setModel(new javax.swing.table.DefaultTableModel(
+        tbHoaDon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -75,7 +149,7 @@ public class TrangHoaDon extends javax.swing.JInternalFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "STT", "Mã HĐ", "Ngày Tạo", "Tên NV", "Trạng Thái"
+                "STT", "Mã HĐ", "Ngày Tạo", "Mã NV", "Trạng Thái"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -86,130 +160,118 @@ public class TrangHoaDon extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        tblHoaDon1.addMouseListener(new java.awt.event.MouseAdapter() {
+        tbHoaDon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblHoaDon1MouseClicked(evt);
+                tbHoaDonMouseClicked(evt);
             }
         });
-        jScrollPane9.setViewportView(tblHoaDon1);
+        jScrollPane9.setViewportView(tbHoaDon);
 
-        tblChiTietHoaDon.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
-        tblChiTietHoaDon.setModel(new javax.swing.table.DefaultTableModel(
+        tbHDCT.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        tbHDCT.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "STT", "ID", "Mã hóa đơn", "Tên NV", "Ngày tạo", "ID KH", "Mã SP", "Tên SP", "Tổng SL Mua", "Màu sắc", "Tổng tiền"
+                "STT", "Mã hóa đơn", "Tên NV", "Ngày tạo", "Tên KH", "Mã SP", "Tên SP", "Tổng SL Mua", "Tổng tiền"
             }
         ));
-        jScrollPane8.setViewportView(tblChiTietHoaDon);
+        jScrollPane8.setViewportView(tbHDCT);
 
-        jRadioButton10.setText("Đã thanh toán");
-        jRadioButton10.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(rdDaThanhToan);
+        rdDaThanhToan.setText("Đã thanh toán");
+        rdDaThanhToan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton10ActionPerformed(evt);
+                rdDaThanhToanActionPerformed(evt);
             }
         });
 
-        jRadioButton11.setText("Đã hủy");
+        buttonGroup1.add(rdChuaThanhToan);
+        rdChuaThanhToan.setText("Chưa thanh toán");
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Hóa Đơn", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(255, 102, 102))); // NOI18N
+        btSearch.setText("Tìm Mã");
+        btSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btSearchMouseClicked(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 908, Short.MAX_VALUE)
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 245, Short.MAX_VALUE)
-        );
+        btSearchDay.setText("Search");
+        btSearchDay.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btSearchDayMouseClicked(evt);
+            }
+        });
 
-        jPanel24.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Hóa đơn chi tiết", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(255, 102, 102))); // NOI18N
+        jLabel1.setText("Hóa đơn");
 
-        javax.swing.GroupLayout jPanel24Layout = new javax.swing.GroupLayout(jPanel24);
-        jPanel24.setLayout(jPanel24Layout);
-        jPanel24Layout.setHorizontalGroup(
-            jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 907, Short.MAX_VALUE)
-        );
-        jPanel24Layout.setVerticalGroup(
-            jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 189, Short.MAX_VALUE)
-        );
+        jLabel2.setText("Chi tiết hóa đơn");
 
         javax.swing.GroupLayout HoaDonLayout = new javax.swing.GroupLayout(HoaDon);
         HoaDon.setLayout(HoaDonLayout);
         HoaDonLayout.setHorizontalGroup(
             HoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(HoaDonLayout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addGroup(HoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(HoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(HoaDonLayout.createSequentialGroup()
-                        .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(btSearch)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel13)
-                        .addGap(33, 33, 33)
+                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
                         .addComponent(jLabel14)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtNgayBatDau, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
-                        .addComponent(jLabel15)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtNgayBatDau1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtNgayBatDau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jRadioButton10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                        .addComponent(jRadioButton11))
-                    .addComponent(jScrollPane8)
-                    .addComponent(jScrollPane9))
-                .addContainerGap(46, Short.MAX_VALUE))
-            .addGroup(HoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HoaDonLayout.createSequentialGroup()
-                    .addContainerGap(26, Short.MAX_VALUE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap()))
-            .addGroup(HoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HoaDonLayout.createSequentialGroup()
-                    .addContainerGap(27, Short.MAX_VALUE)
-                    .addComponent(jPanel24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap()))
+                        .addComponent(jLabel15)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtNgayKetThuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                        .addComponent(btSearchDay)
+                        .addGap(18, 18, 18)
+                        .addComponent(rdDaThanhToan)
+                        .addGap(18, 18, 18)
+                        .addComponent(rdChuaThanhToan))
+                    .addGroup(HoaDonLayout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addGroup(HoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 813, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane8, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
         );
         HoaDonLayout.setVerticalGroup(
             HoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(HoaDonLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addGap(18, 18, 18)
                 .addGroup(HoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(HoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(txtNgayBatDau1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(HoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel13)
-                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel14)
-                            .addComponent(jLabel15))
-                        .addComponent(txtNgayBatDau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btSearch))
+                        .addGroup(HoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel15)
+                            .addComponent(txtNgayBatDau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNgayKetThuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(HoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jRadioButton10)
-                        .addComponent(jRadioButton11)))
-                .addGap(59, 59, 59)
+                        .addComponent(rdDaThanhToan)
+                        .addComponent(rdChuaThanhToan)
+                        .addComponent(btSearchDay)))
+                .addGap(36, 36, 36)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(55, 55, 55))
-            .addGroup(HoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HoaDonLayout.createSequentialGroup()
-                    .addContainerGap(77, Short.MAX_VALUE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(277, Short.MAX_VALUE)))
-            .addGroup(HoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HoaDonLayout.createSequentialGroup()
-                    .addContainerGap(371, Short.MAX_VALUE)
-                    .addComponent(jPanel24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(39, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -219,14 +281,14 @@ public class TrangHoaDon extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(94, 94, 94)
                 .addComponent(HoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(96, Short.MAX_VALUE))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addComponent(HoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -234,31 +296,99 @@ public class TrangHoaDon extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tblHoaDon1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDon1MouseClicked
+    private void tbHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbHoaDonMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_tblHoaDon1MouseClicked
+        int row = tbHoaDon.getSelectedRow();
 
-    private void jRadioButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton10ActionPerformed
+        if (row >= 0) {
+            setForm(svHD.getRowHD(row));
+        }
+
+        if (row > 0) {
+
+            HoaDon hd = svHD.getRowHD(row);
+            int idHD = hd.getIdHD();
+            loadDataHDCT(idHD);
+        }
+    }//GEN-LAST:event_tbHoaDonMouseClicked
+
+    private void rdDaThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdDaThanhToanActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton10ActionPerformed
+    }//GEN-LAST:event_rdDaThanhToanActionPerformed
+
+    private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSearchActionPerformed
+
+    private void btSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btSearchMouseClicked
+        // TODO add your handling code here:
+        String key = txtSearch.getText();
+        DefaultTableModel modelsearch = (DefaultTableModel) tbHoaDon.getModel();
+        modelsearch.setRowCount(0);
+        for (HoaDon hoaDon : svHD.Search(key)) {
+            modelsearch.addRow(new Object[]{
+                hoaDon.getIdHD(),
+                hoaDon.getMaHD(),
+                hoaDon.getNgayTao(),
+                hoaDon.getMaNV(),
+                hoaDon.getTrangThai()
+            });
+        }
+    }//GEN-LAST:event_btSearchMouseClicked
+
+    private void btSearchDayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btSearchDayMouseClicked
+        // TODO add your handling code here:
+        Date batDau = txtNgayBatDau.getDate();
+        Date ketThuc = txtNgayKetThuc.getDate();
+
+        if (batDau == null) {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn ngày bắt đầu ", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else if (ketThuc == null) {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn ngày kết thúc ", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (ketThuc.before(batDau)) {
+            JOptionPane.showMessageDialog(null, "Ngày kết thúc không thể trước ngày bắt đầu.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        DefaultTableModel modelSearch = (DefaultTableModel) tbHoaDon.getModel();
+        modelSearch.setRowCount(0);
+        for (HoaDon hoaDon : svHD.SearchTime(batDau, ketThuc)) {
+            modelSearch.addRow(new Object[]{
+                hoaDon.getIdHD(),
+                hoaDon.getMaHD(),
+                hoaDon.getNgayTao(),
+                hoaDon.getMaNV(),
+                hoaDon.getTrangThai()
+            });
+        }
+    }//GEN-LAST:event_btSearchDayMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel HoaDon;
-    private javax.swing.JLabel jLabel13;
+    private javax.swing.JButton btSearch;
+    private javax.swing.JButton btSearchDay;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel24;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JRadioButton jRadioButton10;
-    private javax.swing.JRadioButton jRadioButton11;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTable tblChiTietHoaDon;
-    private javax.swing.JTable tblHoaDon1;
+    private javax.swing.JRadioButton rdChuaThanhToan;
+    private javax.swing.JRadioButton rdDaThanhToan;
+    private javax.swing.JTable tbHDCT;
+    private javax.swing.JTable tbHoaDon;
     private com.toedter.calendar.JDateChooser txtNgayBatDau;
-    private com.toedter.calendar.JDateChooser txtNgayBatDau1;
+    private com.toedter.calendar.JDateChooser txtNgayKetThuc;
+    private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
 }

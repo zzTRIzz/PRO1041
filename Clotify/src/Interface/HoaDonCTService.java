@@ -19,4 +19,6 @@ public interface HoaDonCTService {
     void gopSanPhamTonTai(int idHDCT,int soLuongMua,double tongTien);
     HoaDonCT getRowHDCT(int row);
     void deleteHDCT(int idHDCT);
+    
+    List<HoaDonCT> getHDCTAllAdmin(int idHD);
 }
