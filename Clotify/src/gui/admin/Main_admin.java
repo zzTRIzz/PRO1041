@@ -4,15 +4,13 @@
  */
 package gui.admin;
 
-
-
-
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.intellijthemes.FlatLightFlatIJTheme;
 import java.util.Locale;
 import javax.swing.*;
+
 /**
  *
  * @author ADMIN
@@ -22,7 +20,6 @@ public class Main_admin extends javax.swing.JFrame {
     /**
      * Creates new form Main
      */
-    
     public Main_admin() {
         initComponents();
         init();
@@ -54,21 +51,20 @@ public class Main_admin extends javax.swing.JFrame {
         TrangHoaDon trang3 = new TrangHoaDon();
         DesktopPane.add(trang3).setVisible(true);
     }
-    
+
     void trang4() {
         System.out.println("Truy cap menu : 4");
         ui_custom.disposeAllFrame(DesktopPane);
-        TrangHoaDon trang4 = new TrangHoaDon();
+        TrangKhuyenMai trang4 = new TrangKhuyenMai();
         DesktopPane.add(trang4).setVisible(true);
     }
+
     void trang5() {
         System.out.println("Truy cap menu : 5");
         ui_custom.disposeAllFrame(DesktopPane);
         TrangHoaDon trang5 = new TrangHoaDon();
         DesktopPane.add(trang5).setVisible(true);
     }
-    
-
 
     /**
      * This method is called from within the constructor to initialize the form.

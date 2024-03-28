@@ -4,9 +4,11 @@
  */
 package gui.nhanvien;
 
-
+import Interface.HoaDonService;
+import Service.HoaDonImpl;
 import gui.admin.*;
-
+import javax.swing.table.DefaultTableModel;
+import model.HoaDon;
 
 /**
  *
@@ -14,12 +16,36 @@ import gui.admin.*;
  */
 public class TrangBanHang extends javax.swing.JInternalFrame {
 
+    DefaultTableModel model;
+    HoaDonService svHd = new HoaDonImpl();
+    
     /**
      * Creates new form Trang0
      */
     public TrangBanHang() {
         initComponents();
         ui_custom.deleteTitle(this);
+        model = (DefaultTableModel) tblHoaDon.getModel();
+        loadDataHoaDon();
+        loadDataSP();
+    }
+
+    void loadDataHoaDon() {
+        model.setRowCount(0);
+        for (HoaDon hd : svHd.getHoaDonAll()) {
+            Object[] row = new Object[]{
+                hd.getIdHD(),
+                hd.getMaHD(),
+                hd.getNgayTao(),
+                hd.getMaNV(),
+                hd.getTrangThai()
+            };
+            model.addRow(row);
+        }
+    }
+    
+    void loadDataSP(){
+        
     }
 
     /**
@@ -41,7 +67,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
         tblHoaDon = new javax.swing.JTable();
         jPanel11 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        tblSP = new javax.swing.JTable();
+        tblSPBH = new javax.swing.JTable();
         jPanel12 = new javax.swing.JPanel();
         jPanel13 = new javax.swing.JPanel();
         jTextField10 = new javax.swing.JTextField();
@@ -175,7 +201,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
 
         jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Sản Phẩm", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(20, 70, 128))); // NOI18N
 
-        tblSP.setModel(new javax.swing.table.DefaultTableModel(
+        tblSPBH.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -194,12 +220,12 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        tblSP.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblSPBH.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblSPMouseClicked(evt);
+                tblSPBHMouseClicked(evt);
             }
         });
-        jScrollPane4.setViewportView(tblSP);
+        jScrollPane4.setViewportView(tblSPBH);
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -417,10 +443,10 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_tblHoaDonMouseClicked
 
-    private void tblSPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSPMouseClicked
+    private void tblSPBHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSPBHMouseClicked
         // TODO add your handling code here:
 
-    }//GEN-LAST:event_tblSPMouseClicked
+    }//GEN-LAST:event_tblSPBHMouseClicked
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
@@ -461,6 +487,6 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextField9;
     private javax.swing.JTable tblGioHang;
     private javax.swing.JTable tblHoaDon;
-    private javax.swing.JTable tblSP;
+    private javax.swing.JTable tblSPBH;
     // End of variables declaration//GEN-END:variables
 }

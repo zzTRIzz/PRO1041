@@ -59,6 +59,7 @@ public class TrangKhachHang extends javax.swing.JInternalFrame {
                          });
                      }
     }
+    
     KhachHang getForm(){
         KhachHang kh = new KhachHang();
         kh.setTenKH(txtTenKH.getText());
@@ -73,6 +74,7 @@ public class TrangKhachHang extends javax.swing.JInternalFrame {
         kh.setGioiTinh(gioiTinh);
         return kh;
     }
+    
     void setForm(KhachHang kh){
         txtTenKH.setText(kh.getTenKH());
         txtSDT.setText(kh.getSdt());

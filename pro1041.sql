@@ -82,6 +82,8 @@ CREATE TABLE HoaDon (
     maVoucher VARCHAR(20) REFERENCES Voucher(maVoucher),
     trangThai NVARCHAR(50)
 );
+select * from HoaDon
+select * from KhachHang
 create table SanPhamCT(
 idSP int identity(1,1) primary key,
 maSP varchar(20) references SanPham(maSP),
@@ -113,6 +115,15 @@ idHD int references HoaDon(idHD),
 soLuongMua int not null,
 tongTien money,
 );
+select * from MauSac
+select * from ChatLieu
+select * from Size
+select * from SanPhamCT
+select * from SanPham
+select * from HoaDonChiTiet
+select * from HoaDon
+select * from KhachHang
+select * from Voucher
 delete from NhanVien;
 delete from Voucher;
 delete from KhachHang;

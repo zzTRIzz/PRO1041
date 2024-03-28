@@ -5,6 +5,7 @@
 package Interface;
 import java.util.List;
 import model.HoaDon;
+import java.util.Date;
 /**
  *
  * @author Surface
@@ -12,4 +13,6 @@ import model.HoaDon;
 public interface HoaDonService {
     List<HoaDon> getHoaDonAll();
     HoaDon getRowHD(int row);
+    List<HoaDon> Search(String key);
+    List<HoaDon> SearchTime(java.util.Date batDau,java.util.Date ketThuc);
 }
