@@ -4,14 +4,9 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/FPT%20Poly%20Ha%20Noi/PRO1041/Clotify/src/Service/TaiKhoanService.java</file>
-            <file>file:/D:/FPT%20Poly%20Ha%20Noi/PRO1041/Clotify/src/Service/NhanVienService.java</file>
-            <file>file:/D:/FPT%20Poly%20Ha%20Noi/PRO1041/Clotify/src/gui/admin/TrangSP.java</file>
-            <file>file:/D:/FPT%20Poly%20Ha%20Noi/PRO1041/Clotify/src/Service/KhuyenMaiService.java</file>
-            <file>file:/D:/FPT%20Poly%20Ha%20Noi/PRO1041/Clotify/src/Service/KhachHangService.java</file>
+            <file>file:/D:/FPT%20Poly%20Ha%20Noi/PRO1041/Clotify/src/gui/nhanvien/Main_NhanVien.java</file>
             <file>file:/D:/FPT%20Poly%20Ha%20Noi/PRO1041/Clotify/src/gui/admin/Main_admin.java</file>
             <file>file:/D:/FPT%20Poly%20Ha%20Noi/PRO1041/Clotify/src/gui/admin/login.java</file>
-            <file>file:/D:/FPT%20Poly%20Ha%20Noi/PRO1041/Clotify/src/gui/admin/TrangNhanVien.java</file>
-            <file>file:/D:/FPT%20Poly%20Ha%20Noi/PRO1041/Clotify/src/Service/SanPhamCTService.java</file>
         </group>
     </open-files>
 </project-private>
