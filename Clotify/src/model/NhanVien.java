@@ -10,7 +10,9 @@ package model;
  */
 public class NhanVien {
     String  maNV,vaiTro;
+
     String tenNV, ngaySinh,gioiTinh,diaChi,sdt,taiKhoan,matKhau, email;
+
 
     public NhanVien() {
     }
@@ -119,6 +121,7 @@ public class NhanVien {
      public Object[]toDataRow(){
         return new Object[]{
             this.getMaNV(),this.getTenNV(),this.getNgaySinh(),this.getGioiTinh(),this.getDiaChi(),this.getSdt(),this.getTaiKhoan(),this.getMatKhau(),this.getVaiTro().equals("1") ?"Quan ly" : "Nhan Vien",this.getEmail()
+
         };
     }
     
