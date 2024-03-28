@@ -84,7 +84,8 @@ public class TrangSP extends javax.swing.JInternalFrame {
                 spct.getSoLuong(),
                 spct.getGiaNhap(),
                 spct.getGiaBan(),
-                spct.getTrangThai()
+                spct.getTrangThai(),
+                
             };
             model.addRow(row);
         }
@@ -940,7 +941,7 @@ public class TrangSP extends javax.swing.JInternalFrame {
             svSP.addSanPham(new SanPham(maSP, tenSP, ngayNhap, maNV));
             loadDataSP();
         }
-        if (row >= 0) {
+        
             int idCL = cboChatLieu.getSelectedIndex();
             System.out.println(idCL);
             int idMS = cboMauSac.getSelectedIndex();
@@ -971,13 +972,14 @@ public class TrangSP extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Sản phẩm đã tồn tại");
             }
 
-        }
+        
         loadDataSP();
         loadDataSPCTByMa(maSP);
     }//GEN-LAST:event_btSaveActionPerformed
 
     private void btUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btUpdateActionPerformed
         // TODO add your handling code here:
+        
         int rowSP = tblSanPham.getSelectedRow();
         int rowSPCT = tblSPCT.getSelectedRow();
         SanPhamCT spct = svSPCT.getRow(rowSPCT);
@@ -987,45 +989,44 @@ public class TrangSP extends javax.swing.JInternalFrame {
         int soLuongTon =spct.getSoLuong();
         System.out.println("so luong ton"+soLuongTon);
         int idLS = spct.getIdLS();
-        System.out.println("idLs:"+idLS);
+        
         String maSP =spct.getMaSP();
-        String ngayUpdate =txtNgayNhap.getText();
+        String ngayUpdate =thoiGian.toString();
         String ngayKetThuc ="NULL";
         double giaBanCu =spct.getGiaBan();
-        double giaBan = Double.parseDouble(txtGiaBan.getText());
+        
         if (rowSP >= 0) {
             if (rowSPCT >= 0) {
                 int option = JOptionPane.showConfirmDialog(null, "Bạn có muốn update sản phẩm không?", "Update số lượng tồn và giá bán", JOptionPane.YES_NO_OPTION);
                 if (option == JOptionPane.YES_OPTION) {
                     try {
                        int soLuong = Integer.parseInt(txtSoLuong.getText());
+                       System.out.println("so luong moi"+soLuong);
                        if (soLuong!=soLuongTon&&soLuong>0) {
-                        svSPCT.updateSanPhamCT(soLuong, idSPCT);
-                           loadDataSPCTByMa(maSP);
+                           System.out.println("id"+idSPCT);
+                        svSPCT.updateSanPhamCT( idSPCT,soLuong);
+                           
                         JOptionPane.showMessageDialog(this, "Update sản phẩm thành công");
-                    }else{
-                          JOptionPane.showMessageDialog(this, "Số lượng >0"); 
-                       }
+                    }
                        
                     } catch (NumberFormatException e) {
                         JOptionPane.showMessageDialog(this, "Số lượng là 1 số nguyên");
                     }
                     //lich su gia
                     try {
-                       
+                       double giaBan = Double.parseDouble(txtGiaBan.getText());
                        if (giaBan!=giaBanCu&&giaBan>0) {
                         lsg.upDateLSG(ngayUpdate,idLS);
+                           loadDataSPCTByMa(maSP);
                         lsg.addLSGia(new LichSuGia(idSPCT, giaBan, ngayUpdate, ngayKetThuc));
-                        loadDataSPCTByMa(maSP);
+                        
                         JOptionPane.showMessageDialog(this, "Update sản phẩm thành công");
-                    }else{
-                          JOptionPane.showMessageDialog(this, "Giá bán >0"); 
-                       }
+                    }
                        
                     } catch (NumberFormatException e) {
                         JOptionPane.showMessageDialog(this, "Dữ liệu giá bán không hợp lệ");
                     }
-                    
+                    loadDataSPCTByMa(maSP);
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Chọn sản phẩm chi tiết trong bảng");

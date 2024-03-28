@@ -162,7 +162,7 @@ public class SanPhamCTImpl implements SanPhamCTService {
     @Override
     public List<SanPhamCT> searchSPCT(String key) {
         listspct.clear();
-        String sql = "SELECT SanPhamCT.idSP, SanPhamCT.maSP, SanPhamCT.loaiSP, SanPhamCT.soLuong, SanPhamCT.giaNhap, MauSac.tenMauSac, Size.tenSize, ThuongHieu.tenThuongHieu, ChatLieu.tenChatLieu, SanPhamCT.trangThai, LichSuGia.gia\n"
+        String sql = "SELECT SanPhamCT.idSP, SanPhamCT.maSP, SanPhamCT.loaiSP, SanPhamCT.soLuong, SanPhamCT.giaNhap, MauSac.tenMauSac, Size.tenSize, ThuongHieu.tenThuongHieu, ChatLieu.tenChatLieu, SanPhamCT.trangThai, LichSuGia.gia, LichSuGia.idLS\n"
                 + "FROM      ChatLieu INNER JOIN\n"
                 + "                 SanPhamCT ON ChatLieu.idChatLieu = SanPhamCT.idChatLieu INNER JOIN\n"
                 + "                 MauSac ON SanPhamCT.idMauSac = MauSac.idMauSac INNER JOIN\n"
@@ -192,6 +192,7 @@ public class SanPhamCTImpl implements SanPhamCTService {
                 spct.setTenCL(rs.getString(9));
                 spct.setTrangThai(rs.getString(10));
                 spct.setGiaBan(rs.getDouble(11));
+                spct.setIdLS(rs.getInt(12));
 
                 listspct.add(spct);
             }

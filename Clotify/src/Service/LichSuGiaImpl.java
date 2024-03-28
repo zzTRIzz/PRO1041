@@ -104,7 +104,7 @@ public class LichSuGiaImpl implements LichSuGiaService {
     public void upDateLSG(String ngayKetThuc,int idLS) {
         try {
             String sql = "UPDATE  LichSuGia\n" +
-"SET          ngayBatDau =?\n" +
+"SET          ngayKetThuc =?\n" +
 "WHERE   (idLS=?)";
             Connection conn = DBconnect.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);

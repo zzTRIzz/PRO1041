@@ -585,6 +585,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
             HoaDon hd = svHd.getRowHD(rowHoaDon);
             int idHD = hd.getIdHD();
             //data gắn
+            
             int phanTramKM = 10;
             //
             double tongTien;
@@ -662,6 +663,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
 
     private void btnTaoHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoHDActionPerformed
         // TODO add your handling code here:
+        // 
         String maNV = "NV001";
         String ngayTao = thoiGian.toString();
         String trangThai = "Chưa thanh toán";
