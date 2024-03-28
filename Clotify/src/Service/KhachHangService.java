@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Service;
+import Interface.KhachHangServiceimplements;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,7 @@ import model.ThuongHieu;
  *
  * @author Dell
  */
-public class KhachHangService {
+public class KhachHangService implements KhachHangServiceimplements{
     List<KhachHang> list = new ArrayList<>();
     public List<KhachHang> getKhachHang(){
         list.clear();

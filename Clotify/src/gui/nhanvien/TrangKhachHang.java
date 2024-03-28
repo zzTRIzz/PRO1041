@@ -4,6 +4,7 @@
  */
 package gui.nhanvien;
 
+import Interface.KhachHangServiceimplements;
 import Service.KhachHangService;
 import gui.admin.*;
 import javax.swing.JOptionPane;
@@ -17,7 +18,7 @@ import model.KhachHang;
 public class TrangKhachHang extends javax.swing.JInternalFrame {
 
     DefaultTableModel model;
-    KhachHangService khs = new KhachHangService();
+    KhachHangServiceimplements khs = new KhachHangService();
 
     /**
      * Creates new form Trang0
@@ -488,6 +489,7 @@ public class TrangKhachHang extends javax.swing.JInternalFrame {
                 KhachHang kh = getForm();
                 kh.setIdKH(idKH);
                 khs.update(kh);
+                JOptionPane.showMessageDialog(this,"Cập nhật thành công");
                 loadDataKhachHang();
             }
             }else{

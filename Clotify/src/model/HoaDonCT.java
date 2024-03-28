@@ -9,27 +9,27 @@ package model;
  * @author Surface
  */
 public class HoaDonCT {
-    int idHoaDonCT,idSP,soLuongMua,khuyeMaiGia,khuyenMaiPT;
-    String tenSP,tenKM,maHD,maNV,ngayTao,tenKH,ctMaSP,ctTenSP;
+//<<<<<<< HEAD
+//    int idHoaDonCT,idSP,soLuongMua,khuyeMaiGia,khuyenMaiPT;
+//    String tenSP,tenKM,maHD,maNV,ngayTao,tenKH,ctMaSP,ctTenSP;
+//=======
+    int idHoaDonCT,idSP,soLuongMua,khuyeMaiGia,khuyenMaiPT,idHD;
+    String tenSP,tenKM;
+
     double giaBan,tongTien;
 
     public HoaDonCT() {
     }
 
-    public HoaDonCT(int idHoaDonCT, int idSP, int soLuongMua, int khuyeMaiGia, int khuyenMaiPT, String tenSP, String tenKM, String maHD, String maNV, String ngayTao, String tenKH, String ctMaSP, String ctTenSP, double giaBan, double tongTien) {
+    public HoaDonCT(int idHoaDonCT, int idSP, int soLuongMua, int khuyeMaiGia, int khuyenMaiPT, int idHD, String tenSP, String tenKM, double giaBan, double tongTien) {
         this.idHoaDonCT = idHoaDonCT;
         this.idSP = idSP;
         this.soLuongMua = soLuongMua;
         this.khuyeMaiGia = khuyeMaiGia;
         this.khuyenMaiPT = khuyenMaiPT;
+        this.idHD = idHD;
         this.tenSP = tenSP;
         this.tenKM = tenKM;
-        this.maHD = maHD;
-        this.maNV = maNV;
-        this.ngayTao = ngayTao;
-        this.tenKH = tenKH;
-        this.ctMaSP = ctMaSP;
-        this.ctTenSP = ctTenSP;
         this.giaBan = giaBan;
         this.tongTien = tongTien;
     }
@@ -74,6 +74,14 @@ public class HoaDonCT {
         this.khuyenMaiPT = khuyenMaiPT;
     }
 
+    public int getIdHD() {
+        return idHD;
+    }
+
+    public void setIdHD(int idHD) {
+        this.idHD = idHD;
+    }
+
     public String getTenSP() {
         return tenSP;
     }
@@ -88,54 +96,6 @@ public class HoaDonCT {
 
     public void setTenKM(String tenKM) {
         this.tenKM = tenKM;
-    }
-
-    public String getMaHD() {
-        return maHD;
-    }
-
-    public void setMaHD(String maHD) {
-        this.maHD = maHD;
-    }
-
-    public String getMaNV() {
-        return maNV;
-    }
-
-    public void setMaNV(String maNV) {
-        this.maNV = maNV;
-    }
-
-    public String getNgayTao() {
-        return ngayTao;
-    }
-
-    public void setNgayTao(String ngayTao) {
-        this.ngayTao = ngayTao;
-    }
-
-    public String getTenKH() {
-        return tenKH;
-    }
-
-    public void setTenKH(String tenKH) {
-        this.tenKH = tenKH;
-    }
-
-    public String getCtMaSP() {
-        return ctMaSP;
-    }
-
-    public void setCtMaSP(String ctMaSP) {
-        this.ctMaSP = ctMaSP;
-    }
-
-    public String getCtTenSP() {
-        return ctTenSP;
-    }
-
-    public void setCtTenSP(String ctTenSP) {
-        this.ctTenSP = ctTenSP;
     }
 
     public double getGiaBan() {
@@ -153,14 +113,6 @@ public class HoaDonCT {
     public void setTongTien(double tongTien) {
         this.tongTien = tongTien;
     }
-
-
-
-    
-
-
-
-
 
 
     

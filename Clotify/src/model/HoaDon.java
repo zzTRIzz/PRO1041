@@ -9,15 +9,30 @@ package model;
  * @author Surface
  */
 public class HoaDon {
-        int idHD,maHD;
+        int idHD,maHD,idKH;
     String ngayTao,tenNV,trangThai,maNV,maKH,tenKH,maVoucher,giaTri;
 
     public HoaDon() {
     }
-
-    public HoaDon(int idHD, int maHD, String ngayTao, String tenNV, String trangThai, String maNV, String maKH, String tenKH, String maVoucher, String giaTri) {
+    public HoaDon(int idKH,String ngayTao, String trangThai,String maNV){
+        this.idKH = idKH;
+        this.ngayTao = ngayTao;
+        this.trangThai = trangThai;
+        this.maNV = maNV;
+        
+    }
+        public HoaDon(int idKH,String ngayTao, String trangThai,String maNV,String maVoucher,int idHD){
+        this.idKH = idKH;
+        this.ngayTao = ngayTao;
+        this.trangThai = trangThai;
+        this.maNV = maNV;
+        this.maVoucher = maVoucher;
+        this.idHD = idHD;
+    }
+    public HoaDon(int idHD, int maHD, int idKH, String ngayTao, String tenNV, String trangThai, String maNV, String maKH, String tenKH, String maVoucher, String giaTri) {
         this.idHD = idHD;
         this.maHD = maHD;
+        this.idKH = idKH;
         this.ngayTao = ngayTao;
         this.tenNV = tenNV;
         this.trangThai = trangThai;
@@ -42,6 +57,14 @@ public class HoaDon {
 
     public void setMaHD(int maHD) {
         this.maHD = maHD;
+    }
+
+    public int getIdKH() {
+        return idKH;
+    }
+
+    public void setIdKH(int idKH) {
+        this.idKH = idKH;
     }
 
     public String getNgayTao() {
@@ -107,5 +130,7 @@ public class HoaDon {
     public void setGiaTri(String giaTri) {
         this.giaTri = giaTri;
     }
+
+
     
 }

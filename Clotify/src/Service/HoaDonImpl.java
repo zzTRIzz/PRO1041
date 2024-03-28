@@ -22,7 +22,11 @@ public class HoaDonImpl implements HoaDonService {
     public List<HoaDon> getHoaDonAll() {
         listHoaDon.clear();
         try {
+<<<<<<< HEAD
             String sql = "	SELECT HoaDon.idHD, HoaDon.maHD, HoaDon.ngayTao, HoaDon.maNV, HoaDon.trangThai\n"
+=======
+            String sql = "	SELECT HoaDon.idHD, HoaDon.maHD, HoaDon.ngayTao, NhanVien.tenNV, KhachHang.tenKH, HoaDon.trangThai,KhachHang.idKH\n"
+>>>>>>> main
                     + "FROM   HoaDon INNER JOIN\n"
                     + "             KhachHang ON HoaDon.idKH = KhachHang.idKH INNER JOIN\n"
                     + "             NhanVien ON HoaDon.maNV = NhanVien.maNV\n";
@@ -35,8 +39,15 @@ public class HoaDonImpl implements HoaDonService {
                 hd.setIdHD(rs.getInt(1));
                 hd.setMaHD(rs.getInt(2));
                 hd.setNgayTao(rs.getString(3));
+<<<<<<< HEAD
                 hd.setMaNV(rs.getString(4));
                 hd.setTrangThai(rs.getString(5));
+=======
+                hd.setTenNV(rs.getString(4));
+                hd.setTenKH(rs.getString(5));
+                hd.setTrangThai(rs.getString(6));
+                hd.setIdKH(7);
+>>>>>>> main
                 listHoaDon.add(hd);
             }
             conn.close();
@@ -52,6 +63,7 @@ public class HoaDonImpl implements HoaDonService {
     }
 
     @Override
+<<<<<<< HEAD
     public List<HoaDon> Search(String key) {
         String sql = "Select idHD,maHD,ngayTao,maNV,trangThai from HoaDon where maHD like ? or maNV like ? or ngayTao like ? ";
         listHoaDon.clear();
@@ -101,11 +113,49 @@ public class HoaDonImpl implements HoaDonService {
                 hd.setTrangThai(rs.getString(5));
                 listHoaDon.add(hd);
             }
+=======
+    public void addHoaDon(HoaDon hd) {
+        try {
+            String sql = "INSERT INTO HoaDon\n"
+                    + "             (ngayTao, maNV, idKH, trangThai)\n"
+                    + "VALUES (?,?,?,?)";
+            Connection conn = DBconnect.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, hd.getNgayTao());
+            ps.setString(2, hd.getMaNV());
+            ps.setInt(3, hd.getIdKH());
+            ps.setString(4, hd.getTrangThai());
+            ps.executeUpdate();
+>>>>>>> main
             conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
+<<<<<<< HEAD
         return listHoaDon;
+=======
+    }
+
+    @Override
+    public void upDateHoaDon(HoaDon hd) {
+        try {
+            String sql = "UPDATE HoaDon\n"
+                    + "SET       ngayTao =?, maNV =?, idKH =?, maVoucher =?, trangThai =? where idHD=?";
+            Connection conn = DBconnect.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, hd.getNgayTao());
+            ps.setString(2, hd.getMaNV());
+            ps.setInt(3, hd.getIdKH());
+            ps.setString(4, hd.getMaVoucher());
+            ps.setString(5, hd.getTrangThai());
+            ps.setInt(6, hd.getIdHD());
+            ps.executeUpdate();
+            conn.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+>>>>>>> main
     }
 
 }

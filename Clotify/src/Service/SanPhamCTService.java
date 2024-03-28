@@ -9,8 +9,11 @@ import java.util.List;
 import model.SanPhamCT;
 import java.sql.*;
 import Interface.SanPhamCTImpl;
+<<<<<<< HEAD
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+=======
+>>>>>>> main
 
 /**
  *
@@ -22,6 +25,7 @@ public class SanPhamCTService implements SanPhamCTImpl {
 
     @Override
     public List<SanPhamCT> getAll() {
+        listspct.clear();
         String sql = "SELECT SanPhamCT.idSP,SanPhamCT.maSP,tenSP,tenThuongHieu,LoaiSP,tenSize,tenChatLieu,tenMauSac,giaNhap,gia,soLuong, ngayNhap, trangThai \n"
                 + "FROM SanPhamCT INNER JOIN \n"
                 + " SanPham ON SanPham.maSP = SanPhamCT.maSP INNER JOIN \n "
@@ -77,6 +81,7 @@ public class SanPhamCTService implements SanPhamCTImpl {
     }
 
     @Override
+<<<<<<< HEAD
     public boolean addSanPhamCT(SanPhamCT spct) {
 //1.    String sql = "INSERT INTO SanPhamCT (idSP, maSP, loaiSP, soLuong, giaNhap, trangThai, idMauSac, idSize, idThuongHieu, idChatLieu) " +
 //                   "SELECT ?, ?, ?, ?, ?, ?, ms.idMauSac, sz.idSize, th.idThuongHieu, cl.idChatLieu " +
@@ -127,6 +132,23 @@ public class SanPhamCTService implements SanPhamCTImpl {
             e.printStackTrace();
         }
         return false;
+=======
+    public void updateSanPhamCTSauMua(int idSPCT, int soLuongCon) {
+        try {
+            String sql = "UPDATE SanPhamCT\n"
+                    + "SET       soLuong =?\n"
+                    + "WHERE (idSP=?)";
+            Connection conn = DBconnect.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, soLuongCon);
+            ps.setInt(2, idSPCT);
+            ps.executeUpdate();
+            conn.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+>>>>>>> main
     }
 
 }

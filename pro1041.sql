@@ -320,5 +320,24 @@ FROM   HoaDon INNER JOIN
              SanPham ON SanPhamCT.maSP = SanPham.maSP INNER JOIN
              SanPhamKM ON SanPhamCT.idSP = SanPhamKM.idSP INNER JOIN
              KhuyenMai ON SanPhamKM.maKM = KhuyenMai.maKM
+<<<<<<< HEAD
+<<<<<<< Updated upstream
+where HoaDon.idHD ='';
+=======
 where HoaDon.idHD ='';
 select * from MauSac
+SELECT HoaDonChiTiet.idHoaDonCT, SanPham.tenSP, HoaDonChiTiet.soLuongMua, LichSuGia.gia, KhuyenMai.tenKM, KhuyenMai.giamTheoPT,HoaDonChiTiet.tongTien
+FROM   HoaDon INNER JOIN
+            HoaDonChiTiet ON HoaDon.idHD = HoaDonChiTiet.idHD INNER JOIN 
+           SanPhamCT ON HoaDonChiTiet.idSP = SanPhamCT.idSP INNER JOIN
+            LichSuGia ON SanPhamCT.idSP = LichSuGia.idSP INNER JOIN
+            SanPham ON SanPhamCT.maSP = SanPham.maSP INNER JOIN
+            SanPhamKM ON SanPhamCT.idSP = SanPhamKM.idSP INNER JOIN
+            KhuyenMai ON SanPhamKM.maKM = KhuyenMai.maKM 
+where HoaDon.idHD =2 and SanPhamCT.idSP=3
+delete from HoaDonChiTiet where idHD =2
+>>>>>>> Stashed changes
+=======
+where HoaDon.idHD ='';
+select * from MauSac
+>>>>>>> main
