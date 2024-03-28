@@ -630,7 +630,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
                                 svHDCT.gopSanPhamTonTai(idHDCT, tongSoLuong, thanhTien);
                                 loadHoaDonCT(idHD);
                             } else {
-                                svHDCT.addHoaDonCT(new HoaDonCT(rowHoaDon, idSP, soLuongCon, HEIGHT, count, idHD, title, title, input, input, input, title, title, giaSP, tongTien));
+                                svHDCT.addHoaDonCT(new HoaDonCT(idSP, idHD, tongTien, soLuong));
                                 loadHoaDonCT(idHD);
                             }
                             double tongTienTra = 0;
