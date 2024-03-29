@@ -82,6 +82,7 @@ CREATE TABLE HoaDon (
     maVoucher VARCHAR(20) REFERENCES Voucher(maVoucher),
     trangThai NVARCHAR(50)
 );
+select * from HoaDon
 create table SanPhamCT(
 idSP int identity(1,1) primary key,
 maSP varchar(20) references SanPham(maSP),

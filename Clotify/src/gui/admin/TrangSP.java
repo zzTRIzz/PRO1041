@@ -4,37 +4,43 @@
  */
 package gui.admin;
 
-
-
-
 import Interface.SanPhamCTImpl;
+import Interface.ThuocTinhImpl;
 import Service.SanPhamCTService;
+import Service.ThuocTinhService;
+import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
+import model.ChatLieu;
+import model.MauSac;
 import model.SanPhamCT;
-
+import model.Size;
+import model.ThuongHieu;
 
 /**
  *
  * @author ADMIN
  */
-
 public class TrangSP extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form Trang0
      */
-
     DefaultTableModel model;
     SanPhamCTImpl svSPCT = new SanPhamCTService();
+    DefaultTableModel modeltt;
+    ThuocTinhImpl svTT = new ThuocTinhService();
+
     public TrangSP() {
         initComponents();
         ui_custom.deleteTitle(this);
         model = (DefaultTableModel) tbSPCT.getModel();
         loadData();
+        modeltt = (DefaultTableModel) tbThuocTinh.getModel();
+        loadDataTT();
     }
-    
-    void loadData(){
+
+    void loadData() {
         model.setRowCount(0);
         for (SanPhamCT spct : svSPCT.getAll()) {
             Object[] row = new Object[]{
@@ -55,8 +61,8 @@ public class TrangSP extends javax.swing.JInternalFrame {
             model.addRow(row);
         }
     }
-    
-        SanPhamCT getForm() {
+
+    SanPhamCT getForm() {
         SanPhamCT spct = new SanPhamCT();
 //        spct.setIdSP(Integer.valueOf(txtIdSp.getText()));
         spct.setMaSP(txtMaSp.getText());
@@ -69,8 +75,6 @@ public class TrangSP extends javax.swing.JInternalFrame {
         spct.setGiaBan(Double.valueOf(txtGiaBan.getText()));
         spct.setSoLuong(Integer.valueOf(txtSoLuong.getText()));
         spct.setNgayNhap(txtNgayNhap.getText());
-
-//        spct.setTrangThai(rdHoatDong.isSelected() ? "Hoạt động" : "Không hoạt động");
 
         return spct;
     }
@@ -96,14 +100,123 @@ public class TrangSP extends javax.swing.JInternalFrame {
         txtGiaBan.setText(spct.getGiaBan().toString());
         txtSoLuong.setText(spct.getSoLuong().toString());
         txtNgayNhap.setText(spct.getNgayNhap());
-//        String trangThai = spct.getTrangThai();
-//        if ("Hoạt động".equals(trangThai)) {
-//            rdHoatDong.setSelected(true);
-//        } else if ("Không hoạt động".equals(trangThai)) {
-//            rdKhongHoatDong.setSelected(true);
-//        }
 
     }
+
+    void loadDataTT() {
+        modeltt.setRowCount(0);
+        for (MauSac ms : svTT.getAllMs()) {
+            Object[] row = new Object[]{
+                ms.getIdMS(),
+                ms.getMaMS(),
+                "Màu sắc",
+                ms.getTenMS()
+            };
+            modeltt.addRow(row);
+        }
+        for (ThuongHieu th : svTT.getAllTh()) {
+            Object[] row = new Object[]{
+                th.getIdTH(),
+                th.getMaTH(),
+                "Thương hiệu",
+                th.getTenTH(),};
+            modeltt.addRow(row);
+        }
+        for (ChatLieu cl : svTT.getAllCl()) {
+            Object[] row = new Object[]{
+                cl.getIdCL(),
+                cl.getMaCL(),
+                "Chất liệu",
+                cl.getTenCL()
+            };
+            modeltt.addRow(row);
+        }
+        for (Size size : svTT.getAllSize()) {
+            Object[] row = new Object[]{
+                size.getIdSize(),
+                size.getMaSize(),
+                "Size",
+                size.getTenSize()
+            };
+            modeltt.addRow(row);
+        }
+    }
+
+    void loadDataMS() {
+        modeltt.setRowCount(0);
+        for (MauSac ms : svTT.getAllMs()) {
+            Object[] row = new Object[]{
+                ms.getIdMS(),
+                ms.getMaMS(),
+                "Màu sắc",
+                ms.getTenMS()
+            };
+            modeltt.addRow(row);
+        }
+    }
+
+    void loadDataSize() {
+        modeltt.setRowCount(0);
+        for (Size size : svTT.getAllSize()) {
+            Object[] row = new Object[]{
+                size.getIdSize(),
+                size.getMaSize(),
+                "Size",
+                size.getTenSize()
+            };
+            modeltt.addRow(row);
+        }
+    }
+
+    void loadDataCL() {
+        modeltt.setRowCount(0);
+        for (ChatLieu cl : svTT.getAllCl()) {
+            Object[] row = new Object[]{
+                cl.getIdCL(),
+                cl.getMaCL(),
+                "Chất liệu",
+                cl.getTenCL()
+            };
+            modeltt.addRow(row);
+        }
+    }
+
+    void loadDataTH() {
+        modeltt.setRowCount(0);
+        for (ThuongHieu th : svTT.getAllTh()) {
+            Object[] row = new Object[]{
+                th.getIdTH(),
+                th.getMaTH(),
+                "Thương hiệu",
+                th.getTenTH(),};
+            modeltt.addRow(row);
+        }
+    }
+    
+        MauSac getFormMs() {
+        MauSac ms = new MauSac();
+        ms.setTenMS(txtTenTT.getText());
+        return ms;
+    }
+
+    ThuongHieu getFormTh() {
+        ThuongHieu th = new ThuongHieu();
+        th.setTenTH(txtTenTT.getText());
+        return th;
+    }
+
+    ChatLieu getFormCl() {
+        ChatLieu cl = new ChatLieu();
+        cl.setTenCL(txtTenTT.getText());
+        return cl;
+    }
+
+    Size getFormSize() {
+        Size s = new Size();
+        s.setTenSize(txtTenTT.getText());
+        return s;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -113,6 +226,7 @@ public class TrangSP extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         SanPham1 = new javax.swing.JTabbedPane();
         jPanel6 = new javax.swing.JPanel();
@@ -147,16 +261,16 @@ public class TrangSP extends javax.swing.JInternalFrame {
         tbSPCT = new javax.swing.JTable();
         jPanel7 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
-        jRadioButton4 = new javax.swing.JRadioButton();
-        jRadioButton5 = new javax.swing.JRadioButton();
-        jRadioButton6 = new javax.swing.JRadioButton();
-        jRadioButton7 = new javax.swing.JRadioButton();
-        jButton3 = new javax.swing.JButton();
+        txtTenTT = new javax.swing.JTextField();
+        rdThuongHieu = new javax.swing.JRadioButton();
+        rdMauSac = new javax.swing.JRadioButton();
+        rdChatLieu = new javax.swing.JRadioButton();
+        rdSize = new javax.swing.JRadioButton();
+        btAddTT = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tbThuocTinh = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(153, 255, 153));
         setBorder(null);
@@ -418,37 +532,66 @@ public class TrangSP extends javax.swing.JInternalFrame {
 
         jLabel16.setText("Tên thuộc tính");
 
-        jRadioButton4.setText("Thương hiệu");
-        jRadioButton4.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(rdThuongHieu);
+        rdThuongHieu.setText("Thương hiệu");
+        rdThuongHieu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                rdThuongHieuMouseClicked(evt);
+            }
+        });
+        rdThuongHieu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton4ActionPerformed(evt);
+                rdThuongHieuActionPerformed(evt);
             }
         });
 
-        jRadioButton5.setText("Màu sắc");
+        buttonGroup1.add(rdMauSac);
+        rdMauSac.setText("Màu sắc");
+        rdMauSac.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                rdMauSacMouseClicked(evt);
+            }
+        });
 
-        jRadioButton6.setText("Chất liệu");
+        buttonGroup1.add(rdChatLieu);
+        rdChatLieu.setText("Chất liệu");
+        rdChatLieu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                rdChatLieuMouseClicked(evt);
+            }
+        });
 
-        jRadioButton7.setText("Size");
+        buttonGroup1.add(rdSize);
+        rdSize.setText("Size");
+        rdSize.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                rdSizeMouseClicked(evt);
+            }
+        });
 
-        jButton3.setText("Thêm");
+        btAddTT.setText("Thêm");
+        btAddTT.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btAddTTMouseClicked(evt);
+            }
+        });
 
         jButton5.setText("Ẩn");
 
         jPanel8.setBackground(new java.awt.Color(246, 246, 246));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tbThuocTinh.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "STT", "Loại thuộc tính", "Tên thuộc tính"
+                "ID Thuộc tính", "Mã thuộc tính", "Loại thuộc tính", "Tên thuộc tính"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(tbThuocTinh);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -475,21 +618,21 @@ public class TrangSP extends javax.swing.JInternalFrame {
                 .addGap(19, 19, 19)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jButton3)
+                        .addComponent(btAddTT)
                         .addGap(18, 18, 18)
                         .addComponent(jButton5))
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(jLabel16)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtTenTT, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(119, 119, 119)
-                        .addComponent(jRadioButton4)
+                        .addComponent(rdThuongHieu)
                         .addGap(51, 51, 51)
-                        .addComponent(jRadioButton5)
+                        .addComponent(rdMauSac)
                         .addGap(49, 49, 49)
-                        .addComponent(jRadioButton6)
+                        .addComponent(rdChatLieu)
                         .addGap(53, 53, 53)
-                        .addComponent(jRadioButton7)))
+                        .addComponent(rdSize)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
@@ -502,14 +645,14 @@ public class TrangSP extends javax.swing.JInternalFrame {
                 .addGap(25, 25, 25)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jRadioButton4)
-                    .addComponent(jRadioButton5)
-                    .addComponent(jRadioButton6)
-                    .addComponent(jRadioButton7))
+                    .addComponent(txtTenTT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rdThuongHieu)
+                    .addComponent(rdMauSac)
+                    .addComponent(rdChatLieu)
+                    .addComponent(rdSize))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
+                    .addComponent(btAddTT)
                     .addComponent(jButton5))
                 .addGap(51, 51, 51)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -548,30 +691,91 @@ public class TrangSP extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btSaveActionPerformed
 
-    private void jRadioButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton4ActionPerformed
+    private void rdThuongHieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdThuongHieuActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton4ActionPerformed
+    }//GEN-LAST:event_rdThuongHieuActionPerformed
 
     private void tbSPCTMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbSPCTMouseClicked
         // TODO add your handling code here:
-                int row = tbSPCT.getSelectedRow();
+        int row = tbSPCT.getSelectedRow();
         if (row >= 0) {
             setForm(svSPCT.getRow(row));
-    }   
+        }
     }//GEN-LAST:event_tbSPCTMouseClicked
+
+    private void btAddTTMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btAddTTMouseClicked
+        // TODO add your handling code here:
+        boolean check = !rdThuongHieu.isSelected() && !rdChatLieu.isSelected() && !rdMauSac.isSelected() && !rdSize.isSelected();
+        if (check) {
+            JOptionPane.showMessageDialog(this, "Chọn một thuộc tính để thêm");
+        } else if (rdChatLieu.isSelected()) {
+            if (txtTenTT.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Tên chất liệu không được bỏ trống");
+                return;
+            } else {
+                svTT.addChatLieu(getFormCl());
+                loadDataCL();
+            }
+        } else if (rdSize.isSelected()) {
+            if (txtTenTT.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Tên size không được bỏ trống");
+                return;
+            } else {
+                svTT.addSize(getFormSize());
+                loadDataSize();
+            }
+        } else if (rdThuongHieu.isSelected()) {
+            if (txtTenTT.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Tên thương hiệu không được bỏ trống");
+                return;
+            } else {
+                svTT.addThuongHieu(getFormTh());
+                loadDataTH();
+            }
+        } else if (rdMauSac.isSelected()) {
+            if (txtTenTT.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Tên màu sắc không được bỏ trống");
+                return;
+            } else {
+                svTT.addMauSac(getFormMs());
+                loadDataMS();
+            }
+        }
+    }//GEN-LAST:event_btAddTTMouseClicked
+
+    private void rdThuongHieuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rdThuongHieuMouseClicked
+        // TODO add your handling code here:
+        loadDataTH();
+    }//GEN-LAST:event_rdThuongHieuMouseClicked
+
+    private void rdMauSacMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rdMauSacMouseClicked
+        // TODO add your handling code here:
+        loadDataMS();
+    }//GEN-LAST:event_rdMauSacMouseClicked
+
+    private void rdChatLieuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rdChatLieuMouseClicked
+        // TODO add your handling code here:
+        loadDataCL();
+    }//GEN-LAST:event_rdChatLieuMouseClicked
+
+    private void rdSizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rdSizeMouseClicked
+        // TODO add your handling code here:
+        loadDataSize();
+    }//GEN-LAST:event_rdSizeMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane SanPham1;
+    private javax.swing.JButton btAddTT;
     private javax.swing.JButton btNew;
     private javax.swing.JButton btSave;
     private javax.swing.JButton btSearch;
     private javax.swing.JButton btUpdate;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cboChatLieu;
     private javax.swing.JComboBox<String> cboLoai;
     private javax.swing.JComboBox<String> cboMauSac;
     private javax.swing.JComboBox<String> cboSize;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -590,20 +794,20 @@ public class TrangSP extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JRadioButton jRadioButton4;
-    private javax.swing.JRadioButton jRadioButton5;
-    private javax.swing.JRadioButton jRadioButton6;
-    private javax.swing.JRadioButton jRadioButton7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField8;
+    private javax.swing.JRadioButton rdChatLieu;
+    private javax.swing.JRadioButton rdMauSac;
+    private javax.swing.JRadioButton rdSize;
+    private javax.swing.JRadioButton rdThuongHieu;
     private javax.swing.JTable tbSPCT;
+    private javax.swing.JTable tbThuocTinh;
     private javax.swing.JTextField txtGiaBan;
     private javax.swing.JTextField txtMaSp;
     private javax.swing.JTextField txtNgayNhap;
     private javax.swing.JTextField txtSoLuong;
     private javax.swing.JTextField txtTenSp;
+    private javax.swing.JTextField txtTenTT;
     private javax.swing.JTextField txtThuongHieu;
     private javax.swing.JTextField txtTimKiem;
     // End of variables declaration//GEN-END:variables
