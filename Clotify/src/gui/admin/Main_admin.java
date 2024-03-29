@@ -33,7 +33,7 @@ public class Main_admin extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         lblMa.setText(TaiKhoanService.layThongTin_maNV());
         lblTen.setText(TaiKhoanService.layThongTin_tenNV());
-        
+
     }
 
     void trang1() {

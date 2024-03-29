@@ -99,9 +99,9 @@ public class KhuyenMaiService {
                 spct.setIdSP(rs.getInt(1));
                 spct.setMaSP(rs.getString(2));
                 spct.setTenSP(rs.getString(3));
-                spct.setSize(rs.getString(4));
-                spct.setMauSac(rs.getString(5));
-                spct.setChatLieu(rs.getString(6));
+                spct.setTenSize(rs.getString(4));
+                spct.setTenMS(rs.getString(5));
+                spct.setTenCL(rs.getString(6));
                 spct.setGiaBan(rs.getDouble(7));
                 listSPCT.add(spct);
             }
@@ -140,9 +140,9 @@ public class KhuyenMaiService {
                 spct.setIdSP(rs.getInt(1));
                 spct.setMaSP(rs.getString(2));
                 spct.setTenSP(rs.getString(3));
-                spct.setSize(rs.getString(4));
-                spct.setMauSac(rs.getString(5));
-                spct.setChatLieu(rs.getString(6));
+                spct.setTenSize(rs.getString(4));
+                spct.setTenMS(rs.getString(5));
+                spct.setTenCL(rs.getString(6));
                 spct.setGiaBan(rs.getDouble(7));
                 listSPCT.add(spct);
             }
@@ -199,9 +199,9 @@ public class KhuyenMaiService {
                  spct.setIdSP(rs.getInt(1));
                 spct.setMaSP(rs.getString(2));
                 spct.setTenSP(rs.getString(3));
-                spct.setSize(rs.getString(4));
-                spct.setMauSac(rs.getString(5));
-                spct.setChatLieu(rs.getString(6));
+                spct.setTenSize(rs.getString(4));
+                spct.setTenMS(rs.getString(5));
+                spct.setTenCL(rs.getString(6));
                 spct.setGiaBan(rs.getDouble(7));
                 listSPCT.add(spct);
             }

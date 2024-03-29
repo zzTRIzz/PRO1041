@@ -11,6 +11,7 @@ import Service.HoaDonCTImpl;
 import Service.HoaDonImpl;
 import Service.KhachHangService;
 import Service.SanPhamCTService;
+
 import gui.admin.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -20,6 +21,7 @@ import model.HoaDon;
 import model.HoaDonCT;
 import model.KhachHang;
 import model.SanPhamCT;
+
 
 /**
  *
@@ -52,12 +54,12 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
         for (SanPhamCT spct : svSP.getAll()) {
             defaultTableModel.addRow(new Object[]{
                 spct.getIdSP(),
-                spct.getMaSP(),
+//                spct.getMaSP(),
                 spct.getTenSP(),
-                spct.getThuongHieu(),
-                spct.getSize(),
-                spct.getChatLieu(),
-                spct.getMauSac(),
+                spct.getTenTH(),
+                spct.getTenSize(),
+                spct.getTenCL(),
+                spct.getTenMS(),
                 spct.getGiaBan(),
                 spct.getSoLuong(),
                 spct.getTrangThai()
@@ -265,17 +267,17 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
 
         tblSP.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Mã SP", "Tên SP", "Thương hiệu", "Size", "Chất liệu", "Màu Sắc", "Giá bán", "Số lượng", "Trạng thái"
+                "ID", "Tên SP", "Thương hiệu", "Size", "Chất liệu", "Màu Sắc", "Giá bán", "Số lượng", "Trạng thái"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true, false, true, true, true
+                false, false, false, false, true, false, true, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -540,7 +542,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
                 if (sanPhamCT.getIdSP().equals(idSP)) {
                     int soLuongTon = sanPhamCT.getSoLuong();
                     int soLuongMoi = soLuongMua + soLuongTon;
-                    svSP.updateSanPhamCTSauMua(idSP, soLuongMoi);
+                    svSP.updateSanPhamCT(idSP, soLuongMoi);
                 }
             }
             loadSanPham();
@@ -585,6 +587,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
             HoaDon hd = svHd.getRowHD(rowHoaDon);
             int idHD = hd.getIdHD();
             //data gắn
+            
             int phanTramKM = 10;
             //
             double tongTien;
@@ -612,7 +615,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
                             System.out.println("Số lượng đã nhập: " + soLuong);
                             soLuongCon = soLuongTonTai - soLuong;
                             System.out.println("So luong con:" + soLuongCon);
-                            svSP.updateSanPhamCTSauMua(idSP, soLuongCon);
+                            svSP.updateSanPhamCT(idSP, soLuongCon);
 
                             double phanTramDouble = Double.valueOf(phanTramKM);
                             tongTien = soLuong * giaSP * (1 - phanTramDouble / 100);
@@ -662,6 +665,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
 
     private void btnTaoHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoHDActionPerformed
         // TODO add your handling code here:
+        // 
         String maNV = "NV001";
         String ngayTao = thoiGian.toString();
         String trangThai = "Chưa thanh toán";
@@ -780,7 +784,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
                                 if (sanPhamCT.getIdSP().equals(idSP)) {
                                     int soLuongTon = sanPhamCT.getSoLuong();
                                     int soLuongMoi = soLuongMua - soLuongDoi + soLuongTon;
-                                    svSP.updateSanPhamCTSauMua(idSP, soLuongMoi);
+                                    svSP.updateSanPhamCT(idSP, soLuongMoi);
                                 }
                             }
                         } else if (soLuongDoi > soLuongMua) {
@@ -792,7 +796,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
                                 if (sanPhamCT.getIdSP().equals(idSP)) {
                                     int soLuongTon = sanPhamCT.getSoLuong();
                                     int soLuongMoi = soLuongTon - (soLuongDoi - soLuongMua);
-                                    svSP.updateSanPhamCTSauMua(idSP, soLuongMoi);
+                                    svSP.updateSanPhamCT(idSP, soLuongMoi);
                                 }
                             }
                         }
