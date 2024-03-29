@@ -15,21 +15,12 @@ import model.ThuongHieu;
  * @author ZznamnhizZ
  */
 public interface ThuocTinhImpl {
-
     List<MauSac> getAllMs();
-
     List<ThuongHieu> getAllTh();
-
     List<ChatLieu> getAllCl();
-
     List<Size> getAllSize();
-
-    boolean addMauSac(MauSac ms);
-
-    boolean addThuongHieu(ThuongHieu th);
-
-    boolean addChatLieu(ChatLieu cl);
-
-    boolean addSize(Size s);
-
+    void addMauSac(MauSac ms);
+    void addThuongHieu(ThuongHieu th);
+    void addChatLieu(ChatLieu cl);
+    void addSize(Size s);
 }

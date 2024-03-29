@@ -15,8 +15,10 @@ public interface SanPhamCTImpl {
     List<SanPhamCT> getAll();
     SanPhamCT getRow(int row);
     void addSanPhamCT(SanPhamCT spct);
-//    void deleteSanPhamCT(Integer id);
-    void updateSanPhamCT(SanPhamCT spct);
-    List<SanPhamCT> searchSanPhamCT(String key);
-    void updateSanPhamCTSauMua(int idSPCT,int soLuongCon);
+//    void updateSanPhamCT(int soLuong, int idSP);
+    void updateSanPhamCT(int idSPCT,int soLuongCon);
+    List<SanPhamCT> searchID(String maSP,String loaiSP,int idTH,int idMS,int idSize,int idCL);
+    List<SanPhamCT> searchSPCT(String key);
+    void upDateTrangThai(String trangThai,int idSP);
+    List<SanPhamCT> getAllSPAn();
 }

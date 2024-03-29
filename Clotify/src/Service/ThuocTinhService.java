@@ -7,11 +7,13 @@ package Service;
 import Interface.ThuocTinhImpl;
 import java.util.ArrayList;
 import java.util.List;
-import model.ChatLieu;
-import model.MauSac;
-import model.Size;
 import model.ThuongHieu;
+import model.ChatLieu;
+import model.Size;
+import model.MauSac;
 import java.sql.*;
+import javax.swing.*;
+
 
 /**
  *
@@ -108,9 +110,8 @@ public class ThuocTinhService implements ThuocTinhImpl {
         }
         return listSize;
     }
-
     @Override
-    public boolean addMauSac(MauSac ms) {
+    public void addMauSac(MauSac ms) {
         listMS.clear();
         String sql = "Insert into MauSac(tenMauSac,ghiChu)"
                 + "Values(?,?)";
@@ -118,17 +119,17 @@ public class ThuocTinhService implements ThuocTinhImpl {
             Connection conn = DBconnect.getConnection();
             PreparedStatement psm = conn.prepareStatement(sql);
             psm.setString(1, ms.getTenMS());
-            psm.setString(2, "Ghi chú màu sắc");
+            psm.setString(2, "Hoạt động");
             psm.executeUpdate();
             conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return false;
+        
     }
 
     @Override
-    public boolean addThuongHieu(ThuongHieu th) {
+    public void addThuongHieu(ThuongHieu th) {
         listTH.clear();
         String sql = "Insert into ThuongHieu(tenThuongHieu,ghiChu)"
                 + "Values(?,?)";
@@ -136,18 +137,18 @@ public class ThuocTinhService implements ThuocTinhImpl {
             Connection conn = DBconnect.getConnection();
             PreparedStatement psm = conn.prepareStatement(sql);
             psm.setString(1, th.getTenTH());
-            psm.setString(2, "Ghi chú thương hiệu");
+            psm.setString(2, "Hoạt động");
             psm.executeUpdate();
             conn.close();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return false;
+        
     }
 
     @Override
-    public boolean addChatLieu(ChatLieu cl) {
+    public void addChatLieu(ChatLieu cl) {
         listCL.clear();
         String sql = "Insert into ChatLieu(tenChatLieu,ghiChu)"
                 + "Values(?,?)";
@@ -155,17 +156,17 @@ public class ThuocTinhService implements ThuocTinhImpl {
             Connection conn = DBconnect.getConnection();
             PreparedStatement psm = conn.prepareStatement(sql);
             psm.setString(1, cl.getTenCL());
-            psm.setString(2, "Ghi chú chất liệu");
+            psm.setString(2, "Hoạt động");
             psm.executeUpdate();
             conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return false;
+        
     }
 
     @Override
-    public boolean addSize(Size s) {
+    public void addSize(Size s) {
         listSize.clear();
         String sql = "Insert into Size(tenSize,ghiChu)"
                 + "Values(?,?)";
@@ -173,13 +174,14 @@ public class ThuocTinhService implements ThuocTinhImpl {
             Connection conn = DBconnect.getConnection();
             PreparedStatement psm = conn.prepareStatement(sql);
             psm.setString(1, s.getTenSize());
-            psm.setString(2, "Ghi chú size");
+            psm.setString(2, "Hoạt động");
             psm.executeUpdate();
             conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return false;
+        
     }
+    
 
 }
