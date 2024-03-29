@@ -14,7 +14,7 @@ import model.ThuongHieu;
  *
  * @author ZznamnhizZ
  */
-public interface ThuocTinhService {
+public interface ThuocTinhImpl {
     List<MauSac> getAllMs();
     List<ThuongHieu> getAllTh();
     List<ChatLieu> getAllCl();

@@ -1,4 +1,4 @@
-﻿create database PRO1041;
+﻿create drop database PRO1041;
 go 
 use PRO1041
 go
@@ -14,10 +14,12 @@ taiKhoan varchar(20) not null,
 matKhau varchar(20) not null
 );
 alter table NhanVien add vaiTro bit;
+alter table NhanVien add email nvarchar(30);
 create table Voucher(
 maVoucher varchar(20) primary key,
 tenVoucher nvarchar(50) not null,
 dkApDung money not null,
+giamTheoGia money not null,
 ghiChu nvarchar(50)
 );
 alter table Voucher add maNV varchar(20) references NhanVien(maNV);
@@ -129,16 +131,16 @@ delete from LichSuGia;
 delete from HoaDonChiTiet;
 
 -- Thêm dữ liệu vào bảng NhanVien
-INSERT INTO NhanVien (maNV, tenNV, ngaySinh, gioiTinh, diaChi, sdt, taiKhoan, matKhau, vaiTro)
+INSERT INTO NhanVien (maNV, tenNV, ngaySinh, gioiTinh , diaChi, sdt, taiKhoan, matKhau, vaiTro, email)
 VALUES 
-    ('NV001', N'Nguyễn Văn A', '1990-01-01', N'Nam', N'Hà Nội', '0123456789', 'tai_khoan_1', 'mat_khau_1', 1),
-    ('NV002', N'Phạm Thị B', '1995-02-02', N'Nữ', N'Hồ Chí Minh', '0987654321', 'tai_khoan_2', 'mat_khau_2', 0),
-    ('NV003', N'Trần Văn C', '1992-03-03', N'Nam', N'Hải Phòng', '0367891234', 'tai_khoan_3', 'mat_khau_3', 1),
-    ('NV004', N'Trần Thị G', '1994-07-07', N'Nữ', N'Hà Nội', '0987654321', 'tai_khoan_4', 'mat_khau_4', 1),
-    ('NV005', N'Hoàng Văn H', '1991-08-08', N'Nam', N'Hồ Chí Minh', '0367891234', 'tai_khoan_5', 'mat_khau_5', 0),
-    ('NV006', N'Nguyễn Thị I', '1996-09-09', N'Nữ', N'Hải Phòng', '0123456789', 'tai_khoan_6', 'mat_khau_6', 1),
-    ('NV007', N'Đinh Văn K', '1993-10-10', N'Nam', N'Bắc Giang', '0367891234', 'tai_khoan_7', 'mat_khau_7', 0),
-    ('NV008', N'Lê Thị L', '1995-11-11', N'Nữ', N'Hải Dương', '0987654321', 'tai_khoan_8', 'mat_khau_8', 1);
+    ('NV001', N'Nguyễn Văn A', '1990-01-01', N'Nam', N'Hà Nội', '0123456789', 'tai_khoan_1', 'mat_khau_1', 1, 'nguyenvana@gmail.com'),
+    ('NV002', N'Phạm Thị B', '1995-02-02', N'Nữ', N'Hồ Chí Minh', '0987654321', 'tai_khoan_2', 'mat_khau_2', 0, 'phamthib@gmail.com'),
+    ('NV003', N'Trần Văn C', '1992-03-03', N'Nam', N'Hải Phòng', '0367891234', 'tai_khoan_3', 'mat_khau_3', 1, 'tranvanc@gmail.com'),
+    ('NV004', N'Trần Thị G', '1994-07-07', N'Nữ', N'Hà Nội', '0987654321', 'tai_khoan_4', 'mat_khau_4', 1, 'tranthig@gmail.com'),
+    ('NV005', N'Hoàng Văn H', '1991-08-08', N'Nam', N'Hồ Chí Minh', '0367891234', 'tai_khoan_5', 'mat_khau_5', 0, 'hoangvanh@gmail.com'),
+    ('NV006', N'Nguyễn Thị I', '1996-09-09', N'Nữ', N'Hải Phòng', '0123456789', 'tai_khoan_6', 'mat_khau_6', 1, 'nguyenthii@gmail.com'),
+    ('NV007', N'Đinh Văn K', '1993-10-10', N'Nam', N'Bắc Giang', '0367891234', 'tai_khoan_7', 'mat_khau_7', 0, 'dinhvank@gmail.com'),
+    ('NV008', N'Lê Thị L', '1995-11-11', N'Nữ', N'Hải Dương', '0987654321', 'tai_khoan_8', 'mat_khau_8', 1, 'lethil@gmail.com');
 
 	-- Thêm dữ liệu vào bảng Voucher
 INSERT INTO Voucher (maVoucher, tenVoucher, dkApDung, ghiChu, maNV)
@@ -309,24 +311,28 @@ FROM   HoaDon INNER JOIN
              SanPham ON SanPhamCT.maSP = SanPham.maSP INNER JOIN
              SanPhamKM ON SanPhamCT.idSP = SanPhamKM.idSP INNER JOIN
              KhuyenMai ON SanPhamKM.maKM = KhuyenMai.maKM
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-where HoaDon.idHD ='';
-=======
 where HoaDon.idHD ='';
 select * from MauSac
-SELECT HoaDonChiTiet.idHoaDonCT, SanPham.tenSP, HoaDonChiTiet.soLuongMua, LichSuGia.gia, KhuyenMai.tenKM, KhuyenMai.giamTheoPT,HoaDonChiTiet.tongTien
-FROM   HoaDon INNER JOIN
-            HoaDonChiTiet ON HoaDon.idHD = HoaDonChiTiet.idHD INNER JOIN 
-           SanPhamCT ON HoaDonChiTiet.idSP = SanPhamCT.idSP INNER JOIN
-            LichSuGia ON SanPhamCT.idSP = LichSuGia.idSP INNER JOIN
-            SanPham ON SanPhamCT.maSP = SanPham.maSP INNER JOIN
-            SanPhamKM ON SanPhamCT.idSP = SanPhamKM.idSP INNER JOIN
-            KhuyenMai ON SanPhamKM.maKM = KhuyenMai.maKM 
-where HoaDon.idHD =2 and SanPhamCT.idSP=3
-delete from HoaDonChiTiet where idHD =2
->>>>>>> Stashed changes
-=======
-where HoaDon.idHD ='';
-select * from MauSac
->>>>>>> main
+SELECT KhuyenMai.maKM, KhuyenMai.tenKM, KhuyenMai.ngayTao, KhuyenMai.ngayKetThuc, SanPhamCT.loaiSP, KhuyenMai.giamTheoPT, KhuyenMai.trangThai
+FROM   KhuyenMai INNER JOIN
+             SanPhamKM ON KhuyenMai.maKM = SanPhamKM.maKM INNER JOIN
+             SanPhamCT ON SanPhamKM.idSP = SanPhamCT.idSP
+			 insert into KhuyenMai(KhuyenMai.maKM,KhuyenMai.tenKM,KhuyenMai.ngayTao,KhuyenMai.ngayKetThuc,SanPhamCT.loaiSP,KhuyenMai.giamTheoPT,KhuyenMai.trangThai) values ()
+
+SELECT SanPhamCT.idSP, SanPhamCT.maSP, SanPham.tenSP, Size.tenSize, MauSac.tenMauSac, ChatLieu.tenChatLieu, SanPhamCT.giaNhap
+FROM   ChatLieu INNER JOIN
+             SanPhamCT ON ChatLieu.idChatLieu = SanPhamCT.idChatLieu INNER JOIN
+             Size ON SanPhamCT.idSize = Size.idSize INNER JOIN
+             MauSac ON SanPhamCT.idMauSac = MauSac.idMauSac INNER JOIN
+             SanPham ON SanPhamCT.maSP = SanPham.maSP
+			 SELECT SanPhamCT.idSP, SanPhamCT.maSP, SanPham.tenSP, Size.tenSize, MauSac.tenMauSac, ChatLieu.tenChatLieu, SanPhamCT.giaNhap
+FROM   SanPhamCT INNER JOIN
+             SanPham ON SanPhamCT.maSP = SanPham.maSP INNER JOIN
+             Size ON SanPhamCT.idSize = Size.idSize INNER JOIN
+             MauSac ON SanPhamCT.idMauSac = MauSac.idMauSac INNER JOIN
+             ChatLieu ON SanPhamCT.idChatLieu = ChatLieu.idChatLieu
+			 where SanPhamCT.giaNhap between ? and ?
+			 select * from SanPhamKM
+			 SELECT * FROM KhuyenMai
+
+			 

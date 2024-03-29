@@ -4,6 +4,7 @@
  */
 package Service;
 
+import Interface.ThuocTinhImpl;
 import java.util.ArrayList;
 import java.util.List;
 import model.ThuongHieu;
@@ -12,13 +13,13 @@ import model.Size;
 import model.MauSac;
 import java.sql.*;
 import javax.swing.*;
-import Interface.ThuocTinhService;
+
 
 /**
  *
  * @author ZznamnhizZ
  */
-public class ThuocTinhImpl implements ThuocTinhService {
+public class ThuocTinhService implements ThuocTinhImpl {
 
     List<ThuongHieu> listTH = new ArrayList<>();
     List<ChatLieu> listCL = new ArrayList<>();
@@ -181,5 +182,6 @@ public class ThuocTinhImpl implements ThuocTinhService {
         }
         
     }
+    
 
 }

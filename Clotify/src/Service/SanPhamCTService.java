@@ -8,15 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 import model.SanPhamCT;
 import java.sql.*;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import Interface.SanPhamCTService;
+import Interface.SanPhamCTImpl;
 
 /**
  *
  * @author ZznamnhizZ
  */
-public class SanPhamCTImpl implements SanPhamCTService {
+public class SanPhamCTService implements SanPhamCTImpl {
 
     List<SanPhamCT> listspct = new ArrayList<>();
 

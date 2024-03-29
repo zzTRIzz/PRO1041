@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/D:/Pro1041/Clotify/src/Interface/SanPhamService.java</file>
             <file>file:/D:/Pro1041/Clotify/src/gui/admin/TrangSP.java</file>
             <file>file:/D:/Pro1041/Clotify/src/Interface/SanPhamCTService.java</file>
@@ -14,6 +15,20 @@
             <file>file:/D:/Pro1041/Clotify/src/Service/SanPhamCTImpl.java</file>
             <file>file:/D:/Pro1041/Clotify/src/Service/SanPhamImpl.java</file>
             <file>file:/D:/Pro1041/Clotify/src/Interface/ThuocTinhService.java</file>
+=======
+            <file>file:/D:/FPT%20Poly%20Ha%20Noi/PRO1041/Clotify/src/gui/admin/NhanVienVoHieuDiaLog.java</file>
+            <file>file:/D:/FPT%20Poly%20Ha%20Noi/PRO1041/Clotify/src/Service/TaiKhoanService.java</file>
+            <file>file:/D:/FPT%20Poly%20Ha%20Noi/PRO1041/Clotify/src/Service/NhanVienService.java</file>
+            <file>file:/D:/FPT%20Poly%20Ha%20Noi/PRO1041/Clotify/src/gui/admin/TrangSP.java</file>
+            <file>file:/D:/FPT%20Poly%20Ha%20Noi/PRO1041/Clotify/src/gui/nhanvien/Main_NhanVien.java</file>
+            <file>file:/D:/FPT%20Poly%20Ha%20Noi/PRO1041/Clotify/src/model/NhanVien.java</file>
+            <file>file:/D:/FPT%20Poly%20Ha%20Noi/PRO1041/Clotify/src/model/MauSac.java</file>
+            <file>file:/D:/FPT%20Poly%20Ha%20Noi/PRO1041/Clotify/src/gui/admin/Main_admin.java</file>
+            <file>file:/D:/FPT%20Poly%20Ha%20Noi/PRO1041/Clotify/src/gui/admin/TrangKhuyenMai.java</file>
+            <file>file:/D:/FPT%20Poly%20Ha%20Noi/PRO1041/Clotify/src/gui/admin/login.java</file>
+            <file>file:/D:/FPT%20Poly%20Ha%20Noi/PRO1041/Clotify/src/gui/admin/TrangNhanVien.java</file>
+            <file>file:/D:/FPT%20Poly%20Ha%20Noi/PRO1041/Clotify/src/model/SanPham.java</file>
+>>>>>>> main
         </group>
     </open-files>
 </project-private>

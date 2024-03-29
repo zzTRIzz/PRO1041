@@ -4,8 +4,8 @@
  */
 package gui.admin;
 
-import Interface.SanPhamCTService;
-import Service.SanPhamCTImpl;
+import Interface.SanPhamCTImpl;
+import Service.SanPhamCTService;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.SanPhamCT;
@@ -15,7 +15,7 @@ import model.SanPhamCT;
  * @author Ngo Nhan
  */
 public class SanPhanAnDialog extends javax.swing.JDialog {
-    SanPhamCTService svSpct = new SanPhamCTImpl();
+    SanPhamCTImpl svSpct = new SanPhamCTService();
     DefaultTableModel defaultTableModel;
     /**
      * Creates new form SanPhanAn

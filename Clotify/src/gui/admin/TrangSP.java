@@ -5,8 +5,8 @@
 package gui.admin;
 
 import Interface.LichSuGiaService;
-import Service.SanPhamCTImpl;
-import Service.ThuocTinhImpl;
+import Interface.SanPhamCTImpl;
+
 import java.awt.event.ItemEvent;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -19,9 +19,10 @@ import model.SanPham;
 import model.SanPhamCT;
 import model.Size;
 import model.ThuongHieu;
-import Interface.ThuocTinhService;
-import Interface.SanPhamCTService;
+import Service.ThuocTinhService;
+import Service.SanPhamCTService;
 import Interface.SanPhamService;
+import Interface.ThuocTinhImpl;
 import Service.LichSuGiaImpl;
 import Service.SanPhamImpl;
 import javax.swing.JOptionPane;
@@ -38,8 +39,8 @@ public class TrangSP extends javax.swing.JInternalFrame {
      */
     DefaultTableModel model;
     DefaultTableModel modeltt;
-    SanPhamCTService svSPCT = new SanPhamCTImpl();
-    ThuocTinhService svTT = new ThuocTinhImpl();
+    SanPhamCTImpl svSPCT = new SanPhamCTService();
+    ThuocTinhImpl svTT = new ThuocTinhService();
     SanPhamService svSP = new SanPhamImpl();
     LichSuGiaService lsg = new LichSuGiaImpl();
     LocalDate thoiGian = LocalDate.now();

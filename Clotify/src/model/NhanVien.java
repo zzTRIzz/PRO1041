@@ -10,12 +10,14 @@ package model;
  */
 public class NhanVien {
     String  maNV,vaiTro;
-    String tenNV, ngaySinh,gioiTinh,diaChi,sdt,taiKhoan,matKhau;
+
+    String tenNV, ngaySinh,gioiTinh,diaChi,sdt,taiKhoan,matKhau, email;
+
 
     public NhanVien() {
     }
 
-    public NhanVien(String maNV, String vaiTro, String tenNV, String ngaySinh, String gioiTinh, String diaChi, String sdt, String taiKhoan, String matKhau) {
+    public NhanVien(String maNV, String vaiTro, String tenNV, String ngaySinh, String gioiTinh, String diaChi, String sdt, String taiKhoan, String matKhau, String email) {
         this.maNV = maNV;
         this.vaiTro = vaiTro;
         this.tenNV = tenNV;
@@ -25,6 +27,7 @@ public class NhanVien {
         this.sdt = sdt;
         this.taiKhoan = taiKhoan;
         this.matKhau = matKhau;
+        this.email = email;
     }
 
     public String getMaNV() {
@@ -99,15 +102,26 @@ public class NhanVien {
         this.matKhau = matKhau;
     }
 
-    @Override
-    public String toString() {
-        return "NhanVien{" + "maNV=" + maNV + ", vaiTro=" + vaiTro + ", tenNV=" + tenNV + ", ngaySinh=" + ngaySinh + ", gioiTinh=" + gioiTinh + ", diaChi=" + diaChi + ", sdt=" + sdt + ", taiKhoan=" + taiKhoan + ", matKhau=" + matKhau + '}';
+    public String getEmail() {
+        return email;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "NhanVien{" + "maNV=" + maNV + ", vaiTro=" + vaiTro + ", tenNV=" + tenNV + ", ngaySinh=" + ngaySinh + ", gioiTinh=" + gioiTinh + ", diaChi=" + diaChi + ", sdt=" + sdt + ", taiKhoan=" + taiKhoan + ", matKhau=" + matKhau + ", email=" + email + '}';
+    }
+
+    
+    
       
      public Object[]toDataRow(){
         return new Object[]{
-            this.getMaNV(),this.getTenNV(),this.getNgaySinh(),this.getGioiTinh(),this.getDiaChi(),this.getSdt(),this.getTaiKhoan(),this.getMatKhau(),this.getVaiTro()
+            this.getMaNV(),this.getTenNV(),this.getNgaySinh(),this.getGioiTinh(),this.getDiaChi(),this.getSdt(),this.getTaiKhoan(),this.getMatKhau(),this.getVaiTro().equals("1") ?"Quan ly" : "Nhan Vien",this.getEmail()
+
         };
     }
     
