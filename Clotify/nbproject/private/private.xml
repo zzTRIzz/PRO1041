@@ -9,11 +9,11 @@
             <file>file:/D:/Pro1041/Clotify/src/gui/admin/SanPhanAnDialog.java</file>
             <file>file:/D:/Pro1041/Clotify/src/gui/admin/Main_admin.java</file>
             <file>file:/D:/Pro1041/Clotify/src/gui/nhanvien/TrangKhachHang.java</file>
-            <file>file:/D:/Pro1041/Clotify/src/model/SanPham.java</file>
             <file>file:/D:/Pro1041/Clotify/src/model/SanPhamCT.java</file>
+            <file>file:/D:/Pro1041/Clotify/src/Service/ThuocTinhImpl.java</file>
             <file>file:/D:/Pro1041/Clotify/src/Service/SanPhamCTImpl.java</file>
-            <file>file:/D:/Pro1041/Clotify/src/gui/admin/LichSuGiaDialog.java</file>
             <file>file:/D:/Pro1041/Clotify/src/Service/SanPhamImpl.java</file>
+            <file>file:/D:/Pro1041/Clotify/src/Interface/ThuocTinhService.java</file>
         </group>
     </open-files>
 </project-private>

@@ -20,4 +20,5 @@ public interface SanPhamCTService {
     List<SanPhamCT> searchID(String maSP,String loaiSP,int idTH,int idMS,int idSize,int idCL);
     List<SanPhamCT> searchSPCT(String key);
     void upDateTrangThai(String trangThai,int idSP);
+    List<SanPhamCT> getAllSPAn();
 }

@@ -220,4 +220,46 @@ public class SanPhamCTImpl implements SanPhamCTService {
         }
     }
 
+    @Override
+    public List<SanPhamCT> getAllSPAn() {
+        listspct.clear();
+        String sql = "SELECT SanPhamCT.idSP, SanPhamCT.maSP, SanPhamCT.loaiSP, SanPhamCT.soLuong, SanPhamCT.giaNhap, MauSac.tenMauSac, Size.tenSize, ThuongHieu.tenThuongHieu, ChatLieu.tenChatLieu, SanPhamCT.trangThai, LichSuGia.gia,SanPham.tenSP, LichSuGia.idLS\n"
+                + "FROM      ChatLieu INNER JOIN\n"
+                + "                 SanPhamCT ON ChatLieu.idChatLieu = SanPhamCT.idChatLieu INNER JOIN\n"
+                + "                 MauSac ON SanPhamCT.idMauSac = MauSac.idMauSac INNER JOIN\n"
+                + "                 Size ON SanPhamCT.idSize = Size.idSize INNER JOIN\n"
+                + "                 ThuongHieu ON SanPhamCT.idThuongHieu = ThuongHieu.idThuongHieu INNER JOIN\n"
+                + "                 SanPham ON SanPhamCT.maSP = SanPham.maSP INNER JOIN\n"
+                + "                 LichSuGia ON SanPhamCT.idSP = LichSuGia.idSP\n"
+                + "WHERE SanPhamCT.trangThai = N'Không hoạt động'and LichSuGia.ngayKetThuc ='NULL' ";
+
+        try {
+            Connection conn = DBconnect.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                SanPhamCT spct = new SanPhamCT();
+
+                spct.setIdSP(rs.getInt(1));
+                spct.setMaSP(rs.getString(2));
+                spct.setLoaiSP(rs.getString(3));
+                spct.setSoLuong(rs.getInt(4));
+                spct.setGiaNhap(rs.getDouble(5));
+
+                spct.setTenMS(rs.getString(6));
+                spct.setTenSize(rs.getString(7));
+                spct.setTenTH(rs.getString(8));
+                spct.setTenCL(rs.getString(9));
+                spct.setTrangThai(rs.getString(10));
+                spct.setGiaBan(rs.getDouble(11));
+                spct.setTenSP(rs.getString(12));
+                spct.setIdLS(rs.getInt(13));
+                listspct.add(spct);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listspct;
+    }
+
 }

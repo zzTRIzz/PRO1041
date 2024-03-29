@@ -43,7 +43,8 @@ public class TrangSP extends javax.swing.JInternalFrame {
     SanPhamService svSP = new SanPhamImpl();
     LichSuGiaService lsg = new LichSuGiaImpl();
     LocalDate thoiGian = LocalDate.now();
-
+    
+    
     public TrangSP() {
         initComponents();
         ui_custom.deleteTitle(this);
@@ -53,12 +54,58 @@ public class TrangSP extends javax.swing.JInternalFrame {
         txtNgayNhap.setText(ngayNhap);
         loadDataSPCT();
         loadDataSP();
+        LoadComBoCL();
+        LoadComBoTH();
+        LoadComBoSize();
+        LoadComBoMS();
+
     }
 
     void loadDataSP() {
         model = (DefaultTableModel) tblSanPham.getModel();
         model.setRowCount(0);
         for (SanPham sanPham : svSP.getSPAll()) {
+            model.addRow(new Object[]{
+                sanPham.getMaSP(),
+                sanPham.getTenSP(),
+                sanPham.getNgayNhap(),
+                sanPham.getTenNV()
+            });
+
+        }
+    }
+    void LoadComBoMS(){
+        cboMauSac.removeAllItems();
+        
+        for (MauSac allM : svTT.getAllMs()) {
+            cboMauSac.addItem(allM.getTenMS());
+        }
+    }
+    void LoadComBoCL(){
+        cboChatLieu.removeAllItems();
+        
+        for (ChatLieu cl  : svTT.getAllCl()) {
+            cboChatLieu.addItem(cl.getTenCL());
+        }
+    }
+    void LoadComBoSize(){
+        cboSize.removeAllItems();
+        
+        for (Size size : svTT.getAllSize()) {
+            cboSize.addItem(size.getTenSize());
+        }
+    }
+    void LoadComBoTH(){
+        cboTH.removeAllItems();
+        
+        for (ThuongHieu th : svTT.getAllTh()) {
+            cboTH.addItem(th.getTenTH());
+        }
+    }
+    void loadDataSPByMa(String maSP) {
+        model = (DefaultTableModel) tblSanPham.getModel();
+        model.setRowCount(0);
+        for (SanPham sanPham : svSP.searchSanPham(maSP)) {
             model.addRow(new Object[]{
                 sanPham.getMaSP(),
                 sanPham.getTenSP(),
@@ -84,9 +131,7 @@ public class TrangSP extends javax.swing.JInternalFrame {
                 spct.getSoLuong(),
                 spct.getGiaNhap(),
                 spct.getGiaBan(),
-                spct.getTrangThai(),
-                
-            };
+                spct.getTrangThai(),};
             model.addRow(row);
         }
     }
@@ -164,6 +209,19 @@ public class TrangSP extends javax.swing.JInternalFrame {
         }
     }
 
+    void reSet() {
+        txtMaSP.setText("");
+        txtTenSP.setText("");
+        txtLoai.setText("");
+        txtGiaBan.setText("");
+        txtGiaNhap.setText("");
+        txtSoLuong.setText("");
+        cboChatLieu.setSelectedIndex(-1);
+        cboMauSac.setSelectedIndex(-1);
+        cboSize.setSelectedIndex(-1);
+        cboTH.setSelectedIndex(-1);
+    }
+
     SanPham getFormSP() {
         SanPham sp = new SanPham();
         sp.setMaSP(txtMaSP.getText());
@@ -188,11 +246,11 @@ public class TrangSP extends javax.swing.JInternalFrame {
         spct.setGiaNhap(Double.parseDouble(txtGiaBan.getText()));
         String trangThai = "Hoạt động";
         spct.setTrangThai(trangThai);
-        spct.setIdMauSac(cboMauSac.getSelectedIndex());
+        spct.setIdMauSac(cboMauSac.getSelectedIndex()+1);
 
-        spct.setIdSize(cboSize.getSelectedIndex());
-        spct.setIdThuongHieu(cboTH.getSelectedIndex());
-        spct.setIdChatLieu(cboChatLieu.getSelectedIndex());
+        spct.setIdSize(cboSize.getSelectedIndex()+1);
+        spct.setIdThuongHieu(cboTH.getSelectedIndex()+1);
+        spct.setIdChatLieu(cboChatLieu.getSelectedIndex()+1);
 
         return spct;
     }
@@ -347,6 +405,11 @@ public class TrangSP extends javax.swing.JInternalFrame {
         btNew.setFont(new java.awt.Font("Dosis", 1, 14)); // NOI18N
         btNew.setForeground(new java.awt.Color(20, 70, 128));
         btNew.setText("New   ");
+        btNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btNewActionPerformed(evt);
+            }
+        });
 
         btUpdate.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btUpdate.setForeground(new java.awt.Color(20, 70, 128));
@@ -461,19 +524,16 @@ public class TrangSP extends javax.swing.JInternalFrame {
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Chi tiết sản phẩm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(20, 70, 128))); // NOI18N
 
         cboTH.setFont(new java.awt.Font("Noto Sans", 0, 12)); // NOI18N
-        cboTH.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Adidas", "Nike", "Gucci", "Puma", "New Balance", "Zara", "Uniqlo", "Converse" }));
 
         jLabel8.setFont(new java.awt.Font("Noto Sans", 1, 12)); // NOI18N
         jLabel8.setText("Thương hiệu");
 
         cboSize.setFont(new java.awt.Font("Noto Sans", 0, 12)); // NOI18N
-        cboSize.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "S", "M", "L", "XL", "XXL", "XS", "XXXL", "XXS" }));
 
         jLabel11.setFont(new java.awt.Font("Noto Sans", 1, 12)); // NOI18N
         jLabel11.setText("Size");
 
         cboChatLieu.setFont(new java.awt.Font("Noto Sans", 0, 12)); // NOI18N
-        cboChatLieu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Cotton", "Polyester", "Denim", "Lụa", "Len", "Satin", "Thun lạnh", "Cashmere" }));
         cboChatLieu.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cboChatLieuItemStateChanged(evt);
@@ -494,7 +554,6 @@ public class TrangSP extends javax.swing.JInternalFrame {
         jLabel7.setText("Chất liệu");
 
         cboMauSac.setFont(new java.awt.Font("Noto Sans", 0, 12)); // NOI18N
-        cboMauSac.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Trắng", "Đen", "Xanh", "Hồng", "Cam", "Vàng", "Hồng đậm", "Xám" }));
 
         jLabel9.setFont(new java.awt.Font("Noto Sans", 1, 12)); // NOI18N
         jLabel9.setText("Màu sắc");
@@ -859,23 +918,32 @@ public class TrangSP extends javax.swing.JInternalFrame {
     private void btThemThuocTinhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btThemThuocTinhActionPerformed
         // TODO add your handling code here:
 
-        if (rdMauSac.isSelected()) {
-            svTT.addMauSac(getFormMs());
-            loadDataMS();
-        } else if (rdChatLieu.isSelected()) {
-            svTT.addChatLieu(getFormCl());
-            loadDataCL();
-        } else if (rdSize.isSelected()) {
-            svTT.addSize(getFormSize());
-            loadDataSize();
-        } else if (rdThuongHieu.isSelected()) {
-            svTT.addThuongHieu(getFormTh());
-            loadDataTH();
+        if (txtTenTT.equals("")) {
+            JOptionPane.showMessageDialog(this, "Tên thuộc tính không trống");
+            return;
+        }else{
+            if (rdMauSac.isSelected()) {
+                svTT.addMauSac(getFormMs());
+                loadDataMS();
+            } else if (rdChatLieu.isSelected()) {
+                svTT.addChatLieu(getFormCl());
+//                cboChatLieu.addItem(ms);
+                loadDataCL();
+            } else if (rdSize.isSelected()) {
+                svTT.addSize(getFormSize());
+//                cboSize.addItem(ms);
+                loadDataSize();
+            } else if (rdThuongHieu.isSelected()) {
+                svTT.addThuongHieu(getFormTh());
+//                cboTH.addItem(ms);
+                loadDataTH();
+            }
         }
     }//GEN-LAST:event_btThemThuocTinhActionPerformed
 
     private void rdThuongHieuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rdThuongHieuMouseClicked
         // TODO add your handling code here:
+        txtTenTT.setText("");
         loadDataTH();
 
     }//GEN-LAST:event_rdThuongHieuMouseClicked
@@ -886,16 +954,19 @@ public class TrangSP extends javax.swing.JInternalFrame {
 
     private void rdChatLieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdChatLieuActionPerformed
         // TODO add your handling code here:
+        txtTenTT.setText("");
         loadDataCL();
     }//GEN-LAST:event_rdChatLieuActionPerformed
 
     private void rdSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdSizeActionPerformed
         // TODO add your handling code here:
+        txtTenTT.setText("");
         loadDataSize();
     }//GEN-LAST:event_rdSizeActionPerformed
 
     private void rdMauSacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdMauSacActionPerformed
         // TODO add your handling code here:
+        txtTenTT.setText("");
         loadDataMS();
     }//GEN-LAST:event_rdMauSacActionPerformed
 
@@ -921,11 +992,16 @@ public class TrangSP extends javax.swing.JInternalFrame {
 
     private void btSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSearchActionPerformed
         // TODO add your handling code here:
-        String maSP = txtMaSP.getText();
-        model.setRowCount(0);
-        for (SanPhamCT spct : svSPCT.searchSPCT(maSP)) {
-            model.addRow(new Object[]{});
+        if (txtTimKiem.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập thông tin");
+            loadDataSP();
+            
+        } else {
+            String maSP = txtTimKiem.getText();
+            loadDataSPByMa(maSP);
+            loadDataSPCTByMa(maSP);
         }
+
     }//GEN-LAST:event_btSearchActionPerformed
 
     private void btSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSaveActionPerformed
@@ -941,88 +1017,87 @@ public class TrangSP extends javax.swing.JInternalFrame {
             svSP.addSanPham(new SanPham(maSP, tenSP, ngayNhap, maNV));
             loadDataSP();
         }
-        
-            int idCL = cboChatLieu.getSelectedIndex();
-            System.out.println(idCL);
-            int idMS = cboMauSac.getSelectedIndex();
-            System.out.println(idMS);
-            int idTH = cboTH.getSelectedIndex();
-            System.out.println(idTH);
-            int idSize = cboSize.getSelectedIndex();
-            System.out.println(idSize);
-            String loaiSP = txtLoai.getText();
-            int soLuong = Integer.parseInt(txtSoLuong.getText());
-            double giaNhap = Double.parseDouble(txtGiaNhap.getText());
-            String trangThai = "Hoạt động";
-            //         add SanPhamCT
-            svSPCT.addSanPhamCT(new SanPhamCT(soLuong, idMS, idSize, idTH, idCL, maSP, loaiSP, trangThai, giaNhap));
-            loadDataSPCTByMa(maSP);
-            double giaBan = Double.parseDouble(txtGiaBan.getText());
-            String ngayKetThuc = "NULL";
-            List<SanPhamCT> listIdSP = svSPCT.searchID(maSP, loaiSP, idTH, idMS, idSize, idCL);
-            int count2 = svSPCT.searchID(maSP, loaiSP, idTH, idMS, idSize, idCL).size();
-            if (count2 == 1) {
-                for (SanPhamCT sanPhamCT : listIdSP) {
-                    int idSP = sanPhamCT.getIdSP();
-                    System.out.println(idSP);
-                    lsg.addLSGia(new LichSuGia(idSP, giaBan, ngayNhap, ngayKetThuc));
 
-                }
-            } else {
-                JOptionPane.showMessageDialog(this, "Sản phẩm đã tồn tại");
+        int idCL = cboChatLieu.getSelectedIndex()+1;
+        System.out.println(idCL);
+        int idMS = cboMauSac.getSelectedIndex()+1;
+        System.out.println(idMS);
+        int idTH = cboTH.getSelectedIndex()+1;
+        System.out.println(idTH);
+        int idSize = cboSize.getSelectedIndex()+1;
+        System.out.println(idSize);
+        String loaiSP = txtLoai.getText();
+        int soLuong = Integer.parseInt(txtSoLuong.getText());
+        double giaNhap = Double.parseDouble(txtGiaNhap.getText());
+        String trangThai = "Hoạt động";
+        //         add SanPhamCT
+        svSPCT.addSanPhamCT(new SanPhamCT(soLuong, idMS, idSize, idTH, idCL, maSP, loaiSP, trangThai, giaNhap));
+        loadDataSPCTByMa(maSP);
+        double giaBan = Double.parseDouble(txtGiaBan.getText());
+        String ngayKetThuc = "NULL";
+        List<SanPhamCT> listIdSP = svSPCT.searchID(maSP, loaiSP, idTH, idMS, idSize, idCL);
+        int count2 = svSPCT.searchID(maSP, loaiSP, idTH, idMS, idSize, idCL).size();
+        if (count2 == 1) {
+            for (SanPhamCT sanPhamCT : listIdSP) {
+                int idSP = sanPhamCT.getIdSP();
+                System.out.println(idSP);
+                lsg.addLSGia(new LichSuGia(idSP, giaBan, ngayNhap, ngayKetThuc));
+
             }
+        } else {
+            JOptionPane.showMessageDialog(this, "Sản phẩm đã tồn tại");
+        }
 
-        
         loadDataSP();
         loadDataSPCTByMa(maSP);
     }//GEN-LAST:event_btSaveActionPerformed
 
     private void btUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btUpdateActionPerformed
         // TODO add your handling code here:
-        
+
         int rowSP = tblSanPham.getSelectedRow();
         int rowSPCT = tblSPCT.getSelectedRow();
         SanPhamCT spct = svSPCT.getRow(rowSPCT);
         int idSPCT = spct.getIdSP();
-        String ma =spct.getMaSP();
-        System.out.println("ma"+ma);
-        int soLuongTon =spct.getSoLuong();
-        System.out.println("so luong ton"+soLuongTon);
+        String ma = spct.getMaSP();
+        System.out.println("ma" + ma);
+        int soLuongTon = spct.getSoLuong();
+        System.out.println("so luong ton" + soLuongTon);
         int idLS = spct.getIdLS();
-        
-        String maSP =spct.getMaSP();
-        String ngayUpdate =thoiGian.toString();
-        String ngayKetThuc ="NULL";
-        double giaBanCu =spct.getGiaBan();
-        
+
+        String maSP = spct.getMaSP();
+        String ngayUpdate = thoiGian.toString();
+        String ngayKetThuc = "NULL";
+        double giaBanCu = spct.getGiaBan();
+
         if (rowSP >= 0) {
             if (rowSPCT >= 0) {
                 int option = JOptionPane.showConfirmDialog(null, "Bạn có muốn update sản phẩm không?", "Update số lượng tồn và giá bán", JOptionPane.YES_NO_OPTION);
                 if (option == JOptionPane.YES_OPTION) {
                     try {
-                       int soLuong = Integer.parseInt(txtSoLuong.getText());
-                       System.out.println("so luong moi"+soLuong);
-                       if (soLuong!=soLuongTon&&soLuong>0) {
-                           System.out.println("id"+idSPCT);
-                        svSPCT.updateSanPhamCT( idSPCT,soLuong);
-                           
-                        JOptionPane.showMessageDialog(this, "Update sản phẩm thành công");
-                    }
-                       
+                        int soLuong = Integer.parseInt(txtSoLuong.getText());
+                        System.out.println("so luong moi" + soLuong);
+                        if (soLuong != soLuongTon && soLuong > 0) {
+                            System.out.println("id" + idSPCT);
+                            svSPCT.updateSanPhamCT(idSPCT, soLuong);
+
+                            JOptionPane.showMessageDialog(this, "Update sản phẩm thành công");
+                        }
+
                     } catch (NumberFormatException e) {
                         JOptionPane.showMessageDialog(this, "Số lượng là 1 số nguyên");
                     }
                     //lich su gia
                     try {
-                       double giaBan = Double.parseDouble(txtGiaBan.getText());
-                       if (giaBan!=giaBanCu&&giaBan>0) {
-                        lsg.upDateLSG(ngayUpdate,idLS);
-                           loadDataSPCTByMa(maSP);
-                        lsg.addLSGia(new LichSuGia(idSPCT, giaBan, ngayUpdate, ngayKetThuc));
-                        
-                        JOptionPane.showMessageDialog(this, "Update sản phẩm thành công");
-                    }
-                       
+                        double giaBan = Double.parseDouble(txtGiaBan.getText());
+                        if (giaBan != giaBanCu && giaBan > 0) {
+                            lsg.upDateLSG(ngayUpdate, idLS);
+                            loadDataSPCTByMa(maSP);
+                            lsg.addLSGia(new LichSuGia(idSPCT, giaBan, ngayUpdate, ngayKetThuc));
+
+                            JOptionPane.showMessageDialog(this, "Update sản phẩm thành công");
+                        }
+
                     } catch (NumberFormatException e) {
                         JOptionPane.showMessageDialog(this, "Dữ liệu giá bán không hợp lệ");
                     }
@@ -1051,6 +1126,7 @@ public class TrangSP extends javax.swing.JInternalFrame {
     private void btnSPAnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSPAnActionPerformed
         // TODO add your handling code here:
         new SanPhanAnDialog(null, true).setVisible(true);
+
     }//GEN-LAST:event_btnSPAnActionPerformed
 
     private void btnAnSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnSPActionPerformed
@@ -1068,6 +1144,7 @@ public class TrangSP extends javax.swing.JInternalFrame {
                 if (option == JOptionPane.YES_OPTION) {
                     svSPCT.upDateTrangThai(trangThai, idSP);
                     JOptionPane.showMessageDialog(this, "Ẩn sản phẩm thành công");
+                    reSet();
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Chọn sản phẩm chi tiết trong bảng");
@@ -1077,6 +1154,12 @@ public class TrangSP extends javax.swing.JInternalFrame {
         }
         loadDataSPCTByMa(maSP);
     }//GEN-LAST:event_btnAnSPActionPerformed
+
+    private void btNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNewActionPerformed
+        // TODO add your handling code here:
+        reSet();
+
+    }//GEN-LAST:event_btNewActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

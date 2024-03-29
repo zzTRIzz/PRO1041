@@ -4,12 +4,19 @@
  */
 package gui.admin;
 
+import Interface.SanPhamCTService;
+import Service.SanPhamCTImpl;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.SanPhamCT;
+
 /**
  *
  * @author Ngo Nhan
  */
 public class SanPhanAnDialog extends javax.swing.JDialog {
-
+    SanPhamCTService svSpct = new SanPhamCTImpl();
+    DefaultTableModel defaultTableModel;
     /**
      * Creates new form SanPhanAn
      */
@@ -17,8 +24,27 @@ public class SanPhanAnDialog extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null);
+        loadDataLSP();
     }
-
+    void loadDataLSP(){
+        defaultTableModel =(DefaultTableModel) tblSPAn.getModel();
+        defaultTableModel.setRowCount(0);
+        for (SanPhamCT spct : svSpct.getAllSPAn()) {
+            defaultTableModel.addRow(new Object[]{
+                spct.getIdSP(),
+                spct.getMaSP(),
+                spct.getTenSP(),
+                spct.getTenMS(),
+                spct.getTenSize(),
+                spct.getTenTH(),
+                spct.getTenCL(),
+                spct.getSoLuong(),
+                spct.getGiaNhap(),
+                spct.getGiaBan(),
+                spct.getTrangThai(),
+            });
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,13 +56,12 @@ public class SanPhanAnDialog extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        tblSPAn = new javax.swing.JTable();
+        btnReset = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(850, 360));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblSPAn.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -44,7 +69,7 @@ public class SanPhanAnDialog extends javax.swing.JDialog {
                 "STT", "Mã SP", "Tên SP", "Màu sắc", "Size", "Thương hiệu", "Chất liệu", "Số lượng", "Giá nhập ", "Giá bán", "Trạng thái"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblSPAn);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -54,7 +79,7 @@ public class SanPhanAnDialog extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 826, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         jPanel1Layout.setVerticalGroup(
@@ -67,7 +92,12 @@ public class SanPhanAnDialog extends javax.swing.JDialog {
                     .addContainerGap()))
         );
 
-        jButton1.setText("jButton1");
+        btnReset.setText("Hiện thị lại");
+        btnReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResetActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -79,7 +109,7 @@ public class SanPhanAnDialog extends javax.swing.JDialog {
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(btnReset)
                 .addGap(15, 15, 15))
         );
         layout.setVerticalGroup(
@@ -88,12 +118,28 @@ public class SanPhanAnDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(btnReset)
                 .addContainerGap(38, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
+        // TODO add your handling code here:
+        int row = tblSPAn.getSelectedRow();
+        SanPhamCT spct =svSpct.getRow(row);
+        int idSp = spct.getIdSP();
+        String trangThai ="Hoạt động";
+        if (row>=0) {
+            int option = JOptionPane.showConfirmDialog(null, "Bạn có muốn ẩn sản phẩm không?", "Chi tiết sản phẩm", JOptionPane.YES_NO_OPTION);
+                if (option == JOptionPane.YES_OPTION) {
+                    svSpct.upDateTrangThai(trangThai, idSp);
+                    JOptionPane.showMessageDialog(this, "Chuyển sản phẩm thành công");
+                   loadDataLSP();
+                }
+        }
+    }//GEN-LAST:event_btnResetActionPerformed
 
     /**
      * @param args the command line arguments
@@ -139,9 +185,9 @@ public class SanPhanAnDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnReset;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblSPAn;
     // End of variables declaration//GEN-END:variables
 }
