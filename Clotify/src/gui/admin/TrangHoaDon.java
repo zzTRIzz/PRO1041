@@ -188,6 +188,17 @@ public class TrangHoaDon extends javax.swing.JInternalFrame {
                 btSearchMaMouseClicked(evt);
             }
         });
+        btSearchMa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSearchMaActionPerformed(evt);
+            }
+        });
+
+        txtTimKiem.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTimKiemKeyReleased(evt);
+            }
+        });
 
         btSearchDays.setText("Search");
         btSearchDays.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -338,6 +349,26 @@ public class TrangHoaDon extends javax.swing.JInternalFrame {
             });
         }
     }//GEN-LAST:event_btSearchDaysMouseClicked
+
+    private void txtTimKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemKeyReleased
+        // TODO add your handling code here:
+        String key = txtTimKiem.getText();
+        DefaultTableModel modelsearch = (DefaultTableModel) tbHoaDon.getModel();
+        modelsearch.setRowCount(0);
+        for (HoaDon hoaDon : svHD.Search(key)) {
+            modelsearch.addRow(new Object[]{
+                hoaDon.getIdHD(),
+                hoaDon.getMaHD(),
+                hoaDon.getNgayTao(),
+                hoaDon.getMaNV(),
+                hoaDon.getTrangThai()
+            });
+    }            
+    }//GEN-LAST:event_txtTimKiemKeyReleased
+
+    private void btSearchMaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSearchMaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btSearchMaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
