@@ -9,15 +9,16 @@ package model;
  * @author Surface
  */
 public class SanPhamKM {
-    Integer idSPKM,idSP;
-    String maKM,tenKM,ngayTao,ngayKetThuc,trangThai,maNV,tenNV,tenSP,mauSac,chatLieu,thuongHieu,size;
-    Integer giamTheoGia,giamTheoPT;
-    Double mucApDung;
+
+    int idSPKM,idSP;
+    String maKM,tenKM,ngayTao,ngayKetThuc,trangThai,maNV,tenNV,tenSP,mauSac,chatLieu,thuongHieu,size,loaiSP;
+    int giamTheoGia,giamTheoPT;
+    double mucApDung;
 
     public SanPhamKM() {
     }
 
-    public SanPhamKM(Integer idSPKM, Integer idSP, String maKM, String tenKM, String ngayTao, String ngayKetThuc, String trangThai, String maNV, String tenNV, String tenSP, String mauSac, String chatLieu, String thuongHieu, String size, Integer giamTheoGia, Integer giamTheoPT, Double mucApDung) {
+    public SanPhamKM(int idSPKM, int idSP, String maKM, String tenKM, String ngayTao, String ngayKetThuc, String trangThai, String maNV, String tenNV, String tenSP, String mauSac, String chatLieu, String thuongHieu, String size, String loaiSP, int giamTheoGia, int giamTheoPT, double mucApDung) {
         this.idSPKM = idSPKM;
         this.idSP = idSP;
         this.maKM = maKM;
@@ -32,24 +33,25 @@ public class SanPhamKM {
         this.chatLieu = chatLieu;
         this.thuongHieu = thuongHieu;
         this.size = size;
+        this.loaiSP = loaiSP;
         this.giamTheoGia = giamTheoGia;
         this.giamTheoPT = giamTheoPT;
         this.mucApDung = mucApDung;
     }
 
-    public Integer getIdSPKM() {
+    public int getIdSPKM() {
         return idSPKM;
     }
 
-    public void setIdSPKM(Integer idSPKM) {
+    public void setIdSPKM(int idSPKM) {
         this.idSPKM = idSPKM;
     }
 
-    public Integer getIdSP() {
+    public int getIdSP() {
         return idSP;
     }
 
-    public void setIdSP(Integer idSP) {
+    public void setIdSP(int idSP) {
         this.idSP = idSP;
     }
 
@@ -149,30 +151,44 @@ public class SanPhamKM {
         this.size = size;
     }
 
-    public Integer getGiamTheoGia() {
+    public String getLoaiSP() {
+        return loaiSP;
+    }
+
+    public void setLoaiSP(String loaiSP) {
+        this.loaiSP = loaiSP;
+    }
+
+    public int getGiamTheoGia() {
         return giamTheoGia;
     }
 
-    public void setGiamTheoGia(Integer giamTheoGia) {
+    public void setGiamTheoGia(int giamTheoGia) {
         this.giamTheoGia = giamTheoGia;
     }
 
-    public Integer getGiamTheoPT() {
+    public int getGiamTheoPT() {
         return giamTheoPT;
     }
 
-    public void setGiamTheoPT(Integer giamTheoPT) {
+    public void setGiamTheoPT(int giamTheoPT) {
         this.giamTheoPT = giamTheoPT;
     }
 
-    public Double getMucApDung() {
+    public double getMucApDung() {
         return mucApDung;
     }
 
-    public void setMucApDung(Double mucApDung) {
+    public void setMucApDung(double mucApDung) {
         this.mucApDung = mucApDung;
+    }
+
+    public SanPhamKM(int idSP, String maKM) {
+        this.idSP = idSP;
+        this.maKM = maKM;
     }
 
 
     
+
 }

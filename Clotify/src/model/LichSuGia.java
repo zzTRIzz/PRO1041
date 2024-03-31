@@ -11,18 +11,26 @@ package model;
 public class LichSuGia {
     int idLS,idSP;
     double giaNhap,giaBan;
-    String ngayBatDau,ngayKetThuc,tenSP,mauSac,chatLieu,thuongHieu,size;
+    String ngayBatDau,ngayKetThuc,maSP,tenSP,mauSac,chatLieu,thuongHieu,size;
 
     public LichSuGia() {
     }
 
-    public LichSuGia(int idLS, int idSP, double giaNhap, double giaBan, String ngayBatDau, String ngayKetThuc, String tenSP, String mauSac, String chatLieu, String thuongHieu, String size) {
+    public LichSuGia(int idSP, double giaBan, String ngayBatDau, String ngayKetThuc) {
+        this.idSP = idSP;
+        this.giaBan = giaBan;
+        this.ngayBatDau = ngayBatDau;
+        this.ngayKetThuc = ngayKetThuc;
+    }
+
+    public LichSuGia(int idLS, int idSP, double giaNhap, double giaBan, String ngayBatDau, String ngayKetThuc, String maSP, String tenSP, String mauSac, String chatLieu, String thuongHieu, String size) {
         this.idLS = idLS;
         this.idSP = idSP;
         this.giaNhap = giaNhap;
         this.giaBan = giaBan;
         this.ngayBatDau = ngayBatDau;
         this.ngayKetThuc = ngayKetThuc;
+        this.maSP = maSP;
         this.tenSP = tenSP;
         this.mauSac = mauSac;
         this.chatLieu = chatLieu;
@@ -78,6 +86,14 @@ public class LichSuGia {
         this.ngayKetThuc = ngayKetThuc;
     }
 
+    public String getMaSP() {
+        return maSP;
+    }
+
+    public void setMaSP(String maSP) {
+        this.maSP = maSP;
+    }
+
     public String getTenSP() {
         return tenSP;
     }
@@ -117,5 +133,7 @@ public class LichSuGia {
     public void setSize(String size) {
         this.size = size;
     }
+    
+    
     
 }

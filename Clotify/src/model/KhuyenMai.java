@@ -4,29 +4,20 @@
  */
 package model;
 
+import java.util.Date;
+import java.util.List;
+
 /**
  *
  * @author Surface
  */
 public class KhuyenMai {
-    String maKM,tenKM,ngayTao,ngayKetThuc,trangThai,maNV,tenNV;
+    String maKM,tenKM,trangThai,maNV,tenNV,loaiSP,ngayTao,ngayKetThuc;
     int giamTheoGia,giamTheoPT;
     double mucApDung;
+//    Date ngayTao,ngayKetThuc;
 
     public KhuyenMai() {
-    }
-
-    public KhuyenMai(String maKM, String tenKM, String ngayTao, String ngayKetThuc, String trangThai, String maNV, String tenNV, int giamTheoGia, int giamTheoPT, double mucApDung) {
-        this.maKM = maKM;
-        this.tenKM = tenKM;
-        this.ngayTao = ngayTao;
-        this.ngayKetThuc = ngayKetThuc;
-        this.trangThai = trangThai;
-        this.maNV = maNV;
-        this.tenNV = tenNV;
-        this.giamTheoGia = giamTheoGia;
-        this.giamTheoPT = giamTheoPT;
-        this.mucApDung = mucApDung;
     }
 
     public String getMaKM() {
@@ -43,22 +34,6 @@ public class KhuyenMai {
 
     public void setTenKM(String tenKM) {
         this.tenKM = tenKM;
-    }
-
-    public String getNgayTao() {
-        return ngayTao;
-    }
-
-    public void setNgayTao(String ngayTao) {
-        this.ngayTao = ngayTao;
-    }
-
-    public String getNgayKetThuc() {
-        return ngayKetThuc;
-    }
-
-    public void setNgayKetThuc(String ngayKetThuc) {
-        this.ngayKetThuc = ngayKetThuc;
     }
 
     public String getTrangThai() {
@@ -85,6 +60,30 @@ public class KhuyenMai {
         this.tenNV = tenNV;
     }
 
+    public String getLoaiSP() {
+        return loaiSP;
+    }
+
+    public void setLoaiSP(String loaiSP) {
+        this.loaiSP = loaiSP;
+    }
+
+    public String getNgayTao() {
+        return ngayTao;
+    }
+
+    public void setNgayTao(String ngayTao) {
+        this.ngayTao = ngayTao;
+    }
+
+    public String getNgayKetThuc() {
+        return ngayKetThuc;
+    }
+
+    public void setNgayKetThuc(String ngayKetThuc) {
+        this.ngayKetThuc = ngayKetThuc;
+    }
+
     public int getGiamTheoGia() {
         return giamTheoGia;
     }
@@ -108,5 +107,27 @@ public class KhuyenMai {
     public void setMucApDung(double mucApDung) {
         this.mucApDung = mucApDung;
     }
+
+    public KhuyenMai(String maKM, String tenKM, String trangThai, String maNV, String tenNV, String loaiSP, String ngayTao, String ngayKetThuc, int giamTheoGia, int giamTheoPT, double mucApDung) {
+        this.maKM = maKM;
+        this.tenKM = tenKM;
+        this.trangThai = trangThai;
+        this.maNV = maNV;
+        this.tenNV = tenNV;
+        this.loaiSP = loaiSP;
+        this.ngayTao = ngayTao;
+        this.ngayKetThuc = ngayKetThuc;
+        this.giamTheoGia = giamTheoGia;
+        this.giamTheoPT = giamTheoPT;
+        this.mucApDung = mucApDung;
+    }
+// private List<Integer> danhSachIdSP;
+//
+//    // Constructor và các phương thức khác...
+//
+//    public void setDanhSachIdSP(List<Integer> danhSachIdSP) {
+//        this.danhSachIdSP = danhSachIdSP;
+//    }
     
+   
 }

@@ -9,15 +9,14 @@ package model;
  * @author Surface
  */
 public class SanPhamCT {
-    Integer idSP,soLuong,idMauSac,idSize,idThuongHieu,idChatLieu;
-    String maSP,loaiSP,tenSP,mauSac,size,thuongHieu,chatLieu,ngayNhap,trangThai;
+    Integer idSP,soLuong,idMauSac,idSize,idThuongHieu,idChatLieu,idLS;
+    String maSP,loaiSP,trangThai,tenMS,tenSize,tenTH,tenCL,tenSP;
     Double giaNhap,giaBan;   
 
     public SanPhamCT() {
     }
 
-    public SanPhamCT(Integer idSP, Integer soLuong, Integer idMauSac, Integer idSize, Integer idThuongHieu, Integer idChatLieu, String maSP, String loaiSP, String tenSP, String mauSac, String size, String thuongHieu, String chatLieu, String ngayNhap, String trangThai, Double giaNhap, Double giaBan) {
-        this.idSP = idSP;
+    public SanPhamCT(Integer soLuong, Integer idMauSac, Integer idSize, Integer idThuongHieu, Integer idChatLieu, String maSP, String loaiSP, String trangThai, Double giaNhap) {
         this.soLuong = soLuong;
         this.idMauSac = idMauSac;
         this.idSize = idSize;
@@ -25,13 +24,26 @@ public class SanPhamCT {
         this.idChatLieu = idChatLieu;
         this.maSP = maSP;
         this.loaiSP = loaiSP;
-        this.tenSP = tenSP;
-        this.mauSac = mauSac;
-        this.size = size;
-        this.thuongHieu = thuongHieu;
-        this.chatLieu = chatLieu;
-        this.ngayNhap = ngayNhap;
         this.trangThai = trangThai;
+        this.giaNhap = giaNhap;
+    }
+
+    public SanPhamCT(Integer idSP, Integer soLuong, Integer idMauSac, Integer idSize, Integer idThuongHieu, Integer idChatLieu, Integer idLS, String maSP, String loaiSP, String trangThai, String tenMS, String tenSize, String tenTH, String tenCL, String tenSP, Double giaNhap, Double giaBan) {
+        this.idSP = idSP;
+        this.soLuong = soLuong;
+        this.idMauSac = idMauSac;
+        this.idSize = idSize;
+        this.idThuongHieu = idThuongHieu;
+        this.idChatLieu = idChatLieu;
+        this.idLS = idLS;
+        this.maSP = maSP;
+        this.loaiSP = loaiSP;
+        this.trangThai = trangThai;
+        this.tenMS = tenMS;
+        this.tenSize = tenSize;
+        this.tenTH = tenTH;
+        this.tenCL = tenCL;
+        this.tenSP = tenSP;
         this.giaNhap = giaNhap;
         this.giaBan = giaBan;
     }
@@ -84,6 +96,14 @@ public class SanPhamCT {
         this.idChatLieu = idChatLieu;
     }
 
+    public Integer getIdLS() {
+        return idLS;
+    }
+
+    public void setIdLS(Integer idLS) {
+        this.idLS = idLS;
+    }
+
     public String getMaSP() {
         return maSP;
     }
@@ -100,60 +120,52 @@ public class SanPhamCT {
         this.loaiSP = loaiSP;
     }
 
-    public String getTenSP() {
-        return tenSP;
-    }
-
-    public void setTenSP(String tenSP) {
-        this.tenSP = tenSP;
-    }
-
-    public String getMauSac() {
-        return mauSac;
-    }
-
-    public void setMauSac(String mauSac) {
-        this.mauSac = mauSac;
-    }
-
-    public String getSize() {
-        return size;
-    }
-
-    public void setSize(String size) {
-        this.size = size;
-    }
-
-    public String getThuongHieu() {
-        return thuongHieu;
-    }
-
-    public void setThuongHieu(String thuongHieu) {
-        this.thuongHieu = thuongHieu;
-    }
-
-    public String getChatLieu() {
-        return chatLieu;
-    }
-
-    public void setChatLieu(String chatLieu) {
-        this.chatLieu = chatLieu;
-    }
-
-    public String getNgayNhap() {
-        return ngayNhap;
-    }
-
-    public void setNgayNhap(String ngayNhap) {
-        this.ngayNhap = ngayNhap;
-    }
-
     public String getTrangThai() {
         return trangThai;
     }
 
     public void setTrangThai(String trangThai) {
         this.trangThai = trangThai;
+    }
+
+    public String getTenMS() {
+        return tenMS;
+    }
+
+    public void setTenMS(String tenMS) {
+        this.tenMS = tenMS;
+    }
+
+    public String getTenSize() {
+        return tenSize;
+    }
+
+    public void setTenSize(String tenSize) {
+        this.tenSize = tenSize;
+    }
+
+    public String getTenTH() {
+        return tenTH;
+    }
+
+    public void setTenTH(String tenTH) {
+        this.tenTH = tenTH;
+    }
+
+    public String getTenCL() {
+        return tenCL;
+    }
+
+    public void setTenCL(String tenCL) {
+        this.tenCL = tenCL;
+    }
+
+    public String getTenSP() {
+        return tenSP;
+    }
+
+    public void setTenSP(String tenSP) {
+        this.tenSP = tenSP;
     }
 
     public Double getGiaNhap() {
@@ -171,7 +183,6 @@ public class SanPhamCT {
     public void setGiaBan(Double giaBan) {
         this.giaBan = giaBan;
     }
-
 
     
 }
