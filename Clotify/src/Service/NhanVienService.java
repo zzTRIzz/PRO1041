@@ -20,13 +20,14 @@ public class NhanVienService {
   private String sql= null;
   public  List<NhanVien>getAll(){
       ListNV= new ArrayList<>();
-      sql="SELECT maNV,vaiTro,tenNV,ngaySinh,gioiTinh,diaChi,sdt,taiKhoan,matKhau,email FROM NhanVien";
+      sql="SELECT maNV,vaiTro,tenNV,ngaySinh,gioiTinh,diaChi,sdt,taiKhoan,matKhau,email,trangThai FROM NhanVien Where trangThai=1";
+      
       try {
           con=DBconnect.getConnection();
           ps= con.prepareStatement(sql);
           rs=ps.executeQuery();
           while (rs.next()) {
-             NhanVien nv =new NhanVien(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9),rs.getString(10));
+             NhanVien nv =new NhanVien(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9),rs.getString(10),rs.getString(11));
              ListNV.add(nv);
               
           }
@@ -39,7 +40,7 @@ public class NhanVienService {
  
   public int add(NhanVien nv ){
       int kq=0;
-      sql="INSERT INTO NhanVien(maNV,tenNV,ngaySinh,gioiTinh,diaChi,sdt,taiKhoan,matKhau,vaiTro,email) VALUES(?,?,?,?,?,?,?,?,?,?)";
+      sql="INSERT INTO NhanVien(maNV,tenNV,ngaySinh,gioiTinh,diaChi,sdt,taiKhoan,matKhau,vaiTro,email,trangThai) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
       try {
           con=DBconnect.getConnection();
           ps=con.prepareStatement(sql);
@@ -53,6 +54,7 @@ public class NhanVienService {
           ps.setString(8, nv.getMatKhau());
           ps.setString(9, nv.getVaiTro());
           ps.setString(10, nv.getEmail());
+          ps.setString(11,nv.getTrangThai());
           kq=ps.executeUpdate();
           return kq;
           
@@ -62,7 +64,7 @@ public class NhanVienService {
       }    
   }
     public int update(String ma, NhanVien nv) {
-        sql = "UPDATE NhanVien SET tenNV=?,ngaySinh=?,gioiTinh=?,diaChi=?,sdt=?,taiKhoan=?,matKhau=?,vaiTro=?,email=? WHERE  maNV=?";
+        sql = "UPDATE NhanVien SET tenNV=?,ngaySinh=?,gioiTinh=?,diaChi=?,sdt=?,taiKhoan=?,matKhau=?,vaiTro=?,email=?,trangThai=? WHERE  maNV=?";
         try {
             con = DBconnect.getConnection();
             ps = con.prepareStatement(sql);
@@ -75,7 +77,8 @@ public class NhanVienService {
             ps.setString(7, nv.getMatKhau());
             ps.setString(8, nv.getVaiTro());
             ps.setString(9, nv.getEmail());
-            ps.setString(10, ma);
+            ps.setString(10, nv.getTrangThai());
+            ps.setString(11, ma);
             return ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -97,14 +100,14 @@ public class NhanVienService {
   }
   public List<NhanVien> timKiem(String ma) {
         ListNV = new ArrayList<>();
-        sql = "SELECT maNV,vaiTro,tenNV,ngaySinh,gioiTinh,diaChi,sdt,taiKhoan,matKhau,email FROM NhanVien WHERE maNV like ?";
+        sql = "SELECT maNV,vaiTro,tenNV,ngaySinh,gioiTinh,diaChi,sdt,taiKhoan,matKhau,email,trangThai FROM NhanVien WHERE maNV like ?";
         try {
             con = DBconnect.getConnection();
             ps = con.prepareStatement(sql);
             ps.setString(1, ma);
             rs = ps.executeQuery();
             while (rs.next()) {
-                NhanVien nv=new NhanVien(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10));
+                NhanVien nv=new NhanVien(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10),rs.getString(11));
                 ListNV.add(nv);
             }
             return ListNV;
@@ -138,4 +141,36 @@ public class NhanVienService {
     }
     return false;
 }
+    public List<Object[]> getDisabledEmployees() {
+        List<Object[]> disabledEmployees = new ArrayList<>();
+
+        try (Connection connection = DBconnect.getConnection()) {
+            String sql = "SELECT maNV,vaiTro,tenNV,ngaySinh,gioiTinh,diaChi,sdt,taiKhoan,matKhau,email,trangThai FROM NhanVien";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Object[] rowData = new Object[11]; // S? l??ng tr??ng d? li?u c?a nhân viên
+                rowData[0] = resultSet.getInt("maNV");
+                rowData[1] = resultSet.getString("vaiTro");
+                rowData[2] = resultSet.getString("tenNV");
+                rowData[3] = resultSet.getString("ngaySinh");
+                rowData[4] = resultSet.getString("gioiTinh");
+                rowData[5] = resultSet.getString("diaChi");
+                rowData[6] = resultSet.getString("sdt");
+                rowData[7] = resultSet.getString("taiKhoan");
+                rowData[9] = resultSet.getString("matKhau");
+                rowData[10] = resultSet.getString("email");
+                rowData[11] = resultSet.getString("trangThai");
+               
+
+                disabledEmployees.add(rowData);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return disabledEmployees;
+    }
+ 
 }
