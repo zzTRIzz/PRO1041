@@ -9,6 +9,7 @@ import Interface.SanPhamKMInterface;
 import Service.KhuyenMaiService;
 import Service.SanPhamCTService;
 import Service.SanPhamKMService;
+import Service.VoucherService;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.text.ParseException;
@@ -23,6 +24,7 @@ import javax.swing.table.DefaultTableModel;
 import model.KhuyenMai;
 import model.SanPhamCT;
 import model.SanPhamKM;
+import model.Voucher;
 
 
 
@@ -41,6 +43,7 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
     SanPhamKMInterface svSPKM = new SanPhamKMService();
     SanPhamCTService svCT = new SanPhamCTService();
     KhuyenMaiService svKM = new KhuyenMaiService();
+    VoucherService svVC = new VoucherService();
     public TrangKhuyenMai() {
 
     
@@ -48,6 +51,7 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
         ui_custom.deleteTitle(this);
         loadDataKhuyenMai();
         loadDataSPCT();
+        loadDataVoucher();
        
 
 
@@ -84,6 +88,33 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
                 
             });
         }
+    }
+    void loadDataVoucher(){
+        model = (DefaultTableModel) tblVoucher.getModel();
+        model.setRowCount(0);
+        for (Voucher voucher : svVC.getVoucher() ) {
+            model.addRow(new Object[]{
+                voucher.getMaVC(),
+                voucher.getTenVC(),
+                voucher.getDkAD(),
+                voucher.getGiamTheoGia()
+            });
+        }
+    }
+    Voucher getFormVoucher(){
+        Voucher voucher = new Voucher();
+        voucher.setMaVC(txtMaVoucher.getText());
+        voucher.setTenVC(txtTenVoucher.getText());
+        voucher.setDkAD(Double.parseDouble(txtDieuKien.getText()));
+        voucher.setGiamTheoGia(Double.parseDouble(txtGiamTheoGia.getText()));
+        
+        return voucher;
+    }
+    void setFormVoucher(Voucher voucher){
+        txtMaVoucher.setText(voucher.getMaVC());
+        txtTenVoucher.setText(voucher.getTenVC());
+        txtDieuKien.setText(String.valueOf(voucher.getDkAD()));
+        txtGiamTheoGia.setText(String.valueOf(voucher.getGiamTheoGia()));
     }
     
     KhuyenMai getForm(){
@@ -175,16 +206,16 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
         jLabel26 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblVoucher = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtMaVoucher = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtTenVoucher = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        txtDieuKien = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        txtGiamTheoGia = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -453,7 +484,7 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
 
         jTabbedPane1.addTab("Khuyến mãi", KhuyenMai);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblVoucher.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -464,7 +495,12 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
                 "Mã voucher", "Tên Voucher", "Điều kiện áp dụng", "Giảm giá"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tblVoucher.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblVoucherMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblVoucher);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -489,10 +525,10 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
                     .addComponent(jLabel7))
                 .addGap(37, 37, 37)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField4))
+                    .addComponent(txtDieuKien, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
+                    .addComponent(txtTenVoucher, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtMaVoucher, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtGiamTheoGia))
                 .addContainerGap(58, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -501,27 +537,37 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
                 .addGap(16, 16, 16)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtMaVoucher, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTenVoucher, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDieuKien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtGiamTheoGia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jButton1.setText("ADD");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
 
         jButton2.setText("SAVE");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -588,60 +634,63 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
 
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
         // TODO add your handling code here:
-         int row = tblSPCT.getSelectedRow();
-         if(row>=0){
-             
-             SanPhamCT spct = svCT.getRow(row);
-             int idSP = spct.getIdSP();
-             String maKM = txtMaKM.getText();
-//             for (KhuyenMai khuyenMai : svKM.getKhuyenMai()) {
-//                 if (!khuyenMai.getMaKM().equals(maKM)) {
-//                     
-//                 
-//                     svKM.addKhuyenMai(getForm());
-//                 
+//         int row = tblSPCT.getSelectedRow();
+//         if(row>=0){
+//             
+//             SanPhamCT spct = svCT.getRow(row);
+//             int idSP = spct.getIdSP();
+//             String maKM = txtMaKM.getText();
+////             for (KhuyenMai khuyenMai : svKM.getKhuyenMai()) {
+////                 if (!khuyenMai.getMaKM().equals(maKM)) {
+////                     
+////                 
+////                     svKM.addKhuyenMai(getForm());
+////                 
+////             }
+////             }
+//             
+//            int count =svKM.searchKhuyeMaiTheoMa(maKM).size();
+//             if (count ==0) {
+//                 svKM.addKhuyenMai(getForm());
 //             }
-//             }
-             
-            int count =svKM.searchKhuyeMaiTheoMa(maKM).size();
-             if (count ==0) {
-                 svKM.addKhuyenMai(getForm());
-             }
-             svSPKM.addSPKM(new SanPhamKM(idSP, maKM));
-             loadDataKhuyenMai();
-         }
-// int rowCount = tblSPCT.getRowCount();
-//for (int i = 0; i < rowCount; i++) {
-//            // Thiết lập trạng thái của checkbox trong hàng thứ i thành true
-//            tblSPCT.setValueAt(true, i, 7);
-//        }
-// String maKM = txtMaKM.getText();
-//List<SanPhamKM> danhSachSPKM = new ArrayList<>();
-//
-//int[] selectedRows = tblSPCT.getSelectedRows(); // Lấy các dòng được chọn
-//
-//for (int selectedRow : selectedRows) {
-//    SanPhamCT spct = svCT.getRow(selectedRow);
-//    int idSP = spct.getIdSP();
-//    danhSachSPKM.add(new SanPhamKM(idSP, maKM));
-//}
-//
-//// Kiểm tra nếu danh sách sản phẩm khuyến mãi không trống
-//if (!danhSachSPKM.isEmpty()) {
-//    int count = svKM.searchKhuyeMaiTheoMa(maKM).size();
-//    if (count == 0) {
-//        svKM.addKhuyenMai(getForm());
-//    }
-//
-//    for (SanPhamKM spkm : danhSachSPKM) {
-//        svSPKM.addSPKM(spkm);
-//    }
-//
-//    loadDataKhuyenMai();
-//} else {
-//    // Xử lý khi không có sản phẩm nào được chọn
-//    System.out.println("Vui lòng chọn ít nhất một sản phẩm để thêm vào khuyến mãi!");
-//}
+//             svSPKM.addSPKM(new SanPhamKM(idSP, maKM));
+//             loadDataKhuyenMai();
+//         }
+
+        String maKM = txtMaKM.getText();
+        List<SanPhamKM> danhSachSPKM = new ArrayList<>();
+        int i = tblSPCT.getSelectedRow();
+        int[] selectedRows = tblSPCT.getSelectedRows(); // Lấy các dòng được chọn
+        tblSPCT.getValueAt(i, 7);
+
+        for (int selectedRow : selectedRows) {
+            Boolean trangThai = (Boolean) tblSPCT.getValueAt(selectedRow, 7);
+            if(trangThai){
+            SanPhamCT spct = svCT.getRow(selectedRow);
+            int idSP = spct.getIdSP();
+            danhSachSPKM.add(new SanPhamKM(idSP, maKM));
+            }
+        }
+
+// Kiểm tra nếu danh sách sản phẩm khuyến mãi không trống
+        if (!danhSachSPKM.isEmpty()) {
+            int count = svKM.searchKhuyeMaiTheoMa(maKM).size();
+            if (count == 0) {
+                svKM.addKhuyenMai(getForm());
+            }
+
+            for (SanPhamKM spkm : danhSachSPKM) {
+                svSPKM.addSPKM(spkm);
+            }
+
+            loadDataKhuyenMai();
+        } else {
+            // Xử lý khi không có sản phẩm nào được chọn
+            System.out.println("Vui lòng chọn ít nhất một sản phẩm để thêm vào khuyến mãi!");
+        }
+
+
+
 
     }//GEN-LAST:event_btnAddMouseClicked
 
@@ -765,6 +814,32 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_rdNgungHoatDongMouseClicked
 
+    private void tblVoucherMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblVoucherMouseClicked
+        // TODO add your handling code here:
+        int row = tblVoucher.getSelectedRow();
+        if(row>=0){
+            setFormVoucher(svVC.getRow(row));
+        }
+    }//GEN-LAST:event_tblVoucherMouseClicked
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+        svVC.addVoucher(getFormVoucher());
+        loadDataVoucher();
+    }//GEN-LAST:event_jButton1MouseClicked
+    
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        // TODO add your handling code here:
+        int i = tblVoucher.getSelectedRow();
+        if(i>=0){
+            String maVC = svVC.getRow(i).getMaVC();
+            Voucher voucher = getFormVoucher();
+            voucher.setMaVC(maVC);
+            svVC.updateVoucher(voucher);
+            loadDataVoucher();
+        }
+    }//GEN-LAST:event_jButton2MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel KhuyenMai;
@@ -796,21 +871,21 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JRadioButton rdHoatDong;
     private javax.swing.JRadioButton rdNgungHoatDong;
     private javax.swing.JTable tblKhuyenMai;
     private javax.swing.JTable tblSPCT;
+    private javax.swing.JTable tblVoucher;
+    private javax.swing.JTextField txtDieuKien;
     private javax.swing.JTextField txtGiaBatDau;
     private javax.swing.JTextField txtGiaKetThuc;
+    private javax.swing.JTextField txtGiamTheoGia;
     private javax.swing.JTextField txtMaKM;
+    private javax.swing.JTextField txtMaVoucher;
     private javax.swing.JTextField txtMucGiam;
     private com.toedter.calendar.JDateChooser txtNgayBatDau;
     private com.toedter.calendar.JDateChooser txtNgayKetThuc;
     private javax.swing.JTextField txtTenKM;
+    private javax.swing.JTextField txtTenVoucher;
     // End of variables declaration//GEN-END:variables
 }

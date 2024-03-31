@@ -152,7 +152,7 @@ public class KhuyenMaiService {
         return listSPCT;
     }
     public List<KhuyenMai> searchKhuyeMaiTheoMa(String maKM){
-        String sql = "SELECT  maKM, tenKM, giamTheoGia, giamTheoPT, ngayTao, ngayKetThuc, trangThai, mucGiaApDung, maNV\n" +
+        String sql = "SELECT  maKM, tenKM,  giamTheoPT, ngayTao, ngayKetThuc, trangThai, mucGiaApDung, maNV\n" +
 "FROM      KhuyenMai\n" +
 "WHERE   (maKM = ?)";
         list.clear();
@@ -165,13 +165,13 @@ public class KhuyenMaiService {
                 KhuyenMai km = new KhuyenMai();
                 km.setMaKM(rs.getString(1));
                 km.setTenKM(rs.getString(2));
-                km.setGiamTheoGia(rs.getInt(3));
-                km.setGiamTheoPT(rs.getInt(4));
-                km.setNgayTao(rs.getString(5));
-                km.setNgayKetThuc(rs.getString(6));
-                km.setTrangThai(rs.getString(7));
-                km.setMucApDung(rs.getDouble(8));
-                km.setMaNV(rs.getString(9));
+                        
+                km.setGiamTheoPT(rs.getInt(3));
+                km.setNgayTao(rs.getString(4));
+                km.setNgayKetThuc(rs.getString(5));
+                km.setTrangThai(rs.getString(6));
+                km.setMucApDung(rs.getDouble(7));
+                km.setMaNV(rs.getString(8));
                 list.add(km);
             }
         }catch(Exception e){
