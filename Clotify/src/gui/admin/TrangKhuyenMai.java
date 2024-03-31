@@ -588,60 +588,60 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
 
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
         // TODO add your handling code here:
-         int row = tblSPCT.getSelectedRow();
-         if(row>=0){
-             
-             SanPhamCT spct = svCT.getRow(row);
-             int idSP = spct.getIdSP();
-             String maKM = txtMaKM.getText();
-//             for (KhuyenMai khuyenMai : svKM.getKhuyenMai()) {
-//                 if (!khuyenMai.getMaKM().equals(maKM)) {
-//                     
-//                 
-//                     svKM.addKhuyenMai(getForm());
-//                 
+//         int row = tblSPCT.getSelectedRow();
+//         if(row>=0){
+//             
+//             SanPhamCT spct = svCT.getRow(row);
+//             int idSP = spct.getIdSP();
+//             String maKM = txtMaKM.getText();
+////             for (KhuyenMai khuyenMai : svKM.getKhuyenMai()) {
+////                 if (!khuyenMai.getMaKM().equals(maKM)) {
+////                     
+////                 
+////                     svKM.addKhuyenMai(getForm());
+////                 
+////             }
+////             }
+//             
+//            int count =svKM.searchKhuyeMaiTheoMa(maKM).size();
+//             if (count ==0) {
+//                 svKM.addKhuyenMai(getForm());
 //             }
-//             }
-             
-            int count =svKM.searchKhuyeMaiTheoMa(maKM).size();
-             if (count ==0) {
-                 svKM.addKhuyenMai(getForm());
-             }
-             svSPKM.addSPKM(new SanPhamKM(idSP, maKM));
-             loadDataKhuyenMai();
-         }
+//             svSPKM.addSPKM(new SanPhamKM(idSP, maKM));
+//             loadDataKhuyenMai();
+//         }
 // int rowCount = tblSPCT.getRowCount();
 //for (int i = 0; i < rowCount; i++) {
 //            // Thiết lập trạng thái của checkbox trong hàng thứ i thành true
 //            tblSPCT.setValueAt(true, i, 7);
 //        }
-// String maKM = txtMaKM.getText();
-//List<SanPhamKM> danhSachSPKM = new ArrayList<>();
-//
-//int[] selectedRows = tblSPCT.getSelectedRows(); // Lấy các dòng được chọn
-//
-//for (int selectedRow : selectedRows) {
-//    SanPhamCT spct = svCT.getRow(selectedRow);
-//    int idSP = spct.getIdSP();
-//    danhSachSPKM.add(new SanPhamKM(idSP, maKM));
-//}
-//
-//// Kiểm tra nếu danh sách sản phẩm khuyến mãi không trống
-//if (!danhSachSPKM.isEmpty()) {
-//    int count = svKM.searchKhuyeMaiTheoMa(maKM).size();
-//    if (count == 0) {
-//        svKM.addKhuyenMai(getForm());
-//    }
-//
-//    for (SanPhamKM spkm : danhSachSPKM) {
-//        svSPKM.addSPKM(spkm);
-//    }
-//
-//    loadDataKhuyenMai();
-//} else {
-//    // Xử lý khi không có sản phẩm nào được chọn
-//    System.out.println("Vui lòng chọn ít nhất một sản phẩm để thêm vào khuyến mãi!");
-//}
+ String maKM = txtMaKM.getText();
+List<SanPhamKM> danhSachSPKM = new ArrayList<>();
+
+int[] selectedRows = tblSPCT.getSelectedRows(); // Lấy các dòng được chọn
+
+for (int selectedRow : selectedRows) {
+    SanPhamCT spct = svCT.getRow(selectedRow);
+    int idSP = spct.getIdSP();
+    danhSachSPKM.add(new SanPhamKM(idSP, maKM));
+}
+
+// Kiểm tra nếu danh sách sản phẩm khuyến mãi không trống
+if (!danhSachSPKM.isEmpty()) {
+    int count = svKM.searchKhuyeMaiTheoMa(maKM).size();
+    if (count == 0) {
+        svKM.addKhuyenMai(getForm());
+    }
+
+    for (SanPhamKM spkm : danhSachSPKM) {
+        svSPKM.addSPKM(spkm);
+    }
+
+    loadDataKhuyenMai();
+} else {
+    // Xử lý khi không có sản phẩm nào được chọn
+    System.out.println("Vui lòng chọn ít nhất một sản phẩm để thêm vào khuyến mãi!");
+}
 
     }//GEN-LAST:event_btnAddMouseClicked
 
