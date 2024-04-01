@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.HoaDon;
 import model.HoaDonCT;
+import model.HoaDonCTAD;
 
 /**
  *
@@ -37,7 +38,7 @@ public class TrangHoaDon extends javax.swing.JInternalFrame {
 
     void loadDataHD() {
         model.setRowCount(0);
-        for (HoaDon hd : svHD.getHoaDonAll()) {
+        for (HoaDon hd : svHD.getAllHoaDonAdmin()) {
             Object[] row = new Object[]{
                 hd.getIdHD(),
                 hd.getMaHD(),
@@ -52,17 +53,17 @@ public class TrangHoaDon extends javax.swing.JInternalFrame {
     void loadDataHDCT(int idHD) {
         DefaultTableModel modelCTHD = (DefaultTableModel) tbHdct.getModel();
         modelCTHD.setRowCount(0);
-        for (HoaDonCT hdct : svHDCT.getHoaDonCTAll(idHD)) {
+        for (HoaDonCTAD hdctad : svHDCT.getHoaDonCTAllAdmin(idHD)) {
             modelCTHD.addRow(new Object[]{
-                hdct.getIdHoaDonCT(),
-                hdct.getIdHD(),
-                hdct.getMaNV(),
-                hdct.getNgayTao(),
-                hdct.getTenKH(),
-                hdct.getCtMaSP(),
-                hdct.getTenSP(),
-                hdct.getSoLuongMua(),
-                hdct.getTongTien()
+                hdctad.getIdHoaDonCT(),
+                hdctad.getMaHD(),
+                hdctad.getMaNV(),
+                hdctad.getNgayTao(),
+                hdctad.getTenKH(),
+                hdctad.getCtMaSP(),
+                hdctad.getTenSP(),
+                hdctad.getSoLuongMua(),
+                hdctad.getTongTien()
             });
         }
     }

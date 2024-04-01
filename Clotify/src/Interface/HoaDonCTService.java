@@ -6,6 +6,7 @@ package Interface;
 
 import java.util.List;
 import model.HoaDonCT;
+import model.HoaDonCTAD;
 
 /**
  *
@@ -19,4 +20,5 @@ public interface HoaDonCTService {
     void gopSanPhamTonTai(int idHDCT,int soLuongMua,double tongTien);
     HoaDonCT getRowHDCT(int row);
     void deleteHDCT(int idHDCT);
+    List<HoaDonCTAD> getHoaDonCTAllAdmin(int idHD);
 }
