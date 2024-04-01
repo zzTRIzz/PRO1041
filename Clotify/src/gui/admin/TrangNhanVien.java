@@ -527,34 +527,8 @@ private int index=-1;
     private void btnDSVHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDSVHActionPerformed
         // TODO add your handling code here:
         new NhanVienVoHieuDiaLog(null, true).setVisible(true);
-        int selectedRow = tblSP1.getSelectedRow();
-        if (selectedRow != -1) {
-            Object[] rowData = new Object[tblSP1.getColumnCount()];
-            for (int i = 0; i < rowData.length; i++) {
-                rowData[i] = tblSP1.getValueAt(selectedRow, i);
-            }
-
-            // G?i ph??ng th?c ?? thêm nhân viên vào b?ng nhân viên vô hi?u hóa
-            NhanVienVoHieuDiaLog dialog = new NhanVienVoHieuDiaLog(null, true);
-            dialog.updateEmployeeTable(rowData);
-            DefaultTableModel model = (DefaultTableModel) tblSP1.getModel();
-            model.removeRow(selectedRow);
-            dialog.setVisible(true);
-        }
     }//GEN-LAST:event_btnDSVHActionPerformed
-//    Boolean checkNull(){
-//    String ma=txtMa.getText();
-//    if (ma.isEmpty()) {
-//        JOptionPane.showMessageDialog(this, "Khong duoc bo trong Ma NhanVien");
-//        return false;
-//    }
-//    String ten=txtTen.getText();
-//    if (ten.isEmpty()) {
-//        JOptionPane.showMessageDialog(this, "Khong duoc bo trong Ten Nhan Vien");
-//        return false;
-//    }
-//    return true;
-//}
+
     private  boolean valiFrom(){
         if (Validation.isEmpty(txtMa, "Ma nhan vien khong duoc de trong")) {
             return false;

@@ -7,7 +7,9 @@ package gui.admin;
 import Service.NhanVienService;
 import Service.NhanVienVoHieuSV;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import model.NhanVien;
 
 /**
  *
@@ -18,12 +20,23 @@ public class NhanVienVoHieuDiaLog extends javax.swing.JDialog {
     /**
      * Creates new form NhanVienVoHieuDiaLog
      */
+//    private int index = -1;
+    DefaultTableModel model;
+    NhanVienVoHieuSV service = new NhanVienVoHieuSV();
+
     public NhanVienVoHieuDiaLog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-          this.fNV = fNV;
-        loadDisabledEmployees();
+        fillTable(service.getDisabledEmployees());
 
+    }
+
+    public void fillTable(List<NhanVien> list) {
+        model = (DefaultTableModel) tblNhanVienVH.getModel();
+        model.setRowCount(0);
+        for (NhanVien nhanvien : list) {
+            model.addRow(nhanvien.toDataRow());
+        }
     }
 
     /**
@@ -61,6 +74,11 @@ public class NhanVienVoHieuDiaLog extends javax.swing.JDialog {
         jLabel1.setText("Vô Hiệu Hóa Nhân Viên");
 
         jButton1.setText("Khôi Phục");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Xóa Vinh Viễn");
 
@@ -99,34 +117,24 @@ public class NhanVienVoHieuDiaLog extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
- private TrangNhanVien fNV;
-    NhanVienService service = new NhanVienService();
-    NhanVienVoHieuSV sv= new NhanVienVoHieuSV();
 
-   
-
-    
-
-    public void updateEmployeeTable(Object[] rowData) {
-        DefaultTableModel model = (DefaultTableModel) tblNhanVienVH.getModel();
-        model.setRowCount(0);
-        model.addRow(rowData);
-
-    }
-    
-
-    public void loadDisabledEmployees() {
-        DefaultTableModel model = (DefaultTableModel) tblNhanVienVH.getModel();
-        model.setRowCount(0); // Xóa t?t c? các dòng hi?n có trong b?ng
-
-        // G?i service ho?c DAO ?? l?y danh sách nhân viên ?ã vô hi?u hóa t? c? s? d? li?u
-        List<Object[]> disabledEmployees = sv.getDisabledEmployees(); // Thay th? b?ng ph??ng th?c thích h?p c?a service ho?c DAO
-
-        // Thêm các nhân viên ?ã vô hi?u hóa vào b?ng
-        for (Object[] rowData : disabledEmployees) {
-            model.addRow(rowData);
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        int index = tblNhanVienVH.getSelectedRow();
+        if (index >= 0) {
+            String ma = tblNhanVienVH.getValueAt(index, 0).toString();
+            if (service.khoiPhucTrangThaiHoatDong(ma) > 0) {
+                JOptionPane.showMessageDialog(this, "Khôi phục thành công");
+                fillTable(service.getDisabledEmployees());
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một hàng để khôi phục trạng thái hoạt động.");
         }
-    }
+
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+
     /**
      * @param args the command line arguments
      */

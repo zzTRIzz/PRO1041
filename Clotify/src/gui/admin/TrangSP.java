@@ -51,6 +51,7 @@ public class TrangSP extends javax.swing.JInternalFrame {
     DateTimeFormatter dinhDang = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     String thoiGian = now.format(dinhDang);
     
+    
     public TrangSP() {
         initComponents();
         ui_custom.deleteTitle(this);
@@ -65,6 +66,17 @@ public class TrangSP extends javax.swing.JInternalFrame {
         LoadComBoSize();
         LoadComBoMS();
 
+        
+//        NhanVienVoHieuDiaLog nhanVienVoHieuDiaLog =  new NhanVienVoHieuDiaLog(this, true);
+//        mainTable.addCustomEventListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                // Xử lý sự kiện khi nút được nhấn trong bảng chính
+//                System.out.println("Button pressed in Main Table");
+//            }
+//        });
+//
+//        add(mainTable);
     }
 
     void loadDataSP() {
