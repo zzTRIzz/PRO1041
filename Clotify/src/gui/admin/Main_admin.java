@@ -31,7 +31,6 @@ public class Main_admin extends javax.swing.JFrame {
 
     private void init() {
         setLocationRelativeTo(null);
-        lblMa.setText(TaiKhoanService.layThongTin_maNV());
         lblTen.setText(TaiKhoanService.layThongTin_tenNV());
 
     }
@@ -93,7 +92,6 @@ public class Main_admin extends javax.swing.JFrame {
         trang4 = new javax.swing.JLabel();
         trang5 = new javax.swing.JLabel();
         menu1 = new javax.swing.JLabel();
-        lblMa = new javax.swing.JLabel();
         lblTen = new javax.swing.JLabel();
         menu3 = new javax.swing.JLabel();
         DesktopPane = new javax.swing.JDesktopPane();
@@ -201,11 +199,6 @@ public class Main_admin extends javax.swing.JFrame {
         menu1.setText("Admin");
         menubar.add(menu1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 110, -1));
 
-        lblMa.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
-        lblMa.setForeground(new java.awt.Color(255, 255, 255));
-        lblMa.setText("Mã : ");
-        menubar.add(lblMa, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 110, 10));
-
         lblTen.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblTen.setForeground(new java.awt.Color(255, 255, 255));
         lblTen.setText("Tên : ");
@@ -307,7 +300,6 @@ public class Main_admin extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JLabel lblMa;
     private javax.swing.JLabel lblTen;
     private javax.swing.JLabel menu;
     private javax.swing.JLabel menu1;

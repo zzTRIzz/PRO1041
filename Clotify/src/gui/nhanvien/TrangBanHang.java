@@ -21,6 +21,7 @@ import model.HoaDon;
 import model.HoaDonCT;
 import model.KhachHang;
 import model.SanPhamCT;
+import Service.TaiKhoanService;
 
 
 /**
@@ -45,6 +46,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
         String trangThai = "Hoạt động";
         loadSanPham();
         loadHoaDon();
+        lblTenNV.setText(TaiKhoanService.layThongTin_tenNV());
 
     }
 
@@ -666,7 +668,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
     private void btnTaoHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoHDActionPerformed
         // TODO add your handling code here:
         // 
-        String maNV = "NV001";
+        String maNV = TaiKhoanService.layThongTin_maNV();
         String ngayTao = thoiGian.toString();
         String trangThai = "Chưa thanh toán";
         String sdt = txtSDT.getText();        
