@@ -657,41 +657,69 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
 //             loadDataKhuyenMai();
 //         }
 
-        String maKM = txtMaKM.getText();
-        List<SanPhamKM> danhSachSPKM = new ArrayList<>();
-        int i = tblSPCT.getSelectedRow();
-        int[] selectedRows = tblSPCT.getSelectedRows(); // Lấy các dòng được chọn
-        tblSPCT.getValueAt(i, 7);
+//        String maKM = txtMaKM.getText();
+//        List<SanPhamKM> danhSachSPKM = new ArrayList<>();
+//        int i = tblSPCT.getSelectedRow();
+//        int[] selectedRows = tblSPCT.getSelectedRows(); // Lấy các dòng được chọn
+//       
+//
+//        for (int selectedRow : selectedRows) {
+//            Boolean trangThai = (Boolean) tblSPCT.getModel().setValueAt(selectedRow, i, 7);
+//            if(trangThai){
+//            SanPhamCT spct = svCT.getRow(selectedRow);
+//            int idSP = spct.getIdSP();
+//            danhSachSPKM.add(new SanPhamKM(idSP, maKM));
+//            }
+//        }
+//
+//// Kiểm tra nếu danh sách sản phẩm khuyến mãi không trống
+//        if (!danhSachSPKM.isEmpty()) {
+//            int count = svKM.searchKhuyeMaiTheoMa(maKM).size();
+//            if (count == 0) {
+//                svKM.addKhuyenMai(getForm());
+//            }
+//
+//            for (SanPhamKM spkm : danhSachSPKM) {
+//                svSPKM.addSPKM(spkm);
+//            }
+//
+//            loadDataKhuyenMai();
+//        } else {
+//            // Xử lý khi không có sản phẩm nào được chọn
+//            System.out.println("Vui lòng chọn ít nhất một sản phẩm để thêm vào khuyến mãi!");
+//        }
+String maKM = txtMaKM.getText();
+List<SanPhamKM> danhSachSPKM = new ArrayList<>();
+int[] selectedRows = tblSPCT.getSelectedRows(); // Lấy các dòng được chọn
 
-        for (int selectedRow : selectedRows) {
-            Boolean trangThai = (Boolean) tblSPCT.getValueAt(selectedRow, 7);
-            if(trangThai){
-            SanPhamCT spct = svCT.getRow(selectedRow);
-            int idSP = spct.getIdSP();
-            danhSachSPKM.add(new SanPhamKM(idSP, maKM));
-            }
-        }
+for (int i = 0; i < selectedRows.length; i++) {
+    int selectedRow = selectedRows[i];
+    Boolean trangThai = (Boolean) tblSPCT.getModel().getValueAt(selectedRow, 7); // Lấy giá trị tại chỉ mục cột 7 của hàng được chọn
+    if (trangThai != null && trangThai) {
+        SanPhamCT spct = svCT.getRow(selectedRow);
+        int idSP = spct.getIdSP();
+        danhSachSPKM.add(new SanPhamKM(idSP, maKM));
+    }
+}
 
 // Kiểm tra nếu danh sách sản phẩm khuyến mãi không trống
-        if (!danhSachSPKM.isEmpty()) {
-            int count = svKM.searchKhuyeMaiTheoMa(maKM).size();
-            if (count == 0) {
-                svKM.addKhuyenMai(getForm());
-            }
+if (!danhSachSPKM.isEmpty()) {
+    int count = svKM.searchKhuyeMaiTheoMa(maKM).size();
+    if (count == 0) {
+        svKM.addKhuyenMai(getForm());
+    }
 
-            for (SanPhamKM spkm : danhSachSPKM) {
-                svSPKM.addSPKM(spkm);
-            }
+    for (SanPhamKM spkm : danhSachSPKM) {
+        svSPKM.addSPKM(spkm);
+    }
 
-            loadDataKhuyenMai();
-        } else {
-            // Xử lý khi không có sản phẩm nào được chọn
-            System.out.println("Vui lòng chọn ít nhất một sản phẩm để thêm vào khuyến mãi!");
-        }
+    loadDataKhuyenMai();
+} else {
+    // Xử lý khi không có sản phẩm nào được chọn
+    System.out.println("Vui lòng chọn ít nhất một sản phẩm để thêm vào khuyến mãi!");
+}
 
-
-
-
+ 
     }//GEN-LAST:event_btnAddMouseClicked
 
     private void tblKhuyenMaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblKhuyenMaiMouseClicked
