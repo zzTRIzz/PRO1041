@@ -4,7 +4,6 @@
  */
 package gui.admin;
 
-
 import Interface.SanPhamKMInterface;
 import Service.KhuyenMaiService;
 import Service.SanPhamCTService;
@@ -26,10 +25,6 @@ import model.SanPhamCT;
 import model.SanPhamKM;
 import model.Voucher;
 
-
-
-
-
 /**
  *
  * @author ADMIN
@@ -44,21 +39,18 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
     SanPhamCTService svCT = new SanPhamCTService();
     KhuyenMaiService svKM = new KhuyenMaiService();
     VoucherService svVC = new VoucherService();
+
     public TrangKhuyenMai() {
 
-    
         initComponents();
         ui_custom.deleteTitle(this);
         loadDataKhuyenMai();
         loadDataSPCT();
         loadDataVoucher();
-       
 
-
-        
-        
     }
-    void loadDataKhuyenMai(){
+
+    void loadDataKhuyenMai() {
         model = (DefaultTableModel) tblKhuyenMai.getModel();
         model.setRowCount(0);
         for (SanPhamKM spkm : svSPKM.getSanPhamKM()) {
@@ -73,7 +65,8 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
             });
         }
     }
-    void loadDataSPCT(){
+
+    void loadDataSPCT() {
         model = (DefaultTableModel) tblSPCT.getModel();
         model.setRowCount(0);
         for (SanPhamCT spct : svCT.getAll()) {
@@ -84,15 +77,14 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
                 spct.getSize(),
                 spct.getMauSac(),
                 spct.getChatLieu(),
-                spct.getGiaBan(),
-                
-            });
+                spct.getGiaBan(),});
         }
     }
-    void loadDataVoucher(){
+
+    void loadDataVoucher() {
         model = (DefaultTableModel) tblVoucher.getModel();
         model.setRowCount(0);
-        for (Voucher voucher : svVC.getVoucher() ) {
+        for (Voucher voucher : svVC.getVoucher()) {
             model.addRow(new Object[]{
                 voucher.getMaVC(),
                 voucher.getTenVC(),
@@ -101,39 +93,41 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
             });
         }
     }
-    Voucher getFormVoucher(){
+
+    Voucher getFormVoucher() {
         Voucher voucher = new Voucher();
         voucher.setMaVC(txtMaVoucher.getText());
         voucher.setTenVC(txtTenVoucher.getText());
         voucher.setDkAD(Double.parseDouble(txtDieuKien.getText()));
         voucher.setGiamTheoGia(Double.parseDouble(txtGiamTheoGia.getText()));
-        
+
         return voucher;
     }
-    void setFormVoucher(Voucher voucher){
+
+    void setFormVoucher(Voucher voucher) {
         txtMaVoucher.setText(voucher.getMaVC());
         txtTenVoucher.setText(voucher.getTenVC());
         txtDieuKien.setText(String.valueOf(voucher.getDkAD()));
         txtGiamTheoGia.setText(String.valueOf(voucher.getGiamTheoGia()));
     }
-    
-    KhuyenMai getForm(){
+
+    KhuyenMai getForm() {
         KhuyenMai km = new KhuyenMai();
-    km.setMaKM(txtMaKM.getText());
-    km.setTenKM(txtTenKM.getText());
+        km.setMaKM(txtMaKM.getText());
+        km.setTenKM(txtTenKM.getText());
 //    km.setNgayTao(txtNgayBatDau.getDate());
 //    km.setNgayKetThuc(txtNgayKetThuc.getDate());
-    Date ngayTao =txtNgayBatDau.getDate();
-    Date ngayKetThuc =txtNgayKetThuc.getDate();
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    String ngayKetThucString =dateFormat.format(ngayKetThuc);
-    String ngayKetTaoString =dateFormat.format(ngayTao);
-    km.setNgayTao(ngayKetTaoString);
-    km.setNgayKetThuc(ngayKetThucString);
-    km.setLoaiSP(cboLoaiSP.getSelectedItem().toString());
-    km.setGiamTheoPT(Integer.parseInt(txtMucGiam.getText()));
-    String trangThai = "Đang áp dụng";
-    km.setTrangThai(trangThai);
+        Date ngayTao = txtNgayBatDau.getDate();
+        Date ngayKetThuc = txtNgayKetThuc.getDate();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String ngayKetThucString = dateFormat.format(ngayKetThuc);
+        String ngayKetTaoString = dateFormat.format(ngayTao);
+        km.setNgayTao(ngayKetTaoString);
+        km.setNgayKetThuc(ngayKetThucString);
+        km.setLoaiSP(cboLoaiSP.getSelectedItem().toString());
+        km.setGiamTheoPT(Integer.parseInt(txtMucGiam.getText()));
+        String trangThai = "Đang áp dụng";
+        km.setTrangThai(trangThai);
 //        List<String> danhSachIdSanPhamDaChon = new ArrayList<>();
 //    for (JCheckBox checkbox :  ) {
 //        if (checkbox.isSelected()) {
@@ -141,29 +135,29 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
 //        }
 //    }
 //    km.setDanhSachIdSP(danhSachIdSanPhamDaChon);
-    return km;
-     
-    
+        return km;
+
     }
-    void setForm(SanPhamKM km){
-    txtMaKM.setText(km.getMaKM());
-    txtTenKM.setText(km.getTenKM());
-    
-    // Convert String date to Date object
+
+    void setForm(SanPhamKM km) {
+        txtMaKM.setText(km.getMaKM());
+        txtTenKM.setText(km.getTenKM());
+
+        // Convert String date to Date object
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // or your desired date format
-    try {
-        Date ngayBatDau = sdf.parse(km.getNgayTao());
-        Date ngayKetThuc = sdf.parse(km.getNgayKetThuc());
-        
-        // Set the Date objects to date pickers
-        txtNgayBatDau.setDate(ngayBatDau);
-        txtNgayKetThuc.setDate(ngayKetThuc);
-    } catch (ParseException e) {
-        e.printStackTrace();
+        try {
+            Date ngayBatDau = sdf.parse(km.getNgayTao());
+            Date ngayKetThuc = sdf.parse(km.getNgayKetThuc());
+
+            // Set the Date objects to date pickers
+            txtNgayBatDau.setDate(ngayBatDau);
+            txtNgayKetThuc.setDate(ngayKetThuc);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        txtMucGiam.setText(String.valueOf(km.getGiamTheoPT()));
     }
-    
-    txtMucGiam.setText(String.valueOf(km.getGiamTheoPT()));
-}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -657,75 +651,49 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
 //             loadDataKhuyenMai();
 //         }
 
-//        String maKM = txtMaKM.getText();
-//        List<SanPhamKM> danhSachSPKM = new ArrayList<>();
-//        int i = tblSPCT.getSelectedRow();
+        String maKM = txtMaKM.getText();
+        List<SanPhamKM> danhSachSPKM = new ArrayList<>();
+       
 //        int[] selectedRows = tblSPCT.getSelectedRows(); // Lấy các dòng được chọn
-//       
-//
-//        for (int selectedRow : selectedRows) {
-//            Boolean trangThai = (Boolean) tblSPCT.getModel().setValueAt(selectedRow, i, 7);
-//            if(trangThai){
-//            SanPhamCT spct = svCT.getRow(selectedRow);
-//            int idSP = spct.getIdSP();
-//            danhSachSPKM.add(new SanPhamKM(idSP, maKM));
-//            }
-//        }
-//
-//// Kiểm tra nếu danh sách sản phẩm khuyến mãi không trống
-//        if (!danhSachSPKM.isEmpty()) {
-//            int count = svKM.searchKhuyeMaiTheoMa(maKM).size();
-//            if (count == 0) {
-//                svKM.addKhuyenMai(getForm());
-//            }
-//
-//            for (SanPhamKM spkm : danhSachSPKM) {
-//                svSPKM.addSPKM(spkm);
-//            }
-//
-//            loadDataKhuyenMai();
-//        } else {
-//            // Xử lý khi không có sản phẩm nào được chọn
-//            System.out.println("Vui lòng chọn ít nhất một sản phẩm để thêm vào khuyến mãi!");
-//        }
-String maKM = txtMaKM.getText();
-List<SanPhamKM> danhSachSPKM = new ArrayList<>();
-int[] selectedRows = tblSPCT.getSelectedRows(); // Lấy các dòng được chọn
 
-for (int i = 0; i < selectedRows.length; i++) {
-    int selectedRow = selectedRows[i];
-    Boolean trangThai = (Boolean) tblSPCT.getModel().getValueAt(selectedRow, 7); // Lấy giá trị tại chỉ mục cột 7 của hàng được chọn
-    if (trangThai != null && trangThai) {
-        SanPhamCT spct = svCT.getRow(selectedRow);
-        int idSP = spct.getIdSP();
-        danhSachSPKM.add(new SanPhamKM(idSP, maKM));
-    }
-}
+        
+        for (int row = 0; row < tblSPCT.getRowCount(); row++) {
+//            Boolean trangThai = (Boolean) tblSPCT.getModel().setValueAt(selectedRow, i, 7);
+            if (tblSPCT.getModel().getValueAt(row, 7) != null) {
+                Boolean trangThai = (Boolean) tblSPCT.getModel().getValueAt(row, 7);
+                if (trangThai) {
+                    SanPhamCT spct = svCT.getRow(row);
+                    int idSP = spct.getIdSP();
+                    danhSachSPKM.add(new SanPhamKM(idSP, maKM));
+                }
+            }
+
+        }
 
 // Kiểm tra nếu danh sách sản phẩm khuyến mãi không trống
-if (!danhSachSPKM.isEmpty()) {
-    int count = svKM.searchKhuyeMaiTheoMa(maKM).size();
-    if (count == 0) {
-        svKM.addKhuyenMai(getForm());
-    }
+        if (!danhSachSPKM.isEmpty()) {
+            int count = svKM.searchKhuyeMaiTheoMa(maKM).size();
+            if (count == 0) {
+                svKM.addKhuyenMai(getForm());
+            }
 
-    for (SanPhamKM spkm : danhSachSPKM) {
-        svSPKM.addSPKM(spkm);
-    }
+            for (SanPhamKM spkm : danhSachSPKM) {
+                svSPKM.addSPKM(spkm);
+            }
 
-    loadDataKhuyenMai();
-} else {
-    // Xử lý khi không có sản phẩm nào được chọn
-    System.out.println("Vui lòng chọn ít nhất một sản phẩm để thêm vào khuyến mãi!");
-}
+            loadDataKhuyenMai();
+        } else {
+            // Xử lý khi không có sản phẩm nào được chọn
+            System.out.println("Vui lòng chọn ít nhất một sản phẩm để thêm vào khuyến mãi!");
+        }
 
- 
+
     }//GEN-LAST:event_btnAddMouseClicked
 
     private void tblKhuyenMaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblKhuyenMaiMouseClicked
         // TODO add your handling code here:
         int i = tblKhuyenMai.getSelectedRow();
-        if(i>=0){
+        if (i >= 0) {
             setForm(svSPKM.getRow(i));
             loadDataKhuyenMai();
         }
@@ -761,14 +729,14 @@ if (!danhSachSPKM.isEmpty()) {
 
     private void cboLoaiSPItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboLoaiSPItemStateChanged
         // TODO add your handling code here:
-         String key = cboLoaiSP.getSelectedItem().toString();
+        String key = cboLoaiSP.getSelectedItem().toString();
         if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
-       
-        DefaultTableModel modelLoaiSP = (DefaultTableModel) tblSPCT.getModel();
-        modelLoaiSP.setRowCount(0);
-        try {
-            for (SanPhamCT spct : svKM.searchTheoLoaiSP(key)) {
-                modelLoaiSP.addRow(new Object[]{
+
+            DefaultTableModel modelLoaiSP = (DefaultTableModel) tblSPCT.getModel();
+            modelLoaiSP.setRowCount(0);
+            try {
+                for (SanPhamCT spct : svKM.searchTheoLoaiSP(key)) {
+                    modelLoaiSP.addRow(new Object[]{
                         spct.getIdSP(),
                         spct.getMaSP(),
                         spct.getTenSP(),
@@ -776,15 +744,15 @@ if (!danhSachSPKM.isEmpty()) {
                         spct.getMauSac(),
                         spct.getChatLieu(),
                         spct.getGiaBan()
-                });
+                    });
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                // Xử lý ngoại lệ một cách thích hợp, có thể hiển thị một thông báo lỗi cho người dùng
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            // Xử lý ngoại lệ một cách thích hợp, có thể hiển thị một thông báo lỗi cho người dùng
+
         }
-        
-    }
-        if(key.equals("Tất cả sản phẩm")){
+        if (key.equals("Tất cả sản phẩm")) {
             loadDataSPCT();
         }
     }//GEN-LAST:event_cboLoaiSPItemStateChanged
@@ -792,35 +760,35 @@ if (!danhSachSPKM.isEmpty()) {
     private void txtGiaKetThucKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtGiaKetThucKeyReleased
         // TODO add your handling code here:
         try {
-    Double giaBatDau = Double.parseDouble(txtGiaBatDau.getText());
-    Double giaKetThuc = Double.parseDouble(txtGiaKetThuc.getText());
-    
-    // Tiếp tục xử lý chỉ khi chuyển đổi thành công
-    DefaultTableModel modelTimTheoGia = (DefaultTableModel) tblSPCT.getModel();
-    modelTimTheoGia.setRowCount(0);
-    for (SanPhamCT spct : svKM.searchTheoKhoangGia(giaBatDau, giaKetThuc)) {
-        modelTimTheoGia.addRow(new Object[]{
-                spct.getIdSP(),
-                spct.getMaSP(),
-                spct.getTenSP(),
-                spct.getSize(),
-                spct.getMauSac(),
-                spct.getChatLieu(),
-                spct.getGiaBan()
-        });
-    }
-} catch (NumberFormatException e) {
-    // Xử lý trường hợp nhập liệu không hợp lệ ở đây...
-    // Ví dụ: Hiển thị thông báo lỗi, yêu cầu nhập lại giá trị hợp lệ.
-    JOptionPane.showMessageDialog(this, "Giá bắt đầu hoặc giá kết thúc không hợp lệ. Vui lòng nhập lại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-}
-        
+            Double giaBatDau = Double.parseDouble(txtGiaBatDau.getText());
+            Double giaKetThuc = Double.parseDouble(txtGiaKetThuc.getText());
+
+            // Tiếp tục xử lý chỉ khi chuyển đổi thành công
+            DefaultTableModel modelTimTheoGia = (DefaultTableModel) tblSPCT.getModel();
+            modelTimTheoGia.setRowCount(0);
+            for (SanPhamCT spct : svKM.searchTheoKhoangGia(giaBatDau, giaKetThuc)) {
+                modelTimTheoGia.addRow(new Object[]{
+                    spct.getIdSP(),
+                    spct.getMaSP(),
+                    spct.getTenSP(),
+                    spct.getSize(),
+                    spct.getMauSac(),
+                    spct.getChatLieu(),
+                    spct.getGiaBan()
+                });
+            }
+        } catch (NumberFormatException e) {
+            // Xử lý trường hợp nhập liệu không hợp lệ ở đây...
+            // Ví dụ: Hiển thị thông báo lỗi, yêu cầu nhập lại giá trị hợp lệ.
+            JOptionPane.showMessageDialog(this, "Giá bắt đầu hoặc giá kết thúc không hợp lệ. Vui lòng nhập lại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
+
     }//GEN-LAST:event_txtGiaKetThucKeyReleased
 
     private void btnSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSaveMouseClicked
         // TODO add your handling code here:
         int row = tblKhuyenMai.getSelectedRow();
-        if(row>=0){
+        if (row >= 0) {
             String maKM = svKM.getRow(row).getMaKM();
             KhuyenMai km = getForm();
             km.setMaKM(maKM);
@@ -831,21 +799,21 @@ if (!danhSachSPKM.isEmpty()) {
 
     private void rdNgungHoatDongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rdNgungHoatDongMouseClicked
         // TODO add your handling code here:
-       
+
         int i = tblKhuyenMai.getSelectedRow();
-        if(i !=-1 && rdNgungHoatDong.isSelected()){
+        if (i != -1 && rdNgungHoatDong.isSelected()) {
             model = (DefaultTableModel) tblKhuyenMai.getModel();
-            
+
             model.setValueAt("Hết khuyến mại", i, 6);
             String maKM = (String) model.getValueAt(i, 0);
-           svKM.updateTrangThai(maKM, "Hết khuyến mại");
+            svKM.updateTrangThai(maKM, "Hết khuyến mại");
         }
     }//GEN-LAST:event_rdNgungHoatDongMouseClicked
 
     private void tblVoucherMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblVoucherMouseClicked
         // TODO add your handling code here:
         int row = tblVoucher.getSelectedRow();
-        if(row>=0){
+        if (row >= 0) {
             setFormVoucher(svVC.getRow(row));
         }
     }//GEN-LAST:event_tblVoucherMouseClicked
@@ -855,11 +823,11 @@ if (!danhSachSPKM.isEmpty()) {
         svVC.addVoucher(getFormVoucher());
         loadDataVoucher();
     }//GEN-LAST:event_jButton1MouseClicked
-    
+
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
         int i = tblVoucher.getSelectedRow();
-        if(i>=0){
+        if (i >= 0) {
             String maVC = svVC.getRow(i).getMaVC();
             Voucher voucher = getFormVoucher();
             voucher.setMaVC(maVC);
