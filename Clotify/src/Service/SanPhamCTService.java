@@ -29,7 +29,7 @@ public class SanPhamCTService implements SanPhamCTImpl {
                 + "                 ThuongHieu ON SanPhamCT.idThuongHieu = ThuongHieu.idThuongHieu INNER JOIN\n"
                 + "                 SanPham ON SanPhamCT.maSP = SanPham.maSP INNER JOIN\n"
                 + "                 LichSuGia ON SanPhamCT.idSP = LichSuGia.idSP\n"
-                + "WHERE SanPhamCT.trangThai = N'Hoạt động'and LichSuGia.ngayKetThuc ='NULL' ";
+                + "WHERE SanPhamCT.trangThai = N'Hoạt động'and LichSuGia.ngayKetThuc is NULL ";
 
         try {
             Connection conn = DBconnect.getConnection();
@@ -65,23 +65,6 @@ public class SanPhamCTService implements SanPhamCTImpl {
         return listspct.get(row);
     }
 
-//    @Override
-//    public void updateSanPhamCT(int soLuong, int idSP) {
-//        try {
-//            String sql = "UPDATE SanPhamCT\n"
-//                    + "SET       soLuong =?\n"
-//                    + "WHERE (idSP=?)";
-//            Connection conn = DBconnect.getConnection();
-//            PreparedStatement ps = conn.prepareStatement(sql);
-//            ps.setInt(1, soLuong);
-//            ps.setDouble(2, idSP);
-//            ps.executeUpdate();
-//            conn.close();
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     @Override
     public void updateSanPhamCT(int idSPCT, int soLuongCon) {
@@ -167,7 +150,7 @@ public class SanPhamCTService implements SanPhamCTImpl {
                 + "                 Size ON SanPhamCT.idSize = Size.idSize INNER JOIN\n"
                 + "                 ThuongHieu ON SanPhamCT.idThuongHieu = ThuongHieu.idThuongHieu INNER JOIN\n"
                 + "                 LichSuGia ON SanPhamCT.idSP = LichSuGia.idSP\n" //Do cái lsg này nên k load được 1 sp nữa lên table này
-                + "WHERE SanPhamCT.trangThai = N'Hoạt động' and (SanPhamCT.maSP =?) and LichSuGia.ngayKetThuc ='NULL'";
+                + "WHERE SanPhamCT.trangThai = N'Hoạt động' and (SanPhamCT.maSP =?) and LichSuGia.ngayKetThuc is NULL";
 
         try {
             Connection conn = DBconnect.getConnection();
@@ -229,7 +212,7 @@ public class SanPhamCTService implements SanPhamCTImpl {
                 + "                 ThuongHieu ON SanPhamCT.idThuongHieu = ThuongHieu.idThuongHieu INNER JOIN\n"
                 + "                 SanPham ON SanPhamCT.maSP = SanPham.maSP INNER JOIN\n"
                 + "                 LichSuGia ON SanPhamCT.idSP = LichSuGia.idSP\n"
-                + "WHERE SanPhamCT.trangThai = N'Không hoạt động'and LichSuGia.ngayKetThuc ='NULL' ";
+                + "WHERE SanPhamCT.trangThai = N'Không hoạt động'and LichSuGia.ngayKetThuc is NULL ";
 
         try {
             Connection conn = DBconnect.getConnection();
