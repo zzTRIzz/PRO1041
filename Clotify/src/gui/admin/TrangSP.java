@@ -25,6 +25,9 @@ import Interface.SanPhamService;
 import Interface.ThuocTinhImpl;
 import Service.LichSuGiaImpl;
 import Service.SanPhamImpl;
+import Service.TaiKhoanService;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 import model.LichSuGia;
 
@@ -43,15 +46,17 @@ public class TrangSP extends javax.swing.JInternalFrame {
     ThuocTinhImpl svTT = new ThuocTinhService();
     SanPhamService svSP = new SanPhamImpl();
     LichSuGiaService lsg = new LichSuGiaImpl();
-    LocalDate thoiGian = LocalDate.now();
     
+    LocalDateTime now = LocalDateTime.now();
+    DateTimeFormatter dinhDang = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    String thoiGian = now.format(dinhDang);
     
     public TrangSP() {
         initComponents();
         ui_custom.deleteTitle(this);
 
         modeltt = (DefaultTableModel) tbThuocTinh.getModel();
-        String ngayNhap = thoiGian.toString();
+        String ngayNhap = thoiGian;
         txtNgayNhap.setText(ngayNhap);
         loadDataSPCT();
         loadDataSP();
@@ -221,6 +226,7 @@ public class TrangSP extends javax.swing.JInternalFrame {
         cboMauSac.setSelectedIndex(-1);
         cboSize.setSelectedIndex(-1);
         cboTH.setSelectedIndex(-1);
+        txtNgayNhap.setText(thoiGian);
     }
 
     SanPham getFormSP() {
@@ -1009,14 +1015,16 @@ public class TrangSP extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         String maSP = txtMaSP.getText();
         String tenSP = txtTenSP.getText();
-        String ngayNhap = txtNgayNhap.getText();
-        String maNV = "NV001";
+        String ngayNhap = thoiGian;
+        System.out.println(ngayNhap);
+        String maNV = TaiKhoanService.maNV;
         int row = tblSanPham.getSelectedRow();
         // add SanPham
         int count = svSP.searchSanPham(maSP).size();
         if (count == 0) {
             svSP.addSanPham(new SanPham(maSP, tenSP, ngayNhap, maNV));
             loadDataSP();
+            return;
         }
 
         int idCL = cboChatLieu.getSelectedIndex()+1;
@@ -1035,14 +1043,14 @@ public class TrangSP extends javax.swing.JInternalFrame {
         svSPCT.addSanPhamCT(new SanPhamCT(soLuong, idMS, idSize, idTH, idCL, maSP, loaiSP, trangThai, giaNhap));
         loadDataSPCTByMa(maSP);
         double giaBan = Double.parseDouble(txtGiaBan.getText());
-        String ngayKetThuc = "NULL";
+//        String ngayKetThuc = "NULL";
         List<SanPhamCT> listIdSP = svSPCT.searchID(maSP, loaiSP, idTH, idMS, idSize, idCL);
         int count2 = svSPCT.searchID(maSP, loaiSP, idTH, idMS, idSize, idCL).size();
         if (count2 == 1) {
             for (SanPhamCT sanPhamCT : listIdSP) {
                 int idSP = sanPhamCT.getIdSP();
                 System.out.println(idSP);
-                lsg.addLSGia(new LichSuGia(idSP, giaBan, ngayNhap, ngayKetThuc));
+                lsg.addLSGia(new LichSuGia(idSP, giaBan, ngayNhap));
 
             }
         } else {
@@ -1067,8 +1075,8 @@ public class TrangSP extends javax.swing.JInternalFrame {
         int idLS = spct.getIdLS();
 
         String maSP = spct.getMaSP();
-        String ngayUpdate = thoiGian.toString();
-        String ngayKetThuc = "NULL";
+        String ngayUpdate = thoiGian;
+//        String ngayKetThuc = "NULL";
         double giaBanCu = spct.getGiaBan();
 
         if (rowSP >= 0) {
@@ -1094,7 +1102,7 @@ public class TrangSP extends javax.swing.JInternalFrame {
                         if (giaBan != giaBanCu && giaBan > 0) {
                             lsg.upDateLSG(ngayUpdate, idLS);
                             loadDataSPCTByMa(maSP);
-                            lsg.addLSGia(new LichSuGia(idSPCT, giaBan, ngayUpdate, ngayKetThuc));
+                            lsg.addLSGia(new LichSuGia(idSPCT, giaBan, ngayUpdate));
 
                             JOptionPane.showMessageDialog(this, "Update sản phẩm thành công");
                         }

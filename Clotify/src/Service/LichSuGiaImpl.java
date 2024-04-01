@@ -22,14 +22,14 @@ public class LichSuGiaImpl implements LichSuGiaService {
     public void addLSGia(LichSuGia lsg) {
         try {
             String sql = "INSERT INTO LichSuGia\n"
-                    + "                 (idSP, gia, ngayBatDau, ngayKetThuc)\n"
-                    + "VALUES  (?,?,?,?)";
+                    + "                 (idSP, gia, ngayBatDau)\n"
+                    + "VALUES  (?,?,?)";
             Connection conn = DBconnect.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, lsg.getIdSP());
             ps.setDouble(2, lsg.getGiaBan());
             ps.setString(3, lsg.getNgayBatDau());
-            ps.setString(4, lsg.getNgayKetThuc());
+//            ps.setString(4, lsg.getNgayKetThuc());
             ps.executeUpdate();
             conn.close();
         } catch (Exception e) {

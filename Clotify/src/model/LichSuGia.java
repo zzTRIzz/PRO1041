@@ -16,11 +16,11 @@ public class LichSuGia {
     public LichSuGia() {
     }
 
-    public LichSuGia(int idSP, double giaBan, String ngayBatDau, String ngayKetThuc) {
+    public LichSuGia(int idSP, double giaBan, String ngayBatDau) {
         this.idSP = idSP;
         this.giaBan = giaBan;
         this.ngayBatDau = ngayBatDau;
-        this.ngayKetThuc = ngayKetThuc;
+        
     }
 
     public LichSuGia(int idLS, int idSP, double giaNhap, double giaBan, String ngayBatDau, String ngayKetThuc, String maSP, String tenSP, String mauSac, String chatLieu, String thuongHieu, String size) {
