@@ -23,7 +23,6 @@ import model.KhachHang;
 import model.SanPhamCT;
 import Service.TaiKhoanService;
 
-
 /**
  *
  * @author ADMIN
@@ -56,7 +55,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
         for (SanPhamCT spct : svSP.getAll()) {
             defaultTableModel.addRow(new Object[]{
                 spct.getIdSP(),
-//                spct.getMaSP(),
+                //                spct.getMaSP(),
                 spct.getTenSP(),
                 spct.getTenTH(),
                 spct.getTenSize(),
@@ -523,11 +522,11 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
             String tenSP = hdct.getTenSP();
             int soLuongMua = hdct.getSoLuongMua();
             int option = JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa sản phẩm: " + tenSP + " không?", "Xóa sản phẩm trong giỏ hàng", JOptionPane.YES_NO_OPTION);
-            if (option ==JOptionPane.YES_OPTION) {
-               svHDCT.deleteHDCT(idHDCT);
-               JOptionPane.showMessageDialog(this, "Bạn xóa thành công");
+            if (option == JOptionPane.YES_OPTION) {
+                svHDCT.deleteHDCT(idHDCT);
+                JOptionPane.showMessageDialog(this, "Bạn xóa thành công");
             } else {
-            }           
+            }
             loadHoaDonCT(idHD);
             double tongTienTra = 0;
             for (HoaDonCT hoaDonCT : svHDCT.getHoaDonCTAll(idHD)) {
@@ -589,7 +588,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
             HoaDon hd = svHd.getRowHD(rowHoaDon);
             int idHD = hd.getIdHD();
             //data gắn
-            
+
             int phanTramKM = 10;
             //
             double tongTien;
@@ -671,7 +670,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
         String maNV = TaiKhoanService.layThongTin_maNV();
         String ngayTao = thoiGian.toString();
         String trangThai = "Chưa thanh toán";
-        String sdt = txtSDT.getText();        
+        String sdt = txtSDT.getText();
         for (KhachHang khachHang : svKH.getKhachHang()) {
             if (khachHang.getSdt().equals(sdt)) {
                 int idKH = khachHang.getIdKH();
@@ -726,7 +725,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
         // TODO add your handling code here:
-                int row = tblHoaDon.getSelectedRow();
+        int row = tblHoaDon.getSelectedRow();
         if (row >= 0) {
             HoaDon hd = svHd.getRowHD(row);
             int maHD = hd.getMaHD();
@@ -736,11 +735,13 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
             String ngayTao = thoiGian.toString();
             String trangThai = "Đã thanh toán ";
             String tenKH = hd.getTenKH();
-            String maVoucher = null;            
+            String maVoucher = null;
             int option = JOptionPane.showConfirmDialog(null, "Bạn có muốn thanh hóa đơn: " + maHD + " không?", "Thanh toán hóa đơn", JOptionPane.YES_NO_OPTION);
             if (option == JOptionPane.YES_OPTION) {
                 svHd.upDateHoaDon(new HoaDon(idKH, ngayTao, trangThai, maNV, maVoucher, idHD));
                 JOptionPane.showMessageDialog(this, "Thanh toán hóa đơn " + maHD + " thành công");
+                defaultTableModel = (DefaultTableModel) tblGioHang.getModel();
+                defaultTableModel.setRowCount(0);
                 loadHoaDon();
             } else {
             }
