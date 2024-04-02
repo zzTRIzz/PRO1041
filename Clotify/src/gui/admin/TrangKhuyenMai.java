@@ -689,9 +689,9 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
 //            // Xử lý khi không có sản phẩm nào được chọn
 //            System.out.println("Vui lòng chọn ít nhất một sản phẩm để thêm vào khuyến mãi!");
 //        }
-//           
+//      
+        StringBuilder dinhDangThongBao = new StringBuilder();
         String maKM = txtMaKM.getText();
-
         List<SanPhamKM> danhSachSPKM = new ArrayList<>();
 
         for (int row = 0; row < tblSPCT.getRowCount(); row++) {
@@ -700,14 +700,24 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
                 if (trangThai) {
                     SanPhamCT spct = svCT.getRow(row);
                     int idSP = spct.getIdSP();
+
                     // Kiểm tra xem sản phẩm đã tồn tại trong danh sách chưa
                     boolean daTonTai = false;
-                    for (SanPhamKM sanPhamKM : danhSachSPKM) {
+                    for (SanPhamKM sanPhamKM : svSPKM.searchIDSP(idSP)) {
                         if (sanPhamKM.getIdSP() == idSP) {
                             daTonTai = true;
-                            JOptionPane.showMessageDialog(this, "Sản phẩm đã tồn tại trong danh sách khuyến mãi!");
-                            break; // Ngưng lặp khi đã tìm thấy sản phẩm tồn tại
+                            dinhDangThongBao.append(spct.getIdSP()).append(",");
+                            
+                          
+
                         }
+
+                    }
+                    if (daTonTai) {
+                        // Kiểm tra nếu có sản phẩm trùng
+                        String thongBao = "Sản phẩm  đã tồn tại trong danh sách khuyến mãi: " + dinhDangThongBao.toString();
+                        JOptionPane.showMessageDialog(this, thongBao);
+                        
                     }
                     if (!daTonTai) {
                         danhSachSPKM.add(new SanPhamKM(idSP, maKM));
@@ -732,7 +742,6 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
             // Xử lý khi không có sản phẩm nào được chọn
             System.out.println("Vui lòng chọn ít nhất một sản phẩm để thêm vào khuyến mãi!");
         }
-
     }//GEN-LAST:event_btnAddMouseClicked
 
     private void tblKhuyenMaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblKhuyenMaiMouseClicked

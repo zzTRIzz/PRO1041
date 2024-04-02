@@ -71,5 +71,26 @@ public class SanPhamKMService implements SanPhamKMInterface{
     public SanPhamKM getRow(int row) {
         return list.get(row);
     }
+
+    @Override
+    public List<SanPhamKM> searchIDSP(int key) {
+     String sql = "select * from SanPhamKM where idSP = ?";
+     try{
+         Connection conn = DBconnect.getConnection();
+         PreparedStatement stm = conn.prepareStatement(sql);
+         stm.setInt(1, key);
+         ResultSet rs = stm.executeQuery();
+         while(rs.next()){
+             SanPhamKM spkm = new SanPhamKM();
+             spkm.setIdSPKM(rs.getInt(1));
+             spkm.setMaKM(rs.getString(2));
+             spkm.setIdSP(rs.getInt(3));
+             list.add(spkm);
+         }
+     }catch(Exception e){
+         e.printStackTrace();
+     }
+     return list;
+    }
     
 }
