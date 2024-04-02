@@ -22,7 +22,6 @@ import model.HoaDonCT;
 import model.KhachHang;
 import model.SanPhamCT;
 
-
 /**
  *
  * @author ADMIN
@@ -54,7 +53,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
         for (SanPhamCT spct : svSP.getAll()) {
             defaultTableModel.addRow(new Object[]{
                 spct.getIdSP(),
-//                spct.getMaSP(),
+                //                spct.getMaSP(),
                 spct.getTenSP(),
                 spct.getTenTH(),
                 spct.getTenSize(),
@@ -93,9 +92,11 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
                 hoaDonCT.getSoLuongMua(),
                 hoaDonCT.getTenKM(),
                 hoaDonCT.getKhuyenMaiPT(),
+                hoaDonCT.getTrangThaiKM(),
                 hoaDonCT.getTongTien()
             });
         }
+//        
     }
 
     /**
@@ -158,17 +159,17 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
 
         tblGioHang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Tên SP", "Giá Bán", "SL Mua", "Tên KM", "Khuyến mãi %", "Thành Tiền"
+                "ID", "Tên SP", "Giá Bán", "SL Mua", "Tên KM", "Khuyến mãi %", "T.Thái KM", "Thành Tiền"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, true, false
+                false, false, false, false, true, true, true, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -513,19 +514,21 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
     private void btnXoaSPGHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaSPGHActionPerformed
         // TODO add your handling code here:
         int row = tblGioHang.getSelectedRow();
-        if (row >= 0) {
+        System.out.println("vi tri" + row);
+        if (row >= 0 && row < tblGioHang.getRowCount()) {
             HoaDonCT hdct = svHDCT.getRowHDCT(row);
+
             int idHDCT = hdct.getIdHoaDonCT();
             int idHD = hdct.getIdHD();
             int idSP = hdct.getIdSP();
             String tenSP = hdct.getTenSP();
             int soLuongMua = hdct.getSoLuongMua();
             int option = JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa sản phẩm: " + tenSP + " không?", "Xóa sản phẩm trong giỏ hàng", JOptionPane.YES_NO_OPTION);
-            if (option ==JOptionPane.YES_OPTION) {
-               svHDCT.deleteHDCT(idHDCT);
-               JOptionPane.showMessageDialog(this, "Bạn xóa thành công");
+            if (option == JOptionPane.YES_OPTION) {
+                svHDCT.deleteHDCT(idHDCT);
+                JOptionPane.showMessageDialog(this, "Bạn xóa thành công");
             } else {
-            }           
+            }
             loadHoaDonCT(idHD);
             double tongTienTra = 0;
             for (HoaDonCT hoaDonCT : svHDCT.getHoaDonCTAll(idHD)) {
@@ -580,15 +583,17 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
             int idSP = sp.getIdSP();
             double giaSP = sp.getGiaBan();
             int soLuong;
-            int tongSoLuong = 0;
+            int tongSoLuong;
             double thanhTien;
             int soLuongCon;
+            
 //            String trangThai = "Hoạt động";
             HoaDon hd = svHd.getRowHD(rowHoaDon);
             int idHD = hd.getIdHD();
             //data gắn
-            
+
             int phanTramKM = 10;
+            double phanTramDouble;
             //
             double tongTien;
             if (rowSanPham >= 0) {
@@ -617,12 +622,15 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
                             System.out.println("So luong con:" + soLuongCon);
                             svSP.updateSanPhamCT(idSP, soLuongCon);
 
-                            double phanTramDouble = Double.valueOf(phanTramKM);
+                            phanTramDouble = Double.valueOf(phanTramKM);
                             tongTien = soLuong * giaSP * (1 - phanTramDouble / 100);
                             System.out.println(tongTien);
+                            // them id =SPKM de check
                             int count = svHDCT.getSanPhamTonTai(idHD, idSP).size();
+
                             System.out.println("count" + count);
                             if (count == 1) {
+                                
                                 HoaDonCT hdct = svHDCT.getSanPhamTonTai(idHD, idSP).get(0);
                                 int idHDCT = hdct.getIdHoaDonCT();
 //                                System.out.println(idHDCT);
@@ -630,12 +638,85 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
 //                                System.out.println(tongSoLuong);
                                 thanhTien = tongSoLuong * giaSP * (1 - phanTramDouble / 100);
 //                                System.out.println(thanhTien);
+                                
+
+//                              gop sp cung 
                                 svHDCT.gopSanPhamTonTai(idHDCT, tongSoLuong, thanhTien);
                                 loadHoaDonCT(idHD);
+
                             } else {
-                                svHDCT.addHoaDonCT(new HoaDonCT(idSP, idHD, tongTien, soLuong));
-                                loadHoaDonCT(idHD);
+                                // tach luong san pham co khuyen mai
+                                int countSPKM = svSP.getCheckKM(idSP).size();
+                                String trangThai;
+                                //sp ko co km
+                                switch (countSPKM) {
+                                    case 0:
+                                        phanTramKM = 0;
+                                        phanTramDouble = Double.valueOf(phanTramKM);
+                                        tongTien = soLuong * giaSP * (1 - phanTramDouble / 100);
+                                        svHDCT.addHoaDonCT(new HoaDonCT(idSP, idHD, tongTien, soLuong));
+                                        loadHoaDonCT(idHD);
+                                        break;
+                                    //ok
+                                    case 1:
+                                        SanPhamCT spct = svSP.getCheckKM(idSP).get(0);
+                                        trangThai = spct.getTrangThaiKM();
+                                        if (trangThai.equals("Đang áp dụng")) {
+                                            // add san pham co km
+                                            phanTramKM = spct.getPhanTramKM();
+                                            phanTramDouble = Double.valueOf(phanTramKM);
+                                            tongTien = soLuong * giaSP * (1 - phanTramDouble / 100);
+                                            svHDCT.addHoaDonCT(new HoaDonCT(idSP, idHD, tongTien, soLuong));
+                                            loadHoaDonCT(idHD);
+                                            //ok
+                                        } else if (trangThai.equals("Hết hạn")) {
+                                            // add san pham ko km
+                                            phanTramKM = 0;
+                                            phanTramDouble = Double.valueOf(phanTramKM);
+                                            tongTien = soLuong * giaSP * (1 - phanTramDouble / 100);
+                                            svHDCT.addHoaDonCT(new HoaDonCT(idSP, idHD, tongTien, soLuong));
+                                            loadHoaDonCT(idHD);
+                                            //ok
+                                        }
+                                        break;
+                                    default:
+                                        List<SanPhamCT> listSPKM = svSP.getCheckKM(idSP);
+                                        
+                                        String maxNgayQuyetDinh = null;
+                                        SanPhamCT spct2 = null;
+                                        boolean daCapNhatMaxNgayQuyetDinh = false;
+                                        for (int i = 0; i < listSPKM.size(); i++) {
+                                            if (maxNgayQuyetDinh == null || listSPKM.get(i).getNgayQuyetDinh().compareTo(maxNgayQuyetDinh) > 0) {
+                                                maxNgayQuyetDinh = listSPKM.get(i).getNgayQuyetDinh();
+                                                spct2 = listSPKM.get(i);
+                                                daCapNhatMaxNgayQuyetDinh = true;
+                                                System.out.println("ngay quyet dinh"+maxNgayQuyetDinh);
+                                            }
+                                        }
+                                        System.out.println("ngay quyet dinh"+maxNgayQuyetDinh);
+                                        if (daCapNhatMaxNgayQuyetDinh) {
+                                            
+                                            if (spct2 != null && spct2.getTrangThaiKM().equals("Đang áp dụng")) {
+                                                phanTramKM = spct2.getPhanTramKM();
+                                                phanTramDouble = Double.valueOf(phanTramKM);
+                                                tongTien = soLuong * giaSP * (1 - phanTramDouble / 100);
+                                                svHDCT.addHoaDonCT(new HoaDonCT(idSP, idHD, tongTien, soLuong));
+                                                loadHoaDonCT(idHD);
+                                            } else if (spct2 != null && spct2.getTrangThaiKM().equals("Hết hạn")) {
+                                                phanTramKM = 0;
+                                                phanTramDouble = Double.valueOf(phanTramKM);
+                                                tongTien = soLuong * giaSP * (1 - phanTramDouble / 100);
+                                                svHDCT.addHoaDonCT(new HoaDonCT(idSP, idHD, tongTien, soLuong));
+                                                loadHoaDonCT(idHD);
+                                            }
+                                        }
+
+                                        break;
+
+                                }
+
                             }
+
                             double tongTienTra = 0;
                             for (HoaDonCT hoaDonCT : svHDCT.getHoaDonCTAll(idHD)) {
                                 if (hoaDonCT.getIdHD() == idHD) {
@@ -669,7 +750,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
         String maNV = "NV001";
         String ngayTao = thoiGian.toString();
         String trangThai = "Chưa thanh toán";
-        String sdt = txtSDT.getText();        
+        String sdt = txtSDT.getText();
         for (KhachHang khachHang : svKH.getKhachHang()) {
             if (khachHang.getSdt().equals(sdt)) {
                 int idKH = khachHang.getIdKH();
@@ -724,7 +805,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
         // TODO add your handling code here:
-                int row = tblHoaDon.getSelectedRow();
+        int row = tblHoaDon.getSelectedRow();
         if (row >= 0) {
             HoaDon hd = svHd.getRowHD(row);
             int maHD = hd.getMaHD();
@@ -734,7 +815,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
             String ngayTao = thoiGian.toString();
             String trangThai = "Đã thanh toán ";
             String tenKH = hd.getTenKH();
-            String maVoucher = null;            
+            String maVoucher = null;
             int option = JOptionPane.showConfirmDialog(null, "Bạn có muốn thanh hóa đơn: " + maHD + " không?", "Thanh toán hóa đơn", JOptionPane.YES_NO_OPTION);
             if (option == JOptionPane.YES_OPTION) {
                 svHd.upDateHoaDon(new HoaDon(idKH, ngayTao, trangThai, maNV, maVoucher, idHD));

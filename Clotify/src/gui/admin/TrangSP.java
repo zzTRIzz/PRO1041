@@ -162,6 +162,7 @@ public class TrangSP extends javax.swing.JInternalFrame {
             };
             model.addRow(row);
         }
+        
     }
 
     void loadDataMS() {

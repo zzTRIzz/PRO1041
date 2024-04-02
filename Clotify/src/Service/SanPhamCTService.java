@@ -243,4 +243,37 @@ public class SanPhamCTService implements SanPhamCTImpl {
         return listspct;
     }
 
+    @Override
+    public List<SanPhamCT> getCheckKM(int idSP) {
+       listspct.clear();
+        String sql = "SELECT  SanPhamCT.idSP, SanPhamKM.maKM, KhuyenMai.giamTheoPT, KhuyenMai.ngayTao, KhuyenMai.ngayKetThuc, KhuyenMai.trangThai, KhuyenMai.ngayQuyetDinh\n" +
+"FROM      SanPhamCT INNER JOIN\n" +
+"                 SanPhamKM ON SanPhamCT.idSP = SanPhamKM.idSP INNER JOIN\n" +
+"                 KhuyenMai ON SanPhamKM.maKM = KhuyenMai.maKM\n" +
+"				 where SanPhamCT.idSP =?";
+
+        try {
+            Connection conn = DBconnect.getConnection();
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, idSP);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                SanPhamCT spct = new SanPhamCT();
+                spct.setIdSP(rs.getInt(1));
+                spct.setMaKM(rs.getString(2));
+                spct.setPhanTramKM(rs.getInt(3));
+                spct.setNgayTao(rs.getString(4));
+                spct.setNgayKetThuc(rs.getString(5));
+                spct.setTrangThaiKM(rs.getString(6));
+                spct.setNgayQuyetDinh(rs.getString(7));
+                listspct.add(spct);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listspct; 
+    }
+
 }

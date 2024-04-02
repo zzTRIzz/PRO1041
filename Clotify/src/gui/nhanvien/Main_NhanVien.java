@@ -244,3 +244,4 @@ public class Main_NhanVien extends javax.swing.JFrame {
     private javax.swing.JLabel trang3;
     // End of variables declaration//GEN-END:variables
 }
+//
