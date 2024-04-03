@@ -38,7 +38,7 @@ public class TaiKhoanService {
     }
 
     public boolean dangnhap(String usename, String password) {
-        String sql = "SELECT taiKhoan, matKhau, vaiTro, maNV, tenNV FROM NhanVien WHERE taiKhoan = ? and matKhau = ?";
+        String sql = "SELECT taiKhoan, matKhau, vaiTro, maNV, tenNV FROM NhanVien WHERE taiKhoan = ? and matKhau = ? and trangThai = 1";
         try {
             Connection conn = DBconnect.getConnection();
             PreparedStatement stm = conn.prepareStatement(sql);
