@@ -1,4 +1,4 @@
-﻿create drop database PRO1041;
+﻿create database PRO1041;
 go 
 use PRO1041
 go
