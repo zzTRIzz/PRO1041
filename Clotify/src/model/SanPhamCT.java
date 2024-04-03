@@ -10,13 +10,13 @@ package model;
  */
 public class SanPhamCT {
     Integer idSP,soLuong,idMauSac,idSize,idThuongHieu,idChatLieu,idLS,phanTramKM;
-    String maSP,loaiSP,trangThai,tenMS,tenSize,tenTH,tenCL,tenSP;
+    String maSP,loaiSP,trangThai,tenMS,tenSize,tenTH,tenCL,tenSP,hinhAnh;
     Double giaNhap,giaBan;   
     String maKM,ngayTao, ngayKetThuc,trangThaiKM, ngayQuyetDinh;
     public SanPhamCT() {
     }
 
-    public SanPhamCT(Integer soLuong, Integer idMauSac, Integer idSize, Integer idThuongHieu, Integer idChatLieu, String maSP, String loaiSP, String trangThai, Double giaNhap) {
+    public SanPhamCT(Integer soLuong, Integer idMauSac, Integer idSize, Integer idThuongHieu, Integer idChatLieu, String maSP, String loaiSP, String trangThai, Double giaNhap, String hinhAnh) {
         this.soLuong = soLuong;
         this.idMauSac = idMauSac;
         this.idSize = idSize;
@@ -26,9 +26,10 @@ public class SanPhamCT {
         this.loaiSP = loaiSP;
         this.trangThai = trangThai;
         this.giaNhap = giaNhap;
+        this.hinhAnh =hinhAnh;
     }
 
-    public SanPhamCT(Integer idSP, Integer soLuong, Integer idMauSac, Integer idSize, Integer idThuongHieu, Integer idChatLieu, Integer idLS, Integer phanTramKM, String maSP, String loaiSP, String trangThai, String tenMS, String tenSize, String tenTH, String tenCL, String tenSP, Double giaNhap, Double giaBan, String maKM, String ngayTao, String ngayKetThuc, String trangThaiKM, String ngayQuyetDinh) {
+    public SanPhamCT(Integer idSP, Integer soLuong, Integer idMauSac, Integer idSize, Integer idThuongHieu, Integer idChatLieu, Integer idLS, Integer phanTramKM, String maSP, String loaiSP, String trangThai, String tenMS, String tenSize, String tenTH, String tenCL, String tenSP, String hinhAnh, Double giaNhap, Double giaBan, String maKM, String ngayTao, String ngayKetThuc, String trangThaiKM, String ngayQuyetDinh) {
         this.idSP = idSP;
         this.soLuong = soLuong;
         this.idMauSac = idMauSac;
@@ -45,6 +46,7 @@ public class SanPhamCT {
         this.tenTH = tenTH;
         this.tenCL = tenCL;
         this.tenSP = tenSP;
+        this.hinhAnh = hinhAnh;
         this.giaNhap = giaNhap;
         this.giaBan = giaBan;
         this.maKM = maKM;
@@ -182,6 +184,14 @@ public class SanPhamCT {
         this.tenSP = tenSP;
     }
 
+    public String getHinhAnh() {
+        return hinhAnh;
+    }
+
+    public void setHinhAnh(String hinhAnh) {
+        this.hinhAnh = hinhAnh;
+    }
+
     public Double getGiaNhap() {
         return giaNhap;
     }
@@ -238,6 +248,5 @@ public class SanPhamCT {
         this.ngayQuyetDinh = ngayQuyetDinh;
     }
 
-    
     
 }

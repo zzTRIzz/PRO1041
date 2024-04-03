@@ -21,7 +21,7 @@ public class SanPhamCTService implements SanPhamCTImpl {
     @Override
     public List<SanPhamCT> getAll() {
         listspct.clear();
-        String sql = "SELECT SanPhamCT.idSP, SanPhamCT.maSP, SanPhamCT.loaiSP, SanPhamCT.soLuong, SanPhamCT.giaNhap, MauSac.tenMauSac, Size.tenSize, ThuongHieu.tenThuongHieu, ChatLieu.tenChatLieu, SanPhamCT.trangThai, LichSuGia.gia,SanPham.tenSP, LichSuGia.idLS\n"
+        String sql = "SELECT SanPhamCT.idSP, SanPhamCT.maSP, SanPhamCT.loaiSP, SanPhamCT.soLuong, SanPhamCT.giaNhap, MauSac.tenMauSac, Size.tenSize, ThuongHieu.tenThuongHieu, ChatLieu.tenChatLieu, SanPhamCT.trangThai, LichSuGia.gia,SanPham.tenSP, LichSuGia.idLS,SanPhamCT.hinhAnh\n"
                 + "FROM      ChatLieu INNER JOIN\n"
                 + "                 SanPhamCT ON ChatLieu.idChatLieu = SanPhamCT.idChatLieu INNER JOIN\n"
                 + "                 MauSac ON SanPhamCT.idMauSac = MauSac.idMauSac INNER JOIN\n"
@@ -52,6 +52,7 @@ public class SanPhamCTService implements SanPhamCTImpl {
                 spct.setGiaBan(rs.getDouble(11));
                 spct.setTenSP(rs.getString(12));
                 spct.setIdLS(rs.getInt(13));
+                spct.setHinhAnh(rs.getString(14));
                 listspct.add(spct);
             }
         } catch (Exception e) {
@@ -70,7 +71,7 @@ public class SanPhamCTService implements SanPhamCTImpl {
     public void updateSanPhamCT(int idSPCT, int soLuongCon) {
         try {
             String sql = "UPDATE SanPhamCT\n"
-                    + "SET       soLuong =?\n"
+                    + "SET       soLuong =?\n"                    
                     + "WHERE (idSP=?)";
             Connection conn = DBconnect.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -89,8 +90,8 @@ public class SanPhamCTService implements SanPhamCTImpl {
     public void addSanPhamCT(SanPhamCT spct) {
         try {
             String sql = "INSERT INTO SanPhamCT\n"
-                    + "                 (maSP, loaiSP, soLuong, giaNhap, trangThai, idMauSac, idSize, idThuongHieu, idChatLieu)\n"
-                    + "VALUES  (?,?,?,?,?,?,?,?,?)";
+                    + "                 (maSP, loaiSP, soLuong, giaNhap, trangThai, idMauSac, idSize, idThuongHieu, idChatLieu,hinhAnh)\n"
+                    + "VALUES  (?,?,?,?,?,?,?,?,?,?)";
             Connection conn = DBconnect.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, spct.getMaSP());
@@ -102,7 +103,7 @@ public class SanPhamCTService implements SanPhamCTImpl {
             ps.setInt(7, spct.getIdSize());
             ps.setInt(8, spct.getIdThuongHieu());
             ps.setInt(9, spct.getIdChatLieu());
-
+            ps.setString(10, spct.getHinhAnh());
             ps.executeUpdate();
             conn.close();
         } catch (Exception e) {
@@ -143,7 +144,7 @@ public class SanPhamCTService implements SanPhamCTImpl {
     @Override
     public List<SanPhamCT> searchSPCT(String key) {
         listspct.clear();
-        String sql = "SELECT SanPhamCT.idSP, SanPhamCT.maSP, SanPhamCT.loaiSP, SanPhamCT.soLuong, SanPhamCT.giaNhap, MauSac.tenMauSac, Size.tenSize, ThuongHieu.tenThuongHieu, ChatLieu.tenChatLieu, SanPhamCT.trangThai, LichSuGia.gia, LichSuGia.idLS\n"
+        String sql = "SELECT SanPhamCT.idSP, SanPhamCT.maSP, SanPhamCT.loaiSP, SanPhamCT.soLuong, SanPhamCT.giaNhap, MauSac.tenMauSac, Size.tenSize, ThuongHieu.tenThuongHieu, ChatLieu.tenChatLieu, SanPhamCT.trangThai, LichSuGia.gia, LichSuGia.idLS,SanPhamCT.hinhAnh\n"
                 + "FROM      ChatLieu INNER JOIN\n"
                 + "                 SanPhamCT ON ChatLieu.idChatLieu = SanPhamCT.idChatLieu INNER JOIN\n"
                 + "                 MauSac ON SanPhamCT.idMauSac = MauSac.idMauSac INNER JOIN\n"
@@ -174,7 +175,7 @@ public class SanPhamCTService implements SanPhamCTImpl {
                 spct.setTrangThai(rs.getString(10));
                 spct.setGiaBan(rs.getDouble(11));
                 spct.setIdLS(rs.getInt(12));
-
+                spct.setHinhAnh(rs.getString(13));
                 listspct.add(spct);
             }
         } catch (Exception e) {
@@ -274,6 +275,26 @@ public class SanPhamCTService implements SanPhamCTImpl {
             e.printStackTrace();
         }
         return listspct; 
+    }
+
+    @Override
+    public void updateSanPhamCT2(int idSPCT, int soLuongCon, String hinhAnh) {
+        try {
+            String sql = "UPDATE SanPhamCT\n"
+                    + "SET       soLuong =?,\n"
+                    + "      hinhAnh =?\n"
+                    + "WHERE (idSP=?)";
+            Connection conn = DBconnect.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, soLuongCon);
+            ps.setInt(3, idSPCT);
+            ps.setString(2, hinhAnh);
+            ps.executeUpdate();
+            conn.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

@@ -124,6 +124,13 @@ public class HoaDonCT {
     public void setTongTien(double tongTien) {
         this.tongTien = tongTien;
     }
-
+    
+    public Integer phanTramKM(){
+    int soLuong = getSoLuongMua();
+    double tongTien = getTongTien();
+    double giaBan = getGiaBan();
+    double phanTramKM = 100 -((tongTien / (soLuong * giaBan)) * 100);
+    return (int) phanTramKM;
+    }
     
 }

@@ -22,4 +22,5 @@ public interface SanPhamCTImpl {
     void upDateTrangThai(String trangThai,int idSP);
     List<SanPhamCT> getAllSPAn();
     List<SanPhamCT> getCheckKM(int idSP);
+    void updateSanPhamCT2(int idSPCT,int soLuongCon,String hinhAnh);
 }

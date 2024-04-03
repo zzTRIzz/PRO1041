@@ -21,5 +21,5 @@ public interface HoaDonCTService {
     void deleteHDCT(int idHDCT);
     
     List<HoaDonCT> getSanPhamTonTaiKoKM(int idHD,int idSP);
-    
+    void addHoaDonCTKM(int idHD, int soLuongMua,int idSP,double tongTien);
 }
