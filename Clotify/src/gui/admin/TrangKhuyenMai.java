@@ -297,6 +297,11 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
                 btnAddMouseClicked(evt);
             }
         });
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
 
         txtNgayBatDau.setDateFormatString("yyyy-MM-dd");
 
@@ -702,27 +707,45 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
                     int idSP = spct.getIdSP();
 
                     // Kiểm tra xem sản phẩm đã tồn tại trong danh sách chưa
+//                    boolean daTonTai = false;
+//                    for (SanPhamKM sanPhamKM : svSPKM.searchIDSP(idSP)) {
+//                        if (sanPhamKM.getIdSP() == idSP) {
+//                            daTonTai = true;
+//                            dinhDangThongBao.append(spct.getIdSP()).append(",");
+//                            
+//                          
+//
+//                        }
+//
+//                    }
+//                    if (daTonTai) {
+//                        // Kiểm tra nếu có sản phẩm trùng
+//                        String thongBao = "Sản phẩm  đã tồn tại trong danh sách khuyến mãi: " + dinhDangThongBao.toString();
+//                        JOptionPane.showMessageDialog(this, thongBao);
+//                        
+//                    }
+//                    if (!daTonTai) {
+//                        danhSachSPKM.add(new SanPhamKM(idSP, maKM));
+//                    }
+///========================================================================================================================
                     boolean daTonTai = false;
                     for (SanPhamKM sanPhamKM : svSPKM.searchIDSP(idSP)) {
                         if (sanPhamKM.getIdSP() == idSP) {
                             daTonTai = true;
                             dinhDangThongBao.append(spct.getIdSP()).append(",");
-                            
-                          
-
                         }
-
                     }
+
                     if (daTonTai) {
                         // Kiểm tra nếu có sản phẩm trùng
-                        String thongBao = "Sản phẩm  đã tồn tại trong danh sách khuyến mãi: " + dinhDangThongBao.toString();
+                        String thongBao = "Sản phẩm đã tồn tại trong danh sách khuyến mãi: " + dinhDangThongBao.toString();
                         JOptionPane.showMessageDialog(this, thongBao);
-                        
-                    }
-                    if (!daTonTai) {
+                    } else {
+                        // Nếu không có sản phẩm trùng, thêm vào danh sách
                         danhSachSPKM.add(new SanPhamKM(idSP, maKM));
                     }
                 }
+////=====================================================================================================================
             }
         }
 
@@ -889,6 +912,10 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
             loadDataVoucher();
         }
     }//GEN-LAST:event_jButton2MouseClicked
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAddActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
