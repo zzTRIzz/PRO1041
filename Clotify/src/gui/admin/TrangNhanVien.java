@@ -353,8 +353,8 @@ private int index=-1;
             jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel20Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane11, javax.swing.GroupLayout.DEFAULT_SIZE, 861, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 1037, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel20Layout.setVerticalGroup(
             jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -428,7 +428,7 @@ private int index=-1;
                         .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(155, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -479,9 +479,15 @@ private int index=-1;
             if (valiFrom()) {
                 try {
                     String maNV = txtMa.getText();
+                    String taiKhoan=txtTaiKhoan.getText();
+                    String email=txtEmail.getText();
                     if (service.existsMa(maNV)) {
                         JOptionPane.showMessageDialog(this, "Mã nhân viên đã tồn tại !");
                         return;
+                    }else if (service.existsTK(taiKhoan)){
+                        JOptionPane.showMessageDialog(this, "Khong  duoc trung Tai Khoan");
+                    }else if(service.existsEmail(email)){
+                    JOptionPane.showMessageDialog(this, "email da ton tai");
                     } else if (service.add(this.readFrom()) ==1) {
                         JOptionPane.showMessageDialog(this, "Thêm thành công!");
                         this.fillTable(service.getAll());
@@ -540,7 +546,7 @@ private int index=-1;
         }
         if (Validation.isEmpty(txtSDT, "SDT nhan vien khong duoc de trong")) {
             return false;
-        }if (!Validation.isSDT(txtSDT, "SDT nhan vien khong duoc ghi chu")) {
+        }if (!Validation.isSDT(txtSDT, "SDT nhan vien khong duoc ghi chu va bat dau bang dau so 09")) {
             return false;
         }
         if (Validation.isEmpty(txtMatKhau, "Mat khau nhan vien khong duoc de trong")) {
