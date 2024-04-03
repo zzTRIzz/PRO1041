@@ -10,7 +10,7 @@ package model;
  */
 public class HoaDonCT {
     int idHoaDonCT,idSP,soLuongMua,khuyeMaiGia,khuyenMaiPT,idHD;
-    String tenSP,tenKM;
+    String tenSP,tenKM,trangThaiKM;
     double giaBan,tongTien;
 
     public HoaDonCT() {
@@ -20,9 +20,10 @@ public class HoaDonCT {
         this.idHD = idHD;
         this.tongTien = tongTien;
         this.soLuongMua = soLuongMua;
+        
     }
-    
-    public HoaDonCT(int idHoaDonCT, int idSP, int soLuongMua, int khuyeMaiGia, int khuyenMaiPT, int idHD, String tenSP, String tenKM, double giaBan, double tongTien) {
+
+    public HoaDonCT(int idHoaDonCT, int idSP, int soLuongMua, int khuyeMaiGia, int khuyenMaiPT, int idHD, String tenSP, String tenKM, String trangThaiKM, double giaBan, double tongTien) {
         this.idHoaDonCT = idHoaDonCT;
         this.idSP = idSP;
         this.soLuongMua = soLuongMua;
@@ -31,6 +32,7 @@ public class HoaDonCT {
         this.idHD = idHD;
         this.tenSP = tenSP;
         this.tenKM = tenKM;
+        this.trangThaiKM = trangThaiKM;
         this.giaBan = giaBan;
         this.tongTien = tongTien;
     }
@@ -99,6 +101,14 @@ public class HoaDonCT {
         this.tenKM = tenKM;
     }
 
+    public String getTrangThaiKM() {
+        return trangThaiKM;
+    }
+
+    public void setTrangThaiKM(String trangThaiKM) {
+        this.trangThaiKM = trangThaiKM;
+    }
+
     public double getGiaBan() {
         return giaBan;
     }
@@ -114,9 +124,13 @@ public class HoaDonCT {
     public void setTongTien(double tongTien) {
         this.tongTien = tongTien;
     }
-
-
-
-
+    
+    public Integer phanTramKM(){
+    int soLuong = getSoLuongMua();
+    double tongTien = getTongTien();
+    double giaBan = getGiaBan();
+    double phanTramKM = 100 -((tongTien / (soLuong * giaBan)) * 100);
+    return (int) phanTramKM;
+    }
     
 }

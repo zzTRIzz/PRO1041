@@ -11,6 +11,7 @@ import Service.HoaDonCTImpl;
 import Service.HoaDonImpl;
 import Service.KhachHangService;
 import Service.SanPhamCTService;
+import Service.TaiKhoanService;
 
 import gui.admin.*;
 import java.time.LocalDate;
@@ -21,7 +22,6 @@ import model.HoaDon;
 import model.HoaDonCT;
 import model.KhachHang;
 import model.SanPhamCT;
-import Service.TaiKhoanService;
 
 /**
  *
@@ -42,10 +42,9 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
     public TrangBanHang() {
         initComponents();
         ui_custom.deleteTitle(this);
-        String trangThai = "Hoạt động";
+//        String trangThai = "Hoạt động";
         loadSanPham();
         loadHoaDon();
-        lblTenNV.setText(TaiKhoanService.layThongTin_tenNV());
 
     }
 
@@ -92,11 +91,15 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
                 hoaDonCT.getTenSP(),
                 hoaDonCT.getGiaBan(),
                 hoaDonCT.getSoLuongMua(),
-                hoaDonCT.getTenKM(),
-                hoaDonCT.getKhuyenMaiPT(),
+                //                hoaDonCT.getTenKM(),
+                //                hoaDonCT.getKhuyenMaiPT(),
+                //                hoaDonCT.getTrangThaiKM(),
+
+                hoaDonCT.phanTramKM(),
                 hoaDonCT.getTongTien()
             });
         }
+//        
     }
 
     /**
@@ -132,8 +135,8 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
         btnThanhToan = new javax.swing.JButton();
         btnTaoHD = new javax.swing.JButton();
         btnHuy = new javax.swing.JButton();
-        jTextField12 = new javax.swing.JTextField();
-        jComboBox6 = new javax.swing.JComboBox<>();
+        txttienKhachDua = new javax.swing.JTextField();
+        cboVoucher = new javax.swing.JComboBox<>();
         jLabel52 = new javax.swing.JLabel();
         jLabel53 = new javax.swing.JLabel();
         lblTenNV = new javax.swing.JLabel();
@@ -159,17 +162,17 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
 
         tblGioHang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Tên SP", "Giá Bán", "SL Mua", "Tên KM", "Khuyến mãi %", "Thành Tiền"
+                "ID", "Tên SP", "Giá Bán", "SL Mua", "% KM", "Thành Tiền"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, true, false
+                false, false, false, false, true, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -378,6 +381,21 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
             }
         });
 
+        txttienKhachDua.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txttienKhachDuaKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txttienKhachDuaKeyReleased(evt);
+            }
+        });
+
+        cboVoucher.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboVoucherActionPerformed(evt);
+            }
+        });
+
         jLabel52.setText("Mã voucher");
 
         jLabel53.setText("Tên NV");
@@ -407,7 +425,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
                         .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblTenNV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel12Layout.createSequentialGroup()
-                                .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cboVoucher, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel12Layout.createSequentialGroup()
@@ -422,7 +440,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
                             .addComponent(jLabel2))
                         .addGap(16, 16, 16)
                         .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField12)
+                            .addComponent(txttienKhachDua)
                             .addComponent(lblTongTien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblCanTra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblTienThua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
@@ -448,7 +466,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel52)
-                    .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cboVoucher, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(9, 9, 9)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCanTra)
@@ -456,7 +474,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel20)
-                    .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txttienKhachDua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel21)
@@ -514,8 +532,10 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
     private void btnXoaSPGHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaSPGHActionPerformed
         // TODO add your handling code here:
         int row = tblGioHang.getSelectedRow();
-        if (row >= 0) {
+        System.out.println("vi tri" + row);
+        if (row >= 0 && row < tblGioHang.getRowCount()) {
             HoaDonCT hdct = svHDCT.getRowHDCT(row);
+
             int idHDCT = hdct.getIdHoaDonCT();
             int idHD = hdct.getIdHD();
             int idSP = hdct.getIdSP();
@@ -556,6 +576,9 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
         if (row >= 0) {
             HoaDon hd = svHd.getRowHD(row);
             int idHD = hd.getIdHD();
+            String tenKH = hd.getTenKH();
+            lblTenKH.setText(tenKH);
+
             loadHoaDonCT(idHD);
             double tongTienTra = 0;
             for (HoaDonCT hoaDonCT : svHDCT.getHoaDonCTAll(idHD)) {
@@ -581,15 +604,17 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
             int idSP = sp.getIdSP();
             double giaSP = sp.getGiaBan();
             int soLuong;
-            int tongSoLuong = 0;
+            int tongSoLuong;
             double thanhTien;
             int soLuongCon;
+
 //            String trangThai = "Hoạt động";
             HoaDon hd = svHd.getRowHD(rowHoaDon);
             int idHD = hd.getIdHD();
             //data gắn
 
-            int phanTramKM = 10;
+            int phanTramKM;
+            double phanTramDouble;
             //
             double tongTien;
             if (rowSanPham >= 0) {
@@ -617,26 +642,109 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
                             soLuongCon = soLuongTonTai - soLuong;
                             System.out.println("So luong con:" + soLuongCon);
                             svSP.updateSanPhamCT(idSP, soLuongCon);
-
-                            double phanTramDouble = Double.valueOf(phanTramKM);
-                            tongTien = soLuong * giaSP * (1 - phanTramDouble / 100);
-                            System.out.println(tongTien);
+//
+//                            phanTramDouble = Double.valueOf(phanTramKM);
+//                            tongTien = soLuong * giaSP * (1 - phanTramDouble / 100);
+//                            System.out.println(tongTien);
+//                            // them id =SPKM de check
                             int count = svHDCT.getSanPhamTonTai(idHD, idSP).size();
+
                             System.out.println("count" + count);
                             if (count == 1) {
+
                                 HoaDonCT hdct = svHDCT.getSanPhamTonTai(idHD, idSP).get(0);
+                                phanTramKM = hdct.phanTramKM();
+                                phanTramDouble = Double.valueOf(phanTramKM);
                                 int idHDCT = hdct.getIdHoaDonCT();
 //                                System.out.println(idHDCT);
                                 tongSoLuong = hdct.getSoLuongMua() + soLuong;
 //                                System.out.println(tongSoLuong);
                                 thanhTien = tongSoLuong * giaSP * (1 - phanTramDouble / 100);
 //                                System.out.println(thanhTien);
+
+//                              gop sp cung 
                                 svHDCT.gopSanPhamTonTai(idHDCT, tongSoLuong, thanhTien);
                                 loadHoaDonCT(idHD);
+
                             } else {
-                                svHDCT.addHoaDonCT(new HoaDonCT(idSP, idHD, tongTien, soLuong));
-                                loadHoaDonCT(idHD);
+                                // tach luong san pham co khuyen mai
+                                int countSPKM = svSP.getCheckKM(idSP).size();
+                                String trangThai;
+                                //sp ko co km
+                                switch (countSPKM) {
+                                    case 0:
+                                        phanTramKM = 0;
+                                        phanTramDouble = Double.valueOf(phanTramKM);
+                                        tongTien = soLuong * giaSP * (1 - phanTramDouble / 100);
+                                        svHDCT.addHoaDonCT(new HoaDonCT(idSP, idHD, tongTien, soLuong));
+                                        loadHoaDonCT(idHD);
+                                        break;
+                                    //ok
+                                    case 1:
+                                        SanPhamCT spct = svSP.getCheckKM(idSP).get(0);
+                                        trangThai = spct.getTrangThaiKM();
+                                        if (trangThai.equals("Đang áp dụng")) {
+                                            // add san pham co km
+                                            phanTramKM = spct.getPhanTramKM();
+                                            phanTramDouble = Double.valueOf(phanTramKM);
+                                            tongTien = soLuong * giaSP * (1 - phanTramDouble / 100);
+                                            svHDCT.addHoaDonCT(new HoaDonCT(idSP, idHD, tongTien, soLuong));
+                                            loadHoaDonCT(idHD);
+                                            //ok
+                                        } else if (trangThai.equals("Hết hạn")) {
+                                            // add san pham ko km
+                                            phanTramKM = 0;
+                                            phanTramDouble = Double.valueOf(phanTramKM);
+                                            tongTien = soLuong * giaSP * (1 - phanTramDouble / 100);
+                                            svHDCT.addHoaDonCT(new HoaDonCT(idSP, idHD, tongTien, soLuong));
+                                            loadHoaDonCT(idHD);
+                                            //ok
+                                        }
+                                        break;
+                                    default:
+                                        List<SanPhamCT> listSPKM = svSP.getCheckKM(idSP);
+
+                                        String maxNgayQuyetDinh = null;
+                                        SanPhamCT spct2 = null;
+                                        String maKM = null;
+
+                                        boolean daCapNhatMaxNgayQuyetDinh = false;
+                                        for (int i = 0; i < listSPKM.size(); i++) {
+                                            if (maxNgayQuyetDinh == null || listSPKM.get(i).getNgayQuyetDinh().compareTo(maxNgayQuyetDinh) > 0) {
+                                                maxNgayQuyetDinh = listSPKM.get(i).getNgayQuyetDinh();
+                                                spct2 = listSPKM.get(i);
+                                                maKM = spct2.getMaKM();
+                                                daCapNhatMaxNgayQuyetDinh = true;
+                                                System.out.println("ngay quyet dinh" + maxNgayQuyetDinh);
+                                                spct2.getTrangThaiKM();
+                                            }
+                                        }
+                                        System.out.println("ngay quyet dinh" + maxNgayQuyetDinh);
+                                        System.out.println("ma KM " + maKM);
+                                        System.out.println("Trang thai " + spct2.getTrangThaiKM());
+                                        if (daCapNhatMaxNgayQuyetDinh) {
+
+                                            if (spct2 != null && spct2.getTrangThaiKM().equals("Đang áp dụng")) {
+                                                phanTramKM = spct2.getPhanTramKM();
+                                                phanTramDouble = Double.valueOf(phanTramKM);
+                                                tongTien = soLuong * giaSP * (1 - phanTramDouble / 100);
+                                                svHDCT.addHoaDonCTKM(idHD, soLuong, idSP, tongTien);
+                                                loadHoaDonCT(idHD);
+                                            } else if (spct2 != null && spct2.getTrangThaiKM().equals("Hết hạn")) {
+                                                phanTramKM = 0;
+                                                phanTramDouble = Double.valueOf(phanTramKM);
+                                                tongTien = soLuong * giaSP * (1 - phanTramDouble / 100);
+                                                svHDCT.addHoaDonCTKM(idHD, soLuong, idSP, tongTien);
+                                                loadHoaDonCT(idHD);
+                                            }
+                                        }
+
+                                        break;
+
+                                }
+
                             }
+
                             double tongTienTra = 0;
                             for (HoaDonCT hoaDonCT : svHDCT.getHoaDonCTAll(idHD)) {
                                 if (hoaDonCT.getIdHD() == idHD) {
@@ -688,7 +796,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
             HoaDon hd = svHd.getRowHD(row);
             int maHD = hd.getMaHD();
             int idHD = hd.getIdHD();
-            String maNV = "NV001";
+            String maNV = TaiKhoanService.layThongTin_maNV();
             String ngayTao = thoiGian.toString();
             String trangThai = "Đã hủy";
             String tenKH = hd.getTenKH();
@@ -731,17 +839,18 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
             int maHD = hd.getMaHD();
             int idHD = hd.getIdHD();
             int idKH = hd.getIdKH();
-            String maNV = "NV001";
+            String maNV = TaiKhoanService.layThongTin_maNV();
             String ngayTao = thoiGian.toString();
             String trangThai = "Đã thanh toán ";
-            String tenKH = hd.getTenKH();
+//            String tenKH = hd.getTenKH();
+            double tienCanTra = Double.parseDouble(lblCanTra.getText());
+            double tienKhachDua = Double.parseDouble(lblCanTra.getText());
+
             String maVoucher = null;
             int option = JOptionPane.showConfirmDialog(null, "Bạn có muốn thanh hóa đơn: " + maHD + " không?", "Thanh toán hóa đơn", JOptionPane.YES_NO_OPTION);
             if (option == JOptionPane.YES_OPTION) {
                 svHd.upDateHoaDon(new HoaDon(idKH, ngayTao, trangThai, maNV, maVoucher, idHD));
                 JOptionPane.showMessageDialog(this, "Thanh toán hóa đơn " + maHD + " thành công");
-                defaultTableModel = (DefaultTableModel) tblGioHang.getModel();
-                defaultTableModel.setRowCount(0);
                 loadHoaDon();
             } else {
             }
@@ -761,7 +870,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
             int idSP = hdct.getIdSP();
             double giaSP = hdct.getGiaBan();
             double thanhTien;
-            int phanTramKM = hdct.getKhuyenMaiPT();
+            int phanTramKM = hdct.phanTramKM();
             double phanTramDouble = Double.valueOf(phanTramKM);
             int option = JOptionPane.showConfirmDialog(null, "Bạn có muốn đổi số lượng không?", "Xác nhận", JOptionPane.YES_NO_OPTION);
 
@@ -829,6 +938,27 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_btnDoiSLActionPerformed
 
+    private void cboVoucherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboVoucherActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_cboVoucherActionPerformed
+
+    private void txttienKhachDuaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttienKhachDuaKeyReleased
+        // TODO add your handling code here:
+        double tienCanTra = Double.parseDouble(lblCanTra.getText());
+        double tienKhachDua = Double.parseDouble(txttienKhachDua.getText());
+        double tienThua =tienKhachDua-tienCanTra;
+        lblTienThua.setText(String.valueOf(tienThua));
+    }//GEN-LAST:event_txttienKhachDuaKeyReleased
+
+    private void txttienKhachDuaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttienKhachDuaKeyPressed
+        // TODO add your handling code here:
+//        double tienCanTra = Double.parseDouble(lblCanTra.getText());
+//        double tienKhachDua = Double.parseDouble(lblCanTra.getText());
+//        double tienThua =tienKhachDua-tienCanTra;
+//        lblTienThua.setText(String.valueOf(tienThua));
+    }//GEN-LAST:event_txttienKhachDuaKeyPressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDoiSL;
@@ -836,7 +966,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnTaoHD;
     private javax.swing.JButton btnThanhToan;
     private javax.swing.JButton btnXoaSPGH;
-    private javax.swing.JComboBox<String> jComboBox6;
+    private javax.swing.JComboBox<String> cboVoucher;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
@@ -854,7 +984,6 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JTextField jTextField12;
     private javax.swing.JLabel lblCanTra;
     private javax.swing.JLabel lblTenKH;
     private javax.swing.JLabel lblTenNV;
@@ -864,5 +993,6 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
     private javax.swing.JTable tblHoaDon;
     private javax.swing.JTable tblSP;
     private javax.swing.JTextField txtSDT;
+    private javax.swing.JTextField txttienKhachDua;
     // End of variables declaration//GEN-END:variables
 }
