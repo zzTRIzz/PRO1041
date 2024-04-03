@@ -43,6 +43,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import model.LichSuGia;
+import Interface.*;
 
 /**
  *
@@ -860,6 +861,11 @@ public class TrangSP extends javax.swing.JInternalFrame {
         });
 
         btAnTT.setText("Ẩn");
+        btAnTT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAnTTActionPerformed(evt);
+            }
+        });
 
         jPanel8.setBackground(new java.awt.Color(246, 246, 246));
 
@@ -1264,6 +1270,10 @@ public class TrangSP extends javax.swing.JInternalFrame {
         }
 
     }//GEN-LAST:event_lblHinhAnhMouseClicked
+
+    private void btAnTTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAnTTActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btAnTTActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

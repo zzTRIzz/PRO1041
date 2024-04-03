@@ -45,6 +45,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
 //        String trangThai = "Hoạt động";
         loadSanPham();
         loadHoaDon();
+        lblTenNV.setText(TaiKhoanService.layThongTin_tenNV());
 
     }
 
