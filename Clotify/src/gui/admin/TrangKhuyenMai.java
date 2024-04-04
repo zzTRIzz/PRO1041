@@ -76,9 +76,9 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
                 spct.getIdSP(),
                 spct.getMaSP(),
                 spct.getTenSP(),
-                spct.getSize(),
-                spct.getMauSac(),
-                spct.getChatLieu(),
+                spct.getTenSize(),
+                spct.getTenMS(),
+                spct.getTenCL(),
                 spct.getGiaBan(),});
         }
     }
@@ -817,9 +817,9 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
                         spct.getIdSP(),
                         spct.getMaSP(),
                         spct.getTenSP(),
-                        spct.getSize(),
-                        spct.getMauSac(),
-                        spct.getChatLieu(),
+                        spct.getTenSize(),
+                        spct.getTenMS(),
+                        spct.getTenCL(),
                         spct.getGiaBan()
                     });
                 }
@@ -848,9 +848,9 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
                     spct.getIdSP(),
                     spct.getMaSP(),
                     spct.getTenSP(),
-                    spct.getSize(),
-                    spct.getMauSac(),
-                    spct.getChatLieu(),
+                    spct.getTenSize(),
+                spct.getTenMS(),
+                spct.getTenCL(),
                     spct.getGiaBan()
                 });
             }
