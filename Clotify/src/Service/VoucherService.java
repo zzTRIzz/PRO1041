@@ -18,7 +18,7 @@ public class VoucherService {
     public List<Voucher> getVoucher(){
         list.clear();
         try{
-            String sql = " SELECT maVoucher, tenVoucher, dkApDung, giamTheoGia, ghiChu\n" +
+            String sql = "SELECT maVoucher, tenVoucher, dkApDung, giamTheoGia, ngayBatDau, ngayKetThuc, trangThai, ghiChu\n" +
 "FROM   Voucher";
             Connection conn = DBconnect.getConnection();
             Statement stm = conn.createStatement();
@@ -29,7 +29,10 @@ public class VoucherService {
                 voucher.setTenVC(rs.getString(2));
                 voucher.setDkAD(rs.getDouble(3));
                 voucher.setGiamTheoGia(rs.getDouble(4));
-                voucher.setGhiChu(rs.getString(5));
+                voucher.setNgayBatDau(rs.getString(5));
+                voucher.setNgayKetThuc(rs.getString(6));
+                voucher.setTrangThai(rs.getString(7));
+                voucher.setGhiChu(rs.getString(8));
                 list.add(voucher);
             }
         }catch(Exception e){
@@ -41,7 +44,7 @@ public class VoucherService {
         return list.get(row);
     }
     public boolean addVoucher(Voucher voucher){
-        String sql = "insert into Voucher(maVoucher,tenVoucher,dkApDung,giamTheoGia,ghiChu) values (?,?,?,?,?)";
+        String sql = "insert into Voucher(maVoucher,tenVoucher,dkApDung,giamTheoGia,ngayBatDau,ngayKetThuc,trangThai,ghiChu) values (?,?,?,?,?,?,?,?)";
         try{
             Connection conn = DBconnect.getConnection();
             PreparedStatement stm = conn.prepareStatement(sql);
@@ -49,7 +52,10 @@ public class VoucherService {
             stm.setString(2, voucher.getTenVC());
             stm.setDouble(3, voucher.getDkAD());
             stm.setDouble(4, voucher.getGiamTheoGia());
-            stm.setString(5, voucher.getGhiChu());
+            stm.setString(5, voucher.getNgayBatDau());
+            stm.setString(6, voucher.getNgayKetThuc());
+            stm.setString(7, voucher.getTrangThai());
+            stm.setString(8, voucher.getGhiChu());
             stm.executeUpdate();
             conn.close();
             return true;
@@ -59,19 +65,48 @@ public class VoucherService {
         return false;
     }
     public void updateVoucher(Voucher voucher){
-        String sql = "update Voucher set tenVoucher = ?, dkApDung = ?,giamTheoGia = ?, ghiChu = ? where maVoucher = ?";
+        String sql = "update Voucher set tenVoucher = ?, dkApDung = ?,giamTheoGia = ?,ngayBatDau=?,ngayKetThuc=?,trangThai=?, ghiChu = ? where maVoucher = ?";
         try{
             Connection conn = DBconnect.getConnection();
             PreparedStatement stm = conn.prepareStatement(sql);
             stm.setString(1, voucher.getTenVC());
             stm.setDouble(2, voucher.getDkAD());
             stm.setDouble(3, voucher.getGiamTheoGia());
-            stm.setString(4, voucher.getGhiChu());
-            stm.setString(5, voucher.getMaVC());
+            stm.setString(4, voucher.getNgayBatDau());
+            stm.setString(5, voucher.getNgayKetThuc());
+            stm.setString(6, voucher.getTrangThai());
+            stm.setString(7, voucher.getGhiChu());
+            stm.setString(8, voucher.getMaVC());
             stm.executeUpdate();
             conn.close();
         }catch(Exception e){
             e.printStackTrace();
         }
+    }
+    public List<Voucher> searchVoucher(String key){
+        list.clear();
+        String sql = "select * from Voucher where maVoucher like ? or tenVoucher like ?";
+        try{
+            Connection conn = DBconnect.getConnection();
+            PreparedStatement stm = conn.prepareStatement(sql);
+            stm.setString(1, "%" + key + "%");
+            stm.setString(2, "%" + key + "%");
+            ResultSet rs = stm.executeQuery();
+             while(rs.next()){
+                Voucher voucher = new Voucher();
+                voucher.setMaVC(rs.getString(1));
+                voucher.setTenVC(rs.getString(2));
+                voucher.setDkAD(rs.getDouble(3));
+                voucher.setGiamTheoGia(rs.getDouble(4));
+                voucher.setNgayBatDau(rs.getString(5));
+                voucher.setNgayKetThuc(rs.getString(6));
+                voucher.setTrangThai(rs.getString(7));
+                voucher.setGhiChu(rs.getString(8));
+                list.add(voucher);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return list;
     }
 }

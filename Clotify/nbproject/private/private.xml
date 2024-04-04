@@ -6,7 +6,8 @@
             <file>file:/C:/DuAn1/Pro1041/Clotify/src/gui/admin/Main_admin.java</file>
             <file>file:/C:/DuAn1/Pro1041/Clotify/src/Service/KhuyenMaiService.java</file>
             <file>file:/C:/DuAn1/Pro1041/Clotify/src/Service/KhachHangService.java</file>
-            <file>file:/C:/DuAn1/Pro1041/Clotify/src/gui/nhanvien/TrangKhachHang.java</file>
+            <file>file:/C:/DuAn1/Pro1041/Clotify/src/model/SanPhamCT.java</file>
+            <file>file:/C:/DuAn1/Pro1041/Clotify/src/gui/admin/TrangSP.java</file>
             <file>file:/C:/DuAn1/Pro1041/Clotify/src/gui/admin/TrangKhuyenMai.java</file>
         </group>
     </open-files>

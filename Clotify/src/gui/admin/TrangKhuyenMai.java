@@ -13,6 +13,8 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -91,7 +93,11 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
                 voucher.getMaVC(),
                 voucher.getTenVC(),
                 voucher.getDkAD(),
-                voucher.getGiamTheoGia()
+                voucher.getGiamTheoGia(),
+                voucher.getNgayBatDau(),
+                voucher.getNgayKetThuc(),
+                voucher.getTrangThai()
+
             });
         }
     }
@@ -102,7 +108,20 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
         voucher.setTenVC(txtTenVoucher.getText());
         voucher.setDkAD(Double.parseDouble(txtDieuKien.getText()));
         voucher.setGiamTheoGia(Double.parseDouble(txtGiamTheoGia.getText()));
-
+         LocalDateTime ngayTao = LocalDateTime.now();
+        LocalDateTime ngayKetThuc = LocalDateTime.now();
+        DateTimeFormatter dinhDang = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String ngayBatDauVoucher = ngayTao.format(dinhDang);
+        String ngayKetThucVoucher = ngayKetThuc.format(dinhDang);
+        voucher.setNgayBatDau(ngayBatDauVoucher);
+        voucher.setNgayKetThuc(ngayKetThucVoucher);
+        String trangThai = "";
+        if (rdHoatDongVoucher.isSelected()) {
+            trangThai = "Hoạt động";
+        } else {
+            trangThai = "Ngừng hoạt động";
+        }
+        voucher.setTrangThai(trangThai);
         return voucher;
     }
 
@@ -111,6 +130,23 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
         txtTenVoucher.setText(voucher.getTenVC());
         txtDieuKien.setText(String.valueOf(voucher.getDkAD()));
         txtGiamTheoGia.setText(String.valueOf(voucher.getGiamTheoGia()));
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // or your desired date format
+        try {
+            Date ngayBatDauVoucher = sdf.parse(voucher.getNgayBatDau());
+            Date ngayKetThucVoucher = sdf.parse(voucher.getNgayKetThuc());
+
+            // Set the Date objects to date pickers
+            txtNgayBatDauVoucher.setDate(ngayBatDauVoucher);
+            txtNgayKetThucVoucher.setDate(ngayKetThucVoucher);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        if (voucher.getTrangThai().equals("Hoạt động")) {
+            rdHoatDongVoucher.setSelected(true);
+        } else {
+            rdNgungHoatDongVoucher.setSelected(true);
+        }
+
     }
 
     KhuyenMai getForm() {
@@ -119,13 +155,18 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
         km.setTenKM(txtTenKM.getText());
 //    km.setNgayTao(txtNgayBatDau.getDate());
 //    km.setNgayKetThuc(txtNgayKetThuc.getDate());
-        Date ngayTao = txtNgayBatDau.getDate();
-        Date ngayKetThuc = txtNgayKetThuc.getDate();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String ngayKetThucString = dateFormat.format(ngayKetThuc);
-        String ngayKetTaoString = dateFormat.format(ngayTao);
-        km.setNgayTao(ngayKetTaoString);
-        km.setNgayKetThuc(ngayKetThucString);
+//        Date ngayTao = txtNgayBatDau.getDate();
+//        Date ngayKetThuc = txtNgayKetThuc.getDate();
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+//        String ngayKetThucString = dateFormat.format(ngayKetThuc);
+//        String ngayKetTaoString = dateFormat.format(ngayTao);
+        LocalDateTime ngayTao = LocalDateTime.now();
+        LocalDateTime ngayKetThuc = LocalDateTime.now();
+        DateTimeFormatter dinhDang = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String thoiGian2 = ngayTao.format(dinhDang);
+        String thoiGian3 = ngayKetThuc.format(dinhDang);
+        km.setNgayTao(thoiGian2);
+        km.setNgayKetThuc(thoiGian3);
         km.setLoaiSP(cboLoaiSP.getSelectedItem().toString());
         km.setGiamTheoPT(Integer.parseInt(txtMucGiam.getText()));
         String trangThai = "Đang áp dụng";
@@ -216,16 +257,16 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        rdHoatDongVoucher = new javax.swing.JRadioButton();
+        rdNgungHoatDongVoucher = new javax.swing.JRadioButton();
+        txtNgayBatDauVoucher = new com.toedter.calendar.JDateChooser();
+        txtNgayKetThucVoucher = new com.toedter.calendar.JDateChooser();
+        btnThem = new javax.swing.JButton();
+        btnLuu = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblVoucher = new javax.swing.JTable();
-        jTextField1 = new javax.swing.JTextField();
+        txtTimKiemVoucher = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(153, 255, 153));
         setBorder(null);
@@ -309,9 +350,9 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
             }
         });
 
-        txtNgayBatDau.setDateFormatString("yyyy-MM-dd");
+        txtNgayBatDau.setDateFormatString("yyyy-MM-dd HH:mm");
 
-        txtNgayKetThuc.setDateFormatString("yyyy-MM-dd");
+        txtNgayKetThuc.setDateFormatString("yyyy-MM-dd HH:mm");
 
         jLabel27.setText("Mã KM");
 
@@ -507,27 +548,27 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
 
         jLabel10.setText("Trạng thái:");
 
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setText("Hoạt động");
+        buttonGroup1.add(rdHoatDongVoucher);
+        rdHoatDongVoucher.setText("Hoạt động");
 
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setText("Ngưng hoạt động");
+        buttonGroup1.add(rdNgungHoatDongVoucher);
+        rdNgungHoatDongVoucher.setText("Ngưng hoạt động");
 
-        jDateChooser1.setDateFormatString("yyyy-MM-dd HH:mm");
+        txtNgayBatDauVoucher.setDateFormatString("yyyy-MM-dd HH:mm");
 
-        jDateChooser2.setDateFormatString("yyyy-MM-dd HH:mm");
+        txtNgayKetThucVoucher.setDateFormatString("yyyy-MM-dd HH:mm");
 
-        jButton1.setText("Thêm");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnThem.setText("Thêm");
+        btnThem.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                btnThemMouseClicked(evt);
             }
         });
 
-        jButton2.setText("Lưu");
-        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnLuu.setText("Lưu");
+        btnLuu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton2MouseClicked(evt);
+                btnLuuMouseClicked(evt);
             }
         });
 
@@ -552,20 +593,20 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
                             .addComponent(txtMaVoucher)
                             .addComponent(txtTenVoucher)
                             .addComponent(txtGiamTheoGia)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
-                            .addComponent(jDateChooser2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(txtNgayBatDauVoucher, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
+                            .addComponent(txtNgayKetThucVoucher, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(rdHoatDongVoucher, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioButton2))
+                                .addComponent(rdNgungHoatDongVoucher))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addComponent(jButton2)
+                                .addComponent(btnLuu)
                                 .addGap(69, 69, 69)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -591,20 +632,20 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNgayBatDauVoucher, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNgayKetThucVoucher, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2))
+                    .addComponent(rdHoatDongVoucher)
+                    .addComponent(rdNgungHoatDongVoucher))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(8, Short.MAX_VALUE))
         );
 
@@ -621,30 +662,44 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
                 "Mã voucher", "Tên Voucher", "Điều kiện áp dụng", "Giảm giá", "Ngày bắt đầu", "Ngày kết thúc", "Trạng thái"
             }
         ));
+        tblVoucher.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblVoucherMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblVoucher);
+
+        txtTimKiemVoucher.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtTimKiemVoucherMouseClicked(evt);
+            }
+        });
+        txtTimKiemVoucher.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTimKiemVoucherKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addGap(18, 18, 18)
+                .addComponent(txtTimKiemVoucher, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 799, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtTimKiemVoucher, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -656,7 +711,7 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(222, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -925,13 +980,13 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_rdNgungHoatDongMouseClicked
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+    private void btnThemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMouseClicked
         // TODO add your handling code here:
         svVC.addVoucher(getFormVoucher());
         loadDataVoucher();
-    }//GEN-LAST:event_jButton1MouseClicked
+    }//GEN-LAST:event_btnThemMouseClicked
 
-    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+    private void btnLuuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLuuMouseClicked
         // TODO add your handling code here:
         int i = tblVoucher.getSelectedRow();
         if (i >= 0) {
@@ -941,22 +996,64 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
             svVC.updateVoucher(voucher);
             loadDataVoucher();
         }
-    }//GEN-LAST:event_jButton2MouseClicked
+    }//GEN-LAST:event_btnLuuMouseClicked
+
+    private void tblVoucherMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblVoucherMouseClicked
+        // TODO add your handling code here:
+        int i = tblVoucher.getSelectedRow();
+        if (i >= 0) {
+            setFormVoucher(svVC.getRow(i));
+        }
+    }//GEN-LAST:event_tblVoucherMouseClicked
+
+    private void txtTimKiemVoucherMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTimKiemVoucherMouseClicked
+        // TODO add your handling code here:
+//        String key = txtTimKiemVoucher.getText();
+//        DefaultTableModel modelTimKiemVoucher = (DefaultTableModel) tblVoucher.getModel();
+//        modelTimKiemVoucher.setRowCount(0);
+//        for (Voucher voucher : svVC.searchVoucher(key) ) {
+//            modelTimKiemVoucher.addRow(new Object[]{
+//                  voucher.getMaVC(),
+//                voucher.getTenVC(),
+//                voucher.getDkAD(),
+//                voucher.getGiamTheoGia(),
+//                voucher.getNgayBatDau(),
+//                voucher.getNgayKetThuc(),
+//                voucher.getTrangThai()
+//            });
+//        }
+    }//GEN-LAST:event_txtTimKiemVoucherMouseClicked
+
+    private void txtTimKiemVoucherKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemVoucherKeyReleased
+        // TODO add your handling code here:
+        String key = txtTimKiemVoucher.getText();
+        DefaultTableModel modelTimKiemVoucher = (DefaultTableModel) tblVoucher.getModel();
+        modelTimKiemVoucher.setRowCount(0);
+        for (Voucher voucher : svVC.searchVoucher(key) ) {
+            modelTimKiemVoucher.addRow(new Object[]{
+                  voucher.getMaVC(),
+                voucher.getTenVC(),
+                voucher.getDkAD(),
+                voucher.getGiamTheoGia(),
+                voucher.getNgayBatDau(),
+                voucher.getNgayKetThuc(),
+                voucher.getTrangThai()
+            });
+        }
+    }//GEN-LAST:event_txtTimKiemVoucherKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel KhuyenMai;
     private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnLuu;
     private javax.swing.JButton btnNew;
     private javax.swing.JButton btnSave;
+    private javax.swing.JButton btnThem;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.JComboBox<String> cboLoaiSP;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -978,15 +1075,14 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JRadioButton rdHoatDong;
+    private javax.swing.JRadioButton rdHoatDongVoucher;
     private javax.swing.JRadioButton rdNgungHoatDong;
+    private javax.swing.JRadioButton rdNgungHoatDongVoucher;
     private javax.swing.JTable tblKhuyenMai;
     private javax.swing.JTable tblSPCT;
     private javax.swing.JTable tblVoucher;
@@ -998,8 +1094,11 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtMaVoucher;
     private javax.swing.JTextField txtMucGiam;
     private com.toedter.calendar.JDateChooser txtNgayBatDau;
+    private com.toedter.calendar.JDateChooser txtNgayBatDauVoucher;
     private com.toedter.calendar.JDateChooser txtNgayKetThuc;
+    private com.toedter.calendar.JDateChooser txtNgayKetThucVoucher;
     private javax.swing.JTextField txtTenKM;
     private javax.swing.JTextField txtTenVoucher;
+    private javax.swing.JTextField txtTimKiemVoucher;
     // End of variables declaration//GEN-END:variables
 }
