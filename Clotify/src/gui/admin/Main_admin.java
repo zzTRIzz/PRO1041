@@ -7,6 +7,7 @@ package gui.admin;
 
 
 
+import Service.TaiKhoanService;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -22,7 +23,6 @@ public class Main_admin extends javax.swing.JFrame {
     /**
      * Creates new form Main
      */
-    
     public Main_admin() {
         initComponents();
         init();
@@ -31,6 +31,8 @@ public class Main_admin extends javax.swing.JFrame {
 
     private void init() {
         setLocationRelativeTo(null);
+        lblTen.setText(TaiKhoanService.layThongTin_tenNV());
+
     }
 
     void trang1() {
@@ -90,10 +92,8 @@ public class Main_admin extends javax.swing.JFrame {
         trang4 = new javax.swing.JLabel();
         trang5 = new javax.swing.JLabel();
         menu1 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        lblMaNV = new javax.swing.JLabel();
-        lblTenNV = new javax.swing.JLabel();
+        lblTen = new javax.swing.JLabel();
+        menu3 = new javax.swing.JLabel();
         DesktopPane = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -111,6 +111,7 @@ public class Main_admin extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Trang dành cho admin");
         setResizable(false);
         setSize(new java.awt.Dimension(1260, 700));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -125,7 +126,7 @@ public class Main_admin extends javax.swing.JFrame {
         menubar.setPreferredSize(new java.awt.Dimension(90, 900));
         menubar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        menu.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        menu.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         menu.setForeground(new java.awt.Color(255, 255, 255));
         menu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         menu.setText("Clotify");
@@ -192,25 +193,23 @@ public class Main_admin extends javax.swing.JFrame {
         });
         menubar.add(trang5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 150, 18));
 
-        menu1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        menu1.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         menu1.setForeground(new java.awt.Color(255, 255, 255));
-        menu1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        menu1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         menu1.setText("Admin");
-        menubar.add(menu1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 160, 18));
+        menubar.add(menu1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 110, -1));
 
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Mã");
-        menubar.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
+        lblTen.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblTen.setForeground(new java.awt.Color(255, 255, 255));
+        lblTen.setText("Tên : ");
+        menubar.add(lblTen, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 110, 20));
 
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Tên");
-        menubar.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, -1));
-
-        lblMaNV.setForeground(new java.awt.Color(255, 255, 255));
-        menubar.add(lblMaNV, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 100, 20));
-
-        lblTenNV.setForeground(new java.awt.Color(255, 255, 255));
-        menubar.add(lblTenNV, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 90, 100, 20));
+        menu3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        menu3.setForeground(new java.awt.Color(255, 255, 255));
+        menu3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        menu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/Name.png"))); // NOI18N
+        menu3.setPreferredSize(new java.awt.Dimension(36, 37));
+        menubar.add(menu3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
 
         background.add(menubar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 160, 900));
 
@@ -298,15 +297,13 @@ public class Main_admin extends javax.swing.JFrame {
     private javax.swing.JDesktopPane DesktopPane;
     private javax.swing.JPanel background;
     private javax.swing.JDesktopPane jDesktopPane1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JLabel lblMaNV;
-    private javax.swing.JLabel lblTenNV;
+    private javax.swing.JLabel lblTen;
     private javax.swing.JLabel menu;
     private javax.swing.JLabel menu1;
+    private javax.swing.JLabel menu3;
     private keeptoo.KGradientPanel menubar;
     private javax.swing.JLabel trang1;
     private javax.swing.JLabel trang2;

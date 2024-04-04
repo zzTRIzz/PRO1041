@@ -9,7 +9,7 @@ package model;
  * @author Surface
  */
 public class SanPham {
-    String maSP,tenSP,ngayNhap,maNV;
+    String maSP,tenSP,ngayNhap,maNV,tenNV;
 
     public SanPham() {
     }
@@ -19,6 +19,14 @@ public class SanPham {
         this.tenSP = tenSP;
         this.ngayNhap = ngayNhap;
         this.maNV = maNV;
+    }
+
+    public SanPham(String maSP, String tenSP, String ngayNhap, String maNV, String tenNV) {
+        this.maSP = maSP;
+        this.tenSP = tenSP;
+        this.ngayNhap = ngayNhap;
+        this.maNV = maNV;
+        this.tenNV = tenNV;
     }
 
     public String getMaSP() {
@@ -52,5 +60,15 @@ public class SanPham {
     public void setMaNV(String maNV) {
         this.maNV = maNV;
     }
+
+    public String getTenNV() {
+        return tenNV;
+    }
+
+    public void setTenNV(String tenNV) {
+        this.tenNV = tenNV;
+    }
+
+    
     
 }

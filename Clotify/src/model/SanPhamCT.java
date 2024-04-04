@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package model;
 
 /**
@@ -5,12 +9,10 @@ package model;
  * @author Surface
  */
 public class SanPhamCT {
-
-    Integer idSP, soLuong, idMauSac, idSize, idThuongHieu, idChatLieu, idLS, phanTramKM;
-    String maSP, loaiSP, trangThai, tenMS, tenSize, tenTH, tenCL, tenSP, hinhAnh;
-    Double giaNhap, giaBan;
-    String maKM, ngayTao, ngayKetThuc, trangThaiKM, ngayQuyetDinh;
-
+    Integer idSP,soLuong,idMauSac,idSize,idThuongHieu,idChatLieu,idLS,phanTramKM;
+    String maSP,loaiSP,trangThai,tenMS,tenSize,tenTH,tenCL,tenSP,hinhAnh;
+    Double giaNhap,giaBan;   
+    String maKM,ngayTao, ngayKetThuc,trangThaiKM, ngayQuyetDinh;
     public SanPhamCT() {
     }
 
@@ -24,7 +26,7 @@ public class SanPhamCT {
         this.loaiSP = loaiSP;
         this.trangThai = trangThai;
         this.giaNhap = giaNhap;
-        this.hinhAnh = hinhAnh;
+        this.hinhAnh =hinhAnh;
     }
 
     public SanPhamCT(Integer idSP, Integer soLuong, Integer idMauSac, Integer idSize, Integer idThuongHieu, Integer idChatLieu, Integer idLS, Integer phanTramKM, String maSP, String loaiSP, String trangThai, String tenMS, String tenSize, String tenTH, String tenCL, String tenSP, String hinhAnh, Double giaNhap, Double giaBan, String maKM, String ngayTao, String ngayKetThuc, String trangThaiKM, String ngayQuyetDinh) {
@@ -246,4 +248,5 @@ public class SanPhamCT {
         this.ngayQuyetDinh = ngayQuyetDinh;
     }
 
+    
 }

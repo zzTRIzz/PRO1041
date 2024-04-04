@@ -6,6 +6,7 @@ package gui.nhanvien;
 
 
 
+import Service.TaiKhoanService;
 import gui.admin.*;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatIntelliJLaf;
@@ -17,6 +18,8 @@ import javax.swing.*;
  *
  * @author ADMIN
  */
+
+
 public class Main_NhanVien extends javax.swing.JFrame {
 
     /**
@@ -31,6 +34,7 @@ public class Main_NhanVien extends javax.swing.JFrame {
 
     private void init() {
         setLocationRelativeTo(null);
+        lblTen.setText(TaiKhoanService.layThongTin_tenNV());
     }
 
     void trang1() {
@@ -74,6 +78,9 @@ public class Main_NhanVien extends javax.swing.JFrame {
         trang2 = new javax.swing.JLabel();
         trang3 = new javax.swing.JLabel();
         menu1 = new javax.swing.JLabel();
+        menu3 = new javax.swing.JLabel();
+        lblTen = new javax.swing.JLabel();
+        menu2 = new javax.swing.JLabel();
         DesktopPane = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -153,7 +160,25 @@ public class Main_NhanVien extends javax.swing.JFrame {
         menu1.setForeground(new java.awt.Color(255, 255, 255));
         menu1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         menu1.setText("Nhân viên");
-        menubar.add(menu1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 160, 18));
+        menubar.add(menu1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 600, 160, 18));
+
+        menu3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        menu3.setForeground(new java.awt.Color(255, 255, 255));
+        menu3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        menu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/Name.png"))); // NOI18N
+        menu3.setPreferredSize(new java.awt.Dimension(36, 37));
+        menubar.add(menu3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
+
+        lblTen.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblTen.setForeground(new java.awt.Color(255, 255, 255));
+        lblTen.setText("Tên : ");
+        menubar.add(lblTen, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 110, 20));
+
+        menu2.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        menu2.setForeground(new java.awt.Color(255, 255, 255));
+        menu2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        menu2.setText("Nhân viên");
+        menubar.add(menu2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 110, -1));
 
         background.add(menubar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 160, 900));
 
@@ -233,11 +258,15 @@ public class Main_NhanVien extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JLabel lblTen;
     private javax.swing.JLabel menu;
     private javax.swing.JLabel menu1;
+    private javax.swing.JLabel menu2;
+    private javax.swing.JLabel menu3;
     private keeptoo.KGradientPanel menubar;
     private javax.swing.JLabel trang1;
     private javax.swing.JLabel trang2;
     private javax.swing.JLabel trang3;
     // End of variables declaration//GEN-END:variables
 }
+//

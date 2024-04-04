@@ -10,12 +10,12 @@ package model;
  */
 public class NhanVien {
     String  maNV,vaiTro;
-    String tenNV, ngaySinh,gioiTinh,diaChi,sdt,taiKhoan,matKhau, email;
+    String tenNV, ngaySinh,gioiTinh,diaChi,sdt,taiKhoan,matKhau, email,trangThai;
 
     public NhanVien() {
     }
 
-    public NhanVien(String maNV, String vaiTro, String tenNV, String ngaySinh, String gioiTinh, String diaChi, String sdt, String taiKhoan, String matKhau, String email) {
+    public NhanVien(String maNV, String vaiTro, String tenNV, String ngaySinh, String gioiTinh, String diaChi, String sdt, String taiKhoan, String matKhau, String email, String trangThai) {
         this.maNV = maNV;
         this.vaiTro = vaiTro;
         this.tenNV = tenNV;
@@ -26,6 +26,7 @@ public class NhanVien {
         this.taiKhoan = taiKhoan;
         this.matKhau = matKhau;
         this.email = email;
+        this.trangThai = trangThai;
     }
 
     public String getMaNV() {
@@ -108,17 +109,28 @@ public class NhanVien {
         this.email = email;
     }
 
-    @Override
-    public String toString() {
-        return "NhanVien{" + "maNV=" + maNV + ", vaiTro=" + vaiTro + ", tenNV=" + tenNV + ", ngaySinh=" + ngaySinh + ", gioiTinh=" + gioiTinh + ", diaChi=" + diaChi + ", sdt=" + sdt + ", taiKhoan=" + taiKhoan + ", matKhau=" + matKhau + ", email=" + email + '}';
+    public String getTrangThai() {
+        return trangThai;
     }
 
+    public void setTrangThai(String trangThai) {
+        this.trangThai = trangThai;
+    }
+
+    @Override
+    public String toString() {
+        return "NhanVien{" + "maNV=" + maNV + ", vaiTro=" + vaiTro + ", tenNV=" + tenNV + ", ngaySinh=" + ngaySinh + ", gioiTinh=" + gioiTinh + ", diaChi=" + diaChi + ", sdt=" + sdt + ", taiKhoan=" + taiKhoan + ", matKhau=" + matKhau + ", email=" + email + ", trangThai=" + trangThai + '}';
+    }
+
+    
+    
+    
     
     
       
      public Object[]toDataRow(){
         return new Object[]{
-            this.getMaNV(),this.getTenNV(),this.getNgaySinh(),this.getGioiTinh(),this.getDiaChi(),this.getSdt(),this.getTaiKhoan(),this.getMatKhau(),this.getVaiTro().equals("1") ?"Quan ly" : "Nhan Vien",this.getEmail()
+            this.getMaNV(),this.getTenNV(),this.getNgaySinh(),this.getGioiTinh(),this.getDiaChi(),this.getSdt(),this.getTaiKhoan(),this.getMatKhau(),this.getVaiTro().equals("1") ?"Quan ly" : "Nhan Vien",this.getEmail(),this.getTrangThai().equals("1")?"Hoạt Động":"Ngừng Hoạt Động"
         };
     }
     
