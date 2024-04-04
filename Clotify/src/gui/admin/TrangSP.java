@@ -41,15 +41,15 @@ public class TrangSP extends javax.swing.JInternalFrame {
                 spct.getIdSP(),
                 spct.getMaSP(),
                 spct.getTenSP(),
-                spct.getThuongHieu(),
+                spct.getTenTH(),
                 spct.getLoaiSP(),
-                spct.getSize(),
-                spct.getChatLieu(),
-                spct.getMauSac(),
+                spct.getTenSize(),
+                spct.getTenCL(),
+                spct.getTenMS(),
                 spct.getGiaNhap(),
                 spct.getGiaBan(),
                 spct.getSoLuong(),
-                spct.getNgayNhap(),
+                spct.getNgayTao(),
                 spct.getTrangThai()
             };
             model.addRow(row);
@@ -61,14 +61,14 @@ public class TrangSP extends javax.swing.JInternalFrame {
 //        spct.setIdSP(Integer.valueOf(txtIdSp.getText()));
         spct.setMaSP(txtMaSp.getText());
         spct.setTenSP(txtTenSp.getText());
-        spct.setThuongHieu(txtThuongHieu.getText());
+        spct.setTenTH(txtThuongHieu.getText());
         String LoaiSP = (String) cboLoai.getSelectedItem();
         String size = (String) cboSize.getSelectedItem();
         String chatLieu = (String) cboChatLieu.getSelectedItem();
         String mauSac = (String) cboMauSac.getSelectedItem();
         spct.setGiaBan(Double.valueOf(txtGiaBan.getText()));
         spct.setSoLuong(Integer.valueOf(txtSoLuong.getText()));
-        spct.setNgayNhap(txtNgayNhap.getText());
+        spct.setNgayTao(txtNgayNhap.getText());
 
 //        spct.setTrangThai(rdHoatDong.isSelected() ? "Hoạt động" : "Không hoạt động");
 
@@ -80,22 +80,22 @@ public class TrangSP extends javax.swing.JInternalFrame {
 //        txtIdSp.setText(spct.getIdSP().toString());
         txtMaSp.setText(spct.getMaSP());
         txtTenSp.setText(spct.getTenSP());
-        txtThuongHieu.setText(spct.getThuongHieu());
+        txtThuongHieu.setText(spct.getTenTH());
 
         String loaiSP = spct.getLoaiSP();
         cboLoai.setSelectedItem(loaiSP);
 
-        String size = spct.getSize();
+        String size = spct.getTenSize();
         cboSize.setSelectedItem(size);
 
-        String chatLieu = spct.getChatLieu();
+        String chatLieu = spct.getTenCL();
         cboChatLieu.setSelectedItem(chatLieu);
 
-        String mauSac = spct.getMauSac();
+        String mauSac = spct.getTenMS();
         cboMauSac.setSelectedItem(mauSac);
         txtGiaBan.setText(spct.getGiaBan().toString());
         txtSoLuong.setText(spct.getSoLuong().toString());
-        txtNgayNhap.setText(spct.getNgayNhap());
+        txtNgayNhap.setText(spct.getNgayTao());
 //        String trangThai = spct.getTrangThai();
 //        if ("Hoạt động".equals(trangThai)) {
 //            rdHoatDong.setSelected(true);

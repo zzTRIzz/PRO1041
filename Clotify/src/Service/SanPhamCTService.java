@@ -44,15 +44,15 @@ public class SanPhamCTService implements SanPhamCTImpl {
                 spct.setIdSP(rs.getInt(1));
                 spct.setMaSP(rs.getString(2));
                 spct.setTenSP(rs.getString(3));
-                spct.setThuongHieu(rs.getString(4));
+                spct.setTenTH(rs.getString(4));
                 spct.setLoaiSP(rs.getString(5));
-                spct.setSize(rs.getString(6));
-                spct.setChatLieu(rs.getString(7));
-                spct.setMauSac(rs.getString(8));
+                spct.setTenSize(rs.getString(6));
+                spct.setTenCL(rs.getString(7));
+                spct.setTenCL(rs.getString(8));
                 spct.setGiaNhap(rs.getDouble(9));
                 spct.setGiaBan(rs.getDouble(10));
                 spct.setSoLuong(rs.getInt(11));
-                spct.setNgayNhap(rs.getString(12));
+                spct.setNgayTao(rs.getString(12));
                 spct.setTrangThai(rs.getString(13));
 
                 listspct.add(spct);

@@ -79,8 +79,10 @@ public class KhuyenMaiService {
 }
     
     public KhuyenMai getRow(int row){
+   
         return list.get(row);
-    }
+   
+}
     List<SanPhamCT> listSPCT = new ArrayList<>();
     public List<SanPhamCT> getSanPhamCT(){
         listSPCT.clear();
@@ -99,9 +101,9 @@ public class KhuyenMaiService {
                 spct.setIdSP(rs.getInt(1));
                 spct.setMaSP(rs.getString(2));
                 spct.setTenSP(rs.getString(3));
-                spct.setSize(rs.getString(4));
-                spct.setMauSac(rs.getString(5));
-                spct.setChatLieu(rs.getString(6));
+                spct.setTenSize(rs.getString(4));
+                spct.setTenMS(rs.getString(5));
+                spct.setTenCL(rs.getString(6));
                 spct.setGiaBan(rs.getDouble(7));
                 listSPCT.add(spct);
             }
@@ -140,9 +142,9 @@ public class KhuyenMaiService {
                 spct.setIdSP(rs.getInt(1));
                 spct.setMaSP(rs.getString(2));
                 spct.setTenSP(rs.getString(3));
-                spct.setSize(rs.getString(4));
-                spct.setMauSac(rs.getString(5));
-                spct.setChatLieu(rs.getString(6));
+                spct.setTenSize(rs.getString(4));
+                spct.setTenMS(rs.getString(5));
+                spct.setTenCL(rs.getString(6));
                 spct.setGiaBan(rs.getDouble(7));
                 listSPCT.add(spct);
             }
@@ -199,9 +201,9 @@ public class KhuyenMaiService {
                  spct.setIdSP(rs.getInt(1));
                 spct.setMaSP(rs.getString(2));
                 spct.setTenSP(rs.getString(3));
-                spct.setSize(rs.getString(4));
-                spct.setMauSac(rs.getString(5));
-                spct.setChatLieu(rs.getString(6));
+                spct.setTenSize(rs.getString(4));
+                spct.setTenMS(rs.getString(5));
+                spct.setTenCL(rs.getString(6));
                 spct.setGiaBan(rs.getDouble(7));
                 listSPCT.add(spct);
             }
@@ -219,7 +221,7 @@ public class KhuyenMaiService {
             stm.setString(2, km.getNgayTao());
             stm.setString(3, km.getNgayKetThuc());
             stm.setInt(4, km.getGiamTheoPT());
-           
+           stm.setString(5, km.getMaKM());
             stm.executeUpdate();
             conn.close();
         }catch(Exception e){

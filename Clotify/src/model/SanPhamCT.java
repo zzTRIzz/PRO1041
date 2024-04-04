@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
 
 /**
@@ -9,15 +5,16 @@ package model;
  * @author Surface
  */
 public class SanPhamCT {
-    Integer idSP,soLuong,idMauSac,idSize,idThuongHieu,idChatLieu;
-    String maSP,loaiSP,tenSP,mauSac,size,thuongHieu,chatLieu,ngayNhap,trangThai;
-    Double giaNhap,giaBan;   
+
+    Integer idSP, soLuong, idMauSac, idSize, idThuongHieu, idChatLieu, idLS, phanTramKM;
+    String maSP, loaiSP, trangThai, tenMS, tenSize, tenTH, tenCL, tenSP, hinhAnh;
+    Double giaNhap, giaBan;
+    String maKM, ngayTao, ngayKetThuc, trangThaiKM, ngayQuyetDinh;
 
     public SanPhamCT() {
     }
 
-    public SanPhamCT(Integer idSP, Integer soLuong, Integer idMauSac, Integer idSize, Integer idThuongHieu, Integer idChatLieu, String maSP, String loaiSP, String tenSP, String mauSac, String size, String thuongHieu, String chatLieu, String ngayNhap, String trangThai, Double giaNhap, Double giaBan) {
-        this.idSP = idSP;
+    public SanPhamCT(Integer soLuong, Integer idMauSac, Integer idSize, Integer idThuongHieu, Integer idChatLieu, String maSP, String loaiSP, String trangThai, Double giaNhap, String hinhAnh) {
         this.soLuong = soLuong;
         this.idMauSac = idMauSac;
         this.idSize = idSize;
@@ -25,15 +22,36 @@ public class SanPhamCT {
         this.idChatLieu = idChatLieu;
         this.maSP = maSP;
         this.loaiSP = loaiSP;
-        this.tenSP = tenSP;
-        this.mauSac = mauSac;
-        this.size = size;
-        this.thuongHieu = thuongHieu;
-        this.chatLieu = chatLieu;
-        this.ngayNhap = ngayNhap;
         this.trangThai = trangThai;
         this.giaNhap = giaNhap;
+        this.hinhAnh = hinhAnh;
+    }
+
+    public SanPhamCT(Integer idSP, Integer soLuong, Integer idMauSac, Integer idSize, Integer idThuongHieu, Integer idChatLieu, Integer idLS, Integer phanTramKM, String maSP, String loaiSP, String trangThai, String tenMS, String tenSize, String tenTH, String tenCL, String tenSP, String hinhAnh, Double giaNhap, Double giaBan, String maKM, String ngayTao, String ngayKetThuc, String trangThaiKM, String ngayQuyetDinh) {
+        this.idSP = idSP;
+        this.soLuong = soLuong;
+        this.idMauSac = idMauSac;
+        this.idSize = idSize;
+        this.idThuongHieu = idThuongHieu;
+        this.idChatLieu = idChatLieu;
+        this.idLS = idLS;
+        this.phanTramKM = phanTramKM;
+        this.maSP = maSP;
+        this.loaiSP = loaiSP;
+        this.trangThai = trangThai;
+        this.tenMS = tenMS;
+        this.tenSize = tenSize;
+        this.tenTH = tenTH;
+        this.tenCL = tenCL;
+        this.tenSP = tenSP;
+        this.hinhAnh = hinhAnh;
+        this.giaNhap = giaNhap;
         this.giaBan = giaBan;
+        this.maKM = maKM;
+        this.ngayTao = ngayTao;
+        this.ngayKetThuc = ngayKetThuc;
+        this.trangThaiKM = trangThaiKM;
+        this.ngayQuyetDinh = ngayQuyetDinh;
     }
 
     public Integer getIdSP() {
@@ -84,6 +102,22 @@ public class SanPhamCT {
         this.idChatLieu = idChatLieu;
     }
 
+    public Integer getIdLS() {
+        return idLS;
+    }
+
+    public void setIdLS(Integer idLS) {
+        this.idLS = idLS;
+    }
+
+    public Integer getPhanTramKM() {
+        return phanTramKM;
+    }
+
+    public void setPhanTramKM(Integer phanTramKM) {
+        this.phanTramKM = phanTramKM;
+    }
+
     public String getMaSP() {
         return maSP;
     }
@@ -100,6 +134,46 @@ public class SanPhamCT {
         this.loaiSP = loaiSP;
     }
 
+    public String getTrangThai() {
+        return trangThai;
+    }
+
+    public void setTrangThai(String trangThai) {
+        this.trangThai = trangThai;
+    }
+
+    public String getTenMS() {
+        return tenMS;
+    }
+
+    public void setTenMS(String tenMS) {
+        this.tenMS = tenMS;
+    }
+
+    public String getTenSize() {
+        return tenSize;
+    }
+
+    public void setTenSize(String tenSize) {
+        this.tenSize = tenSize;
+    }
+
+    public String getTenTH() {
+        return tenTH;
+    }
+
+    public void setTenTH(String tenTH) {
+        this.tenTH = tenTH;
+    }
+
+    public String getTenCL() {
+        return tenCL;
+    }
+
+    public void setTenCL(String tenCL) {
+        this.tenCL = tenCL;
+    }
+
     public String getTenSP() {
         return tenSP;
     }
@@ -108,52 +182,12 @@ public class SanPhamCT {
         this.tenSP = tenSP;
     }
 
-    public String getMauSac() {
-        return mauSac;
+    public String getHinhAnh() {
+        return hinhAnh;
     }
 
-    public void setMauSac(String mauSac) {
-        this.mauSac = mauSac;
-    }
-
-    public String getSize() {
-        return size;
-    }
-
-    public void setSize(String size) {
-        this.size = size;
-    }
-
-    public String getThuongHieu() {
-        return thuongHieu;
-    }
-
-    public void setThuongHieu(String thuongHieu) {
-        this.thuongHieu = thuongHieu;
-    }
-
-    public String getChatLieu() {
-        return chatLieu;
-    }
-
-    public void setChatLieu(String chatLieu) {
-        this.chatLieu = chatLieu;
-    }
-
-    public String getNgayNhap() {
-        return ngayNhap;
-    }
-
-    public void setNgayNhap(String ngayNhap) {
-        this.ngayNhap = ngayNhap;
-    }
-
-    public String getTrangThai() {
-        return trangThai;
-    }
-
-    public void setTrangThai(String trangThai) {
-        this.trangThai = trangThai;
+    public void setHinhAnh(String hinhAnh) {
+        this.hinhAnh = hinhAnh;
     }
 
     public Double getGiaNhap() {
@@ -172,6 +206,44 @@ public class SanPhamCT {
         this.giaBan = giaBan;
     }
 
+    public String getMaKM() {
+        return maKM;
+    }
 
-    
+    public void setMaKM(String maKM) {
+        this.maKM = maKM;
+    }
+
+    public String getNgayTao() {
+        return ngayTao;
+    }
+
+    public void setNgayTao(String ngayTao) {
+        this.ngayTao = ngayTao;
+    }
+
+    public String getNgayKetThuc() {
+        return ngayKetThuc;
+    }
+
+    public void setNgayKetThuc(String ngayKetThuc) {
+        this.ngayKetThuc = ngayKetThuc;
+    }
+
+    public String getTrangThaiKM() {
+        return trangThaiKM;
+    }
+
+    public void setTrangThaiKM(String trangThaiKM) {
+        this.trangThaiKM = trangThaiKM;
+    }
+
+    public String getNgayQuyetDinh() {
+        return ngayQuyetDinh;
+    }
+
+    public void setNgayQuyetDinh(String ngayQuyetDinh) {
+        this.ngayQuyetDinh = ngayQuyetDinh;
+    }
+
 }
