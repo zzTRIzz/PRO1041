@@ -108,13 +108,26 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
         voucher.setTenVC(txtTenVoucher.getText());
         voucher.setDkAD(Double.parseDouble(txtDieuKien.getText()));
         voucher.setGiamTheoGia(Double.parseDouble(txtGiamTheoGia.getText()));
-         LocalDateTime ngayTao = LocalDateTime.now();
-        LocalDateTime ngayKetThuc = LocalDateTime.now();
-        DateTimeFormatter dinhDang = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        String ngayBatDauVoucher = ngayTao.format(dinhDang);
-        String ngayKetThucVoucher = ngayKetThuc.format(dinhDang);
-        voucher.setNgayBatDau(ngayBatDauVoucher);
-        voucher.setNgayKetThuc(ngayKetThucVoucher);
+//        LocalDateTime ngayTao = LocalDateTime.now();
+//        LocalDateTime ngayKetThuc = LocalDateTime.now();
+//        DateTimeFormatter dinhDang = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+//        String ngayBatDauVoucher = ngayTao.format(dinhDang);
+//        String ngayKetThucVoucher = ngayKetThuc.format(dinhDang);
+//        voucher.setNgayBatDau(ngayBatDauVoucher);
+//        voucher.setNgayKetThuc(ngayKetThucVoucher);
+
+//========================================================================
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        // Lấy ngày bắt đầu từ JDateChooser và chuyển đổi sang chuỗi
+        String ngayBatDau = dateFormat.format(txtNgayBatDauVoucher.getDate());
+        // Lấy ngày kết thúc từ JDateChooser và chuyển đổi sang chuỗi
+        String ngayKetThuc = dateFormat.format(txtNgayKetThucVoucher.getDate());
+        // Sử dụng chuỗi này để thiết lập các trường trong đối tượng voucher
+        voucher.setNgayBatDau(ngayBatDau);
+        voucher.setNgayKetThuc(ngayKetThuc);
+//=========================================================================
+
+
         String trangThai = "";
         if (rdHoatDongVoucher.isSelected()) {
             trangThai = "Hoạt động";
@@ -130,7 +143,7 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
         txtTenVoucher.setText(voucher.getTenVC());
         txtDieuKien.setText(String.valueOf(voucher.getDkAD()));
         txtGiamTheoGia.setText(String.valueOf(voucher.getGiamTheoGia()));
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // or your desired date format
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm"); // or your desired date format
         try {
             Date ngayBatDauVoucher = sdf.parse(voucher.getNgayBatDau());
             Date ngayKetThucVoucher = sdf.parse(voucher.getNgayKetThuc());
@@ -1029,9 +1042,9 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
         String key = txtTimKiemVoucher.getText();
         DefaultTableModel modelTimKiemVoucher = (DefaultTableModel) tblVoucher.getModel();
         modelTimKiemVoucher.setRowCount(0);
-        for (Voucher voucher : svVC.searchVoucher(key) ) {
+        for (Voucher voucher : svVC.searchVoucher(key)) {
             modelTimKiemVoucher.addRow(new Object[]{
-                  voucher.getMaVC(),
+                voucher.getMaVC(),
                 voucher.getTenVC(),
                 voucher.getDkAD(),
                 voucher.getGiamTheoGia(),
