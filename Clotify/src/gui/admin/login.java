@@ -5,6 +5,7 @@ package gui.admin;
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 import Service.TaiKhoanService;
+import Service.VoucherService;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import javax.swing.JButton;
@@ -31,7 +32,7 @@ public class login extends javax.swing.JFrame {
      */
     TaiKhoanService taiKhoanService = new TaiKhoanService();
     ThongTinNhanVien thongTinNhanVien = new ThongTinNhanVien();
-
+    VoucherService svVC = new VoucherService();
     public static String maNV, tenNV;
 
     //by Tri
@@ -55,6 +56,7 @@ public class login extends javax.swing.JFrame {
     void init() {
         setLocationRelativeTo(null);
         lblBackLogin.setVisible(false);
+        svVC.updateTrangThaiVoucher();
     }
 
     Preferences pres = Preferences.userNodeForPackage(login.class);

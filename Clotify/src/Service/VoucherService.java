@@ -14,16 +14,18 @@ import java.sql.*;
  * @author Dell
  */
 public class VoucherService {
+
     List<Voucher> list = new ArrayList<>();
-    public List<Voucher> getVoucher(){
+
+    public List<Voucher> getVoucher() {
         list.clear();
-        try{
-            String sql = "SELECT maVoucher, tenVoucher, dkApDung, giamTheoGia, ngayBatDau, ngayKetThuc, trangThai, ghiChu\n" +
-"FROM   Voucher";
+        try {
+            String sql = "SELECT maVoucher, tenVoucher, dkApDung, giamTheoGia, ngayBatDau, ngayKetThuc, trangThai, ghiChu\n"
+                    + "FROM   Voucher";
             Connection conn = DBconnect.getConnection();
             Statement stm = conn.createStatement();
             ResultSet rs = stm.executeQuery(sql);
-            while(rs.next()){
+            while (rs.next()) {
                 Voucher voucher = new Voucher();
                 voucher.setMaVC(rs.getString(1));
                 voucher.setTenVC(rs.getString(2));
@@ -35,17 +37,19 @@ public class VoucherService {
                 voucher.setGhiChu(rs.getString(8));
                 list.add(voucher);
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return list;
     }
-    public Voucher getRow(int row){
+
+    public Voucher getRow(int row) {
         return list.get(row);
     }
-    public boolean addVoucher(Voucher voucher){
+
+    public boolean addVoucher(Voucher voucher) {
         String sql = "insert into Voucher(maVoucher,tenVoucher,dkApDung,giamTheoGia,ngayBatDau,ngayKetThuc,trangThai,ghiChu) values (?,?,?,?,?,?,?,?)";
-        try{
+        try {
             Connection conn = DBconnect.getConnection();
             PreparedStatement stm = conn.prepareStatement(sql);
             stm.setString(1, voucher.getMaVC());
@@ -59,14 +63,15 @@ public class VoucherService {
             stm.executeUpdate();
             conn.close();
             return true;
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
     }
-    public void updateVoucher(Voucher voucher){
+
+    public void updateVoucher(Voucher voucher) {
         String sql = "update Voucher set tenVoucher = ?, dkApDung = ?,giamTheoGia = ?,ngayBatDau=?,ngayKetThuc=?,trangThai=?, ghiChu = ? where maVoucher = ?";
-        try{
+        try {
             Connection conn = DBconnect.getConnection();
             PreparedStatement stm = conn.prepareStatement(sql);
             stm.setString(1, voucher.getTenVC());
@@ -79,20 +84,21 @@ public class VoucherService {
             stm.setString(8, voucher.getMaVC());
             stm.executeUpdate();
             conn.close();
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    public List<Voucher> searchVoucher(String key){
+
+    public List<Voucher> searchVoucher(String key) {
         list.clear();
         String sql = "select * from Voucher where maVoucher like ? or tenVoucher like ?";
-        try{
+        try {
             Connection conn = DBconnect.getConnection();
             PreparedStatement stm = conn.prepareStatement(sql);
             stm.setString(1, "%" + key + "%");
             stm.setString(2, "%" + key + "%");
             ResultSet rs = stm.executeQuery();
-             while(rs.next()){
+            while (rs.next()) {
                 Voucher voucher = new Voucher();
                 voucher.setMaVC(rs.getString(1));
                 voucher.setTenVC(rs.getString(2));
@@ -104,9 +110,25 @@ public class VoucherService {
                 voucher.setGhiChu(rs.getString(8));
                 list.add(voucher);
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return list;
+    }
+
+    public void updateTrangThaiVoucher() {
+        String sql = "UPDATE Voucher \n"
+                + "SET TrangThai = ? \n"
+                + "WHERE NgayKetThuc < getdate() ";
+        try {
+            Connection conn = DBconnect.getConnection();
+            PreparedStatement stm = conn.prepareStatement(sql);
+            stm.setString(1,"Ngừng hoạt động");
+
+            stm.executeUpdate();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

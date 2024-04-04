@@ -14,6 +14,7 @@ import java.awt.event.ItemListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -48,6 +49,7 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
 
         initComponents();
         ui_custom.deleteTitle(this);
+        svVC.updateTrangThaiVoucher();
         loadDataKhuyenMai();
         loadDataSPCT();
         loadDataVoucher();
@@ -127,7 +129,6 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
         voucher.setNgayKetThuc(ngayKetThuc);
 //=========================================================================
 
-
         String trangThai = "";
         if (rdHoatDongVoucher.isSelected()) {
             trangThai = "Hoạt động";
@@ -151,6 +152,7 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
             // Set the Date objects to date pickers
             txtNgayBatDauVoucher.setDate(ngayBatDauVoucher);
             txtNgayKetThucVoucher.setDate(ngayKetThucVoucher);
+          
         } catch (ParseException e) {
             e.printStackTrace();
         }
