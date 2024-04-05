@@ -8,11 +8,13 @@ import Interface.SanPhamKMInterface;
 import Service.KhuyenMaiService;
 import Service.SanPhamCTService;
 import Service.SanPhamKMService;
+import Service.TaiKhoanService;
 import Service.VoucherService;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -152,7 +154,7 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
             // Set the Date objects to date pickers
             txtNgayBatDauVoucher.setDate(ngayBatDauVoucher);
             txtNgayKetThucVoucher.setDate(ngayKetThucVoucher);
-          
+
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -166,20 +168,13 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
 
     KhuyenMai getForm() {
         KhuyenMai km = new KhuyenMai();
-        km.setMaKM(txtMaKM.getText());
-        km.setTenKM(txtTenKM.getText());
-// Giả sử txtNgayBatDau.getText() trả về một chuỗi văn bản đại diện cho ngày tháng, ví dụ "2024-04-05"
         Date ngayBatDauText = txtNgayBatDau.getDate();
-        Date ngayKetThucText =txtNgayKetThuc.getDate();
-// Định nghĩa định dạng của ngày tháng mà người dùng nhập vào
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
-// Chuyển đổi chuỗi văn bản thành đối tượng LocalDateTime
-        LocalDateTime ngayBatDau = LocalDateTime.parse((CharSequence) ngayBatDauText, formatter);
-        LocalDateTime ngayKetThuc = LocalDateTime.parse((CharSequence) ngayKetThucText, formatter);
-        
-//        Date ngayTao = txtNgayBatDau.getDate();
-//        LocalDateTime ngayKetThuc = LocalDateTime.now();
+        Date ngayKetThucText = txtNgayKetThuc.getDate();
+        // chuyen doi tu date sang LocalDateTime
+        Instant instantNgayTao = ngayBatDauText.toInstant();
+        LocalDateTime ngayBatDau = instantNgayTao.atZone(ZoneId.systemDefault()).toLocalDateTime();
+        Instant instantKetThuc = ngayKetThucText.toInstant();
+        LocalDateTime ngayKetThuc = instantKetThuc.atZone(ZoneId.systemDefault()).toLocalDateTime();
         LocalDateTime ngayQuyetDinh = LocalDateTime.now();
         DateTimeFormatter dinhDang = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         String thoiGianBD = ngayBatDau.format(dinhDang);
@@ -187,19 +182,16 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
         String thoiGianQD = ngayQuyetDinh.format(dinhDang);
         km.setNgayTao(thoiGianBD);
         km.setNgayKetThuc(thoiGianKT);
-//        km.setN
-        km.setLoaiSP(cboLoaiSP.getSelectedItem().toString());
-        
+        km.setNgayQuyetDinh(thoiGianQD);
+        km.setMaNV(TaiKhoanService.layThongTin_maNV());
+        km.setMaKM(txtMaKM.getText());
+        km.setTenKM(txtTenKM.getText());
         km.setGiamTheoPT(Integer.parseInt(txtMucGiam.getText()));
         String trangThai = "Đang áp dụng";
         km.setTrangThai(trangThai);
-//        List<String> danhSachIdSanPhamDaChon = new ArrayList<>();
-//    for (JCheckBox checkbox :  ) {
-//        if (checkbox.isSelected()) {
-//            danhSachIdSanPhamDaChon.add(checkbox.getText()); // Giả sử text của checkbox chứa mã sản phẩm
-//        }
-//    }
-//    km.setDanhSachIdSP(danhSachIdSanPhamDaChon);
+//        Double mucApDung = null;
+//        mucApDung =Double.valueOf(txtGiaBatDau.getText());
+//        km.setMucApDung(mucApDung);
         return km;
 
     }
@@ -207,21 +199,22 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
     void setForm(SanPhamKM km) {
         txtMaKM.setText(km.getMaKM());
         txtTenKM.setText(km.getTenKM());
+        txtMucGiam.setText(String.valueOf(km.getGiamTheoPT()));
+        String ngayBatDau =km.getNgayTao();
+        String ngayKetThuc =km.getNgayKetThuc();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
-        // Convert String date to Date object
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // or your desired date format
         try {
-            Date ngayBatDau = sdf.parse(km.getNgayTao());
-            Date ngayKetThuc = sdf.parse(km.getNgayKetThuc());
-
-            // Set the Date objects to date pickers
-            txtNgayBatDau.setDate(ngayBatDau);
-            txtNgayKetThuc.setDate(ngayKetThuc);
+            // Phân tích chuỗi thành đối tượng Date
+            Date dateBatDau = formatter.parse(ngayBatDau);
+            Date dateKetThuc = formatter.parse(ngayKetThuc);
+            txtNgayBatDau.setDate(dateBatDau);
+            txtNgayKetThuc.setDate(dateKetThuc);
         } catch (ParseException e) {
-            e.printStackTrace();
+            // Xử lý ngoại lệ nếu có lỗi trong quá trình phân tích chuỗi
+            System.out.println("Không thể phân tích chuỗi thành Date: " + e.getMessage());
         }
 
-        txtMucGiam.setText(String.valueOf(km.getGiamTheoPT()));
     }
 
     /**
@@ -835,6 +828,11 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
 //            System.out.println("Vui lòng chọn ít nhất một sản phẩm để thêm vào khuyến mãi!");
 //        }
 //      
+
+
+// bắt đầu
+//        svKM.addKhuyenMai(getForm());
+
         StringBuilder dinhDangThongBao = new StringBuilder();
         String maKM = txtMaKM.getText();
         List<SanPhamKM> danhSachSPKM = new ArrayList<>();

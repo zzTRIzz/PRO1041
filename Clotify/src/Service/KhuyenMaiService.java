@@ -33,8 +33,6 @@ public class KhuyenMaiService {
             KhuyenMai km = new KhuyenMai();
             km.setMaKM(rs.getString(1));
             km.setTenKM(rs.getString(2));
-//            km.setNgayTao(rs.getDate(3));
-//            km.setNgayKetThuc(rs.getDate(4));
             km.setNgayTao(rs.getString(3));
             km.setNgayKetThuc(rs.getString(4));
             km.setLoaiSP(rs.getString(5));
@@ -49,26 +47,21 @@ public class KhuyenMaiService {
     }
    
        public boolean addKhuyenMai(KhuyenMai km){
-    String sql = "INSERT INTO KhuyenMai (maKM, tenKM, ngayTao, ngayKetThuc, giamTheoPT, trangThai) VALUES (?, ?, ?, ?, ?, ?)";
+    String sql = "INSERT INTO KhuyenMai\n" +
+"                 (maKM, tenKM, giamTheoPT, ngayTao, ngayKetThuc, trangThai, mucGiaApDung, maNV, ngayQuyetDinh)\n" +
+"VALUES  (?,?,?,?,?,?,?,?,?)";
     try{
         Connection conn = DBconnect.getConnection();
         PreparedStatement stm = conn.prepareStatement(sql);
         stm.setString(1, km.getMaKM());
         stm.setString(2, km.getTenKM());
-        
-// Chuyển đổi ngày từ chuỗi sang đối tượng Date
-//        java.sql.Date sqlBatDau = new java.sql.Date(batDau.getTime());
-//           java.sql.Date sqlKetThuc = new java.sql.Date(ketThuc.getTime());
-////        
-////        // Đặt tham số ngày vào câu lệnh SQL
-//      stm.setDate(3, new java.sql.Date(batDau.getTime()));
-//       stm.setDate(4, new java.sql.Date(ketThuc.getTime()));
-//     stm.setDate(3, (Date) km.getNgayTao());
-//        stm.setDate(4, (Date) km.getNgayKetThuc());
-        stm.setString(3,  km.getNgayTao());
-        stm.setString(4, km.getNgayKetThuc());
-        stm.setInt(5, km.getGiamTheoPT());
+        stm.setInt(3, km.getGiamTheoPT());
+        stm.setString(4,  km.getNgayTao());
+        stm.setString(5, km.getNgayKetThuc());      
         stm.setString(6, km.getTrangThai());
+        stm.setDouble(7, km.getMucApDung());
+        stm.setString(8, km.getMaNV());
+        stm.setString(9, km.getNgayQuyetDinh());
         
         stm.executeUpdate();
         conn.close();
@@ -154,7 +147,7 @@ public class KhuyenMaiService {
         return listSPCT;
     }
     public List<KhuyenMai> searchKhuyeMaiTheoMa(String maKM){
-        String sql = "SELECT  maKM, tenKM,  giamTheoPT, ngayTao, ngayKetThuc, trangThai, mucGiaApDung, maNV\n" +
+        String sql = "SELECT  maKM, tenKM,  giamTheoPT, ngayTao, ngayKetThuc, trangThai, mucGiaApDung, maNV, ngayQuyetDinh\n" +
 "FROM      KhuyenMai\n" +
 "WHERE   (maKM = ?)";
         list.clear();
@@ -174,6 +167,7 @@ public class KhuyenMaiService {
                 km.setTrangThai(rs.getString(6));
                 km.setMucApDung(rs.getDouble(7));
                 km.setMaNV(rs.getString(8));
+                km.setNgayQuyetDinh(rs.getString(9));
                 list.add(km);
             }
         }catch(Exception e){
