@@ -168,21 +168,28 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
         KhuyenMai km = new KhuyenMai();
         km.setMaKM(txtMaKM.getText());
         km.setTenKM(txtTenKM.getText());
-//    km.setNgayTao(txtNgayBatDau.getDate());
-//    km.setNgayKetThuc(txtNgayKetThuc.getDate());
+// Giả sử txtNgayBatDau.getText() trả về một chuỗi văn bản đại diện cho ngày tháng, ví dụ "2024-04-05"
+        Date ngayBatDauText = txtNgayBatDau.getDate();
+        Date ngayKetThucText =txtNgayKetThuc.getDate();
+// Định nghĩa định dạng của ngày tháng mà người dùng nhập vào
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+// Chuyển đổi chuỗi văn bản thành đối tượng LocalDateTime
+        LocalDateTime ngayBatDau = LocalDateTime.parse((CharSequence) ngayBatDauText, formatter);
+        LocalDateTime ngayKetThuc = LocalDateTime.parse((CharSequence) ngayKetThucText, formatter);
+        
 //        Date ngayTao = txtNgayBatDau.getDate();
-//        Date ngayKetThuc = txtNgayKetThuc.getDate();
-//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-//        String ngayKetThucString = dateFormat.format(ngayKetThuc);
-//        String ngayKetTaoString = dateFormat.format(ngayTao);
-        LocalDateTime ngayTao = LocalDateTime.now();
-        LocalDateTime ngayKetThuc = LocalDateTime.now();
+//        LocalDateTime ngayKetThuc = LocalDateTime.now();
+        LocalDateTime ngayQuyetDinh = LocalDateTime.now();
         DateTimeFormatter dinhDang = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        String thoiGian2 = ngayTao.format(dinhDang);
-        String thoiGian3 = ngayKetThuc.format(dinhDang);
-        km.setNgayTao(thoiGian2);
-        km.setNgayKetThuc(thoiGian3);
+        String thoiGianBD = ngayBatDau.format(dinhDang);
+        String thoiGianKT = ngayKetThuc.format(dinhDang);
+        String thoiGianQD = ngayQuyetDinh.format(dinhDang);
+        km.setNgayTao(thoiGianBD);
+        km.setNgayKetThuc(thoiGianKT);
+//        km.setN
         km.setLoaiSP(cboLoaiSP.getSelectedItem().toString());
+        
         km.setGiamTheoPT(Integer.parseInt(txtMucGiam.getText()));
         String trangThai = "Đang áp dụng";
         km.setTrangThai(trangThai);
@@ -477,6 +484,11 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
         });
 
         rdHoatDong.setText("Hoạt động");
+        rdHoatDong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdHoatDongActionPerformed(evt);
+            }
+        });
 
         jLabel26.setText("Trạng thái");
 
@@ -545,7 +557,7 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
                 .addGap(96, 96, 96))
         );
 
-        jTabbedPane1.addTab("Khuyến mãi", KhuyenMai);
+        jTabbedPane1.addTab("Coupon", KhuyenMai);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin Voucher", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
 
@@ -744,13 +756,14 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -1056,6 +1069,10 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
             });
         }
     }//GEN-LAST:event_txtTimKiemVoucherKeyReleased
+
+    private void rdHoatDongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdHoatDongActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rdHoatDongActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
