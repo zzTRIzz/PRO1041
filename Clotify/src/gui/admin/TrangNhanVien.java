@@ -4,13 +4,16 @@
  */
 package gui.admin;
 
+<<<<<<< Updated upstream
 import Service.NhanVienService;
+=======
+import Service.*;
+import java.awt.Color;
+>>>>>>> Stashed changes
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.NhanVien;
-
-
 
 
 /**
@@ -18,9 +21,11 @@ import model.NhanVien;
  * @author ADMIN
  */
 public class TrangNhanVien extends javax.swing.JInternalFrame {
-DefaultTableModel model;
-NhanVienService service= new NhanVienService();
-private int index=-1;
+
+    DefaultTableModel model;
+    NhanVienService service = new NhanVienService();
+    private int index = -1;
+
     /**
      * Creates new form Trang0
      */
@@ -29,22 +34,23 @@ private int index=-1;
         ui_custom.deleteTitle(this);
         fillTable(service.getAll());
     }
-    
-    public void fillTable(List<NhanVien>list){
-        model=(DefaultTableModel) tblSP1.getModel();
+
+    public void fillTable(List<NhanVien> list) {
+        model = (DefaultTableModel) tblSP1.getModel();
         model.setRowCount(0);
-        for(NhanVien nhanvien : list){
+        for (NhanVien nhanvien : list) {
             model.addRow(nhanvien.toDataRow());
         }
     }
-    public void showData(int index){
+
+    public void showData(int index) {
         NhanVien nv = service.getAll().get(index);
-       txtMa.setText(nv.getMaNV());
+        txtMa.setText(nv.getMaNV());
         txtTen.setText(nv.getTenNV());
         txtNamSinh.setText(nv.getNgaySinh());
         if (nv.getGioiTinh().equals("Nam")) {
             rdNam.setSelected(true);
-        }else{
+        } else {
             rdNu.setSelected(true);
         }
            txtEmail.setText(nv.getEmail());
@@ -52,12 +58,13 @@ private int index=-1;
         txtSDT.setText(nv.getSdt());
         txtTaiKhoan.setText(nv.getTaiKhoan());
         txtMatKhau.setText(nv.getMatKhau());
-        int VaiTro=Integer.parseInt(nv.getVaiTro());
-        if (VaiTro==1) {
+        int VaiTro = Integer.parseInt(nv.getVaiTro());
+        if (VaiTro == 1) {
             rdQl.setSelected(true);
-        }else{
+        } else {
             rdNV.setSelected(true);
         }
+<<<<<<< Updated upstream
      
     }
     NhanVien readFrom(){
@@ -66,26 +73,63 @@ private int index=-1;
         String ten=txtTen.getText();
         String NgaySinh=txtNamSinh.getText();
         String Gioitinh="";
-        if (rdNam.isSelected()) {
-            Gioitinh="Nam";
-        }else{
-            Gioitinh="Nữ";
+=======
+        txtEmail.setText(nv.getEmail());
+        int trangThai = Integer.parseInt(nv.getTrangThai());
+        if (trangThai == 1) {
+            rdHD.setSelected(true);
+        } else {
+            rdNHD.setSelected(true);
         }
+    }
+
+    NhanVien readFrom() {
+
+        String Ma = txtMa.getText();
+        String ten = txtTen.getText();
+        String NgaySinh = txtNamSinh.getText();
+        String Gioitinh = "";
+>>>>>>> Stashed changes
+        if (rdNam.isSelected()) {
+            Gioitinh = "Nam";
+        } else {
+            Gioitinh = "Nữ";
+        }
+<<<<<<< Updated upstream
          String Email=txtEmail.getText();
         String DiaChi=txtQueQuan.getText();
         String Sdt=txtSDT.getText();
         String taiKhoan=txtTaiKhoan.getText();
         String MatKhau=txtMatKhau.getText();
        String VaiTro=null;
+=======
+        String DiaChi = txtQueQuan.getText();
+        String Sdt = txtSDT.getText();
+        String taiKhoan = txtTaiKhoan.getText();
+        String MatKhau = TaiKhoanService.getMD5Hash(txtMatKhau.getText());
+        String VaiTro = null;
+>>>>>>> Stashed changes
         if (rdQl.isSelected()) {
-            VaiTro="1";
-            
-        }else{
-            VaiTro= "0";
+            VaiTro = "1";
+
+        } else {
+            VaiTro = "0";
         }
+<<<<<<< Updated upstream
        
         return new NhanVien(Ma, VaiTro, ten, NgaySinh, Gioitinh, DiaChi, Sdt, taiKhoan, MatKhau, Email);
+=======
+        String Email = txtEmail.getText();
+        String trangThai = "";
+        if (rdHD.isSelected()) {
+            trangThai = "1";
+        } else {
+            trangThai = "0";
+        }
+        return new NhanVien(Ma, VaiTro, ten, NgaySinh, Gioitinh, DiaChi, Sdt, taiKhoan, MatKhau, Email, trangThai);
+>>>>>>> Stashed changes
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -416,15 +460,15 @@ private int index=-1;
 
     private void tblSP1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSP1MouseClicked
         // TODO add your handling code here:
-        index=tblSP1.getSelectedRow();
+        index = tblSP1.getSelectedRow();
         showData(index);
     }//GEN-LAST:event_tblSP1MouseClicked
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
-        index=tblSP1.getSelectedRow();
-        String Ma=(String) tblSP1.getValueAt(index, 0);
-        if (service.delete(Ma)>0) {
+        index = tblSP1.getSelectedRow();
+        String Ma = (String) tblSP1.getValueAt(index, 0);
+        if (service.delete(Ma) > 0) {
             JOptionPane.showMessageDialog(this, "Vo hieu hoa thanh cong");
             fillTable(service.getAll());
         }
@@ -432,28 +476,56 @@ private int index=-1;
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
+<<<<<<< Updated upstream
         if (!checkNull()) {
             return;
         }else{
             if (service.add(readFrom())==1) {
                 JOptionPane.showMessageDialog(this, "Luu Thanh Cong");
                 fillTable(service.getAll());
+=======
+//        if (!valiFrom()) {
+//            return;
+//        }else{
+//            if (service.add(readFrom())==1) {
+//                JOptionPane.showMessageDialog(this, "Luu Thanh Cong");
+//                fillTable(service.getAll());
+//            }
+//        }
+        int chon = JOptionPane.showConfirmDialog(this, "Bạn có muốn thêm không ?", "Thêm sản phẩm :", JOptionPane.YES_NO_CANCEL_OPTION,
+                3, null);
+        if (chon == 0) {
+            if (valiFrom()) {
+                try {
+                    String maNV = txtMa.getText();
+                    if (service.existsMa(maNV)) {
+                        JOptionPane.showMessageDialog(this, "Mã nhân viên đã tồn tại !");
+                        return;
+                    } else if (service.add(this.readFrom()) == 1) {
+                        JOptionPane.showMessageDialog(this, "Thêm thành công!");
+                        this.fillTable(service.getAll());
+                    }
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(this, "Thêm thất bại !");
+                }
+>>>>>>> Stashed changes
             }
         }
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
-        index=tblSP1.getSelectedRow();
-        String ma= tblSP1.getValueAt(index, 0).toString();
-        if (service.update(ma, this.readFrom())>0) {
-            JOptionPane.showMessageDialog(this,"Sua thanh cong");
+        index = tblSP1.getSelectedRow();
+        String ma = tblSP1.getValueAt(index, 0).toString();
+        if (service.update(ma, this.readFrom()) > 0) {
+            JOptionPane.showMessageDialog(this, "Sua thanh cong");
             this.fillTable(service.getAll());
         }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void txtMatKhauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMatKhauActionPerformed
         // TODO add your handling code here:
+<<<<<<< Updated upstream
     }//GEN-LAST:event_txtMatKhauActionPerformed
     Boolean checkNull(){
     String ma=txtMa.getText();
@@ -468,6 +540,64 @@ private int index=-1;
     }
     return true;
 }
+=======
+        String ma = txtMa.getText();
+        List<NhanVien> list1;
+
+        if (ma.isEmpty()) {
+
+            list1 = service.getAll();
+
+        } else {
+            model.setRowCount(0);
+            list1 = service.timKiem(ma);
+
+        }
+        for (NhanVien nhanVien : list1) {
+            model.addRow(nhanVien.toDataRow());
+        }
+    }//GEN-LAST:event_btnTimKiemActionPerformed
+
+    private void btnDSVHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDSVHActionPerformed
+        // TODO add your handling code here:
+        new NhanVienVoHieuDiaLog(null, true).setVisible(true);
+    }//GEN-LAST:event_btnDSVHActionPerformed
+
+    private boolean valiFrom() {
+        if (Validation.isEmpty(txtMa, "Ma nhan vien khong duoc de trong")) {
+            return false;
+        }
+        if (Validation.isEmpty(txtTen, "Ten nhan vien khong duoc de trong")) {
+            return false;
+        }
+        if (Validation.isEmpty(txtNamSinh, "Nam sinh nhan vien khong duoc de trong")) {
+            return false;
+        }
+        if (Validation.isEmpty(txtSDT, "SDT nhan vien khong duoc de trong")) {
+            return false;
+        }
+        if (!Validation.isSDT(txtSDT, "SDT nhan vien khong duoc ghi chu")) {
+            return false;
+        }
+        if (Validation.isEmpty(txtMatKhau, "Mat khau nhan vien khong duoc de trong")) {
+            return false;
+        }
+        if (Validation.isEmpty(txtQueQuan, "Que quan nhan vien khong duoc de trong")) {
+            return false;
+        }
+        if (Validation.isEmpty(txtTaiKhoan, "Tai khoan nhan vien khong duoc de trong")) {
+            return false;
+        }
+        if (Validation.isEmpty(txtEmail, "Email khong uoc de trong")) {
+            return false;
+        }
+        if (!Validation.isEmailFormat(txtEmail, "Email khong dung dinh dang")) {
+            return false;
+        }
+        return true;
+    }
+
+>>>>>>> Stashed changes
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;

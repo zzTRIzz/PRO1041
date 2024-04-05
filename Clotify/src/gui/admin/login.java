@@ -443,7 +443,7 @@ public class login extends javax.swing.JFrame {
 
     private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
         String username = txtUser.getText();
-        String password = txtPassword.getText();
+        String password = TaiKhoanService.getMD5Hash(txtPassword.getText().trim());
         boolean truycap = taiKhoanService.dangnhap(username, password);
         if (username.trim().isEmpty() && password.trim().isEmpty()) {
             Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.BOTTOM_LEFT, "Username và password đang bị trống");
@@ -476,7 +476,7 @@ public class login extends javax.swing.JFrame {
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
         String username = txtUser.getText().trim();
-        String password = txtPassword.getText().trim();
+        String password = TaiKhoanService.getMD5Hash(txtPassword.getText().trim());
         boolean truycap = taiKhoanService.dangnhap(username, password);
         if (username.trim().isEmpty() && password.trim().isEmpty()) {
             Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.BOTTOM_LEFT, "Username và password đang bị trống");

@@ -19,6 +19,8 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import model.ThongTinNhanVien;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 /**
  *
@@ -102,8 +104,8 @@ public class TaiKhoanService {
         to = to.trim();
         final String from = "tringuyenquoc15102004@gmail.com";
         final String password = "nhej ckwm cglr zqyr";
-//        final String to = "trinqph45719@gmail.com";
-//        final String to = "bienndph45718@fpt.edu.vn";
+        // final String to = "trinqph45719@gmail.com";
+        // final String to = "bienndph45718@fpt.edu.vn";
 
         // Properties: khai bao thuoc tinh
         Properties props = new Properties();
@@ -219,19 +221,34 @@ public class TaiKhoanService {
     }
     public static String otp = generateRaOTP(6);
 
-//    public static String getOTP(){
-//    return otp;
-//};
+    public static String getMD5Hash(String input) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update(input.getBytes());
+            byte[] digest = md.digest();
+            StringBuilder sb = new StringBuilder();
+            for (byte b : digest) {
+                sb.append(String.format("%02x", b));
+            }
+            return  sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public static void main(String[] args) {
         TaiKhoanService taiKhoanService = new TaiKhoanService();
-//        taiKhoanService.guiXacNhanOTP_to("trinqph45719@fpt.edu.vn");
-//        taiKhoanService.timkiemGmail("trinqph45719@gmail.com");
-//        ThongTinNhanVien thongTinNhanVien = new ThongTinNhanVien();
+        //taiKhoanService.guiXacNhanOTP_to("trinqph45719@fpt.edu.vn");
+        //taiKhoanService.timkiemGmail("trinqph45719@gmail.com");
+        //ThongTinNhanVien thongTinNhanVien = new ThongTinNhanVien();
         taiKhoanService.dangnhap("admin", "12345");
         System.out.println("" + TaiKhoanService.maNV);
         ThongTinNhanVien t = new ThongTinNhanVien();
         t.setMa(TaiKhoanService.maNV);
         System.out.println(t.getMa());
     }
-
+        // public static String getOTP(){
+        // return otp;
+        // };
 }
