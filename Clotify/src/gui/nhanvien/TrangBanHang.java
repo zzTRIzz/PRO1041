@@ -779,13 +779,19 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
         String maNV = TaiKhoanService.layThongTin_maNV();
         String ngayTao = thoiGian.toString();
         String trangThai = "Chưa thanh toán";
-        String sdt = txtSDT.getText();
-        for (KhachHang khachHang : svKH.getKhachHang()) {
+        String sdt= txtSDT.getText();
+        if (sdt.isEmpty()) {
+            int idKH =1;
+            svHd.addHoaDon(new HoaDon(idKH, ngayTao, trangThai, maNV));
+        } else {
+            for (KhachHang khachHang : svKH.getKhachHang()) {
             if (khachHang.getSdt().equals(sdt)) {
                 int idKH = khachHang.getIdKH();
                 svHd.addHoaDon(new HoaDon(idKH, ngayTao, trangThai, maNV));
             }
         }
+        }       
+        
 
         loadHoaDon();
     }//GEN-LAST:event_btnTaoHDActionPerformed
