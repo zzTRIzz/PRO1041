@@ -4,6 +4,8 @@
  */
 package model;
 
+import java.util.Arrays;
+
 /**
  *
  * @author Surface
@@ -128,10 +130,17 @@ public class NhanVien {
     
     
       
-     public Object[]toDataRow(){
-        return new Object[]{
-            this.getMaNV(),this.getTenNV(),this.getNgaySinh(),this.getGioiTinh(),this.getDiaChi(),this.getSdt(),this.getTaiKhoan(),this.getMatKhau(),this.getVaiTro().equals("1") ?"Quan ly" : "Nhan Vien",this.getEmail(),this.getTrangThai().equals("1")?"Hoạt Động":"Ngừng Hoạt Động"
-        };
+    public Object[] toDataRow() {
+       
+        Object[] dataRow = Arrays.copyOf(new Object[]{this.maNV, this.tenNV, this.gioiTinh, this.ngaySinh, this.diaChi, this.sdt, this.taiKhoan, this.matKhau, this.vaiTro,this.email,this.trangThai}, 11);
+        
+        dataRow[7] = encryptMatKhau(this.matKhau);
+        return dataRow;
+    }
+
+    private String encryptMatKhau(String matKhau) {
+       
+        return "********";
     }
     
    
