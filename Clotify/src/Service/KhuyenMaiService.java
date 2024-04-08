@@ -79,8 +79,10 @@ public class KhuyenMaiService {
 }
     
     public KhuyenMai getRow(int row){
+   
         return list.get(row);
-    }
+   
+}
     List<SanPhamCT> listSPCT = new ArrayList<>();
     public List<SanPhamCT> getSanPhamCT(){
         listSPCT.clear();
@@ -219,7 +221,7 @@ public class KhuyenMaiService {
             stm.setString(2, km.getNgayTao());
             stm.setString(3, km.getNgayKetThuc());
             stm.setInt(4, km.getGiamTheoPT());
-           
+           stm.setString(5, km.getMaKM());
             stm.executeUpdate();
             conn.close();
         }catch(Exception e){
