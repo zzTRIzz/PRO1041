@@ -4,6 +4,7 @@ package gui.admin;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
+import Service.KhuyenMaiService;
 import Service.TaiKhoanService;
 import Service.VoucherService;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -33,6 +34,7 @@ public class login extends javax.swing.JFrame {
     TaiKhoanService taiKhoanService = new TaiKhoanService();
     ThongTinNhanVien thongTinNhanVien = new ThongTinNhanVien();
     VoucherService svVC = new VoucherService();
+    KhuyenMaiService svKM = new KhuyenMaiService();
     public static String maNV, tenNV;
 
     //by Tri
@@ -57,6 +59,8 @@ public class login extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         lblBackLogin.setVisible(false);
         svVC.updateTrangThaiVoucher();
+        svKM.updateTrangThaiCoupon();
+        svKM.updateTrangThaiCoupon2();
     }
 
     Preferences pres = Preferences.userNodeForPackage(login.class);
