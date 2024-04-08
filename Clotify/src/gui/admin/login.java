@@ -4,6 +4,7 @@ package gui.admin;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
+import Service.KhuyenMaiService;
 import Service.TaiKhoanService;
 import Service.VoucherService;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -17,6 +18,8 @@ import java.awt.Font;
 import static java.awt.Font.BOLD;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.prefs.Preferences;
 import javax.swing.SwingUtilities;
 import model.ThongTinNhanVien;
@@ -33,6 +36,7 @@ public class login extends javax.swing.JFrame {
     TaiKhoanService taiKhoanService = new TaiKhoanService();
     ThongTinNhanVien thongTinNhanVien = new ThongTinNhanVien();
     VoucherService svVC = new VoucherService();
+    KhuyenMaiService svKM = new KhuyenMaiService();
     public static String maNV, tenNV;
 
     //by Tri
@@ -58,6 +62,12 @@ public class login extends javax.swing.JFrame {
         lblBackLogin.setVisible(false);
         svVC.updateTrangThaiVoucher();
         svVC.updateTrangThai();
+        LocalDateTime ngayQuyetDinh = LocalDateTime.now();
+        DateTimeFormatter dinhDang = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String thoiGianQD = ngayQuyetDinh.format(dinhDang);
+        svKM.updateTrangThaiCoupon3();
+        svKM.updateTrangThaiCoupon2(thoiGianQD);
+
     }
 
     Preferences pres = Preferences.userNodeForPackage(login.class);
