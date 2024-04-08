@@ -11,33 +11,14 @@ package model;
 public class SanPhamKM {
 
     int idSPKM,idSP;
-    String maKM,tenKM,ngayTao,ngayKetThuc,trangThai,maNV,tenNV,tenSP,mauSac,chatLieu,thuongHieu,size,loaiSP, maSP,trangThaiSPKM;
+    String maKM,tenKM,ngayTao,ngayKetThuc,trangThai,maNV,tenNV,tenSP,mauSac,chatLieu,thuongHieu,size,loaiSP;
     int giamTheoGia,giamTheoPT;
     double mucApDung;
 
     public SanPhamKM() {
     }
 
-    public SanPhamKM(int idSP, String maKM, String trangThaiSPKM) {
-        this.idSP = idSP;
-        this.maKM = maKM;
-        this.trangThaiSPKM = trangThaiSPKM;
-    }
-
-    public SanPhamKM(int idSPKM, int idSP, String maKM, String mauSac, String chatLieu, String thuongHieu, String size, String loaiSP, String maSP, String trangThaiSPKM) {
-        this.idSPKM = idSPKM;
-        this.idSP = idSP;
-        this.maKM = maKM;
-        this.mauSac = mauSac;
-        this.chatLieu = chatLieu;
-        this.thuongHieu = thuongHieu;
-        this.size = size;
-        this.loaiSP = loaiSP;
-        this.maSP = maSP;
-        this.trangThaiSPKM = trangThaiSPKM;
-    }
-
-    public SanPhamKM(int idSPKM, int idSP, String maKM, String tenKM, String ngayTao, String ngayKetThuc, String trangThai, String maNV, String tenNV, String tenSP, String mauSac, String chatLieu, String thuongHieu, String size, String loaiSP, String maSP, String trangThaiSPKM, int giamTheoGia, int giamTheoPT, double mucApDung) {
+    public SanPhamKM(int idSPKM, int idSP, String maKM, String tenKM, String ngayTao, String ngayKetThuc, String trangThai, String maNV, String tenNV, String tenSP, String mauSac, String chatLieu, String thuongHieu, String size, String loaiSP, int giamTheoGia, int giamTheoPT, double mucApDung) {
         this.idSPKM = idSPKM;
         this.idSP = idSP;
         this.maKM = maKM;
@@ -53,8 +34,6 @@ public class SanPhamKM {
         this.thuongHieu = thuongHieu;
         this.size = size;
         this.loaiSP = loaiSP;
-        this.maSP = maSP;
-        this.trangThaiSPKM = trangThaiSPKM;
         this.giamTheoGia = giamTheoGia;
         this.giamTheoPT = giamTheoPT;
         this.mucApDung = mucApDung;
@@ -180,22 +159,6 @@ public class SanPhamKM {
         this.loaiSP = loaiSP;
     }
 
-    public String getMaSP() {
-        return maSP;
-    }
-
-    public void setMaSP(String maSP) {
-        this.maSP = maSP;
-    }
-
-    public String getTrangThaiSPKM() {
-        return trangThaiSPKM;
-    }
-
-    public void setTrangThaiSPKM(String trangThaiSPKM) {
-        this.trangThaiSPKM = trangThaiSPKM;
-    }
-
     public int getGiamTheoGia() {
         return giamTheoGia;
     }
@@ -220,5 +183,12 @@ public class SanPhamKM {
         this.mucApDung = mucApDung;
     }
 
+    public SanPhamKM(int idSP, String maKM) {
+        this.idSP = idSP;
+        this.maKM = maKM;
+    }
+
+
     
+
 }

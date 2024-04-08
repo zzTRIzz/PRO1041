@@ -66,11 +66,12 @@ public class SanPhamCTService implements SanPhamCTImpl {
         return listspct.get(row);
     }
 
+
     @Override
     public void updateSanPhamCT(int idSPCT, int soLuongCon) {
         try {
             String sql = "UPDATE SanPhamCT\n"
-                    + "SET       soLuong =?\n"
+                    + "SET       soLuong =?\n"                    
                     + "WHERE (idSP=?)";
             Connection conn = DBconnect.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -245,12 +246,12 @@ public class SanPhamCTService implements SanPhamCTImpl {
 
     @Override
     public List<SanPhamCT> getCheckKM(int idSP) {
-        listspct.clear();
-        String sql = "SELECT  SanPhamCT.idSP, SanPhamKM.maKM, KhuyenMai.giamTheoPT, KhuyenMai.ngayTao, KhuyenMai.ngayKetThuc, KhuyenMai.trangThai, KhuyenMai.ngayQuyetDinh\n"
-                + "FROM      SanPhamCT INNER JOIN\n"
-                + "                 SanPhamKM ON SanPhamCT.idSP = SanPhamKM.idSP INNER JOIN\n"
-                + "                 KhuyenMai ON SanPhamKM.maKM = KhuyenMai.maKM\n"
-                + "				 where SanPhamCT.idSP =?";
+       listspct.clear();
+        String sql = "SELECT  SanPhamCT.idSP, SanPhamKM.maKM, KhuyenMai.giamTheoPT, KhuyenMai.ngayTao, KhuyenMai.ngayKetThuc, KhuyenMai.trangThai, KhuyenMai.ngayQuyetDinh\n" +
+"FROM      SanPhamCT INNER JOIN\n" +
+"                 SanPhamKM ON SanPhamCT.idSP = SanPhamKM.idSP INNER JOIN\n" +
+"                 KhuyenMai ON SanPhamKM.maKM = KhuyenMai.maKM\n" +
+"				 where SanPhamCT.idSP =?";
 
         try {
             Connection conn = DBconnect.getConnection();
@@ -273,7 +274,7 @@ public class SanPhamCTService implements SanPhamCTImpl {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return listspct;
+        return listspct; 
     }
 
     @Override
@@ -295,6 +296,5 @@ public class SanPhamCTService implements SanPhamCTImpl {
             e.printStackTrace();
         }
     }
-
 
 }
