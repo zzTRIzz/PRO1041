@@ -57,6 +57,7 @@ public class login extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         lblBackLogin.setVisible(false);
         svVC.updateTrangThaiVoucher();
+        svVC.updateTrangThai();
     }
 
     Preferences pres = Preferences.userNodeForPackage(login.class);

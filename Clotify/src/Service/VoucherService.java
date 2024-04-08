@@ -131,4 +131,46 @@ public class VoucherService {
             e.printStackTrace();
         }
     }
+    public void updateTrangThai(){
+         String sql = "UPDATE Voucher \n"
+                + "SET TrangThai = ? \n"
+                + "WHERE ngayBatDau <= getdate() and ngayKetThuc >= getdate() ";
+        try {
+            Connection conn = DBconnect.getConnection();
+            PreparedStatement stm = conn.prepareStatement(sql);
+            stm.setString(1,"Hoạt động");
+
+            stm.executeUpdate();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public List<Voucher> searchTrangThaiVoucher(String keyword){
+        list.clear();
+        String sql = "select * from Voucher where trangThai = ?";
+        try{
+            Connection conn = DBconnect.getConnection();
+            PreparedStatement stm = conn.prepareStatement(sql);
+            stm.setString(1,keyword );
+           
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Voucher voucher = new Voucher();
+                voucher.setMaVC(rs.getString(1));
+                voucher.setTenVC(rs.getString(2));
+                voucher.setDkAD(rs.getDouble(3));
+                voucher.setGiamTheoGia(rs.getDouble(4));
+                voucher.setNgayBatDau(rs.getString(5));
+                voucher.setNgayKetThuc(rs.getString(6));
+                voucher.setTrangThai(rs.getString(7));
+                voucher.setGhiChu(rs.getString(8));
+                list.add(voucher);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 }
+
