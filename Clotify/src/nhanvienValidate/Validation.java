@@ -37,18 +37,20 @@ public class Validation {
         txtField.setBackground(Color.GRAY);
         return  true;
     }
-          public static boolean isSDT(JTextField txtField,String msg){
-          String txtValue=txtField.getText().trim();
-          String strPtn="^\\d{1,}$";//regular Expression jn Java
-        if (!txtValue.matches(strPtn)) {
-            JOptionPane.showMessageDialog(null,msg);
-            txtField.setBackground(Color.red);
-            txtField.setFocusable(true);
-            return false;
-        }
-        txtField.setBackground(Color.GRAY);
-        return  true;
+         public static boolean isSDT(JTextField txtField, String msg) {
+    String txtValue = txtField.getText().trim();
+    String strPtn = "^09\\d*$"; // Biểu thức chính quy chỉ kiểm tra số điện thoại bắt đầu bằng "09" và không chứa chữ
+
+    if (!txtValue.matches(strPtn)) {
+        JOptionPane.showMessageDialog(null, msg);
+        txtField.setBackground(Color.RED);
+        txtField.requestFocusInWindow();
+        return false;
     }
+
+    txtField.setBackground(Color.GRAY);
+    return true;
+}
 //             public static boolean isNamSinh(JTextField txtField,String msg){
 //          String txtValue=txtField.getText().trim();
 //          String strPtn="^[0-3][0-9]/[01][0-9]/(19|20)[0-9]{2}$";//regular Expression jn Java
@@ -62,4 +64,5 @@ public class Validation {
 //        txtField.setBackground(Color.GRAY);
 //        return  true;
 //    }
+         
 }
