@@ -399,10 +399,34 @@ public class TrangKhachHang extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         
     }//GEN-LAST:event_tblChiTietKHMouseClicked
-
+    public boolean validateSDT(String sdt){
+        if(sdt.length()!=10){
+            return false;
+        }
+        if(sdt.charAt(0)!='0'){
+            return false;
+        }
+        for (int i = 1; i < sdt.length(); i++) {
+             if (!Character.isDigit(sdt.charAt(i))) {
+            return false;
+        }
+        }
+        return true;
+    }
     private void btnThemKHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemKHMouseClicked
         // TODO add your handling code here:
         int kiemTra = JOptionPane.showConfirmDialog(this, "Bạn có muốn thêm không","",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+        String sdt = txtSDT.getText();
+        if(!validateSDT(sdt)){
+            JOptionPane.showMessageDialog(this, "Số điện thoại không hợp lệ");
+            return;
+        }
+        for (KhachHang kh : khs.getKhachHang() ) {
+            if(kh.getSdt().equals(sdt)){
+                JOptionPane.showMessageDialog(this, "Số điện thoại đã tồn tại");
+                return;
+            }
+        }
         if(txtTenKH.getText().equals("")){
             JOptionPane.showMessageDialog(this, "Tên không được bỏ trống");
             return;
@@ -468,6 +492,17 @@ public class TrangKhachHang extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         int i = tblKhachHang.getSelectedRow();
            int kiemTra = JOptionPane.showConfirmDialog(this, "Bạn có muốn sửa không","",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+        String sdt = txtSDT.getText();
+         if(!validateSDT(sdt)){
+            JOptionPane.showMessageDialog(this, "Số điện thoại không hợp lệ");
+            return;
+        }
+        for (KhachHang kh : khs.getKhachHang() ) {
+            if(kh.getSdt().equals(sdt)){
+                JOptionPane.showMessageDialog(this, "Số điện thoại đã tồn tại");
+                return;
+            }
+        }
         if(txtTenKH.getText().equals("")){
             JOptionPane.showMessageDialog(this, "Tên không được bỏ trống");
             return;
