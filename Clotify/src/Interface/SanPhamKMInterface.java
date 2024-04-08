@@ -15,5 +15,8 @@ public interface SanPhamKMInterface {
     List<SanPhamKM> getSanPhamKM();
     void addSPKM(SanPhamKM spkm);
     SanPhamKM getRow(int row);
-    List<SanPhamKM> searchIDSP(int key);
+    List<SanPhamKM> searchIDSP(String maKM);
+    List<SanPhamKM> getSPKM(String maKM, String trangThai);
+    void addSPKMKT(int idSP, String maKM, String trangThai);
+    void update(int idSPKM,String trangThai);
 }
