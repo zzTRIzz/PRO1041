@@ -1000,24 +1000,32 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
         if (row >= 0) {
             String maKM = svKM.getRow(row).getMaKM();
             String tenKM = svKM.getRow(row).getTenKM();
-            String ngayBatDau = svKM.getRow(row).getNgayTao();
-            System.out.println(ngayBatDau);
-            KhuyenMai km = getForm();
-            km.setMaKM(maKM);
-            if (Valiform()) {
-                if (!txtMaKM.getText().equals(maKM)) {
-                    JOptionPane.showMessageDialog(this, "Mã khuyến mãi không được thay đổi");
-                    return;
-                }
-                if (!txtTenKM.getText().equals(tenKM)) {
-                    JOptionPane.showMessageDialog(this, "Tên khuyến mãi không được thay đổi");
-                    return;
-                }
-                if (ngayBatDau.compareTo(thoiGianNow) <= 0) {
-                    if (ngayBatDau.compareTo(ngayBatDauRest) == 0) {
-                        svKM.updateKhuyenMai(km);
-                        loadDataKhuyenMai();
-                    } else {
+//            String ngayBatDau = svKM.getRow(row).getNgayTao();
+            Date ngayBatDauForm;
+            try {
+                ngayBatDauForm = dateFormat.parse(svKM.getRow(row).getNgayTao());
+                String ngayBatDau = dateFormat.format(ngayBatDauForm);
+                System.out.println("ngayBatDau" + ngayBatDau);
+                KhuyenMai km = getForm();
+                km.setMaKM(maKM);
+                if (Valiform()) {
+                    if (!txtMaKM.getText().equals(maKM)) {
+                        JOptionPane.showMessageDialog(this, "Mã khuyến mãi không được thay đổi");
+                        return;
+                    }
+                    if (!txtTenKM.getText().equals(tenKM)) {
+                        JOptionPane.showMessageDialog(this, "Tên khuyến mãi không được thay đổi");
+                        return;
+                    }
+                    if (ngayBatDau.compareTo(thoiGianNow) <= 0) {
+                        System.out.println("ngayBatDauReset" + ngayBatDauRest);
+                        if (ngayBatDau.compareTo(ngayBatDauRest) == 0) {
+                            svKM.updateKhuyenMai(km);
+                            loadDataKhuyenMai();
+//                        chỗ này đúng rồi
+
+                        }
+                    else {
                         JOptionPane.showMessageDialog(this, "Ngày bắt đầu không được thay đổi");
                         Date dateBatDau;
                         try {
@@ -1029,15 +1037,19 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
 
                     }
 
-                } else {
-                    if (ngayBatDauRest.compareTo(thoiGianNow) < 0) {
-                        JOptionPane.showMessageDialog(this, "Ngày bắt đầu phải lớn hơn thời gian hiện tại");
-                        return;
-                    }
-                    svKM.updateKhuyenMai2(km);
-                        loadDataKhuyenMai();
-                }
+                    } else {
 
+                        if (ngayBatDauRest.compareTo(thoiGianNow) < 0) {
+                            JOptionPane.showMessageDialog(this, "Ngày bắt đầu phải lớn hơn thời gian hiện tại");
+                            return;
+                        }
+                        svKM.updateKhuyenMai2(km);
+                        loadDataKhuyenMai();
+                    }
+
+                }
+            } catch (ParseException ex) {
+                Logger.getLogger(TrangKhuyenMai.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         } else {

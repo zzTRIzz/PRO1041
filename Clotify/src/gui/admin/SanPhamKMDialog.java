@@ -92,6 +92,7 @@ public class SanPhamKMDialog extends javax.swing.JDialog {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblSPHuy = new javax.swing.JTable();
+        btnBoHuy = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(850, 360));
@@ -135,13 +136,13 @@ public class SanPhamKMDialog extends javax.swing.JDialog {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(240, Short.MAX_VALUE)
+                .addContainerGap(246, Short.MAX_VALUE)
                 .addComponent(btnHuy)
                 .addContainerGap())
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 38, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 45, Short.MAX_VALUE)))
         );
 
         jTabbedPane1.addTab("Sản phẩm áp dụng", jPanel1);
@@ -161,11 +162,21 @@ public class SanPhamKMDialog extends javax.swing.JDialog {
         ));
         jScrollPane2.setViewportView(tblSPHuy);
 
+        btnBoHuy.setText("Bỏ hủy");
+        btnBoHuy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBoHuyActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 382, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(304, Short.MAX_VALUE)
+                .addComponent(btnBoHuy)
+                .addContainerGap())
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
                     .addContainerGap()
@@ -174,12 +185,14 @@ public class SanPhamKMDialog extends javax.swing.JDialog {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 269, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(246, Short.MAX_VALUE)
+                .addComponent(btnBoHuy)
+                .addContainerGap())
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
-                    .addContainerGap()))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 45, Short.MAX_VALUE)))
         );
 
         jTabbedPane1.addTab("Hủy áp dụng", jPanel2);
@@ -188,21 +201,17 @@ public class SanPhamKMDialog extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 404, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jTabbedPane1)
-                    .addContainerGap()))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane1)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 335, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jTabbedPane1)
-                    .addContainerGap()))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane1)
+                .addContainerGap())
         );
 
         pack();
@@ -232,6 +241,32 @@ public class SanPhamKMDialog extends javax.swing.JDialog {
         loadDataSPKM();
         loadDataSPKM2();
     }//GEN-LAST:event_btnHuyActionPerformed
+
+    private void btnBoHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBoHuyActionPerformed
+        // TODO add your handling code here:
+        int row =tblSPHuy.getSelectedRow();
+        trangThai ="Không hoạt động";
+        if (row>=0) {
+            System.out.println("row"+row);
+            
+            SanPhamKM sp =spkm.getSPKM(checkmaKM, trangThai).get(row);
+            int idSPKM =sp.getIdSPKM();
+            
+            trangThai="Hoạt động";
+            int option = JOptionPane.showConfirmDialog(null, "Bạn có muốn bỏ hủy sản phẩm khuyến mãi không?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+
+                // Nếu người dùng chọn Yes
+                if (option == JOptionPane.YES_OPTION) {
+                    spkm.update(idSPKM, trangThai);                   
+                    JOptionPane.showMessageDialog(this, "Bỏ hủy thành công");
+                }
+        }else{
+            JOptionPane.showMessageDialog(this, "Chọn 1 sản phẩm khuyến mãi để tiếp tục");
+        }
+        loadDataSPKM();
+        loadDataSPKM2();
+                   
+    }//GEN-LAST:event_btnBoHuyActionPerformed
 
     /**
      * @param args the command line arguments
@@ -277,6 +312,7 @@ public class SanPhamKMDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBoHuy;
     private javax.swing.JButton btnHuy;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
