@@ -398,3 +398,8 @@ FROM      SanPhamCT INNER JOIN
 
 select * from NhanVien
 select * from SanPham
+select * from KhuyenMai
+
+
+alter table SanPhamKM add trangThai nvarchar(50);
+
