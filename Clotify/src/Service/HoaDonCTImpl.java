@@ -29,10 +29,6 @@ public class HoaDonCTImpl implements HoaDonCTService {
                     + "             SanPhamCT ON HoaDonChiTiet.idSP = SanPhamCT.idSP INNER JOIN\n"
                     + "             LichSuGia ON SanPhamCT.idSP = LichSuGia.idSP INNER JOIN\n"
                     + "             SanPham ON SanPhamCT.maSP = SanPham.maSP \n"
-                    //                    + "             SanPhamKM ON SanPhamCT.idSP = SanPhamKM.idSP left JOIN\n"
-                    //                    + "             KhuyenMai ON SanPhamKM.maKM = KhuyenMai.maKM\n"
-                    //                    + "where HoaDon.idHD =? and KhuyenMai.trangThai=N'Đang áp dụng' and LichSuGia.ngayKetThuc is NULL";
-                    //                    + "where HoaDon.idHD =? and (KhuyenMai.trangThai=N'Đang áp dụng' or KhuyenMai.trangThai = N'Hết hạn' OR SanPhamCT.idSP NOT IN (SELECT SanPhamKM.idSP FROM SanPhamKM)) and LichSuGia.ngayKetThuc is NULL";
                     + "where HoaDon.idHD =? and LichSuGia.ngayKetThuc is NULL";
             Connection conn = (Connection) DBconnect.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);

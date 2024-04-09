@@ -12,6 +12,7 @@ import Service.HoaDonImpl;
 import Service.KhachHangService;
 import Service.SanPhamCTService;
 import Service.TaiKhoanService;
+import Service.VoucherService;
 
 import gui.admin.*;
 import java.time.LocalDate;
@@ -22,6 +23,7 @@ import model.HoaDon;
 import model.HoaDonCT;
 import model.KhachHang;
 import model.SanPhamCT;
+import model.Voucher;
 
 /**
  *
@@ -35,6 +37,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
     HoaDonService svHd = new HoaDonImpl();
     HoaDonCTService svHDCT = new HoaDonCTImpl();
     KhachHangService svKH = new KhachHangService();
+    VoucherService svVC = new VoucherService();
 
     /**
      * Creates new form Trang0
@@ -45,10 +48,17 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
 //        String trangThai = "Hoạt động";
         loadSanPham();
         loadHoaDon();
+        loadVoucher();
         lblTenNV.setText(TaiKhoanService.layThongTin_tenNV());
-
+        cboVoucher.setSelectedIndex(-1);
     }
-
+    void loadVoucher(){
+        cboVoucher.removeAllItems();
+        for (Voucher voucher : svVC.getVoucherHD()) {
+            cboVoucher.addItem(voucher.getMaVC());
+        }
+                
+    }
     void loadSanPham() {
         defaultTableModel = (DefaultTableModel) tblSP.getModel();
         defaultTableModel.setRowCount(0);
@@ -145,6 +155,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
         lblCanTra = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         lblTienThua = new javax.swing.JLabel();
+        lblBangVoucher = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(153, 255, 153));
         setBorder(null);
@@ -411,6 +422,13 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
 
         lblTienThua.setText("0");
 
+        lblBangVoucher.setText("Xem");
+        lblBangVoucher.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblBangVoucherMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
         jPanel12Layout.setHorizontalGroup(
@@ -427,6 +445,8 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
                             .addComponent(lblTenNV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel12Layout.createSequentialGroup()
                                 .addComponent(cboVoucher, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblBangVoucher, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel12Layout.createSequentialGroup()
@@ -456,7 +476,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(57, 57, 57)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel53)
                     .addComponent(lblTenNV))
@@ -465,10 +485,11 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
                     .addComponent(jLabel19)
                     .addComponent(lblTongTien))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel52)
-                    .addComponent(cboVoucher, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(9, 9, 9)
+                    .addComponent(cboVoucher)
+                    .addComponent(lblBangVoucher, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCanTra)
                     .addComponent(jLabel2))
@@ -779,21 +800,23 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
         String maNV = TaiKhoanService.layThongTin_maNV();
         String ngayTao = thoiGian.toString();
         String trangThai = "Chưa thanh toán";
-        String sdt= txtSDT.getText();
+        String sdt = txtSDT.getText();
         if (sdt.isEmpty()) {
-            int idKH =1;
+            int idKH = 1;
             svHd.addHoaDon(new HoaDon(idKH, ngayTao, trangThai, maNV));
+
         } else {
             for (KhachHang khachHang : svKH.getKhachHang()) {
-            if (khachHang.getSdt().equals(sdt)) {
-                int idKH = khachHang.getIdKH();
-                svHd.addHoaDon(new HoaDon(idKH, ngayTao, trangThai, maNV));
+                if (khachHang.getSdt().equals(sdt)) {
+                    int idKH = khachHang.getIdKH();
+                    svHd.addHoaDon(new HoaDon(idKH, ngayTao, trangThai, maNV));
+                }
             }
         }
-        }       
-        
 
         loadHoaDon();
+        defaultTableModel = (DefaultTableModel) tblGioHang.getModel();
+        defaultTableModel.setRowCount(0);
     }//GEN-LAST:event_btnTaoHDActionPerformed
 
     private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
@@ -803,6 +826,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
             HoaDon hd = svHd.getRowHD(row);
             int maHD = hd.getMaHD();
             int idHD = hd.getIdHD();
+
             String maNV = TaiKhoanService.layThongTin_maNV();
             String ngayTao = thoiGian.toString();
             String trangThai = "Đã hủy";
@@ -811,8 +835,23 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
             List<KhachHang> listKhachHang = svKH.getKhachHang();
             int option = JOptionPane.showConfirmDialog(null, "Bạn có muốn hủy hóa đơn: " + maHD + " không?", "Hủy hóa đơn", JOptionPane.YES_NO_OPTION);
             if (option == JOptionPane.YES_OPTION) {
-                for (int i = 0; i < listKhachHang.size(); i++) {
+                // trả sp về
 
+                List<HoaDonCT> listHDCT = svHDCT.getHoaDonCTAll(idHD);
+
+                for (int i = 0; i < listHDCT.size(); i++) {
+                    int idSP = listHDCT.get(i).getIdSP();
+                    SanPhamCT sp = svSP.timSP(idSP);
+                    int soLuongTon = sp.getSoLuong();
+                    int soLuong = listHDCT.get(i).getSoLuongMua();
+                    int soLuongTong = soLuong + soLuongTon;
+                    svSP.updateSanPhamCT(idSP, soLuongTong);
+                    loadSanPham();
+                    System.out.println("id SP" + idSP);
+                }
+
+                // update trang thái
+                for (int i = 0; i < listKhachHang.size(); i++) {
                     if (listKhachHang.get(i).getTenKH().equals(tenKH)) {
                         int idKH = listKhachHang.get(i).getIdKH();
                         svHd.upDateHoaDon(new HoaDon(idKH, ngayTao, trangThai, maNV, maVoucher, idHD));
@@ -820,8 +859,12 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
                 }
                 JOptionPane.showMessageDialog(this, "Hủy hóa đơn " + maHD + " thành công");
                 loadHoaDon();
+                defaultTableModel = (DefaultTableModel) tblGioHang.getModel();
+                defaultTableModel.setRowCount(0);
             } else {
             }
+        } else {
+            JOptionPane.showMessageDialog(this, "Mời bạn chọn hóa đơn");
         }
 
     }//GEN-LAST:event_btnHuyActionPerformed
@@ -859,6 +902,8 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
                 svHd.upDateHoaDon(new HoaDon(idKH, ngayTao, trangThai, maNV, maVoucher, idHD));
                 JOptionPane.showMessageDialog(this, "Thanh toán hóa đơn " + maHD + " thành công");
                 loadHoaDon();
+                defaultTableModel = (DefaultTableModel) tblGioHang.getModel();
+                defaultTableModel.setRowCount(0);
             } else {
             }
         }
@@ -954,7 +999,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         double tienCanTra = Double.parseDouble(lblCanTra.getText());
         double tienKhachDua = Double.parseDouble(txttienKhachDua.getText());
-        double tienThua =tienKhachDua-tienCanTra;
+        double tienThua = tienKhachDua - tienCanTra;
         lblTienThua.setText(String.valueOf(tienThua));
     }//GEN-LAST:event_txttienKhachDuaKeyReleased
 
@@ -965,6 +1010,11 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
 //        double tienThua =tienKhachDua-tienCanTra;
 //        lblTienThua.setText(String.valueOf(tienThua));
     }//GEN-LAST:event_txttienKhachDuaKeyPressed
+
+    private void lblBangVoucherMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBangVoucherMouseClicked
+        // TODO add your handling code here:
+        new VoucherDialog(null, true).setVisible(true);
+    }//GEN-LAST:event_lblBangVoucherMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -991,6 +1041,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JLabel lblBangVoucher;
     private javax.swing.JLabel lblCanTra;
     private javax.swing.JLabel lblTenKH;
     private javax.swing.JLabel lblTenNV;

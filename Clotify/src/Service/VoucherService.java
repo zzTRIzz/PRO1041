@@ -172,5 +172,30 @@ public class VoucherService {
         }
         return list;
     }
+    public List<Voucher> getVoucherHD() {
+        list.clear();
+        try {
+            String sql = "SELECT maVoucher, tenVoucher, dkApDung, giamTheoGia, ngayBatDau, ngayKetThuc, trangThai, ghiChu\n"
+                    + "FROM   Voucher where trangThai =N'Hoạt động'";
+            Connection conn = DBconnect.getConnection();
+            Statement stm = conn.createStatement();
+            ResultSet rs = stm.executeQuery(sql);
+            while (rs.next()) {
+                Voucher voucher = new Voucher();
+                voucher.setMaVC(rs.getString(1));
+                voucher.setTenVC(rs.getString(2));
+                voucher.setDkAD(rs.getDouble(3));
+                voucher.setGiamTheoGia(rs.getDouble(4));
+                voucher.setNgayBatDau(rs.getString(5));
+                voucher.setNgayKetThuc(rs.getString(6));
+                voucher.setTrangThai(rs.getString(7));
+                voucher.setGhiChu(rs.getString(8));
+                list.add(voucher);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 }
 

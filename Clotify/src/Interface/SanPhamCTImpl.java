@@ -23,4 +23,5 @@ public interface SanPhamCTImpl {
     List<SanPhamCT> getAllSPAn();
     List<SanPhamCT> getCheckKM(int idSP);
     void updateSanPhamCT2(int idSPCT,int soLuongCon,String hinhAnh);
+    SanPhamCT timSP(int idSPCT);
 }

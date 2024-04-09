@@ -251,7 +251,7 @@ public class SanPhamCTService implements SanPhamCTImpl {
 "FROM      SanPhamCT INNER JOIN\n" +
 "                 SanPhamKM ON SanPhamCT.idSP = SanPhamKM.idSP INNER JOIN\n" +
 "                 KhuyenMai ON SanPhamKM.maKM = KhuyenMai.maKM\n" +
-"				 where SanPhamCT.idSP =?";
+"				 where SanPhamCT.idSP =? and KhuyenMai.ngayQuyetDinh is not null and SanPhamKM.trangThai=N'Hoạt động'";
 
         try {
             Connection conn = DBconnect.getConnection();
@@ -295,6 +295,50 @@ public class SanPhamCTService implements SanPhamCTImpl {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public SanPhamCT timSP(int idSPCT) {
+        SanPhamCT spct = new SanPhamCT();
+        String sql = "SELECT SanPhamCT.idSP, SanPhamCT.maSP, SanPhamCT.loaiSP, SanPhamCT.soLuong, SanPhamCT.giaNhap, MauSac.tenMauSac, Size.tenSize, ThuongHieu.tenThuongHieu, ChatLieu.tenChatLieu, SanPhamCT.trangThai, LichSuGia.gia,SanPham.tenSP, LichSuGia.idLS,SanPhamCT.hinhAnh\n"
+                + "FROM      ChatLieu INNER JOIN\n"
+                + "                 SanPhamCT ON ChatLieu.idChatLieu = SanPhamCT.idChatLieu INNER JOIN\n"
+                + "                 MauSac ON SanPhamCT.idMauSac = MauSac.idMauSac INNER JOIN\n"
+                + "                 Size ON SanPhamCT.idSize = Size.idSize INNER JOIN\n"
+                + "                 ThuongHieu ON SanPhamCT.idThuongHieu = ThuongHieu.idThuongHieu INNER JOIN\n"
+                + "                 SanPham ON SanPhamCT.maSP = SanPham.maSP INNER JOIN\n"
+                + "                 LichSuGia ON SanPhamCT.idSP = LichSuGia.idSP\n"
+                + "WHERE SanPhamCT.trangThai = N'Hoạt động'and LichSuGia.ngayKetThuc is NULL and SanPhamCT.idSP=? ";
+
+        try {
+            Connection conn = DBconnect.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, idSPCT);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                
+
+                spct.setIdSP(rs.getInt(1));
+                spct.setMaSP(rs.getString(2));
+                spct.setLoaiSP(rs.getString(3));
+                spct.setSoLuong(rs.getInt(4));
+                spct.setGiaNhap(rs.getDouble(5));
+
+                spct.setTenMS(rs.getString(6));
+                spct.setTenSize(rs.getString(7));
+                spct.setTenTH(rs.getString(8));
+                spct.setTenCL(rs.getString(9));
+                spct.setTrangThai(rs.getString(10));
+                spct.setGiaBan(rs.getDouble(11));
+                spct.setTenSP(rs.getString(12));
+                spct.setIdLS(rs.getInt(13));
+                spct.setHinhAnh(rs.getString(14));
+                
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return spct;
     }
 
 }
