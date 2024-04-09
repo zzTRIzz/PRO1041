@@ -172,5 +172,54 @@ public class NhanVienService {
 
         return disabledEmployees;
     }
- 
+  public boolean existsTK(String taiKhoan) {
+    sql = "SELECT COUNT(*) FROM NhanVien WHERE taiKhoan = ?";
+    try {
+        con = DBconnect.getConnection();
+        ps = con.prepareStatement(sql);
+        ps.setString(1, taiKhoan);
+        rs = ps.executeQuery();
+        if (rs.next()) {
+            int count = rs.getInt(1);
+            return count > 0; // Trả về true nếu tồn tại mã nhân viên, ngược lại trả về false
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    } finally {
+        try {
+            // Đóng kết nối và tài nguyên
+            if (rs != null) rs.close();
+            if (ps != null) ps.close();
+            if (con != null) con.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    return false;
+  }
+   public boolean existsEmail(String email) {
+    sql = "SELECT COUNT(*) FROM NhanVien WHERE email = ?";
+    try {
+        con = DBconnect.getConnection();
+        ps = con.prepareStatement(sql);
+        ps.setString(1, email);
+        rs = ps.executeQuery();
+        if (rs.next()) {
+            int count = rs.getInt(1);
+            return count > 0; // Trả về true nếu tồn tại mã nhân viên, ngược lại trả về false
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    } finally {
+        try {
+            // Đóng kết nối và tài nguyên
+            if (rs != null) rs.close();
+            if (ps != null) ps.close();
+            if (con != null) con.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    return false;
+   }
 }

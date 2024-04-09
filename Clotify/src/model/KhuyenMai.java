@@ -12,12 +12,30 @@ import java.util.List;
  * @author Surface
  */
 public class KhuyenMai {
-    String maKM,tenKM,trangThai,maNV,tenNV,loaiSP,ngayTao,ngayKetThuc;
+    String maKM,tenKM,trangThai,maNV,tenNV,loaiSP,ngayTao,ngayKetThuc,ngayQuyetDinh;
     int giamTheoGia,giamTheoPT;
     double mucApDung;
 //    Date ngayTao,ngayKetThuc;
 
     public KhuyenMai() {
+    }
+
+    
+
+
+    public KhuyenMai(String maKM, String tenKM, String trangThai, String maNV, String tenNV, String loaiSP, String ngayTao, String ngayKetThuc, String ngayQuyetDinh, int giamTheoGia, int giamTheoPT, double mucApDung) {
+        this.maKM = maKM;
+        this.tenKM = tenKM;
+        this.trangThai = trangThai;
+        this.maNV = maNV;
+        this.tenNV = tenNV;
+        this.loaiSP = loaiSP;
+        this.ngayTao = ngayTao;
+        this.ngayKetThuc = ngayKetThuc;
+        this.ngayQuyetDinh = ngayQuyetDinh;
+        this.giamTheoGia = giamTheoGia;
+        this.giamTheoPT = giamTheoPT;
+        this.mucApDung = mucApDung;
     }
 
     public String getMaKM() {
@@ -84,6 +102,14 @@ public class KhuyenMai {
         this.ngayKetThuc = ngayKetThuc;
     }
 
+    public String getNgayQuyetDinh() {
+        return ngayQuyetDinh;
+    }
+
+    public void setNgayQuyetDinh(String ngayQuyetDinh) {
+        this.ngayQuyetDinh = ngayQuyetDinh;
+    }
+
     public int getGiamTheoGia() {
         return giamTheoGia;
     }
@@ -107,20 +133,7 @@ public class KhuyenMai {
     public void setMucApDung(double mucApDung) {
         this.mucApDung = mucApDung;
     }
-
-    public KhuyenMai(String maKM, String tenKM, String trangThai, String maNV, String tenNV, String loaiSP, String ngayTao, String ngayKetThuc, int giamTheoGia, int giamTheoPT, double mucApDung) {
-        this.maKM = maKM;
-        this.tenKM = tenKM;
-        this.trangThai = trangThai;
-        this.maNV = maNV;
-        this.tenNV = tenNV;
-        this.loaiSP = loaiSP;
-        this.ngayTao = ngayTao;
-        this.ngayKetThuc = ngayKetThuc;
-        this.giamTheoGia = giamTheoGia;
-        this.giamTheoPT = giamTheoPT;
-        this.mucApDung = mucApDung;
-    }
+    
 // private List<Integer> danhSachIdSP;
 //
 //    // Constructor và các phương thức khác...

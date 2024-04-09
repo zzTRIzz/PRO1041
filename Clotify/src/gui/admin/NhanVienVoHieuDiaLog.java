@@ -23,6 +23,7 @@ public class NhanVienVoHieuDiaLog extends javax.swing.JDialog {
 //    private int index = -1;
     DefaultTableModel model;
     NhanVienVoHieuSV service = new NhanVienVoHieuSV();
+    private int index=-1;
 
     public NhanVienVoHieuDiaLog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -51,8 +52,8 @@ public class NhanVienVoHieuDiaLog extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblNhanVienVH = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btKhoiPhuc = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -73,14 +74,19 @@ public class NhanVienVoHieuDiaLog extends javax.swing.JDialog {
         jLabel1.setForeground(new java.awt.Color(255, 0, 0));
         jLabel1.setText("Vô Hiệu Hóa Nhân Viên");
 
-        jButton1.setText("Khôi Phục");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btKhoiPhuc.setText("Khôi Phục");
+        btKhoiPhuc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btKhoiPhucActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Xóa Vinh Viễn");
+        btnDelete.setText("Xóa Vinh Viễn");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -92,9 +98,9 @@ public class NhanVienVoHieuDiaLog extends javax.swing.JDialog {
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(34, 34, 34)
-                .addComponent(jButton1)
+                .addComponent(btKhoiPhuc)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .addComponent(btnDelete)
                 .addGap(49, 49, 49))
             .addGroup(layout.createSequentialGroup()
                 .addGap(392, 392, 392)
@@ -108,8 +114,8 @@ public class NhanVienVoHieuDiaLog extends javax.swing.JDialog {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
+                    .addComponent(btnDelete)
+                    .addComponent(btKhoiPhuc))
                 .addGap(42, 42, 42)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(74, Short.MAX_VALUE))
@@ -118,7 +124,7 @@ public class NhanVienVoHieuDiaLog extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btKhoiPhucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btKhoiPhucActionPerformed
         // TODO add your handling code here:
         int index = tblNhanVienVH.getSelectedRow();
         if (index >= 0) {
@@ -132,7 +138,17 @@ public class NhanVienVoHieuDiaLog extends javax.swing.JDialog {
         }
 
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btKhoiPhucActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+           index=tblNhanVienVH.getSelectedRow();
+        String Ma=(String) tblNhanVienVH.getValueAt(index, 0);
+        if (service.deletee(Ma)>0) {
+            JOptionPane.showMessageDialog(this, "Vo hieu hoa thanh cong");
+            fillTable(service.getAll());
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
 
     /**
@@ -178,8 +194,8 @@ public class NhanVienVoHieuDiaLog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btKhoiPhuc;
+    private javax.swing.JButton btnDelete;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblNhanVienVH;
