@@ -18,6 +18,7 @@ import gui.admin.*;
 import java.time.LocalDate;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import model.HoaDon;
 import model.HoaDonCT;
@@ -43,6 +44,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
      * Creates new form Trang0
      */
     public TrangBanHang() {
+        super("QR Scanner", true, true, true, true);
         initComponents();
         ui_custom.deleteTitle(this);
 //        String trangThai = "Hoạt động";
@@ -51,14 +53,17 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
         loadVoucher();
         lblTenNV.setText(TaiKhoanService.layThongTin_tenNV());
         cboVoucher.setSelectedIndex(-1);
+        QRCode();
     }
-    void loadVoucher(){
+
+    void loadVoucher() {
         cboVoucher.removeAllItems();
         for (Voucher voucher : svVC.getVoucherHD()) {
             cboVoucher.addItem(voucher.getMaVC());
         }
-                
+
     }
+
     void loadSanPham() {
         defaultTableModel = (DefaultTableModel) tblSP.getModel();
         defaultTableModel.setRowCount(0);
@@ -113,6 +118,23 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
 //        
     }
 
+    
+    
+    private static final long serialVersionUID = 1L;
+    void QRCode() {
+        
+
+        // Tạo một QRScanner và thêm nó vào frame
+        QRScanner qrScanner = new QRScanner();
+        JPanel panel = qrScanner.getPanel();
+        add(panel);
+
+        pack();
+        setLocation(50, 50); // Thiết lập vị trí khởi đầu
+        setVisible(true);
+
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -156,6 +178,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         lblTienThua = new javax.swing.JLabel();
         lblBangVoucher = new javax.swing.JLabel();
+        panelQRCode = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(153, 255, 153));
         setBorder(null);
@@ -219,7 +242,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 711, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3)
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addComponent(btnXoaSPGH)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -271,7 +294,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane6)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 586, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel10Layout.setVerticalGroup(
@@ -510,6 +533,17 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
+        javax.swing.GroupLayout panelQRCodeLayout = new javax.swing.GroupLayout(panelQRCode);
+        panelQRCode.setLayout(panelQRCodeLayout);
+        panelQRCodeLayout.setHorizontalGroup(
+            panelQRCodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        panelQRCodeLayout.setVerticalGroup(
+            panelQRCodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -519,10 +553,13 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(panelQRCode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(65, 65, 65))
         );
@@ -532,7 +569,11 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(panelQRCode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(18, 18, 18)
                         .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -1047,6 +1088,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblTenNV;
     private javax.swing.JLabel lblTienThua;
     private javax.swing.JLabel lblTongTien;
+    private javax.swing.JPanel panelQRCode;
     private javax.swing.JTable tblGioHang;
     private javax.swing.JTable tblHoaDon;
     private javax.swing.JTable tblSP;
