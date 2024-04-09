@@ -15,7 +15,9 @@ import Service.TaiKhoanService;
 import Service.VoucherService;
 
 import gui.admin.*;
+import java.awt.event.ItemListener;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -44,7 +46,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
      * Creates new form Trang0
      */
     public TrangBanHang() {
-        super("QR Scanner", true, true, true, true);
+//        super("QR Scanner", true, true, true, true);
         initComponents();
         ui_custom.deleteTitle(this);
 //        String trangThai = "Hoạt động";
@@ -53,7 +55,15 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
         loadVoucher();
         lblTenNV.setText(TaiKhoanService.layThongTin_tenNV());
         cboVoucher.setSelectedIndex(-1);
-        QRCode();
+//        QRCode();
+    }
+
+    void reSet() {
+        lblTongTien.setText("");
+        cboVoucher.setSelectedIndex(-1);
+        lblCanTra.setText("");
+        txttienKhachDua.setText("");
+        lblTienThua.setText("");
     }
 
     void loadVoucher() {
@@ -118,16 +128,14 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
 //        
     }
 
-    
-    
     private static final long serialVersionUID = 1L;
+
     void QRCode() {
-        
 
         // Tạo một QRScanner và thêm nó vào frame
         QRScanner qrScanner = new QRScanner();
         JPanel panel = qrScanner.getPanel();
-        add(panel);
+        panelQRCode.add(panel);
 
         pack();
         setLocation(50, 50); // Thiết lập vị trí khởi đầu
@@ -188,6 +196,23 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
         setMaximumSize(new java.awt.Dimension(1140, 700));
         setMinimumSize(new java.awt.Dimension(1140, 700));
         setPreferredSize(new java.awt.Dimension(1140, 700));
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameOpened(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(246, 246, 246));
@@ -619,9 +644,23 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
             }
 //                            System.out.println(tongTienTra);
             String tien = String.valueOf(tongTienTra);
+                            lblTongTien.setText(tien);
+                            lblCanTra.setText(tien);
+                            String maVC = (String) cboVoucher.getSelectedItem();
+                            System.out.println("ma KM" + maVC);
+                            if (maVC != null) {
+                                Voucher vC = svVC.timVC(maVC);
+                                double tienGiam = vC.getGiamTheoGia();
+                                double dkGiam = vC.getDkAD();
+                                System.out.println("dk giam" + dkGiam);
+                                if (tongTienTra >= dkGiam) {
+                                    double tienCanTra = tongTienTra - tienGiam;
+                                    lblCanTra.setText(String.valueOf(tienCanTra));
+                                    JOptionPane.showMessageDialog(this, "Áp dụng thành công");
+                                }
 
-            lblTongTien.setText(tien);
-            lblCanTra.setText(tien);
+                            }
+            
             for (SanPhamCT sanPhamCT : svSP.getAll()) {
                 if (sanPhamCT.getIdSP().equals(idSP)) {
                     int soLuongTon = sanPhamCT.getSoLuong();
@@ -818,6 +857,22 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
                             String tien = String.valueOf(tongTienTra);
                             lblTongTien.setText(tien);
                             lblCanTra.setText(tien);
+                            String maVC = (String) cboVoucher.getSelectedItem();
+                            System.out.println("ma KM" + maVC);
+                            if (maVC != null) {
+                                Voucher vC = svVC.timVC(maVC);
+                                double tienGiam = vC.getGiamTheoGia();
+                                double dkGiam = vC.getDkAD();
+                                System.out.println("dk giam" + dkGiam);
+                                if (tongTienTra >= dkGiam) {
+                                    double tienCanTra = tongTienTra - tienGiam;
+                                    lblCanTra.setText(String.valueOf(tienCanTra));
+                                    JOptionPane.showMessageDialog(this, "Áp dụng thành công");
+                                }
+
+                            }
+                            
+
                         } catch (NumberFormatException e) {
                             JOptionPane.showMessageDialog(null, "Nhập số nguyên hợp lệ!");
                         }
@@ -845,12 +900,18 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
         if (sdt.isEmpty()) {
             int idKH = 1;
             svHd.addHoaDon(new HoaDon(idKH, ngayTao, trangThai, maNV));
+            txtSDT.setText("");
+            lblTenKH.setText("");
+            reSet();
 
         } else {
             for (KhachHang khachHang : svKH.getKhachHang()) {
                 if (khachHang.getSdt().equals(sdt)) {
                     int idKH = khachHang.getIdKH();
                     svHd.addHoaDon(new HoaDon(idKH, ngayTao, trangThai, maNV));
+                    txtSDT.setText("");
+                    lblTenKH.setText("");
+                    reSet();
                 }
             }
         }
@@ -869,10 +930,14 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
             int idHD = hd.getIdHD();
 
             String maNV = TaiKhoanService.layThongTin_maNV();
-            String ngayTao = thoiGian.toString();
             String trangThai = "Đã hủy";
-            String tenKH = hd.getTenKH();
             String maVoucher = null;
+
+            double tienCanTra = Double.parseDouble(lblCanTra.getText());
+            double tongTien = Double.parseDouble(lblTongTien.getText());
+            if (tongTien != tienCanTra) {
+                maVoucher = (String) cboVoucher.getSelectedItem();
+            }
             List<KhachHang> listKhachHang = svKH.getKhachHang();
             int option = JOptionPane.showConfirmDialog(null, "Bạn có muốn hủy hóa đơn: " + maHD + " không?", "Hủy hóa đơn", JOptionPane.YES_NO_OPTION);
             if (option == JOptionPane.YES_OPTION) {
@@ -890,14 +955,11 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
                     loadSanPham();
                     System.out.println("id SP" + idSP);
                 }
-
-                // update trang thái
-                for (int i = 0; i < listKhachHang.size(); i++) {
-                    if (listKhachHang.get(i).getTenKH().equals(tenKH)) {
-                        int idKH = listKhachHang.get(i).getIdKH();
-                        svHd.upDateHoaDon(new HoaDon(idKH, ngayTao, trangThai, maNV, maVoucher, idHD));
-                    }
-                }
+                // update trang thái               
+                svHd.upDateHoaDon(new HoaDon(trangThai, maNV, maVoucher, tienCanTra, idHD));
+                txtSDT.setText("");
+                lblTenKH.setText("");
+                reSet();
                 JOptionPane.showMessageDialog(this, "Hủy hóa đơn " + maHD + " thành công");
                 loadHoaDon();
                 defaultTableModel = (DefaultTableModel) tblGioHang.getModel();
@@ -929,22 +991,32 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
             HoaDon hd = svHd.getRowHD(row);
             int maHD = hd.getMaHD();
             int idHD = hd.getIdHD();
-            int idKH = hd.getIdKH();
             String maNV = TaiKhoanService.layThongTin_maNV();
-            String ngayTao = thoiGian.toString();
             String trangThai = "Đã thanh toán ";
-//            String tenKH = hd.getTenKH();
+            double tongTien = Double.parseDouble(lblTongTien.getText());
             double tienCanTra = Double.parseDouble(lblCanTra.getText());
-            double tienKhachDua = Double.parseDouble(lblCanTra.getText());
-
+            double tienThua = Double.parseDouble(lblTienThua.getText());
             String maVoucher = null;
+            if (tongTien != tienCanTra) {
+                maVoucher = (String) cboVoucher.getSelectedItem();
+            }
+
             int option = JOptionPane.showConfirmDialog(null, "Bạn có muốn thanh hóa đơn: " + maHD + " không?", "Thanh toán hóa đơn", JOptionPane.YES_NO_OPTION);
             if (option == JOptionPane.YES_OPTION) {
-                svHd.upDateHoaDon(new HoaDon(idKH, ngayTao, trangThai, maNV, maVoucher, idHD));
-                JOptionPane.showMessageDialog(this, "Thanh toán hóa đơn " + maHD + " thành công");
-                loadHoaDon();
-                defaultTableModel = (DefaultTableModel) tblGioHang.getModel();
-                defaultTableModel.setRowCount(0);
+                if (tienThua >= 0) {
+                    svHd.upDateHoaDon(new HoaDon(trangThai, maNV, maVoucher, tienCanTra, idHD));
+                    txtSDT.setText("");
+                    lblTenKH.setText("");
+                    reSet();
+
+                    JOptionPane.showMessageDialog(this, "Thanh toán hóa đơn " + maHD + " thành công");
+                    loadHoaDon();
+                    defaultTableModel = (DefaultTableModel) tblGioHang.getModel();
+                    defaultTableModel.setRowCount(0);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Tiền khách trả còn thiếu");
+                }
+
             } else {
             }
         }
@@ -1022,19 +1094,27 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
             }
 //                            System.out.println(tongTienTra);
             String tien = String.valueOf(tongTienTra);
+                            lblTongTien.setText(tien);
+                            lblCanTra.setText(tien);
+                            String maVC = (String) cboVoucher.getSelectedItem();
+                            System.out.println("ma KM" + maVC);
+                            if (maVC != null) {
+                                Voucher vC = svVC.timVC(maVC);
+                                double tienGiam = vC.getGiamTheoGia();
+                                double dkGiam = vC.getDkAD();
+                                System.out.println("dk giam" + dkGiam);
+                                if (tongTienTra >= dkGiam) {
+                                    double tienCanTra = tongTienTra - tienGiam;
+                                    lblCanTra.setText(String.valueOf(tienCanTra));
+                                    JOptionPane.showMessageDialog(this, "Áp dụng thành công");
+                                }
 
-            lblTongTien.setText(tien);
-            lblCanTra.setText(tien);
+                            }
         }
 
         loadSanPham();
 
     }//GEN-LAST:event_btnDoiSLActionPerformed
-
-    private void cboVoucherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboVoucherActionPerformed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_cboVoucherActionPerformed
 
     private void txttienKhachDuaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttienKhachDuaKeyReleased
         // TODO add your handling code here:
@@ -1056,6 +1136,34 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         new VoucherDialog(null, true).setVisible(true);
     }//GEN-LAST:event_lblBangVoucherMouseClicked
+
+    private void cboVoucherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboVoucherActionPerformed
+        // TODO add your handling code here:
+        String maVC = (String) cboVoucher.getSelectedItem();
+        System.out.println("ma KM" + maVC);
+        if (maVC != null) {
+            Voucher vC = svVC.timVC(maVC);
+            double tienGiam = vC.getGiamTheoGia();
+            double dkGiam = vC.getDkAD();
+            System.out.println("dk giam" + dkGiam);
+            double tongTien = Double.parseDouble(lblTongTien.getText());
+            if (tongTien >= dkGiam) {
+                double tienCanTra = tongTien - tienGiam;
+                lblCanTra.setText(String.valueOf(tienCanTra));
+                JOptionPane.showMessageDialog(this, "Áp dụng thành công");
+            } else {
+                lblCanTra.setText(String.valueOf(tongTien));
+            }
+
+        }
+
+
+    }//GEN-LAST:event_cboVoucherActionPerformed
+
+    private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_formInternalFrameOpened
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

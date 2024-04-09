@@ -197,5 +197,31 @@ public class VoucherService {
         }
         return list;
     }
+    public Voucher timVC(String maVC) {
+        Voucher voucher = new Voucher();
+        try {
+            String sql = "SELECT maVoucher, tenVoucher, dkApDung, giamTheoGia, ngayBatDau, ngayKetThuc, trangThai, ghiChu\n"
+                    + "FROM   Voucher where maVoucher=?";
+            Connection conn = DBconnect.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, maVC);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                
+                voucher.setMaVC(rs.getString(1));
+                voucher.setTenVC(rs.getString(2));
+                voucher.setDkAD(rs.getDouble(3));
+                voucher.setGiamTheoGia(rs.getDouble(4));
+                voucher.setNgayBatDau(rs.getString(5));
+                voucher.setNgayKetThuc(rs.getString(6));
+                voucher.setTrangThai(rs.getString(7));
+                voucher.setGhiChu(rs.getString(8));
+                
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return voucher;
+    }
 }
 

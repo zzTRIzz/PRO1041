@@ -29,7 +29,7 @@ public class Main_NhanVien extends javax.swing.JFrame {
     public Main_NhanVien() {
         initComponents();
         init();
-        trang2();
+//        trang2();
     }
 
     private void init() {
