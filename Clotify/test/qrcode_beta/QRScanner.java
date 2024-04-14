@@ -1,5 +1,6 @@
-package gui.nhanvien;
+package qrcode_beta;
 
+import gui.nhanvien.*;
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import javax.swing.JButton;
@@ -39,11 +40,11 @@ public class QRScanner extends JPanel implements WebcamListener {
         panel.setPreferredSize(size);
         panel.setFPSDisplayed(true);
 
-//        JButton toggleButton = new JButton("Mở / tắt");
-//        toggleButton.addActionListener(e -> toggleCamera());
+        JButton toggleButton = new JButton("Mở / tắt");
+        toggleButton.addActionListener(e -> toggleCamera());
 
         add(panel);
-//        add(toggleButton);
+        add(toggleButton);
     }
 
     public void toggleCamera() {

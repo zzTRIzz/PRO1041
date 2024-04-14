@@ -4,8 +4,6 @@
  */
 package gui.nhanvien;
 
-
-
 import Service.TaiKhoanService;
 import gui.admin.*;
 import com.formdev.flatlaf.FlatDarkLaf;
@@ -14,22 +12,25 @@ import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.intellijthemes.FlatLightFlatIJTheme;
 import java.util.Locale;
 import javax.swing.*;
+
 /**
  *
  * @author ADMIN
  */
-
-
 public class Main_NhanVien extends javax.swing.JFrame {
 
     /**
      * Creates new form Main
      */
-    
+//    QRScanner qr = new QRScanner();
+//    private QRScanner qr;
+
     public Main_NhanVien() {
         initComponents();
         init();
-        trang2();
+//        qr.closeCamera();
+
+//        trang2();
     }
 
     private void init() {
@@ -39,28 +40,41 @@ public class Main_NhanVien extends javax.swing.JFrame {
 
     void trang1() {
         System.out.println("Truy cap menu : 1");
-        DesktopPane.removeAll();
+//        DesktopPane.removeAll();
+        ui_custom.disposeAllFrame(DesktopPane);
         TrangSP_nv trang1 = new TrangSP_nv();
         trang1.setSize(DesktopPane.getSize());
         DesktopPane.add(trang1).setVisible(true);
+//        qr.closeCamera();
     }
 
     void trang2() {
+//        qr.closeCamera();
         System.out.println("Truy cap menu : 2");
         ui_custom.disposeAllFrame(DesktopPane);
         TrangBanHang trang2 = new TrangBanHang();
         trang2.setSize(DesktopPane.getSize());
         DesktopPane.add(trang2).setVisible(true);
+//        if (!qr.isCameraOpened()) {
+//            qr.toggleCamera();
+//        }
+
     }
 
     void trang3() {
         System.out.println("Truy cap menu : 3");
         ui_custom.disposeAllFrame(DesktopPane);
-        TrangKhachHang trang3 =  new TrangKhachHang();
+        TrangKhachHang trang3 = new TrangKhachHang();
         DesktopPane.add(trang3).setVisible(true);
+//        qr.closeCamera();
     }
 
-
+//    QRScanner qr = new QRScanner();
+//    private QRScanner qrScanner;
+//
+//    public void setQRScanner(QRScanner qrScanner) {
+//        this.qrScanner = qrScanner;
+//    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -82,6 +96,7 @@ public class Main_NhanVien extends javax.swing.JFrame {
         lblTen = new javax.swing.JLabel();
         menu2 = new javax.swing.JLabel();
         DesktopPane = new javax.swing.JDesktopPane();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -186,15 +201,24 @@ public class Main_NhanVien extends javax.swing.JFrame {
         DesktopPane.setMaximumSize(new java.awt.Dimension(1140, 700));
         DesktopPane.setMinimumSize(new java.awt.Dimension(1140, 700));
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/81523971330103.5bc17fa17a0ef.jpg"))); // NOI18N
+        jLabel1.setMaximumSize(new java.awt.Dimension(1140, 1318));
+        jLabel1.setMinimumSize(new java.awt.Dimension(1140, 1318));
+        jLabel1.setPreferredSize(new java.awt.Dimension(1140, 1318));
+
+        DesktopPane.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout DesktopPaneLayout = new javax.swing.GroupLayout(DesktopPane);
         DesktopPane.setLayout(DesktopPaneLayout);
         DesktopPaneLayout.setHorizontalGroup(
             DesktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1140, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         DesktopPaneLayout.setVerticalGroup(
             DesktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 700, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DesktopPaneLayout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         background.add(DesktopPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 0, -1, -1));
@@ -255,6 +279,7 @@ public class Main_NhanVien extends javax.swing.JFrame {
     private javax.swing.JDesktopPane DesktopPane;
     private javax.swing.JPanel background;
     private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;

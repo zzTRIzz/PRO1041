@@ -13,12 +13,29 @@ import Service.KhachHangService;
 import Service.SanPhamCTService;
 import Service.TaiKhoanService;
 import Service.VoucherService;
+import com.github.sarxos.webcam.Webcam;
+import com.github.sarxos.webcam.WebcamPanel;
+import com.github.sarxos.webcam.WebcamResolution;
+import com.github.sarxos.webcam.ds.buildin.WebcamDefaultDriver;
+import com.google.zxing.BinaryBitmap;
+import com.google.zxing.LuminanceSource;
+import com.google.zxing.MultiFormatReader;
+import com.google.zxing.NotFoundException;
+import com.google.zxing.Result;
+import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
+import com.google.zxing.common.HybridBinarizer;
 
 import gui.admin.*;
+import java.awt.Dimension;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.image.BufferedImage;
+import java.lang.System.Logger;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.concurrent.ThreadFactory;
+import java.util.logging.Level;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import model.HoaDon;
 import model.HoaDonCT;
@@ -43,17 +60,36 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
     /**
      * Creates new form Trang0
      */
+    private Webcam webcam = null;
+    private QRScanner qr = new QRScanner();
+
     public TrangBanHang() {
-        super("QR Scanner", true, true, true, true);
         initComponents();
+        initWebcam();
         ui_custom.deleteTitle(this);
-//        String trangThai = "Hoạt động";
         loadSanPham();
         loadHoaDon();
         loadVoucher();
         lblTenNV.setText(TaiKhoanService.layThongTin_tenNV());
         cboVoucher.setSelectedIndex(-1);
-        QRCode();
+
+    }
+
+    private void initWebcam() {
+
+        Thread loadQR = new Thread(() -> {
+//            qr.closeCamera(); // Đảm bảo camera đóng trước khi thay đổi độ phân giải
+
+            // Thay đổi độ phân giải của webcam và mở nó
+//            qr.getWebcam().setViewSize(WebcamResolution.QVGA.getSize());
+//            qr.toggleCamera();
+
+            // Thêm panel của QRScanner vào panelQRCode
+            panelQRCode.add(qr.getWebcamPanel(), new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 184, 184));
+            revalidate();
+            repaint();
+        });
+        loadQR.start();
     }
 
     void loadVoucher() {
@@ -118,23 +154,48 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
 //        
     }
 
-    
-    
-    private static final long serialVersionUID = 1L;
-    void QRCode() {
-        
-
-        // Tạo một QRScanner và thêm nó vào frame
-        QRScanner qrScanner = new QRScanner();
-        JPanel panel = qrScanner.getPanel();
-        add(panel);
-
-        pack();
-        setLocation(50, 50); // Thiết lập vị trí khởi đầu
-        setVisible(true);
-
-    }
-
+////    private WebcamPanel panel = null;
+////    QRScanner qr = new QRScanner();
+//    private void initWebcam() {
+////        Dimension size = WebcamResolution.QVGA.getSize();
+////        webcam = Webcam.getWebcams().get(0);
+////        webcam.setViewSize(size);
+////
+////        panel = new WebcamPanel(webcam);
+////        panel.setPreferredSize(size);
+////        panel.setFPSDisplayed(true);
+//
+////        panelQRCode.removeAll();
+////
+////        // Kiểm tra nếu webcam đang mở thì đóng trước khi thay đổi độ phân giải
+////        if (qr.getWebcam().isOpen()) {
+////            qr.closeCamera();
+//////            qr.toggleCamera();
+////        }
+////
+////        panelQRCode.add(qr.getWebcamPanel(), new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 184, 184));
+////        revalidate();
+////        repaint();
+//         panelQRCode.removeAll();
+//
+//    // Đóng webcam trước khi thay đổi độ phân giải
+//    qr.closeCamera();
+//
+//    // Kiểm tra xem camera đã mở trong một JInternalFrame khác hay không
+//    if (!qr.getWebcam().isOpen()) {
+//        // Thay đổi độ phân giải của webcam
+//        qr.getWebcam().setViewSize(WebcamResolution.QVGA.getSize());
+//        
+//        // Mở camera và bắt đầu panel
+//        qr.toggleCamera();
+//    }
+//
+//    panelQRCode.add(qr.getWebcamPanel(), new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 184, 184));
+//    revalidate();
+//    repaint();
+//        
+//
+//    } 
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -179,6 +240,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
         lblTienThua = new javax.swing.JLabel();
         lblBangVoucher = new javax.swing.JLabel();
         panelQRCode = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(153, 255, 153));
         setBorder(null);
@@ -188,6 +250,30 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
         setMaximumSize(new java.awt.Dimension(1140, 700));
         setMinimumSize(new java.awt.Dimension(1140, 700));
         setPreferredSize(new java.awt.Dimension(1140, 700));
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosed(evt);
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosing(evt);
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameOpened(evt);
+            }
+        });
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentHidden(java.awt.event.ComponentEvent evt) {
+                formComponentHidden(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(246, 246, 246));
@@ -294,12 +380,14 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 586, Short.MAX_VALUE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(11, Short.MAX_VALUE))
         );
 
         jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Sản Phẩm", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(20, 70, 128))); // NOI18N
@@ -533,16 +621,14 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout panelQRCodeLayout = new javax.swing.GroupLayout(panelQRCode);
-        panelQRCode.setLayout(panelQRCodeLayout);
-        panelQRCodeLayout.setHorizontalGroup(
-            panelQRCodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        panelQRCodeLayout.setVerticalGroup(
-            panelQRCodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        panelQRCode.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton1.setText("Mở / tắt camera");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -554,11 +640,13 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
                     .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(panelQRCode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(panelQRCode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(65, 65, 65))
@@ -570,14 +658,16 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(12, 12, 12)
-                                .addComponent(panelQRCode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGap(18, 18, 18)
+                                .addGap(9, 9, 9)
+                                .addComponent(panelQRCode, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(25, 25, 25)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(79, 79, 79))
         );
@@ -1057,6 +1147,33 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
         new VoucherDialog(null, true).setVisible(true);
     }//GEN-LAST:event_lblBangVoucherMouseClicked
 
+    private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_formInternalFrameOpened
+
+    private void formComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentHidden
+        // TODO add your handling code here:
+
+
+    }//GEN-LAST:event_formComponentHidden
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        qr.toggleCamera();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
+        // TODO add your handling code here:
+        System.out.println("Webcam is closed when u switch menu");
+        qr.closeCamera();
+
+    }//GEN-LAST:event_formInternalFrameClosed
+
+    private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formInternalFrameClosing
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDoiSL;
@@ -1065,6 +1182,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnThanhToan;
     private javax.swing.JButton btnXoaSPGH;
     private javax.swing.JComboBox<String> cboVoucher;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
@@ -1095,4 +1213,54 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtSDT;
     private javax.swing.JTextField txttienKhachDua;
     // End of variables declaration//GEN-END:variables
+
+    private volatile boolean isCameraRunning = true; // Biến để kiểm soát việc chạy của camera
+
+    public void stopCamera() {
+        isCameraRunning = false; // Phương thức để dừng camera
+    }
+//    @Override
+//    public void run() {
+//        do {
+//            try {
+//                Thread.sleep(100);
+//            } catch (InterruptedException ex) {
+//                java.util.logging.Logger.getLogger(TrangBanHang.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//
+//            if (!isCameraRunning) {
+//                break; // Nếu biến/cờ được đặt thành false, thoát khỏi vòng lặp
+//            }
+//
+//            Result result = null;
+//            BufferedImage image = null;
+//
+//            if (webcam.isOpen()) {
+//                if ((image = webcam.getImage()) == null) {
+//                    continue;
+//                }
+//            }
+//
+//            LuminanceSource source = new BufferedImageLuminanceSource(image);
+//            BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
+//
+//            try {
+//                result = new MultiFormatReader().decode(bitmap);
+//            } catch (NotFoundException ex) {
+//                java.util.logging.Logger.getLogger(TrangBanHang.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//
+//            if (result != null) {
+//                System.out.println("Cha" + result.getText());
+//            }
+//        } while (true);
+//    }
+//
+//    @Override
+//    public Thread newThread(Runnable r) {
+//        Thread t = new Thread(r); // Sử dụng Thread thay vì gọi lại newThread(r)
+//        t.setDaemon(true);
+//        return t;
+//    }
+
 }

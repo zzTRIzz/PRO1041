@@ -1,4 +1,4 @@
-package gui.nhanvien;
+package newpackage;
 
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
@@ -24,7 +24,6 @@ public class QRScanner extends JPanel implements WebcamListener {
     private Webcam webcam = null;
     private WebcamPanel panel = null;
     private String lastScannedQR = null;
-    private boolean cameraOpened = false;
 
     public QRScanner() {
         super();
@@ -39,11 +38,11 @@ public class QRScanner extends JPanel implements WebcamListener {
         panel.setPreferredSize(size);
         panel.setFPSDisplayed(true);
 
-//        JButton toggleButton = new JButton("Mở / tắt");
-//        toggleButton.addActionListener(e -> toggleCamera());
+        JButton toggleButton = new JButton("Mở / tắt");
+        toggleButton.addActionListener(e -> toggleCamera());
 
         add(panel);
-//        add(toggleButton);
+        add(toggleButton);
     }
 
     public void toggleCamera() {
@@ -118,9 +117,5 @@ public class QRScanner extends JPanel implements WebcamListener {
 
     public Webcam getWebcam() {
         return webcam;
-    }
-    
-    public boolean isCameraOpened() {
-        return cameraOpened;
     }
 }

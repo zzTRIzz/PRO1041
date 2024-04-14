@@ -2,7 +2,6 @@ package gui.nhanvien;
 
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamEvent;
@@ -39,38 +38,28 @@ public class QRScanner extends JPanel implements WebcamListener {
         panel.setPreferredSize(size);
         panel.setFPSDisplayed(true);
 
-//        JButton toggleButton = new JButton("Mở / tắt");
-//        toggleButton.addActionListener(e -> toggleCamera());
-
         add(panel);
-//        add(toggleButton);
     }
 
-    public void toggleCamera() {
-        if (webcam.isOpen()) {
-            webcam.close();
-            panel.stop();
-        } else {
-            if (isAnyWebcamOpen()) {
-                Webcam.getWebcams().forEach(w -> {
-                    if (w.isOpen()) {
-                        w.close();
-                    }
-                });
-            }
+    public void run() {
+        if (!cameraOpened) {
             webcam.open();
             panel.start();
+            cameraOpened = true;
         }
     }
 
-    private boolean isAnyWebcamOpen() {
-        for (Webcam w : Webcam.getWebcams()) {
-            if (w.isOpen()) {
-                return true;
-            }
+    public void stop() {
+        if (cameraOpened) {
+            webcam.close();
+            panel.stop();
+            cameraOpened = false;
+        }else{
+             webcam.close();
         }
-        return false;
     }
+
+    // Các phương thức xử lý sự kiện webcam
 
     @Override
     public void webcamOpen(WebcamEvent we) {
@@ -103,24 +92,5 @@ public class QRScanner extends JPanel implements WebcamListener {
         } catch (NotFoundException e) {
             // QR Code not found in the image
         }
-    }
-
-    public WebcamPanel getWebcamPanel() {
-        return panel;
-    }
-
-    public void closeCamera() {
-        if (webcam.isOpen()) {
-            webcam.close();
-            panel.stop();
-        }
-    }
-
-    public Webcam getWebcam() {
-        return webcam;
-    }
-    
-    public boolean isCameraOpened() {
-        return cameraOpened;
     }
 }
