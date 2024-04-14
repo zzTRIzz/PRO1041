@@ -16,8 +16,10 @@ import Interface.*;
  * @author Ngo Nhan
  */
 public class SanPhanAnDialog extends javax.swing.JDialog {
+
     SanPhamCTImpl svSpct = new SanPhamCTService();
     DefaultTableModel defaultTableModel;
+
     /**
      * Creates new form SanPhanAn
      */
@@ -27,8 +29,9 @@ public class SanPhanAnDialog extends javax.swing.JDialog {
         this.setLocationRelativeTo(null);
         loadDataLSP();
     }
-    void loadDataLSP(){
-        defaultTableModel =(DefaultTableModel) tblSPAn.getModel();
+
+    void loadDataLSP() {
+        defaultTableModel = (DefaultTableModel) tblSPAn.getModel();
         defaultTableModel.setRowCount(0);
         for (SanPhamCT spct : svSpct.getAllSPAn()) {
             defaultTableModel.addRow(new Object[]{
@@ -42,10 +45,10 @@ public class SanPhanAnDialog extends javax.swing.JDialog {
                 spct.getSoLuong(),
                 spct.getGiaNhap(),
                 spct.getGiaBan(),
-                spct.getTrangThai(),
-            });
+                spct.getTrangThai(),});
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -62,6 +65,8 @@ public class SanPhanAnDialog extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách sản phẩn ẩn", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Noto Sans", 1, 14), new java.awt.Color(20, 70, 128))); // NOI18N
+
         tblSPAn.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -76,7 +81,7 @@ public class SanPhanAnDialog extends javax.swing.JDialog {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 838, Short.MAX_VALUE)
+            .addGap(0, 828, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addContainerGap()
@@ -120,7 +125,7 @@ public class SanPhanAnDialog extends javax.swing.JDialog {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnReset)
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(11, Short.MAX_VALUE))
         );
 
         pack();
@@ -129,16 +134,19 @@ public class SanPhanAnDialog extends javax.swing.JDialog {
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
         // TODO add your handling code here:
         int row = tblSPAn.getSelectedRow();
-        SanPhamCT spct =svSpct.getRow(row);
-        int idSp = spct.getIdSP();
-        String trangThai ="Hoạt động";
-        if (row>=0) {
-            int option = JOptionPane.showConfirmDialog(null, "Bạn có muốn ẩn sản phẩm không?", "Chi tiết sản phẩm", JOptionPane.YES_NO_OPTION);
-                if (option == JOptionPane.YES_OPTION) {
-                    svSpct.upDateTrangThai(trangThai, idSp);
-                    JOptionPane.showMessageDialog(this, "Chuyển sản phẩm thành công");
-                   loadDataLSP();
-                }
+
+        String trangThai = "Hoạt động";
+        if (row >= 0) {
+            SanPhamCT spct = svSpct.getRow(row);
+            int idSp = spct.getIdSP();
+            int option = JOptionPane.showConfirmDialog(null, "Bạn có muốn bỏ ẩn sản phẩm không?", "Sản phẩm ẩn", JOptionPane.YES_NO_OPTION);
+            if (option == JOptionPane.YES_OPTION) {
+                svSpct.upDateTrangThai(trangThai, idSp);
+                JOptionPane.showMessageDialog(this, "Chuyển sản phẩm thành công");
+                loadDataLSP();
+            }
+        }else{
+            JOptionPane.showMessageDialog(this, "Chọn sản phẩm trong danh sách");
         }
     }//GEN-LAST:event_btnResetActionPerformed
 
