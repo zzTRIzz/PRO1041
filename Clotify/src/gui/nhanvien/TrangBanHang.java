@@ -133,7 +133,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
     }
 
     private void initWebcam() {
-
+        System.out.println("Run camera");
         Thread loadQR = new Thread(() -> {
 //            qr.closeCamera(); // Đảm bảo camera đóng trước khi thay đổi độ phân giải
 
