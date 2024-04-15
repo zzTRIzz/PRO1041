@@ -16,6 +16,8 @@ import com.google.zxing.NotFoundException;
 import com.google.zxing.Result;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.HybridBinarizer;
+import java.util.ArrayList;
+import java.util.List;
 
 public class QRScanner extends JPanel implements WebcamListener {
 
@@ -98,12 +100,35 @@ public class QRScanner extends JPanel implements WebcamListener {
             if (result != null) {
                 String scannedQR = result.getText();
                 lastScannedQR = scannedQR;
-                scannedQR=qrMa;
-                System.out.println("QR Code detected: " + scannedQR);
-                
+                qrMa = scannedQR;
+//                System.out.println("QR Code detected: " + qrMa);
+                 // Thông báo cho các listener khi một QR code được quét
+                notifyListeners(scannedQR);
             }
         } catch (NotFoundException e) {
             // QR Code not found in the image
+        }
+    }
+    
+    
+    
+     // Khai báo một list các listener
+    private List<QRCodeListener> listeners = new ArrayList<>();
+
+    // Thêm phương thức để đăng ký listener
+    public void addQRCodeListener(QRCodeListener listener) {
+        listeners.add(listener);
+    }
+
+    // Thêm phương thức để gỡ bỏ listener
+    public void removeQRCodeListener(QRCodeListener listener) {
+        listeners.remove(listener);
+    }
+
+    // Phương thức để thông báo cho tất cả các listener
+    private void notifyListeners(String qrCode) {
+        for (QRCodeListener listener : listeners) {
+            listener.onQRCodeScanned(qrCode);
         }
     }
     

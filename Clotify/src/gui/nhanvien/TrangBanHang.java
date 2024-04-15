@@ -32,7 +32,7 @@ import model.Voucher;
  *
  * @author ADMIN
  */
-public class TrangBanHang extends javax.swing.JInternalFrame {
+public class TrangBanHang extends javax.swing.JInternalFrame implements  QRCodeListener{
 
     LocalDate thoiGian = LocalDate.now();
     DefaultTableModel defaultTableModel;
@@ -45,6 +45,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
     /**
      * Creates new form Trang0
      */
+    private QRScanner qr = new QRScanner();
     public TrangBanHang() {
         initComponents();
         ui_custom.deleteTitle(this);
@@ -55,6 +56,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
         lblTenNV.setText(TaiKhoanService.layThongTin_tenNV());
         cboVoucher.setSelectedIndex(-1);
         initWebcam();
+        qr.addQRCodeListener(this);
     }
 
     void reSet() {
@@ -128,7 +130,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
     }
 
     private static final long serialVersionUID = 1L;
-    private QRScanner qr = new QRScanner();
+    
     private void initWebcam() {
         System.out.println("Run camera");
         Thread loadQR = new Thread(() -> {
@@ -1159,6 +1161,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
         // TODO add your handling code here:
         qr.closeCamera();
+        
     }//GEN-LAST:event_formInternalFrameClosed
 
 
@@ -1199,4 +1202,9 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtSDT;
     private javax.swing.JTextField txttienKhachDua;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void onQRCodeScanned(String qrCode) {
+        System.out.println("Trang bán hàng : " + qrCode);
+    }
 }
