@@ -15,12 +15,15 @@ import Service.TaiKhoanService;
 import Service.VoucherService;
 
 import gui.admin.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 import model.HoaDon;
 import model.HoaDonCT;
@@ -57,6 +60,12 @@ public class TrangBanHang extends javax.swing.JInternalFrame implements  QRCodeL
         cboVoucher.setSelectedIndex(-1);
         initWebcam();
         qr.addQRCodeListener(this);
+        new Timer(60000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                loadVoucher();
+            }
+        }).start();
         
     }
 

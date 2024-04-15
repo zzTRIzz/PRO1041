@@ -70,6 +70,7 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 loadDataKhuyenMai();
+                loadDataVoucher();
             }
         }).start();
 

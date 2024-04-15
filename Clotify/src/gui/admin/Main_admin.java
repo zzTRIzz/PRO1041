@@ -6,6 +6,7 @@ package gui.admin;
 
 import Service.KhuyenMaiService;
 import Service.TaiKhoanService;
+import Service.VoucherService;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -27,6 +28,7 @@ public class Main_admin extends javax.swing.JFrame {
      * Creates new form Main
      */
 KhuyenMaiService svKM = new KhuyenMaiService();
+VoucherService svVC = new VoucherService();
     public Main_admin() {
         initComponents();
         init();
@@ -45,6 +47,8 @@ KhuyenMaiService svKM = new KhuyenMaiService();
                 String thoiGianQD = ngayQuyetDinh.format(dinhDang);
                 svKM.updateTrangThaiCoupon3();
                 svKM.updateTrangThaiCoupon2(thoiGianQD);
+                svVC.updateTrangThai();
+                svVC.updateTrangThaiVoucher();
             }
         }).start();
     }

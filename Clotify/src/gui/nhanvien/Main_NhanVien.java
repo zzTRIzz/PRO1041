@@ -8,6 +8,7 @@ package gui.nhanvien;
 
 import Service.KhuyenMaiService;
 import Service.TaiKhoanService;
+import Service.VoucherService;
 import gui.admin.*;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatIntelliJLaf;
@@ -31,6 +32,7 @@ public class Main_NhanVien extends javax.swing.JFrame {
      * Creates new form Main
      */
     KhuyenMaiService svKM = new KhuyenMaiService();
+    VoucherService svVC = new VoucherService();
     public Main_NhanVien() {
         initComponents();
         init();
@@ -48,6 +50,9 @@ public class Main_NhanVien extends javax.swing.JFrame {
                 String thoiGianQD = ngayQuyetDinh.format(dinhDang);
                 svKM.updateTrangThaiCoupon3();
                 svKM.updateTrangThaiCoupon2(thoiGianQD);
+                svVC.updateTrangThai();
+                svVC.updateTrangThaiVoucher();
+                
             }
         }).start();
     }
