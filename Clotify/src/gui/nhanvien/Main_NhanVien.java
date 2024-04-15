@@ -34,8 +34,6 @@ public class Main_NhanVien extends javax.swing.JFrame {
     public Main_NhanVien() {
         initComponents();
         init();
-//        trang2();
-        System.out.println(QRScanner.qrMa);
     }
 
     private void init() {
