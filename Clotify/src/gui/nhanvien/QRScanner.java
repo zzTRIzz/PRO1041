@@ -43,7 +43,6 @@ public class QRScanner extends JPanel implements WebcamListener {
 
 //        JButton toggleButton = new JButton("Mở / tắt");
 //        toggleButton.addActionListener(e -> toggleCamera());
-
         add(panel);
 //        add(toggleButton);
     }
@@ -91,6 +90,7 @@ public class QRScanner extends JPanel implements WebcamListener {
     public static String qrMa;
     @Override
     public void webcamImageObtained(WebcamEvent we) {
+
         BufferedImage image = we.getImage();
         LuminanceSource source = new BufferedImageLuminanceSource(image);
         BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
@@ -101,18 +101,20 @@ public class QRScanner extends JPanel implements WebcamListener {
                 String scannedQR = result.getText();
                 lastScannedQR = scannedQR;
                 qrMa = scannedQR;
-//                System.out.println("QR Code detected: " + qrMa);
-                 // Thông báo cho các listener khi một QR code được quét
+
+                System.out.println("QR Code detected: " + qrMa);
+                // Thông báo cho các listener khi một QR code được quét
                 notifyListeners(scannedQR);
+                qrProcessed =true;
+                
             }
+            Thread.sleep(3000);
         } catch (NotFoundException e) {
             // QR Code not found in the image
         }
     }
-    
-    
-    
-     // Khai báo một list các listener
+
+    // Khai báo một list các listener
     private List<QRCodeListener> listeners = new ArrayList<>();
 
     // Thêm phương thức để đăng ký listener
@@ -131,7 +133,7 @@ public class QRScanner extends JPanel implements WebcamListener {
             listener.onQRCodeScanned(qrCode);
         }
     }
-    
+
     public WebcamPanel getWebcamPanel() {
         return panel;
     }
@@ -146,7 +148,7 @@ public class QRScanner extends JPanel implements WebcamListener {
     public Webcam getWebcam() {
         return webcam;
     }
-    
+
     public boolean isCameraOpened() {
         return cameraOpened;
     }
