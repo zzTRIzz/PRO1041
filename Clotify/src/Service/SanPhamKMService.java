@@ -98,14 +98,15 @@ public class SanPhamKMService implements SanPhamKMInterface{
     @Override
     public List<SanPhamKM> getSPKM(String maKM, String trangThai) {
         list.clear();
-        String sql = "SELECT SanPhamCT.idSP, SanPhamCT.maSP, SanPhamCT.loaiSP, MauSac.tenMauSac, Size.tenSize, ThuongHieu.tenThuongHieu, ChatLieu.tenChatLieu,idSPKM,maKM,SanPhamKM.trangThai\n"
+        String sql = "SELECT SanPhamCT.idSP, SanPhamCT.maSP, SanPhamCT.loaiSP, MauSac.tenMauSac, Size.tenSize, ThuongHieu.tenThuongHieu, ChatLieu.tenChatLieu,idSPKM,SanPhamKM.maKM,SanPhamKM.trangThai,SanPhamCT.giaNhap,LichSuGia.gia,KhuyenMai.giamTheoPT\n"
                 + "FROM      ChatLieu INNER JOIN\n"
                 + "                 SanPhamCT ON ChatLieu.idChatLieu = SanPhamCT.idChatLieu INNER JOIN\n"
                 + "                 MauSac ON SanPhamCT.idMauSac = MauSac.idMauSac INNER JOIN\n"
                 + "                 Size ON SanPhamCT.idSize = Size.idSize INNER JOIN\n"
                 + "                 ThuongHieu ON SanPhamCT.idThuongHieu = ThuongHieu.idThuongHieu INNER JOIN\n"
                 + "                 LichSuGia ON SanPhamCT.idSP = LichSuGia.idSP INNER JOIN\n"
-                + "                 SanPhamKM ON SanPhamKM.idSP = SanPhamCT.idSP  \n"//Do cái lsg này nên k load được 1 sp nữa lên table này
+                + "                 SanPhamKM ON SanPhamKM.idSP = SanPhamCT.idSP left JOIN \n"//Do cái lsg này nên k load được 1 sp nữa lên table này
+                + "                 KhuyenMai ON KhuyenMai.maKM  = SanPhamKM.maKM\n"
                 + "WHERE SanPhamCT.trangThai = N'Hoạt động' and (SanPhamKM.maKM =?) and LichSuGia.ngayKetThuc is NULL and SanPhamKM.trangThai = ? ";
 
         try {
@@ -127,6 +128,9 @@ public class SanPhamKMService implements SanPhamKMInterface{
                 spkm.setIdSPKM(rs.getInt(8));
                 spkm.setMaKM(rs.getString(9));
                 spkm.setTrangThaiSPKM(rs.getString(10));
+                spkm.setGiaNhap(rs.getDouble(11));
+                spkm.setGiaBan(rs.getDouble(12));
+                spkm.setGiamTheoPT(rs.getInt(13));
                 list.add(spkm);
             }
         } catch (Exception e) {

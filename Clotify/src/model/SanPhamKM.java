@@ -13,7 +13,7 @@ int idSPKM,idSP;
     String maKM,tenKM,ngayTao,ngayKetThuc,trangThai,maNV,tenNV,tenSP,mauSac,chatLieu,thuongHieu,size,loaiSP, maSP,trangThaiSPKM;
     int giamTheoGia,giamTheoPT;
     double mucApDung;
-
+    Double giaNhap,giaBan; 
     public SanPhamKM() {
     }
 
@@ -36,7 +36,7 @@ int idSPKM,idSP;
         this.trangThaiSPKM = trangThaiSPKM;
     }
 
-    public SanPhamKM(int idSPKM, int idSP, String maKM, String tenKM, String ngayTao, String ngayKetThuc, String trangThai, String maNV, String tenNV, String tenSP, String mauSac, String chatLieu, String thuongHieu, String size, String loaiSP, String maSP, String trangThaiSPKM, int giamTheoGia, int giamTheoPT, double mucApDung) {
+    public SanPhamKM(int idSPKM, int idSP, String maKM, String tenKM, String ngayTao, String ngayKetThuc, String trangThai, String maNV, String tenNV, String tenSP, String mauSac, String chatLieu, String thuongHieu, String size, String loaiSP, String maSP, String trangThaiSPKM, int giamTheoGia, int giamTheoPT, double mucApDung, Double giaNhap, Double giaBan) {
         this.idSPKM = idSPKM;
         this.idSP = idSP;
         this.maKM = maKM;
@@ -57,6 +57,8 @@ int idSPKM,idSP;
         this.giamTheoGia = giamTheoGia;
         this.giamTheoPT = giamTheoPT;
         this.mucApDung = mucApDung;
+        this.giaNhap = giaNhap;
+        this.giaBan = giaBan;
     }
 
     public int getIdSPKM() {
@@ -219,6 +221,26 @@ int idSPKM,idSP;
         this.mucApDung = mucApDung;
     }
 
-    
-    
+    public Double getGiaNhap() {
+        return giaNhap;
+    }
+
+    public void setGiaNhap(Double giaNhap) {
+        this.giaNhap = giaNhap;
+    }
+
+    public Double getGiaBan() {
+        return giaBan;
+    }
+
+    public void setGiaBan(Double giaBan) {
+        this.giaBan = giaBan;
+    }
+
+    public double giaSauKM(){
+    double giaBan = getGiaBan();
+    int phanTramKM = getGiamTheoPT();
+    double giaSauGiam = giaBan -(giaBan*phanTramKM)/100.0;
+    return giaSauGiam;
+    }
 }

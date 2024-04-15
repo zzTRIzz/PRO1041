@@ -105,10 +105,10 @@ public class QRScanner extends JPanel implements WebcamListener {
                 System.out.println("QR Code detected: " + qrMa);
                 // Thông báo cho các listener khi một QR code được quét
                 notifyListeners(scannedQR);
-                qrProcessed =true;
+                
                 
             }
-            Thread.sleep(3000);
+            
         } catch (NotFoundException e) {
             // QR Code not found in the image
         }
