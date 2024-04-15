@@ -6,12 +6,15 @@ package gui.admin;
 
 import Service.ThongKeService;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridBagLayout;
 import java.awt.Panel;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import model.ThongKe;
 import org.knowm.xchart.XChartPanel;
 import org.knowm.xchart.XYChart;
 import org.knowm.xchart.XYChartBuilder;
@@ -27,32 +30,64 @@ public class TrangThongKe extends javax.swing.JInternalFrame {
     /**
      * Creates new form Trang0
      */
+    DefaultTableModel model;
+    ThongKeService thongKeService = new ThongKeService();
     public TrangThongKe() {
         initComponents();
         ui_custom.deleteTitle(this);
-        
+        loadDataSPBC();
         ThongKe_TatCa();
-//        updateLineChart();
+
 
     }
-
+    void loadDataSPBC(){
+        int stt = 1;
+        model = (DefaultTableModel) tblSanPham.getModel();
+        model.setRowCount(0);
+        for (ThongKe t : thongKeService.getAllBanChay()) {
+            model.addRow(new Object[]{
+                stt,
+                t.getMa(),
+                t.getTen(),
+                t.getLoai(),
+                t.getSo(),
+                t.getGia(),
+                t.getChatlieu(),
+                t.getMau(),
+                t.getSize(),
+                t.getThuonghieu(),
+                t.getSoluongban()
+            });
+            stt++;
+        }
+    }
+    
     public void updateLineChart() {
         PanelThongKe_LineChart.removeAll(); // Xóa tất cả các thành phần trong Panel trước khi vẽ lại
         LineChart_DoanhThu_Day(); // Vẽ lại biểu đồ
         PanelThongKe_LineChart.revalidate(); // Cập nhật giao diện
         PanelThongKe_LineChart.repaint(); // Vẽ lại Panel
     }
-    
-    
+
     void LineChart_DoanhThu_Day() {
         ThongKeService.layDoanhThu_TheoNgay_LineChart();
         // Định dạng số để không có dấu E
         DecimalFormat formatter = new DecimalFormat("#,###");
         // Tạo biểu đồ Line Chart
-        XYChart chart = new XYChartBuilder().width(726).height(496).title("Doanh thu").xAxisTitle("Thời gian").yAxisTitle("Doanh thu (VNĐ)").build();
+        XYChart chart = new XYChartBuilder()
+                .width(PanelThongKe_LineChart.getWidth())
+                .height(PanelThongKe_LineChart.getHeight())
+                .title("Biểu đồ doanh thu")
+                .xAxisTitle("Thời gian")
+                .yAxisTitle("Doanh thu (VNĐ)")
+                .build();
         chart.getStyler().setDecimalPattern("#,###");
+        // Dữ liệu của đỉnh
+        //chart.getStyler().setYAxisMax(Double.valueOf(lblDoanhThu.getText()));
+        // Sử dụng định dạng ngày tháng cho trục X
+        chart.getStyler().setDatePattern("yyyy-MM-dd");
         chart.addSeries("Doanh thu", ThongKeService.ngay, ThongKeService.doanhthu); // Sử dụng thang thay vì thangStr
-
+        chart.getStyler().setChartBackgroundColor(new Color(246, 246, 249));
         XChartPanel<XYChart> chartPanel = new XChartPanel<>(chart);
 
         // Tạo JPanel để chứa biểu đồ
@@ -60,15 +95,52 @@ public class TrangThongKe extends javax.swing.JInternalFrame {
 
         PanelThongKe_LineChart.add(chartPanel);
     }
+
+    void LineChart_DoanhThu_7Day() {
+
+        ThongKeService.layDoanhThu_Theo7Ngay_LineChart();
+        // Định dạng số để không có dấu E
+        DecimalFormat formatter = new DecimalFormat("#,###");
+        // Tạo biểu đồ Line Chart
+        XYChart chart = new XYChartBuilder()
+                .width(PanelThongKe_LineChart.getWidth())
+                .height(PanelThongKe_LineChart.getHeight())
+                .title("Biểu đồ doanh thu")
+                .xAxisTitle("Thời gian")
+                .yAxisTitle("Doanh thu (VNĐ)")
+                .build();
+        chart.getStyler().setDecimalPattern("#,###");
+        // Dữ liệu của đỉnh
+        chart.getStyler().setYAxisMax(Double.valueOf(lblDoanhThu.getText()));
+        // Sử dụng định dạng ngày tháng cho trục X
+        chart.getStyler().setDatePattern("dd-MM-yyyy");
+
+        chart.addSeries("Doanh thu", ThongKeService.ngay7, ThongKeService.doanhthu7);
+        chart.getStyler().setChartBackgroundColor(new Color(246, 246, 249));
+        XChartPanel<XYChart> chartPanel = new XChartPanel<>(chart);
+
+        // Tạo JPanel để chứa biểu đồ
+        PanelThongKe_LineChart.setLayout(new GridBagLayout());
+        PanelThongKe_LineChart.add(chartPanel);
+    }
+
     void LineChart_DoanhThu_Thang() {
         ThongKeService.layDoanhThu_TheoThang_LineChart();
         // Định dạng số để không có dấu E
         DecimalFormat formatter = new DecimalFormat("#,###");
         // Tạo biểu đồ Line Chart
-        XYChart charts = new XYChartBuilder().width(726).height(496).title("Doanh thu").xAxisTitle("Thời gian").yAxisTitle("Doanh thu (VNĐ)").build();
+        XYChart charts = new XYChartBuilder()
+                .width(PanelThongKe_LineChart.getWidth())
+                .height(PanelThongKe_LineChart.getHeight())
+                .title("Biểu đồ doanh thu")
+                .xAxisTitle("Thời gian")
+                .yAxisTitle("Doanh thu (VNĐ)")
+                .build();
         charts.getStyler().setDecimalPattern("#,###");
+        // Dữ liệu của đỉnh
+        charts.getStyler().setYAxisMax(Double.valueOf(lblDoanhThu.getText()));
         charts.addSeries("Doanh thu", ThongKeService.thang, ThongKeService.doanhthuthang);
-
+        charts.getStyler().setChartBackgroundColor(new Color(246, 246, 249));
         XChartPanel<XYChart> chartPanel = new XChartPanel<>(charts);
 
         // Tạo JPanel để chứa biểu đồ
@@ -89,7 +161,7 @@ public class TrangThongKe extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
-        jLabel20 = new javax.swing.JLabel();
+        lblKieuDoanhThu = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         lblDoanhThu = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
@@ -114,7 +186,7 @@ public class TrangThongKe extends javax.swing.JInternalFrame {
         PanelThongKe_LineChart = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblSanPham = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(153, 255, 153));
         setBorder(null);
@@ -153,10 +225,10 @@ public class TrangThongKe extends javax.swing.JInternalFrame {
         jPanel8.setPreferredSize(new java.awt.Dimension(200, 115));
         jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel20.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(186, 186, 190));
-        jLabel20.setText("Doanh thu");
-        jPanel8.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, -1, -1));
+        lblKieuDoanhThu.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        lblKieuDoanhThu.setForeground(new java.awt.Color(186, 186, 190));
+        lblKieuDoanhThu.setText("Tổng doanh thu");
+        jPanel8.add(lblKieuDoanhThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, -1, -1));
 
         jLabel21.setFont(new java.awt.Font("Roboto Slab ExtraBold", 0, 18)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(67, 68, 79));
@@ -184,7 +256,7 @@ public class TrangThongKe extends javax.swing.JInternalFrame {
 
         jLabel5.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(186, 186, 190));
-        jLabel5.setText("Khách hàng");
+        jLabel5.setText("Khách hàng đã thêm vào hệ thống");
         jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Roboto Slab ExtraBold", 0, 18)); // NOI18N
@@ -274,11 +346,13 @@ public class TrangThongKe extends javax.swing.JInternalFrame {
             }
         });
 
+        PanelThongKe_LineChart.setBackground(new java.awt.Color(246, 246, 249));
+
         javax.swing.GroupLayout PanelThongKe_LineChartLayout = new javax.swing.GroupLayout(PanelThongKe_LineChart);
         PanelThongKe_LineChart.setLayout(PanelThongKe_LineChartLayout);
         PanelThongKe_LineChartLayout.setHorizontalGroup(
             PanelThongKe_LineChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 726, Short.MAX_VALUE)
+            .addGap(0, 1099, Short.MAX_VALUE)
         );
         PanelThongKe_LineChartLayout.setVerticalGroup(
             PanelThongKe_LineChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -290,8 +364,8 @@ public class TrangThongKe extends javax.swing.JInternalFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(PanelThongKe_LineChart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 379, Short.MAX_VALUE))
+                .addComponent(PanelThongKe_LineChart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -300,22 +374,24 @@ public class TrangThongKe extends javax.swing.JInternalFrame {
                 .addGap(0, 14, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Thống kê doanh thu và những loại sản phẩm bán chạy", jPanel2);
+        jTabbedPane1.addTab("Thống kê doanh thu", jPanel2);
 
         jPanel5.setLayout(new javax.swing.BoxLayout(jPanel5, javax.swing.BoxLayout.LINE_AXIS));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblSanPham.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        tblSanPham.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "STT", "Mã", "Tên ", "Loại", "Số lượng", "Giá nhập", "Chất liệu", "Màu sắc", "Size", "Thương hiệu", "Số lượng đã bán"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tblSanPham.setSelectionBackground(new java.awt.Color(51, 153, 0));
+        jScrollPane1.setViewportView(tblSanPham);
 
         jPanel5.add(jScrollPane1);
 
@@ -362,6 +438,7 @@ public class TrangThongKe extends javax.swing.JInternalFrame {
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
         // TODO add your handling code here:
+        
 
     }//GEN-LAST:event_formInternalFrameOpened
 
@@ -373,8 +450,7 @@ public class TrangThongKe extends javax.swing.JInternalFrame {
         lblDoanhThu.setText(ThongKeService.doanhThu_TatCa().toString());
         lblKhachHang.setText(ThongKeService.TongKhachHang_Theo(36500).toString());
         lblHoaDon.setText(ThongKeService.TongHoaDon_Theo(36500).toString());
-        
-        
+
     }
 
     void ThongKe_TheoNam() {
@@ -388,11 +464,11 @@ public class TrangThongKe extends javax.swing.JInternalFrame {
         lblDoanhThu.setText(ThongKeService.doanhThu_TheoThang().toString());
         lblKhachHang.setText(ThongKeService.TongKhachHang_Theo(30).toString());
         lblHoaDon.setText(ThongKeService.TongHoaDon_Theo(30).toString());
-        
+
         PanelThongKe_LineChart.removeAll(); // Xóa tất cả các thành phần trong Panel trước khi vẽ lại
         LineChart_DoanhThu_Thang();
-//        PanelThongKe_LineChart.revalidate(); // Cập nhật giao diện
-//        PanelThongKe_LineChart.repaint(); // Vẽ lại Panel
+        PanelThongKe_LineChart.revalidate(); // Cập nhật giao diện
+        PanelThongKe_LineChart.repaint(); // Vẽ lại Panel
     }
 
     void ThongKe_Theo7ngay() {
@@ -400,8 +476,8 @@ public class TrangThongKe extends javax.swing.JInternalFrame {
         lblKhachHang.setText(ThongKeService.TongKhachHang_Theo(7).toString());
         lblHoaDon.setText(ThongKeService.TongHoaDon_Theo(7).toString());
         PanelThongKe_LineChart.removeAll(); // Xóa tất cả các thành phần trong Panel trước khi vẽ lại
-        LineChart_DoanhThu_Day();
-        
+        LineChart_DoanhThu_7Day();
+
     }
 
     void ThongKe_theoNgay() {
@@ -413,21 +489,32 @@ public class TrangThongKe extends javax.swing.JInternalFrame {
     }
     private void cboThoiGianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboThoiGianActionPerformed
         // TODO add your handling code here:
+        DecimalFormat formatter = new DecimalFormat("#,###");
         String choice = (String) cboThoiGian.getSelectedItem();
         if (choice.equals("Tất cả")) {
-            ThongKe_TatCa();
+           lblKieuDoanhThu.setText("Tổng doanh thu");
+           ThongKe_TatCa();
+           lblDoanhThu.setText(formatter.format(Double.parseDouble(lblDoanhThu.getText())));
 
         } else if (choice.equals("Theo năm")) {
+            lblKieuDoanhThu.setText("Tổng doanh thu trong năm");
             ThongKe_TheoNam();
+            lblDoanhThu.setText(formatter.format(Double.parseDouble(lblDoanhThu.getText())));
 
         } else if (choice.equals("Theo tháng")) {
+            lblKieuDoanhThu.setText("Tổng doanh thu trong tháng này");
             ThongKe_TheoThang();
+            lblDoanhThu.setText(formatter.format(Double.parseDouble(lblDoanhThu.getText())));
 
         } else if (choice.equals("Theo 7 ngày gần nhất")) {
+            lblKieuDoanhThu.setText("Tổng doanh thu trong 7 ngày nay");
             ThongKe_Theo7ngay();
+            lblDoanhThu.setText(formatter.format(Double.parseDouble(lblDoanhThu.getText())));
 
         } else if (choice.equals("Theo ngày")) {
+            lblKieuDoanhThu.setText("Tổng doanh thu trong hôm nay");
             ThongKe_theoNgay();
+            lblDoanhThu.setText(formatter.format(Double.parseDouble(lblDoanhThu.getText())));
 
         } else {
             return;
@@ -443,7 +530,6 @@ public class TrangThongKe extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel5;
@@ -460,10 +546,11 @@ public class TrangThongKe extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblDoanhThu;
     private javax.swing.JLabel lblHoaDon;
     private javax.swing.JLabel lblKhachHang;
+    private javax.swing.JLabel lblKieuDoanhThu;
     private javax.swing.JLabel lblSanPham;
+    private javax.swing.JTable tblSanPham;
     // End of variables declaration//GEN-END:variables
 }

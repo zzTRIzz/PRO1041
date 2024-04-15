@@ -46,10 +46,9 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
     /**
      * Creates new form Trang0
      */
-    
     private Webcam webcam = null;
     private QRScanner qr = new QRScanner();
-    
+
     public TrangBanHang() {
         initComponents();
         initWebcam();
@@ -135,12 +134,6 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
     private void initWebcam() {
 
         Thread loadQR = new Thread(() -> {
-//            qr.closeCamera(); // Đảm bảo camera đóng trước khi thay đổi độ phân giải
-
-            // Thay đổi độ phân giải của webcam và mở nó
-//            qr.getWebcam().setViewSize(WebcamResolution.QVGA.getSize());
-//            qr.toggleCamera();
-
             // Thêm panel của QRScanner vào panelQRCode
             panelQRCode.add(qr.getWebcamPanel(), new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 184, 184));
             revalidate();
@@ -642,23 +635,23 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
             }
 //                            System.out.println(tongTienTra);
             String tien = String.valueOf(tongTienTra);
-                            lblTongTien.setText(tien);
-                            lblCanTra.setText(tien);
-                            String maVC = (String) cboVoucher.getSelectedItem();
-                            System.out.println("ma KM" + maVC);
-                            if (maVC != null) {
-                                Voucher vC = svVC.timVC(maVC);
-                                double tienGiam = vC.getGiamTheoGia();
-                                double dkGiam = vC.getDkAD();
-                                System.out.println("dk giam" + dkGiam);
-                                if (tongTienTra >= dkGiam) {
-                                    double tienCanTra = tongTienTra - tienGiam;
-                                    lblCanTra.setText(String.valueOf(tienCanTra));
-                                    JOptionPane.showMessageDialog(this, "Áp dụng thành công");
-                                }
+            lblTongTien.setText(tien);
+            lblCanTra.setText(tien);
+            String maVC = (String) cboVoucher.getSelectedItem();
+            System.out.println("ma KM" + maVC);
+            if (maVC != null) {
+                Voucher vC = svVC.timVC(maVC);
+                double tienGiam = vC.getGiamTheoGia();
+                double dkGiam = vC.getDkAD();
+                System.out.println("dk giam" + dkGiam);
+                if (tongTienTra >= dkGiam) {
+                    double tienCanTra = tongTienTra - tienGiam;
+                    lblCanTra.setText(String.valueOf(tienCanTra));
+                    JOptionPane.showMessageDialog(this, "Áp dụng thành công");
+                }
 
-                            }
-            
+            }
+
             for (SanPhamCT sanPhamCT : svSP.getAll()) {
                 if (sanPhamCT.getIdSP().equals(idSP)) {
                     int soLuongTon = sanPhamCT.getSoLuong();
@@ -869,7 +862,6 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
                                 }
 
                             }
-                            
 
                         } catch (NumberFormatException e) {
                             JOptionPane.showMessageDialog(null, "Nhập số nguyên hợp lệ!");
@@ -1092,22 +1084,22 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
             }
 //                            System.out.println(tongTienTra);
             String tien = String.valueOf(tongTienTra);
-                            lblTongTien.setText(tien);
-                            lblCanTra.setText(tien);
-                            String maVC = (String) cboVoucher.getSelectedItem();
-                            System.out.println("ma KM" + maVC);
-                            if (maVC != null) {
-                                Voucher vC = svVC.timVC(maVC);
-                                double tienGiam = vC.getGiamTheoGia();
-                                double dkGiam = vC.getDkAD();
-                                System.out.println("dk giam" + dkGiam);
-                                if (tongTienTra >= dkGiam) {
-                                    double tienCanTra = tongTienTra - tienGiam;
-                                    lblCanTra.setText(String.valueOf(tienCanTra));
-                                    JOptionPane.showMessageDialog(this, "Áp dụng thành công");
-                                }
+            lblTongTien.setText(tien);
+            lblCanTra.setText(tien);
+            String maVC = (String) cboVoucher.getSelectedItem();
+            System.out.println("ma KM" + maVC);
+            if (maVC != null) {
+                Voucher vC = svVC.timVC(maVC);
+                double tienGiam = vC.getGiamTheoGia();
+                double dkGiam = vC.getDkAD();
+                System.out.println("dk giam" + dkGiam);
+                if (tongTienTra >= dkGiam) {
+                    double tienCanTra = tongTienTra - tienGiam;
+                    lblCanTra.setText(String.valueOf(tienCanTra));
+                    JOptionPane.showMessageDialog(this, "Áp dụng thành công");
+                }
 
-                            }
+            }
         }
 
         loadSanPham();
