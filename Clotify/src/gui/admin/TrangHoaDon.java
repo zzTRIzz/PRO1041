@@ -343,7 +343,7 @@ public class TrangHoaDon extends javax.swing.JInternalFrame {
             setForm(svHD.getRowHD(row));
         }
 
-        if (row > 0) {
+        if (row >= 0) {
 
             HoaDon hd = svHD.getRowHD(row);
             int idHD = hd.getIdHD();

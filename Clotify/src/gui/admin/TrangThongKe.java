@@ -32,15 +32,16 @@ public class TrangThongKe extends javax.swing.JInternalFrame {
      */
     DefaultTableModel model;
     ThongKeService thongKeService = new ThongKeService();
+
     public TrangThongKe() {
         initComponents();
         ui_custom.deleteTitle(this);
         loadDataSPBC();
-        ThongKe_TatCa();
-
+        
 
     }
-    void loadDataSPBC(){
+
+    void loadDataSPBC() {
         int stt = 1;
         model = (DefaultTableModel) tblSanPham.getModel();
         model.setRowCount(0);
@@ -61,7 +62,7 @@ public class TrangThongKe extends javax.swing.JInternalFrame {
             stt++;
         }
     }
-    
+
     public void updateLineChart() {
         PanelThongKe_LineChart.removeAll(); // Xóa tất cả các thành phần trong Panel trước khi vẽ lại
         LineChart_DoanhThu_Day(); // Vẽ lại biểu đồ
@@ -138,10 +139,36 @@ public class TrangThongKe extends javax.swing.JInternalFrame {
                 .build();
         charts.getStyler().setDecimalPattern("#,###");
         // Dữ liệu của đỉnh
-        charts.getStyler().setYAxisMax(Double.valueOf(lblDoanhThu.getText()));
+//        charts.getStyler().setYAxisMax(Double.valueOf(lblDoanhThu.getText()));
+        charts.getStyler().setDatePattern("yyyy-MM");
         charts.addSeries("Doanh thu", ThongKeService.thang, ThongKeService.doanhthuthang);
         charts.getStyler().setChartBackgroundColor(new Color(246, 246, 249));
         XChartPanel<XYChart> chartPanel = new XChartPanel<>(charts);
+
+        // Tạo JPanel để chứa biểu đồ
+        PanelThongKe_LineChart.setLayout(new GridBagLayout());
+
+        PanelThongKe_LineChart.add(chartPanel);
+    }
+
+    void LineChart_DoanhThu_Nam() {
+        ThongKeService.layDoanhThu_TheoNam_LineChart();
+        // Định dạng số để không có dấu E
+        DecimalFormat formatter = new DecimalFormat("#,###");
+        // Tạo biểu đồ Line Chart
+        XYChart chartss = new XYChartBuilder()
+                .width(PanelThongKe_LineChart.getWidth())
+                .height(PanelThongKe_LineChart.getHeight())
+                .title("Biểu đồ doanh thu")
+                .xAxisTitle("Thời gian")
+                .yAxisTitle("Doanh thu (VNĐ)")
+                .build();
+        chartss.getStyler().setDecimalPattern("#,###");
+        // Dữ liệu của đỉnh
+        chartss.getStyler().setYAxisMax(Double.valueOf(lblDoanhThu.getText()));
+        chartss.addSeries("Doanh thu", ThongKeService.nam, ThongKeService.doanhthunam);
+        chartss.getStyler().setChartBackgroundColor(new Color(246, 246, 249));
+        XChartPanel<XYChart> chartPanel = new XChartPanel<>(chartss);
 
         // Tạo JPanel để chứa biểu đồ
         PanelThongKe_LineChart.setLayout(new GridBagLayout());
@@ -187,6 +214,7 @@ public class TrangThongKe extends javax.swing.JInternalFrame {
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblSanPham = new javax.swing.JTable();
+        jPanel9 = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(153, 255, 153));
         setBorder(null);
@@ -312,7 +340,7 @@ public class TrangThongKe extends javax.swing.JInternalFrame {
 
         jLabel16.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(186, 186, 190));
-        jLabel16.setText("Tất cả các sản phẩm");
+        jLabel16.setText("Lợi nhuận");
         jPanel7.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, -1, -1));
 
         jLabel17.setFont(new java.awt.Font("Roboto Slab ExtraBold", 0, 18)); // NOI18N
@@ -397,6 +425,19 @@ public class TrangThongKe extends javax.swing.JInternalFrame {
 
         jTabbedPane1.addTab("Sản phẩm bán chạy", jPanel5);
 
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1105, Short.MAX_VALUE)
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 510, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("Màu sắc được ưa chuộng", jPanel9);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -438,7 +479,7 @@ public class TrangThongKe extends javax.swing.JInternalFrame {
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
         // TODO add your handling code here:
-        
+        cboThoiGian.setSelectedIndex(0);
 
     }//GEN-LAST:event_formInternalFrameOpened
 
@@ -450,6 +491,10 @@ public class TrangThongKe extends javax.swing.JInternalFrame {
         lblDoanhThu.setText(ThongKeService.doanhThu_TatCa().toString());
         lblKhachHang.setText(ThongKeService.TongKhachHang_Theo(36500).toString());
         lblHoaDon.setText(ThongKeService.TongHoaDon_Theo(36500).toString());
+        PanelThongKe_LineChart.removeAll(); // Xóa tất cả các thành phần trong Panel trước khi vẽ lại
+        LineChart_DoanhThu_Nam();
+        PanelThongKe_LineChart.revalidate(); // Cập nhật giao diện
+        PanelThongKe_LineChart.repaint(); // Vẽ lại Panel
 
     }
 
@@ -457,6 +502,10 @@ public class TrangThongKe extends javax.swing.JInternalFrame {
         lblDoanhThu.setText(ThongKeService.doanhThu_TheoNam().toString());
         lblKhachHang.setText(ThongKeService.TongKhachHang_Theo(365).toString());
         lblHoaDon.setText(ThongKeService.TongHoaDon_Theo(365).toString());
+        PanelThongKe_LineChart.removeAll(); // Xóa tất cả các thành phần trong Panel trước khi vẽ lại
+        LineChart_DoanhThu_Nam();
+        PanelThongKe_LineChart.revalidate(); // Cập nhật giao diện
+        PanelThongKe_LineChart.repaint(); // Vẽ lại Panel
     }
 
     void ThongKe_TheoThang() {
@@ -492,9 +541,9 @@ public class TrangThongKe extends javax.swing.JInternalFrame {
         DecimalFormat formatter = new DecimalFormat("#,###");
         String choice = (String) cboThoiGian.getSelectedItem();
         if (choice.equals("Tất cả")) {
-           lblKieuDoanhThu.setText("Tổng doanh thu");
-           ThongKe_TatCa();
-           lblDoanhThu.setText(formatter.format(Double.parseDouble(lblDoanhThu.getText())));
+            lblKieuDoanhThu.setText("Tổng doanh thu");
+            ThongKe_TatCa();
+            lblDoanhThu.setText(formatter.format(Double.parseDouble(lblDoanhThu.getText())));
 
         } else if (choice.equals("Theo năm")) {
             lblKieuDoanhThu.setText("Tổng doanh thu trong năm");
@@ -544,6 +593,7 @@ public class TrangThongKe extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lblDoanhThu;

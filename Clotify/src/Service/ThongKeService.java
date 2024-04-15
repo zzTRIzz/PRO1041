@@ -201,10 +201,11 @@ public class ThongKeService {
     public static ArrayList<Date> ngay = new ArrayList<>();
     public static ArrayList<Date> ngay7 = new ArrayList<>();
     public static ArrayList<Integer> nam = new ArrayList<>();
-    public static ArrayList<Number> thang = new ArrayList<>();
+    public static ArrayList<Date> thang = new ArrayList<>();
     public static ArrayList<Double> doanhthu = new ArrayList<>();
     public static ArrayList<Double> doanhthu7 = new ArrayList<>();
     public static ArrayList<Double> doanhthuthang = new ArrayList<>();
+    public static ArrayList<Double> doanhthunam = new ArrayList<>();
 
     public static void layDoanhThu_TheoNgay_LineChart() {
         ngay.clear();
@@ -273,22 +274,51 @@ public class ThongKeService {
         doanhthuthang.clear();
         String sql = "SELECT \n"
                 + "    SUM(hd.TongTienHD) AS DoanhThu,\n"
-                + "    YEAR(hd.NgayTao) AS Nam,\n"
-                + "    MONTH(hd.NgayTao) AS Thang\n"
+                + "    CONVERT(date, DATEFROMPARTS(YEAR(hd.ngayTao), MONTH(hd.ngayTao), 1)) AS Thang\n"
                 + "FROM \n"
                 + "    HoaDonChiTiet ct\n"
-                + "INNER JOIN  HoaDon hd ON ct.idHD = hd.idHD\n"
-                + "WHERE hd.NgayTao >= DATEADD(MONTH, -12, GETDATE()) AND hd.trangThai = N'Đã thanh toán'\n"
-                + "GROUP BY YEAR(hd.NgayTao), MONTH(hd.NgayTao)\n";
+                + "INNER JOIN HoaDon hd ON ct.idHD = hd.idHD\n"
+                + "WHERE \n"
+                + "     hd.NgayTao >= DATEADD(MONTH, -12, GETDATE()) AND hd.trangThai = N'Đã thanh toán'\n"
+                + "GROUP BY \n"
+                + "    CONVERT(date, DATEFROMPARTS(YEAR(hd.ngayTao), MONTH(hd.ngayTao), 1));";
         try {
             Connection conn = DBconnect.getConnection();
             PreparedStatement stm = conn.prepareStatement(sql);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
-                Integer ngaySQL = rs.getInt("Thang");
+                Date ngaySQL = rs.getDate("Thang");
                 Double doannhThuSQL = rs.getDouble("DoanhThu");
                 thang.add(ngaySQL);
                 doanhthuthang.add(doannhThuSQL);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void layDoanhThu_TheoNam_LineChart() {
+        nam.clear();
+        doanhthunam.clear();
+        String sql = "SELECT \n"
+                + "    SUM(hd.TongTienHD) AS DoanhThu,\n"
+                + "	YEAR(hd.ngayTao) AS Nam\n"
+                + "FROM \n"
+                + "    HoaDonChiTiet ct\n"
+                + "INNER JOIN  HoaDon hd ON ct.idHD = hd.idHD\n"
+                + "WHERE \n"
+                + "    hd.NgayTao >= DATEADD(YEAR, -100, GETDATE()) AND hd.trangThai = N'Đã thanh toán'\n"
+                + "GROUP BY \n"
+                + "    YEAR(hd.ngayTao)";
+        try {
+            Connection conn = DBconnect.getConnection();
+            PreparedStatement stm = conn.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Integer ngaySQL = rs.getInt("Nam");
+                Double doannhThuSQL = rs.getDouble("DoanhThu");
+                nam.add(ngaySQL);
+                doanhthunam.add(doannhThuSQL);
             }
         } catch (Exception e) {
             e.printStackTrace();
