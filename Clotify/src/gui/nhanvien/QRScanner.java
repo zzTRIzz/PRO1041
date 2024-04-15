@@ -86,7 +86,7 @@ public class QRScanner extends JPanel implements WebcamListener {
     public void webcamDisposed(WebcamEvent we) {
         System.out.println("Webcam disposed");
     }
-
+    public static String qrMa;
     @Override
     public void webcamImageObtained(WebcamEvent we) {
         BufferedImage image = we.getImage();
@@ -98,13 +98,15 @@ public class QRScanner extends JPanel implements WebcamListener {
             if (result != null) {
                 String scannedQR = result.getText();
                 lastScannedQR = scannedQR;
+                scannedQR=qrMa;
                 System.out.println("QR Code detected: " + scannedQR);
+                
             }
         } catch (NotFoundException e) {
             // QR Code not found in the image
         }
     }
-
+    
     public WebcamPanel getWebcamPanel() {
         return panel;
     }

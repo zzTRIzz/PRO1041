@@ -46,7 +46,6 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
      * Creates new form Trang0
      */
     public TrangBanHang() {
-//        super("QR Scanner", true, true, true, true);
         initComponents();
         ui_custom.deleteTitle(this);
 //        String trangThai = "Hoạt động";
@@ -55,8 +54,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
         loadVoucher();
         lblTenNV.setText(TaiKhoanService.layThongTin_tenNV());
         cboVoucher.setSelectedIndex(-1);
-        
-//        QRCode();
+        initWebcam();
     }
 
     void reSet() {
@@ -130,19 +128,19 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
     }
 
     private static final long serialVersionUID = 1L;
+    private QRScanner qr = new QRScanner();
+    private void initWebcam() {
+        System.out.println("Run camera");
+        Thread loadQR = new Thread(() -> {
 
-    void QRCode() {
-
-        // Tạo một QRScanner và thêm nó vào frame
-        QRScanner qrScanner = new QRScanner();
-        JPanel panel = qrScanner.getPanel();
-        panelQRCode.add(panel);
-
-        pack();
-        setLocation(50, 50); // Thiết lập vị trí khởi đầu
-        setVisible(true);
-
+            // Thêm panel của QRScanner vào panelQRCode
+            panelQRCode.add(qr.getWebcamPanel(), new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 184, 184));
+            revalidate();
+            repaint();
+        });
+        loadQR.start();
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -201,6 +199,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
             public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosed(evt);
             }
             public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -559,16 +558,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout panelQRCodeLayout = new javax.swing.GroupLayout(panelQRCode);
-        panelQRCode.setLayout(panelQRCodeLayout);
-        panelQRCodeLayout.setHorizontalGroup(
-            panelQRCodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        panelQRCodeLayout.setVerticalGroup(
-            panelQRCodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        panelQRCode.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -1163,8 +1153,13 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
         // TODO add your handling code here:
-
+        
     }//GEN-LAST:event_formInternalFrameOpened
+
+    private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
+        // TODO add your handling code here:
+        qr.closeCamera();
+    }//GEN-LAST:event_formInternalFrameClosed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

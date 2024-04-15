@@ -59,6 +59,7 @@ public class Main_NhanVien extends javax.swing.JFrame {
         TrangSP_nv trang1 = new TrangSP_nv();
         trang1.setSize(DesktopPane.getSize());
         DesktopPane.add(trang1).setVisible(true);
+        
     }
 
     void trang2() {
