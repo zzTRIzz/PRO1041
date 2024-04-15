@@ -6,12 +6,17 @@ package gui.nhanvien;
 
 
 
+import Service.KhuyenMaiService;
 import Service.TaiKhoanService;
 import gui.admin.*;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.intellijthemes.FlatLightFlatIJTheme;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import javax.swing.*;
 /**
@@ -25,7 +30,7 @@ public class Main_NhanVien extends javax.swing.JFrame {
     /**
      * Creates new form Main
      */
-    
+    KhuyenMaiService svKM = new KhuyenMaiService();
     public Main_NhanVien() {
         initComponents();
         init();
@@ -35,6 +40,17 @@ public class Main_NhanVien extends javax.swing.JFrame {
     private void init() {
         setLocationRelativeTo(null);
         lblTen.setText(TaiKhoanService.layThongTin_tenNV());
+        new Timer(60000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                LocalDateTime ngayQuyetDinh = LocalDateTime.now();
+                DateTimeFormatter dinhDang = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                String thoiGianQD = ngayQuyetDinh.format(dinhDang);
+                svKM.updateTrangThaiCoupon3();
+                svKM.updateTrangThaiCoupon2(thoiGianQD);
+            }
+        }).start();
     }
 
     void trang1() {

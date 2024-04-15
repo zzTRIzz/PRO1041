@@ -10,6 +10,8 @@ import Service.SanPhamCTService;
 import Service.SanPhamKMService;
 import Service.TaiKhoanService;
 import Service.VoucherService;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.text.ParseException;
@@ -32,6 +34,7 @@ import javax.swing.Icon;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
+import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 import model.KhuyenMai;
 import model.SanPhamCT;
@@ -52,9 +55,8 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
     SanPhamCTService svCT = new SanPhamCTService();
     KhuyenMaiService svKM = new KhuyenMaiService();
     VoucherService svVC = new VoucherService();
-    LocalDateTime ngayQuyetDinh = LocalDateTime.now();
+//    LocalDateTime ngayQuyetDinh = LocalDateTime.now();
     DateTimeFormatter dinhDang = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
     public TrangKhuyenMai() {
 
         initComponents();
@@ -64,9 +66,12 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
         loadDataKhuyenMai();
         loadDataSPCT();
         loadDataVoucher();
-        String thoiGianQD = ngayQuyetDinh.format(dinhDang);
-        svKM.updateTrangThaiCoupon3();
-        svKM.updateTrangThaiCoupon2(thoiGianQD);
+        new Timer(60000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                loadDataKhuyenMai();
+            }
+        }).start();
 
     }
 

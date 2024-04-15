@@ -305,7 +305,7 @@ public class KhuyenMaiService {
     public void updateTrangThaiCoupon2(String ngayQuyetDinh) {
         String sql = "UPDATE  KhuyenMai\n"
                 + "SET          trangThai =?,ngayQuyetDinh =? \n"
-                + "WHERE NgayTao <= getdate() and NgayKetThuc >=getdate() ";
+                + "WHERE NgayTao <= getdate() and NgayKetThuc >=getdate() AND (trangThai = N'Hết hạn' OR trangThai = N'Chưa áp dụng') ";
         try {
             Connection conn = DBconnect.getConnection();
             PreparedStatement stm = conn.prepareStatement(sql);

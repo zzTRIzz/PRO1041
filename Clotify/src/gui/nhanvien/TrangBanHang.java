@@ -55,6 +55,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame {
         loadVoucher();
         lblTenNV.setText(TaiKhoanService.layThongTin_tenNV());
         cboVoucher.setSelectedIndex(-1);
+        
 //        QRCode();
     }
 
