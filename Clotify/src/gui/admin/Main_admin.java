@@ -67,7 +67,7 @@ public class Main_admin extends javax.swing.JFrame {
     void trang5() {
         System.out.println("Truy cap menu : 5");
         ui_custom.disposeAllFrame(DesktopPane);
-        TrangHoaDon trang5 = new TrangHoaDon();
+        TrangThongKe trang5 = new TrangThongKe();
         DesktopPane.add(trang5).setVisible(true);
     }
     

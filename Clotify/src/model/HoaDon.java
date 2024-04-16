@@ -11,7 +11,7 @@ package model;
 public class HoaDon {
         int idHD,maHD,idKH;
     String ngayTao,tenNV,trangThai,maNV,maKH,tenKH,maVoucher,giaTri;
-
+double tongTienHD;
     public HoaDon() {
     }
     public HoaDon(int idKH,String ngayTao, String trangThai,String maNV){
@@ -21,15 +21,17 @@ public class HoaDon {
         this.maNV = maNV;
         
     }
-        public HoaDon(int idKH,String ngayTao, String trangThai,String maNV,String maVoucher,int idHD){
-        this.idKH = idKH;
-        this.ngayTao = ngayTao;
+        
+
+    public HoaDon(String trangThai, String maNV, String maVoucher, double tongTienHD,int idHD) {
         this.trangThai = trangThai;
         this.maNV = maNV;
         this.maVoucher = maVoucher;
+        this.tongTienHD = tongTienHD;
         this.idHD = idHD;
     }
-    public HoaDon(int idHD, int maHD, int idKH, String ngayTao, String tenNV, String trangThai, String maNV, String maKH, String tenKH, String maVoucher, String giaTri) {
+        
+    public HoaDon(int idHD, int maHD, int idKH, String ngayTao, String tenNV, String trangThai, String maNV, String maKH, String tenKH, String maVoucher, String giaTri, double tongTienHD) {
         this.idHD = idHD;
         this.maHD = maHD;
         this.idKH = idKH;
@@ -41,6 +43,7 @@ public class HoaDon {
         this.tenKH = tenKH;
         this.maVoucher = maVoucher;
         this.giaTri = giaTri;
+        this.tongTienHD = tongTienHD;
     }
 
     public int getIdHD() {
@@ -131,6 +134,12 @@ public class HoaDon {
         this.giaTri = giaTri;
     }
 
+    public double getTongTienHD() {
+        return tongTienHD;
+    }
 
+    public void setTongTienHD(double tongTienHD) {
+        this.tongTienHD = tongTienHD;
+    }
     
 }

@@ -4,6 +4,7 @@ package gui.admin;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
+import Service.KhuyenMaiService;
 import Service.TaiKhoanService;
 import Service.VoucherService;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -17,6 +18,8 @@ import java.awt.Font;
 import static java.awt.Font.BOLD;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.prefs.Preferences;
 import javax.swing.SwingUtilities;
 import model.ThongTinNhanVien;
@@ -33,6 +36,7 @@ public class login extends javax.swing.JFrame {
     TaiKhoanService taiKhoanService = new TaiKhoanService();
     ThongTinNhanVien thongTinNhanVien = new ThongTinNhanVien();
     VoucherService svVC = new VoucherService();
+    KhuyenMaiService svKM = new KhuyenMaiService();
     public static String maNV, tenNV;
 
     //by Tri
@@ -58,6 +62,12 @@ public class login extends javax.swing.JFrame {
         lblBackLogin.setVisible(false);
         svVC.updateTrangThaiVoucher();
         svVC.updateTrangThai();
+        LocalDateTime ngayQuyetDinh = LocalDateTime.now();
+        DateTimeFormatter dinhDang = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String thoiGianQD = ngayQuyetDinh.format(dinhDang);
+        svKM.updateTrangThaiCoupon3();
+        svKM.updateTrangThaiCoupon2(thoiGianQD);
+
     }
 
     Preferences pres = Preferences.userNodeForPackage(login.class);
@@ -109,10 +119,10 @@ public class login extends javax.swing.JFrame {
         btnGuiOPTtoGmail = new javax.swing.JButton();
         txtUser = new javax.swing.JTextField();
         txtGmail = new javax.swing.JTextField();
-        txtNewPassword = new javax.swing.JTextField();
+        txtNewPassword = new javax.swing.JPasswordField();
         txtPassword = new javax.swing.JPasswordField();
         txtOTP = new javax.swing.JTextField();
-        txtNewPasswordAgain = new javax.swing.JTextField();
+        txtNewPasswordAgain = new javax.swing.JPasswordField();
         lblNhapGmail = new javax.swing.JLabel();
         lblNhapGmail1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
@@ -197,20 +207,9 @@ public class login extends javax.swing.JFrame {
         getContentPane().add(txtGmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 300, 40));
 
         txtNewPassword.setBackground(new java.awt.Color(239, 239, 239));
-        txtNewPassword.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        getContentPane().add(txtNewPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 300, 40));
         txtNewPassword.setBorder(null);
         getContentPane().add(txtNewPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 340, 40));
-        txtNewPassword.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtNewPasswordMouseClicked(evt);
-            }
-        });
-        txtNewPassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNewPasswordActionPerformed(evt);
-            }
-        });
-        getContentPane().add(txtNewPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 300, 40));
 
         txtPassword.setBackground(new java.awt.Color(239, 239, 239));
         txtPassword.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -250,20 +249,9 @@ public class login extends javax.swing.JFrame {
         getContentPane().add(txtOTP, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 300, 40));
 
         txtNewPasswordAgain.setBackground(new java.awt.Color(239, 239, 239));
-        txtNewPasswordAgain.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        getContentPane().add(txtNewPasswordAgain, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 300, 40));
         txtNewPasswordAgain.setBorder(null);
         getContentPane().add(txtNewPasswordAgain, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 340, 40));
-        txtNewPasswordAgain.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtNewPasswordAgainMouseClicked(evt);
-            }
-        });
-        txtNewPasswordAgain.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNewPasswordAgainActionPerformed(evt);
-            }
-        });
-        getContentPane().add(txtNewPasswordAgain, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 300, 40));
 
         lblNhapGmail.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         getContentPane().add(lblNhapGmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, -1, -1));
@@ -446,7 +434,7 @@ public class login extends javax.swing.JFrame {
 
     private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
         String username = txtUser.getText();
-        String password = txtPassword.getText();
+        String password = TaiKhoanService.getMD5Hash(txtPassword.getText().trim());
         boolean truycap = taiKhoanService.dangnhap(username, password);
         if (username.trim().isEmpty() && password.trim().isEmpty()) {
             Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.BOTTOM_LEFT, "Username và password đang bị trống");
@@ -479,7 +467,7 @@ public class login extends javax.swing.JFrame {
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
         String username = txtUser.getText().trim();
-        String password = txtPassword.getText().trim();
+        String password = TaiKhoanService.getMD5Hash(txtPassword.getText().trim());
         boolean truycap = taiKhoanService.dangnhap(username, password);
         if (username.trim().isEmpty() && password.trim().isEmpty()) {
             Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.BOTTOM_LEFT, "Username và password đang bị trống");
@@ -608,8 +596,8 @@ public class login extends javax.swing.JFrame {
     private void btnXacNhanChangePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXacNhanChangePasswordActionPerformed
         // TODO add your handling code here:
         String email = txtGmail.getText();
-        String password = txtNewPassword.getText();
-        String passwordAgain = txtNewPasswordAgain.getText();
+        String password = TaiKhoanService.getMD5Hash(txtNewPassword.getText());
+        String passwordAgain = TaiKhoanService.getMD5Hash(txtNewPasswordAgain.getText());
 
         if (password.isEmpty()) {
             Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.BOTTOM_LEFT, "Vui lòng nhập mật khẩu mới");
@@ -649,14 +637,6 @@ public class login extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtGmailActionPerformed
 
-    private void txtNewPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNewPasswordMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNewPasswordMouseClicked
-
-    private void txtNewPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNewPasswordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNewPasswordActionPerformed
-
     private void txtOTPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtOTPMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_txtOTPMouseClicked
@@ -664,14 +644,6 @@ public class login extends javax.swing.JFrame {
     private void txtOTPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtOTPActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtOTPActionPerformed
-
-    private void txtNewPasswordAgainMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNewPasswordAgainMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNewPasswordAgainMouseClicked
-
-    private void txtNewPasswordAgainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNewPasswordAgainActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNewPasswordAgainActionPerformed
 
     private void txtGmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtGmailFocusLost
         // TODO add your handling code here:
@@ -753,8 +725,8 @@ public class login extends javax.swing.JFrame {
     private javax.swing.JLabel lblQuenPassword;
     private javax.swing.JLabel lblTrangDangNhap;
     private javax.swing.JTextField txtGmail;
-    private javax.swing.JTextField txtNewPassword;
-    private javax.swing.JTextField txtNewPasswordAgain;
+    private javax.swing.JPasswordField txtNewPassword;
+    private javax.swing.JPasswordField txtNewPasswordAgain;
     private javax.swing.JTextField txtOTP;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUser;

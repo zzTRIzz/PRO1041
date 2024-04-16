@@ -4,7 +4,7 @@
  */
 package gui.admin;
 
-import Service.NhanVienService;
+import Service.*;
 import java.awt.Color;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -12,27 +12,17 @@ import javax.swing.table.DefaultTableModel;
 import model.NhanVien;
 import nhanvienValidate.Validation;
 import Interface.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
-
-
 
 /**
  *
  * @author ADMIN
  */
 public class TrangNhanVien extends javax.swing.JInternalFrame {
-DefaultTableModel model;
-NhanVienService service= new NhanVienService();
-private int index=-1;
+
+    DefaultTableModel model;
+    NhanVienService service = new NhanVienService();
+    private int index = -1;
+
     /**
      * Creates new form Trang0
      */
@@ -41,73 +31,94 @@ private int index=-1;
         ui_custom.deleteTitle(this);
         fillTable(service.getAll());
     }
-    
-    public void fillTable(List<NhanVien>list){
-        model=(DefaultTableModel) tblSP1.getModel();
+
+    public void fillTable(List<NhanVien> list) {
+        model = (DefaultTableModel) tblSP1.getModel();
         model.setRowCount(0);
-        for(NhanVien nhanvien : list){
+        for (NhanVien nhanvien : list) {
             model.addRow(nhanvien.toDataRow());
         }
     }
-    public void showData(int index){
+
+    public void showData(int index) {
         NhanVien nv = service.getAll().get(index);
-       txtMa.setText(nv.getMaNV());
+        txtMa.setText(nv.getMaNV());
         txtTen.setText(nv.getTenNV());
         txtNamSinh.setText(nv.getNgaySinh());
         if (nv.getGioiTinh().equals("Nam")) {
             rdNam.setSelected(true);
-        }else{
+        } else {
             rdNu.setSelected(true);
         }
         txtQueQuan.setText(nv.getDiaChi());
         txtSDT.setText(nv.getSdt());
         txtTaiKhoan.setText(nv.getTaiKhoan());
         txtMatKhau.setText(nv.getMatKhau());
-        int VaiTro=Integer.parseInt(nv.getVaiTro());
-        if (VaiTro==1) {
+        int VaiTro = Integer.parseInt(nv.getVaiTro());
+        if (VaiTro == 1) {
             rdQl.setSelected(true);
-        }else{
+        } else {
             rdNV.setSelected(true);
         }
         txtEmail.setText(nv.getEmail());
-        int trangThai=Integer.parseInt(nv.getTrangThai());
-        if (trangThai==1) {
+        int trangThai = Integer.parseInt(nv.getTrangThai());
+        if (trangThai == 1) {
             rdHD.setSelected(true);
-        }else{
+        } else {
             rdNHD.setSelected(true);
         }
     }
-    NhanVien readFrom(){
-         
-         String Ma=txtMa.getText();
-        String ten=txtTen.getText();
-        String NgaySinh=txtNamSinh.getText();
-        String Gioitinh="";
+
+    NhanVien readFrom() {
+
+        String Ma = txtMa.getText().trim();
+        String ten = txtTen.getText();
+        String NgaySinh = txtNamSinh.getText();
+        String Gioitinh = "";
         if (rdNam.isSelected()) {
-            Gioitinh="Nam";
-        }else{
-            Gioitinh="Nữ";
+            Gioitinh = "Nam";
+        } else {
+            Gioitinh = "Nữ";
         }
-        String DiaChi=txtQueQuan.getText();
-        String Sdt=txtSDT.getText();
-        String taiKhoan=txtTaiKhoan.getText();
-        String MatKhau=txtMatKhau.getText();
-       String VaiTro=null;
+        String DiaChi = txtQueQuan.getText();
+        String Sdt = txtSDT.getText();
+        String taiKhoan = txtTaiKhoan.getText();
+        String MatKhau = TaiKhoanService.getMD5Hash(txtMatKhau.getText().trim());
+        String VaiTro = null;
         if (rdQl.isSelected()) {
-            VaiTro="1";
-            
-        }else{
-            VaiTro= "0";
+            VaiTro = "1";
+
+        } else {
+            VaiTro = "0";
         }
-        String Email=txtEmail.getText();
-        String trangThai="";
+        String Email = txtEmail.getText();
+        String trangThai = "";
         if (rdHD.isSelected()) {
-            trangThai="1";
-        }else{
-            trangThai="0";
+            trangThai = "1";
+        } else {
+            trangThai = "0";
         }
         return new NhanVien(Ma, VaiTro, ten, NgaySinh, Gioitinh, DiaChi, Sdt, taiKhoan, MatKhau, Email, trangThai);
     }
+
+    public static String matkhau, tenTaiKhoan;
+
+    public static String LayMatKhau() {
+        return matkhau;
+    }
+
+    public static String layTenTaiKhoan() {
+        return tenTaiKhoan;
+    }
+
+    void GuiTaiKhoan_toEmail() {
+        int choise = JOptionPane.showConfirmDialog(this, "Bạn muốn thực hiện gửi tài khoản đã cập nhập đến Email của nhân viên không ?");
+        if (choise == JOptionPane.YES_OPTION) {
+            TaiKhoanService.guiThongTinTaiKhoan_to(txtEmail.getText());
+            JOptionPane.showMessageDialog(this, "Gửi tài khoản đã cập nhật đến nhân viên : Thành công ");
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -151,12 +162,12 @@ private int index=-1;
         jScrollPane11 = new javax.swing.JScrollPane();
         tblSP1 = new javax.swing.JTable();
         jPanel21 = new javax.swing.JPanel();
-        btnXoa = new javax.swing.JButton();
+        btnLamMoi = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
+        btnXoa = new javax.swing.JButton();
         btnTimKiem = new javax.swing.JButton();
         btnDSVH = new javax.swing.JButton();
-        btnIn = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(153, 255, 153));
         setBorder(null);
@@ -190,8 +201,6 @@ private int index=-1;
         rdNu.setText("Nữ");
 
         jLabel62.setText("Mã NV");
-
-        txtMa.setEditable(false);
 
         jLabel63.setText("Vai Trò");
 
@@ -385,16 +394,13 @@ private int index=-1;
         jPanel21.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Chức năng", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Noto Sans", 1, 14), new java.awt.Color(204, 0, 0))); // NOI18N
         jPanel21.setLayout(new java.awt.GridLayout(3, 1));
 
-        btnXoa.setFont(new java.awt.Font("Dosis", 1, 14)); // NOI18N
-        btnXoa.setForeground(new java.awt.Color(153, 0, 0));
-        btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/new.png"))); // NOI18N
-        btnXoa.setText("Vô hiệu");
-        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+        btnLamMoi.setText("Làm mới");
+        btnLamMoi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnXoaActionPerformed(evt);
+                btnLamMoiActionPerformed(evt);
             }
         });
-        jPanel21.add(btnXoa);
+        jPanel21.add(btnLamMoi);
 
         btnAdd.setFont(new java.awt.Font("Dosis", 1, 14)); // NOI18N
         btnAdd.setForeground(new java.awt.Color(153, 0, 0));
@@ -418,6 +424,17 @@ private int index=-1;
         });
         jPanel21.add(btnUpdate);
 
+        btnXoa.setFont(new java.awt.Font("Dosis", 1, 14)); // NOI18N
+        btnXoa.setForeground(new java.awt.Color(153, 0, 0));
+        btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/new.png"))); // NOI18N
+        btnXoa.setText("Vô hiệu");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
+            }
+        });
+        jPanel21.add(btnXoa);
+
         btnTimKiem.setText("Tìm Kiếm");
         btnTimKiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -433,14 +450,6 @@ private int index=-1;
             }
         });
         jPanel21.add(btnDSVH);
-
-        btnIn.setText("In");
-        btnIn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnInActionPerformed(evt);
-            }
-        });
-        jPanel21.add(btnIn);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -463,7 +472,7 @@ private int index=-1;
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
                 .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(47, 47, 47))
         );
@@ -475,15 +484,16 @@ private int index=-1;
 
     private void tblSP1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSP1MouseClicked
         // TODO add your handling code here:
-        index=tblSP1.getSelectedRow();
+        txtMa.setEnabled(false);
+        index = tblSP1.getSelectedRow();
         showData(index);
     }//GEN-LAST:event_tblSP1MouseClicked
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
-        index=tblSP1.getSelectedRow();
-        String Ma=(String) tblSP1.getValueAt(index, 0);
-        if (service.delete(Ma)>0) {
+        index = tblSP1.getSelectedRow();
+        String Ma = (String) tblSP1.getValueAt(index, 0);
+        if (service.delete(Ma) > 0) {
             JOptionPane.showMessageDialog(this, "Vo hieu hoa thanh cong");
             fillTable(service.getAll());
         }
@@ -499,24 +509,29 @@ private int index=-1;
 //                fillTable(service.getAll());
 //            }
 //        }
+        tenTaiKhoan = txtTaiKhoan.getText();
+        matkhau = txtMatKhau.getText();
+
         int chon = JOptionPane.showConfirmDialog(this, "Bạn có muốn thêm không ?", "Thêm sản phẩm :", JOptionPane.YES_NO_CANCEL_OPTION,
                 3, null);
         if (chon == 0) {
             if (valiFrom()) {
                 try {
                     String maNV = txtMa.getText();
-                    String taiKhoan=txtTaiKhoan.getText();
-                    String email=txtEmail.getText();
+                    String taiKhoan = txtTaiKhoan.getText();
+                    String email = txtEmail.getText();
                     if (service.existsMa(maNV)) {
-                        JOptionPane.showMessageDialog(this, "Mã nhân viên đã tồn tại !");
+                        JOptionPane.showMessageDialog(this, "Mã nhân viên đã tồn tại " + txtMa.getText() + " !");
                         return;
-                    }else if (service.existsTK(taiKhoan)){
+                    } else if (service.existsTK(taiKhoan)) {
                         JOptionPane.showMessageDialog(this, "Khong  duoc trung Tai Khoan");
-                    }else if(service.existsEmail(email)){
-                    JOptionPane.showMessageDialog(this, "email da ton tai");
-                    } else if (service.add(this.readFrom()) ==1) {
+                    } else if (service.existsEmail(email)) {
+                        JOptionPane.showMessageDialog(this, "Email da ton tai");
+                    } else if (service.add(this.readFrom()) == 1) {
                         JOptionPane.showMessageDialog(this, "Thêm thành công!");
                         this.fillTable(service.getAll());
+                        GuiTaiKhoan_toEmail();
+
                     }
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(this, "Thêm thất bại !");
@@ -527,12 +542,22 @@ private int index=-1;
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
-        index=tblSP1.getSelectedRow();
-        String ma= tblSP1.getValueAt(index, 0).toString();
-        
-        if (service.update(ma, this.readFrom())>0) {
-            JOptionPane.showMessageDialog(this,"Sua thanh cong");
-            this.fillTable(service.getAll());
+
+        matkhau = String.valueOf(txtMatKhau.getPassword());
+        tenTaiKhoan = txtTaiKhoan.getText();
+
+        try {
+            index = tblSP1.getSelectedRow();
+            String ma = tblSP1.getValueAt(index, 0).toString();
+            if (service.update(ma, this.readFrom()) > 0) {
+                JOptionPane.showMessageDialog(this, "Sửa thành công");
+                this.fillTable(service.getAll());
+                GuiTaiKhoan_toEmail();
+            } else {
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn dòng bạn muốn sửa");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn dòng bạn muốn sửa");
         }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
@@ -540,17 +565,15 @@ private int index=-1;
         // TODO add your handling code here:
         String ma = txtMa.getText();
         List<NhanVien> list1;
-        
-        if(ma.isEmpty()){
-            
-          
+
+        if (ma.isEmpty()) {
+
             list1 = service.getAll();
-           
-            
-        }else{
+
+        } else {
             model.setRowCount(0);
-            list1=service.timKiem(ma);
-            
+            list1 = service.timKiem(ma);
+
         }
         for (NhanVien nhanVien : list1) {
             model.addRow(nhanVien.toDataRow());
@@ -562,96 +585,18 @@ private int index=-1;
         new NhanVienVoHieuDiaLog(null, true).setVisible(true);
     }//GEN-LAST:event_btnDSVHActionPerformed
 
-    private void btnInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInActionPerformed
+    private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
         // TODO add your handling code here:
-                                                 
-        // TODO add your handling code here:
-          try {
-            XSSFWorkbook workbook = new XSSFWorkbook();
-            XSSFSheet sheet = workbook.createSheet("Danhsach");
-            XSSFRow row = null;
-            Cell cell = null;
-            row = sheet.createRow(3);
-            cell = row.createCell(0, CellType.STRING);
-            cell.setCellValue("Mã NV");
-            cell = row.createCell(1, CellType.STRING);
-            cell.setCellValue("Họ và tên");
-            cell = row.createCell(2, CellType.STRING);
-            cell.setCellValue("Giới Tính");
-            cell = row.createCell(3, CellType.STRING);
-            cell.setCellValue("Năm Sinh");
-            cell = row.createCell(4, CellType.STRING);
-            cell.setCellValue("Quê Quán");
-            cell = row.createCell(5, CellType.STRING);
-            cell.setCellValue("Tài Khoản");
-            cell = row.createCell(6, CellType.STRING);
-            cell.setCellValue("Mật Khẩu");
-            cell = row.createCell(7, CellType.STRING);
-            cell.setCellValue("Vai trò");
-            cell = row.createCell(7, CellType.STRING);
-            cell.setCellValue("SDT");
-            cell = row.createCell(7, CellType.STRING);
-            cell.setCellValue("Email");
-            cell = row.createCell(8, CellType.STRING);
-            cell.setCellValue("Trạng thái");
-            for (int i = 0; i < service.getAll().size(); i++) {
-                row = sheet.createRow(4 + i);
-                cell = row.createCell(0, CellType.STRING);
-                cell.setCellValue(service.getAll().get(i).getMaNV());
+        txtMa.setEnabled(true);
+        this.fillTable(service.getAll());
 
-                cell = row.createCell(1, CellType.STRING);
-                cell.setCellValue(service.getAll().get(i).getTenNV());
+    }//GEN-LAST:event_btnLamMoiActionPerformed
 
-                cell = row.createCell(2, CellType.STRING);
-                cell.setCellValue(service.getAll().get(i).getGioiTinh());
-
-                cell = row.createCell(3, CellType.STRING);
-                cell.setCellValue(service.getAll().get(i).getNgaySinh());
-
-                cell = row.createCell(4, CellType.STRING);
-                cell.setCellValue(service.getAll().get(i).getDiaChi());
-
-                cell = row.createCell(5, CellType.STRING);
-                cell.setCellValue(service.getAll().get(i).getTaiKhoan());
-
-                cell = row.createCell(6, CellType.STRING);
-                cell.setCellValue(service.getAll().get(i).getMatKhau());
-
-                cell = row.createCell(7, CellType.STRING);
-                cell.setCellValue(service.getAll().get(i).getVaiTro());
-                
-                 cell = row.createCell(7, CellType.STRING);
-                cell.setCellValue(service.getAll().get(i).getSdt());
-                
-                 cell = row.createCell(7, CellType.STRING);
-                cell.setCellValue(service.getAll().get(i).getEmail());
-
-                cell = row.createCell(8, CellType.STRING);
-                cell.setCellValue(service.getAll().get(i).getTrangThai());
-
-            }
-            File f = new File("D:\\Du An 1\\banchinh\\Pro1041\\danhsach.xlsx");
-            try {
-                FileOutputStream fis = new FileOutputStream(f);
-                workbook.write(fis);
-                fis.close();
-
-            } catch (FileNotFoundException ex) {
-                ex.printStackTrace();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-JOptionPane.showMessageDialog(this, "In thành công");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    
-    }//GEN-LAST:event_btnInActionPerformed
-
-    private  boolean valiFrom(){
+    private boolean valiFrom() {
         if (Validation.isEmpty(txtMa, "Ma nhan vien khong duoc de trong")) {
             return false;
-        }if (Validation.isEmpty(txtTen, "Ten nhan vien khong duoc de trong")) {
+        }
+        if (Validation.isEmpty(txtTen, "Ten nhan vien khong duoc de trong")) {
             return false;
         }
         if (Validation.isEmpty(txtNamSinh, "Nam sinh nhan vien khong duoc de trong")) {
@@ -659,29 +604,33 @@ JOptionPane.showMessageDialog(this, "In thành công");
         }
         if (Validation.isEmpty(txtSDT, "SDT nhan vien khong duoc de trong")) {
             return false;
-        }if (!Validation.isSDT(txtSDT, "SDT nhan vien khong duoc ghi chu va bat dau bang dau so 09")) {
+        }
+        if (!Validation.isSDT(txtSDT, "SDT nhan vien khong duoc ghi chu va bat dau bang dau so 09")) {
             return false;
         }
         if (Validation.isEmpty(txtMatKhau, "Mat khau nhan vien khong duoc de trong")) {
             return false;
-        }if (Validation.isEmpty(txtQueQuan, "Que quan nhan vien khong duoc de trong")) {
-            return false;
-        }if (Validation.isEmpty(txtTaiKhoan, "Tai khoan nhan vien khong duoc de trong")) {
-            return false;
-        }if (Validation.isEmpty(txtEmail, "Email khong uoc de trong")) {
-            return false;
-        }if (!Validation.isEmailFormat(txtEmail, "Email khong dung dinh dang")) {
+        }
+        if (Validation.isEmpty(txtQueQuan, "Que quan nhan vien khong duoc de trong")) {
             return false;
         }
-       return true;
+        if (Validation.isEmpty(txtTaiKhoan, "Tai khoan nhan vien khong duoc de trong")) {
+            return false;
+        }
+        if (Validation.isEmpty(txtEmail, "Email khong uoc de trong")) {
+            return false;
+        }
+        if (!Validation.isEmailFormat(txtEmail, "Email khong dung dinh dang")) {
+            return false;
+        }
+        return true;
     }
-    
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDSVH;
-    private javax.swing.JButton btnIn;
+    private javax.swing.JButton btnLamMoi;
     private javax.swing.JButton btnTimKiem;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JButton btnXoa;

@@ -11,8 +11,9 @@ import java.util.Arrays;
  * @author Surface
  */
 public class NhanVien {
-    String  maNV,vaiTro;
-    String tenNV, ngaySinh,gioiTinh,diaChi,sdt,taiKhoan,matKhau, email,trangThai;
+
+    String maNV, vaiTro;
+    String tenNV, ngaySinh, gioiTinh, diaChi, sdt, taiKhoan, matKhau, email, trangThai;
 
     public NhanVien() {
     }
@@ -124,24 +125,17 @@ public class NhanVien {
         return "NhanVien{" + "maNV=" + maNV + ", vaiTro=" + vaiTro + ", tenNV=" + tenNV + ", ngaySinh=" + ngaySinh + ", gioiTinh=" + gioiTinh + ", diaChi=" + diaChi + ", sdt=" + sdt + ", taiKhoan=" + taiKhoan + ", matKhau=" + matKhau + ", email=" + email + ", trangThai=" + trangThai + '}';
     }
 
-    
-    
-    
-    
-    
-      
     public Object[] toDataRow() {
-       
-        Object[] dataRow = Arrays.copyOf(new Object[]{this.maNV, this.tenNV, this.gioiTinh, this.ngaySinh, this.diaChi, this.sdt, this.taiKhoan, this.matKhau, this.vaiTro,this.email,this.trangThai}, 11);
-        
+
+        Object[] dataRow = Arrays.copyOf(new Object[]{this.maNV, this.tenNV, this.gioiTinh, this.ngaySinh, this.diaChi, this.sdt, this.taiKhoan, this.matKhau, this.vaiTro.equals("1") ? "Quản lý" : "Nhân viên", this.email, this.trangThai.equals("1") ? "Hoạt động" : "Ngừng hoạt động"}, 11);
+
         dataRow[7] = encryptMatKhau(this.matKhau);
         return dataRow;
     }
 
     private String encryptMatKhau(String matKhau) {
-       
+
         return "********";
     }
-    
-   
+
 }

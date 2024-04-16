@@ -57,8 +57,8 @@ public class HoaDonImpl implements HoaDonService {
     public void addHoaDon(HoaDon hd) {
         try {
             String sql = "INSERT INTO HoaDon\n"
-                    + "             (ngayTao, maNV, idKH, trangThai)\n"
-                    + "VALUES (?,?,?,?)";
+                    + "             (ngayTao, maNV, idKH, trangThai,tongTienHD)\n"
+                    + "VALUES (?,?,?,?,0)";
             Connection conn = DBconnect.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, hd.getNgayTao());
@@ -76,15 +76,15 @@ public class HoaDonImpl implements HoaDonService {
     public void upDateHoaDon(HoaDon hd) {
         try {
             String sql = "UPDATE HoaDon\n"
-                    + "SET       ngayTao =?, maNV =?, idKH =?, maVoucher =?, trangThai =? where idHD=?";
+                    + "SET  trangThai =?, maNV =?,  maVoucher =?,tongTienHD=? where idHD=?";
             Connection conn = DBconnect.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, hd.getNgayTao());
             ps.setString(2, hd.getMaNV());
-            ps.setInt(3, hd.getIdKH());
-            ps.setString(4, hd.getMaVoucher());
-            ps.setString(5, hd.getTrangThai());
-            ps.setInt(6, hd.getIdHD());
+            ps.setString(3, hd.getMaVoucher());
+            ps.setString(1, hd.getTrangThai());
+            ps.setDouble(4, hd.getTongTienHD());
+            ps.setInt(5, hd.getIdHD());
+            
             ps.executeUpdate();
             conn.close();
 

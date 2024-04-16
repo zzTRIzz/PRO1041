@@ -2,50 +2,48 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
-package gui.admin;
+package gui.nhanvien;
 
-import Interface.SanPhamCTImpl;
-import Service.SanPhamCTService;
+import gui.admin.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.SanPhamCT;
 import Interface.*;
+import Service.VoucherService;
+import model.Voucher;
 
 /**
  *
  * @author Ngo Nhan
  */
-public class SanPhanAnDialog extends javax.swing.JDialog {
+public class VoucherDialog extends javax.swing.JDialog {
 
-    SanPhamCTImpl svSpct = new SanPhamCTService();
+    VoucherService svVC = new VoucherService();
     DefaultTableModel defaultTableModel;
 
     /**
      * Creates new form SanPhanAn
      */
-    public SanPhanAnDialog(java.awt.Frame parent, boolean modal) {
+    public VoucherDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null);
-        loadDataLSP();
+        loadDataVoucher();
     }
 
-    void loadDataLSP() {
-        defaultTableModel = (DefaultTableModel) tblSPAn.getModel();
+    void loadDataVoucher() {
+        defaultTableModel = (DefaultTableModel) tblVoucher.getModel();
         defaultTableModel.setRowCount(0);
-        for (SanPhamCT spct : svSpct.getAllSPAn()) {
+        for (Voucher voucher : svVC.getVoucherHD()) {
             defaultTableModel.addRow(new Object[]{
-                spct.getIdSP(),
-                spct.getMaSP(),
-                spct.getTenSP(),
-                spct.getTenMS(),
-                spct.getTenSize(),
-                spct.getTenTH(),
-                spct.getTenCL(),
-                spct.getSoLuong(),
-                spct.getGiaNhap(),
-                spct.getGiaBan(),
-                spct.getTrangThai(),});
+                voucher.getMaVC(),
+                voucher.getTenVC(),
+                voucher.getGiamTheoGia(),
+                voucher.getDkAD(),
+                voucher.getNgayBatDau(),
+                voucher.getNgayKetThuc(),
+                voucher.getTrangThai()
+
+            });
         }
     }
 
@@ -60,28 +58,27 @@ public class SanPhanAnDialog extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblSPAn = new javax.swing.JTable();
-        btnReset = new javax.swing.JButton();
+        tblVoucher = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách sản phẩn ẩn", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Noto Sans", 1, 14), new java.awt.Color(20, 70, 128))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách Voucher áp dụng", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Noto Sans", 1, 14), new java.awt.Color(20, 70, 128))); // NOI18N
 
-        tblSPAn.setModel(new javax.swing.table.DefaultTableModel(
+        tblVoucher.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "STT", "Mã SP", "Tên SP", "Màu sắc", "Size", "Thương hiệu", "Chất liệu", "Số lượng", "Giá nhập ", "Giá bán", "Trạng thái"
+                "Mã Voucher", "Tên Voucher", "Giảm giá", "Điều kiện AD", "Ngày BĐ", "Ngày KT", "Trạng thái"
             }
         ));
-        jScrollPane1.setViewportView(tblSPAn);
+        jScrollPane1.setViewportView(tblVoucher);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 828, Short.MAX_VALUE)
+            .addGap(0, 838, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addContainerGap()
@@ -98,13 +95,6 @@ public class SanPhanAnDialog extends javax.swing.JDialog {
                     .addContainerGap()))
         );
 
-        btnReset.setText("Hiện thị lại");
-        btnReset.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnResetActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -113,42 +103,17 @@ public class SanPhanAnDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnReset)
-                .addGap(15, 15, 15))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnReset)
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
-        // TODO add your handling code here:
-        int row = tblSPAn.getSelectedRow();
-
-        String trangThai = "Hoạt động";
-        if (row >= 0) {
-            SanPhamCT spct = svSpct.getRow(row);
-            int idSp = spct.getIdSP();
-            int option = JOptionPane.showConfirmDialog(null, "Bạn có muốn bỏ ẩn sản phẩm không?", "Sản phẩm ẩn", JOptionPane.YES_NO_OPTION);
-            if (option == JOptionPane.YES_OPTION) {
-                svSpct.upDateTrangThai(trangThai, idSp);
-                JOptionPane.showMessageDialog(this, "Chuyển sản phẩm thành công");
-                loadDataLSP();
-            }
-        }else{
-            JOptionPane.showMessageDialog(this, "Chọn sản phẩm trong danh sách");
-        }
-    }//GEN-LAST:event_btnResetActionPerformed
 
     /**
      * @param args the command line arguments
@@ -167,21 +132,23 @@ public class SanPhanAnDialog extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SanPhanAnDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VoucherDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SanPhanAnDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VoucherDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SanPhanAnDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VoucherDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SanPhanAnDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VoucherDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                SanPhanAnDialog dialog = new SanPhanAnDialog(new javax.swing.JFrame(), true);
+                VoucherDialog dialog = new VoucherDialog(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -194,9 +161,8 @@ public class SanPhanAnDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnReset;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblSPAn;
+    private javax.swing.JTable tblVoucher;
     // End of variables declaration//GEN-END:variables
 }

@@ -29,7 +29,7 @@ public class Main_NhanVien extends javax.swing.JFrame {
     public Main_NhanVien() {
         initComponents();
         init();
-        trang2();
+//        trang2();
     }
 
     private void init() {
@@ -39,7 +39,7 @@ public class Main_NhanVien extends javax.swing.JFrame {
 
     void trang1() {
         System.out.println("Truy cap menu : 1");
-        DesktopPane.removeAll();
+        ui_custom.disposeAllFrame(DesktopPane);
         TrangSP_nv trang1 = new TrangSP_nv();
         trang1.setSize(DesktopPane.getSize());
         DesktopPane.add(trang1).setVisible(true);
@@ -82,6 +82,7 @@ public class Main_NhanVien extends javax.swing.JFrame {
         lblTen = new javax.swing.JLabel();
         menu2 = new javax.swing.JLabel();
         DesktopPane = new javax.swing.JDesktopPane();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -186,15 +187,32 @@ public class Main_NhanVien extends javax.swing.JFrame {
         DesktopPane.setMaximumSize(new java.awt.Dimension(1140, 700));
         DesktopPane.setMinimumSize(new java.awt.Dimension(1140, 700));
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/81523971330103.5bc17fa17a0ef.jpg"))); // NOI18N
+        jLabel1.setMaximumSize(new java.awt.Dimension(1140, 1318));
+        jLabel1.setMinimumSize(new java.awt.Dimension(1140, 1318));
+        jLabel1.setPreferredSize(new java.awt.Dimension(1140, 1318));
+
+        DesktopPane.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout DesktopPaneLayout = new javax.swing.GroupLayout(DesktopPane);
         DesktopPane.setLayout(DesktopPaneLayout);
         DesktopPaneLayout.setHorizontalGroup(
             DesktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 1140, Short.MAX_VALUE)
+            .addGroup(DesktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(DesktopPaneLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         DesktopPaneLayout.setVerticalGroup(
             DesktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 700, Short.MAX_VALUE)
+            .addGap(0, 1318, Short.MAX_VALUE)
+            .addGroup(DesktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(DesktopPaneLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         background.add(DesktopPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 0, -1, -1));
@@ -255,6 +273,7 @@ public class Main_NhanVien extends javax.swing.JFrame {
     private javax.swing.JDesktopPane DesktopPane;
     private javax.swing.JPanel background;
     private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
