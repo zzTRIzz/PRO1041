@@ -1006,6 +1006,10 @@ public class TrangBanHang extends javax.swing.JInternalFrame implements  QRCodeL
 
             int option = JOptionPane.showConfirmDialog(null, "Bạn có muốn thanh hóa đơn: " + maHD + " không?", "Thanh toán hóa đơn", JOptionPane.YES_NO_OPTION);
             if (option == JOptionPane.YES_OPTION) {
+                if (txttienKhachDua.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Chưa nhập tiền khách đưa");
+                    return;
+                }
                 if (tienThua >= 0) {
                     svHd.upDateHoaDon(new HoaDon(trangThai, maNV, maVoucher, tienCanTra, idHD));
                     txtSDT.setText("");
