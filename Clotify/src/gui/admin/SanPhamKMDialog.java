@@ -38,13 +38,15 @@ public class SanPhamKMDialog extends javax.swing.JDialog {
         for (SanPhamKM spct : spkm.getSPKM(checkmaKM,trangThai)) {
             defaultTableModel.addRow(new Object[]{
                 spct.getIdSP(),
-                spct.getMaSP(),
-                spct.getLoaiSP(),
-                spct.getTenSP(),
+                spct.getMaSP(),                
                 spct.getThuongHieu(),
                 spct.getSize(),
                 spct.getChatLieu(),
-                spct.getMauSac(),});
+                spct.getMauSac(),
+                spct.getGiaNhap(),
+                spct.getGiaBan(),
+                spct.giaSauKM()
+            });
         }
 
     }
@@ -56,12 +58,14 @@ public class SanPhamKMDialog extends javax.swing.JDialog {
             defaultTableModel.addRow(new Object[]{
                 spct.getIdSP(),
                 spct.getMaSP(),
-                spct.getLoaiSP(),
-                spct.getTenSP(),
                 spct.getThuongHieu(),
                 spct.getSize(),
                 spct.getChatLieu(),
-                spct.getMauSac(),});
+                spct.getMauSac(),
+                spct.getGiaNhap(),
+                spct.getGiaBan(),
+                spct.giaSauKM()
+            });
         }
 
     }
@@ -97,17 +101,17 @@ public class SanPhamKMDialog extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(850, 360));
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Danh sách sản phẩm khuyến mãi"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách sản phẩm khuyến mãi", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Noto Sans", 1, 12), new java.awt.Color(20, 70, 128))); // NOI18N
 
         tblSPKM.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "STT", "Mã SP", "Loại SP", "Tên SP", "Thương hiệu", "Size ", "Chất liệu", "Màu sắc"
+                "STT", "Mã SP", "Thương hiệu", "Size ", "Chất liệu", "Màu sắc", "Giá nhập", "Giá bán", "Giá bán giảm"
             }
         ));
         jScrollPane1.setViewportView(tblSPKM);
@@ -136,28 +140,28 @@ public class SanPhamKMDialog extends javax.swing.JDialog {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(246, Short.MAX_VALUE)
+                .addContainerGap(245, Short.MAX_VALUE)
                 .addComponent(btnHuy)
                 .addContainerGap())
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 45, Short.MAX_VALUE)))
+                    .addGap(0, 44, Short.MAX_VALUE)))
         );
 
         jTabbedPane1.addTab("Sản phẩm áp dụng", jPanel1);
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Danh sách sản phẩm hủy khuyến mãi"));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách sản phẩm hủy khuyến mãi", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Noto Sans", 1, 12), new java.awt.Color(20, 70, 128))); // NOI18N
 
         tblSPHuy.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "STT", "Mã SP", "Loại SP", "Tên SP", "Thương hiệu", "Size ", "Chất liệu", "Màu sắc"
+                "STT", "Mã SP", "Thương hiệu", "Size ", "Chất liệu", "Màu sắc", "Giá nhập", "Giá bán", "Giá bán giảm"
             }
         ));
         jScrollPane2.setViewportView(tblSPHuy);
@@ -186,13 +190,13 @@ public class SanPhamKMDialog extends javax.swing.JDialog {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(246, Short.MAX_VALUE)
+                .addContainerGap(245, Short.MAX_VALUE)
                 .addComponent(btnBoHuy)
                 .addContainerGap())
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 45, Short.MAX_VALUE)))
+                    .addGap(0, 44, Short.MAX_VALUE)))
         );
 
         jTabbedPane1.addTab("Hủy áp dụng", jPanel2);
@@ -293,6 +297,8 @@ public class SanPhamKMDialog extends javax.swing.JDialog {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(SanPhamKMDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 

@@ -13,10 +13,10 @@ import model.SanPhamKM;
  */
 public interface SanPhamKMInterface {
     List<SanPhamKM> getSanPhamKM();
-    void addSPKM(SanPhamKM spkm);
+    void addSPKM(int idSP, String maKM, String trangThai,String ngayBatDau);
     SanPhamKM getRow(int row);
     List<SanPhamKM> searchIDSP(String maKM);
     List<SanPhamKM> getSPKM(String maKM, String trangThai);
-    void addSPKMKT(int idSP, String maKM, String trangThai);
+    void addSPKMKT(int idSP, String maKM, String trangThai,String ngayBatDau);
     void update(int idSPKM,String trangThai);
 }

@@ -4,16 +4,20 @@
  */
 package gui.admin;
 
-
-
-
+import Service.KhuyenMaiService;
 import Service.TaiKhoanService;
+import Service.VoucherService;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.intellijthemes.FlatLightFlatIJTheme;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import javax.swing.*;
+
 /**
  *
  * @author ADMIN
@@ -23,6 +27,8 @@ public class Main_admin extends javax.swing.JFrame {
     /**
      * Creates new form Main
      */
+KhuyenMaiService svKM = new KhuyenMaiService();
+VoucherService svVC = new VoucherService();
     public Main_admin() {
         initComponents();
         init();
@@ -32,7 +38,19 @@ public class Main_admin extends javax.swing.JFrame {
     private void init() {
         setLocationRelativeTo(null);
         lblTen.setText(TaiKhoanService.layThongTin_tenNV());
+        new Timer(60000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
 
+                LocalDateTime ngayQuyetDinh = LocalDateTime.now();
+                DateTimeFormatter dinhDang = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                String thoiGianQD = ngayQuyetDinh.format(dinhDang);
+                svKM.updateTrangThaiCoupon3();
+                svKM.updateTrangThaiCoupon2(thoiGianQD);
+                svVC.updateTrangThai();
+                svVC.updateTrangThaiVoucher();
+            }
+        }).start();
     }
 
     void trang1() {
@@ -57,21 +75,20 @@ public class Main_admin extends javax.swing.JFrame {
         TrangHoaDon trang3 = new TrangHoaDon();
         DesktopPane.add(trang3).setVisible(true);
     }
-    
+
     void trang4() {
         System.out.println("Truy cap menu : 4");
         ui_custom.disposeAllFrame(DesktopPane);
         TrangKhuyenMai trang4 = new TrangKhuyenMai();
         DesktopPane.add(trang4).setVisible(true);
     }
+
     void trang5() {
         System.out.println("Truy cap menu : 5");
         ui_custom.disposeAllFrame(DesktopPane);
         TrangThongKe trang5 = new TrangThongKe();
         DesktopPane.add(trang5).setVisible(true);
     }
-    
-
 
     /**
      * This method is called from within the constructor to initialize the form.

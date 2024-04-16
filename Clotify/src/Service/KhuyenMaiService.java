@@ -18,6 +18,7 @@ import model.SanPhamCT;
  * @author Dell
  */
 public class KhuyenMaiService {
+
     List<KhuyenMai> list = new ArrayList<>();
 
     public List<KhuyenMai> getKhuyenMaiCT() {
@@ -245,7 +246,7 @@ public class KhuyenMaiService {
         String sql = "update KhuyenMai set ngayKetThuc=?,giamTheoPT=?, maNV=? where maKM =?";
         try {
             Connection conn = DBconnect.getConnection();
-            PreparedStatement stm = conn.prepareStatement(sql);           
+            PreparedStatement stm = conn.prepareStatement(sql);
             stm.setString(1, km.getNgayKetThuc());
             stm.setInt(2, km.getGiamTheoPT());
             stm.setString(3, km.getMaNV());
@@ -256,16 +257,35 @@ public class KhuyenMaiService {
             e.printStackTrace();
         }
     }
+
     public void updateKhuyenMai2(KhuyenMai km) {
         String sql = "update KhuyenMai set ngayKetThuc=?,giamTheoPT=?, maNV=?,ngayTao=? where maKM =?";
         try {
             Connection conn = DBconnect.getConnection();
-            PreparedStatement stm = conn.prepareStatement(sql);           
+            PreparedStatement stm = conn.prepareStatement(sql);
             stm.setString(1, km.getNgayKetThuc());
             stm.setInt(2, km.getGiamTheoPT());
             stm.setString(3, km.getMaNV());
             stm.setString(4, km.getNgayTao());
             stm.setString(5, km.getMaKM());
+            stm.executeUpdate();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateKhuyenMai3(KhuyenMai km) {
+        String sql = "update KhuyenMai set ngayKetThuc=?,giamTheoPT=?, maNV=?,ngayTao=?,trangThai =? where maKM =?";
+        try {
+            Connection conn = DBconnect.getConnection();
+            PreparedStatement stm = conn.prepareStatement(sql);
+            stm.setString(1, km.getNgayKetThuc());
+            stm.setInt(2, km.getGiamTheoPT());
+            stm.setString(3, km.getMaNV());
+            stm.setString(4, km.getNgayTao());
+            stm.setString(5, "Chưa áp dụng");
+            stm.setString(6, km.getMaKM());
             stm.executeUpdate();
             conn.close();
         } catch (Exception e) {
@@ -302,10 +322,11 @@ public class KhuyenMaiService {
             e.printStackTrace();
         }
     }
+
     public void updateTrangThaiCoupon2(String ngayQuyetDinh) {
         String sql = "UPDATE  KhuyenMai\n"
                 + "SET          trangThai =?,ngayQuyetDinh =? \n"
-                + "WHERE NgayTao <= getdate() and NgayKetThuc >=getdate() ";
+                + "WHERE NgayTao <= getdate() and NgayKetThuc >=getdate() AND (trangThai = N'Hết hạn' OR trangThai = N'Chưa áp dụng') ";
         try {
             Connection conn = DBconnect.getConnection();
             PreparedStatement stm = conn.prepareStatement(sql);
@@ -317,6 +338,7 @@ public class KhuyenMaiService {
             e.printStackTrace();
         }
     }
+
     public List<KhuyenMai> getKhuyenMaiTT(String trangThai) {
         list.clear();
         try {
@@ -325,7 +347,7 @@ public class KhuyenMaiService {
                     + "                 NhanVien ON KhuyenMai.maNV = NhanVien.maNV where KhuyenMai.trangThai=?";
             Connection conn = DBconnect.getConnection();
             PreparedStatement stm = conn.prepareStatement(sql);
-            stm.setString(1, trangThai);     
+            stm.setString(1, trangThai);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 KhuyenMai km = new KhuyenMai();
@@ -344,7 +366,32 @@ public class KhuyenMaiService {
             e.printStackTrace();
         }
         return list;
+
     }
 
-    
+    public List<KhuyenMai> checkSPKM(int idSP, String ngayBatDau) {
+        String sql = "SELECT SanPhamKM.maKM, KhuyenMai.ngayTao\n"
+                + "FROM      KhuyenMai INNER JOIN\n"
+                + "                 SanPhamKM ON KhuyenMai.maKM = SanPhamKM.maKM\n"
+                + "WHERE    SanPhamKM.idSP =? and KhuyenMai.ngayTao =?";
+        list.clear();
+        try {
+            Connection conn = DBconnect.getConnection();
+            PreparedStatement stm = conn.prepareStatement(sql);
+            stm.setInt(1, idSP);
+            stm.setString(2, ngayBatDau);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                KhuyenMai km = new KhuyenMai();
+                km.setMaKM(rs.getString(1));
+                km.setNgayTao(rs.getString(2));
+                
+                list.add(km);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
 }

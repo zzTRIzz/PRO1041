@@ -60,7 +60,7 @@ public class TrangSP extends javax.swing.JInternalFrame {
     ThuocTinhImpl svTT = new ThuocTinhService();
     SanPhamService svSP = new SanPhamImpl();
     LichSuGiaService lsg = new LichSuGiaImpl();
-
+    String trangThaiTT = "Hoạt động";
     String thoiGian;
     String strHinhAnh = null;
 
@@ -111,7 +111,7 @@ public class TrangSP extends javax.swing.JInternalFrame {
     void LoadComBoMS() {
         cboMauSac.removeAllItems();
 
-        for (MauSac allM : svTT.getAllMs()) {
+        for (MauSac allM : svTT.getAllMs(trangThaiTT)) {
             cboMauSac.addItem(allM.getTenMS());
         }
     }
@@ -119,7 +119,7 @@ public class TrangSP extends javax.swing.JInternalFrame {
     void LoadComBoCL() {
         cboChatLieu.removeAllItems();
 
-        for (ChatLieu cl : svTT.getAllCl()) {
+        for (ChatLieu cl : svTT.getAllCl(trangThaiTT)) {
             cboChatLieu.addItem(cl.getTenCL());
         }
     }
@@ -127,7 +127,7 @@ public class TrangSP extends javax.swing.JInternalFrame {
     void LoadComBoSize() {
         cboSize.removeAllItems();
 
-        for (Size size : svTT.getAllSize()) {
+        for (Size size : svTT.getAllSize(trangThaiTT)) {
             cboSize.addItem(size.getTenSize());
         }
     }
@@ -135,7 +135,7 @@ public class TrangSP extends javax.swing.JInternalFrame {
     void LoadComBoTH() {
         cboTH.removeAllItems();
 
-        for (ThuongHieu th : svTT.getAllTh()) {
+        for (ThuongHieu th : svTT.getAllTh(trangThaiTT)) {
             cboTH.addItem(th.getTenTH());
         }
     }
@@ -201,7 +201,7 @@ public class TrangSP extends javax.swing.JInternalFrame {
 
     void loadDataMS() {
         modeltt.setRowCount(0);
-        for (MauSac ms : svTT.getAllMs()) {
+        for (MauSac ms : svTT.getAllMs(trangThaiTT)) {
             Object[] row = new Object[]{
                 ms.getIdMS(),
                 ms.getMaMS(),
@@ -214,7 +214,7 @@ public class TrangSP extends javax.swing.JInternalFrame {
 
     void loadDataSize() {
         modeltt.setRowCount(0);
-        for (Size size : svTT.getAllSize()) {
+        for (Size size : svTT.getAllSize(trangThaiTT)) {
             Object[] row = new Object[]{
                 size.getIdSize(),
                 size.getMaSize(),
@@ -227,7 +227,7 @@ public class TrangSP extends javax.swing.JInternalFrame {
 
     void loadDataCL() {
         modeltt.setRowCount(0);
-        for (ChatLieu cl : svTT.getAllCl()) {
+        for (ChatLieu cl : svTT.getAllCl(trangThaiTT)) {
             Object[] row = new Object[]{
                 cl.getIdCL(),
                 cl.getMaCL(),
@@ -240,7 +240,7 @@ public class TrangSP extends javax.swing.JInternalFrame {
 
     void loadDataTH() {
         modeltt.setRowCount(0);
-        for (ThuongHieu th : svTT.getAllTh()) {
+        for (ThuongHieu th : svTT.getAllTh(trangThaiTT)) {
             Object[] row = new Object[]{
                 th.getIdTH(),
                 th.getMaTH(),
@@ -434,6 +434,7 @@ public class TrangSP extends javax.swing.JInternalFrame {
         jPanel8 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbThuocTinh = new javax.swing.JTable();
+        btnTTAn = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(153, 255, 153));
         setBorder(null);
@@ -889,13 +890,22 @@ public class TrangSP extends javax.swing.JInternalFrame {
         ));
         jScrollPane2.setViewportView(tbThuocTinh);
 
+        btnTTAn.setText("Danh sách TT ẩn");
+        btnTTAn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTTAnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 908, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnTTAn)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 908, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(148, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
@@ -903,7 +913,9 @@ public class TrangSP extends javax.swing.JInternalFrame {
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(130, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnTTAn)
+                .addContainerGap(101, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -1001,26 +1013,62 @@ public class TrangSP extends javax.swing.JInternalFrame {
 
     private void btThemThuocTinhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btThemThuocTinhActionPerformed
         // TODO add your handling code here:
-
+        int count;
         if (txtTenTT.equals("")) {
             JOptionPane.showMessageDialog(this, "Tên thuộc tính không trống");
             return;
         } else {
-            if (rdMauSac.isSelected()) {
-                svTT.addMauSac(getFormMs());
-                loadDataMS();
-            } else if (rdChatLieu.isSelected()) {
-                svTT.addChatLieu(getFormCl());
+            String tenTT = txtTenTT.getText();
+            
+            if (rdMauSac.isSelected()==true) {
+                count =svTT.getListMS(tenTT).size();
+                if (count == 0) {
+                    svTT.addMauSac(getFormMs());
+                    loadDataMS();
+                    LoadComBoMS();
+                    cboMauSac.setSelectedIndex(-1);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Thuộc tính đã tồn tại");
+                }
+
+            } 
+            if (rdChatLieu.isSelected()==true) {
+                count =svTT.getListCL(tenTT).size();
+                if (count == 0) {
+                    svTT.addChatLieu(getFormCl());
 //                cboChatLieu.addItem(ms);
-                loadDataCL();
-            } else if (rdSize.isSelected()) {
-                svTT.addSize(getFormSize());
+                    loadDataCL();
+                    LoadComBoCL();
+                    cboChatLieu.setSelectedIndex(-1);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Thuộc tính đã tồn tại");
+                }
+
+            } 
+            if (rdSize.isSelected()==true) {
+                count =svTT.getListSize(tenTT).size();
+                if (count == 0) {
+                    svTT.addSize(getFormSize());
 //                cboSize.addItem(ms);
-                loadDataSize();
-            } else if (rdThuongHieu.isSelected()) {
-                svTT.addThuongHieu(getFormTh());
+                    loadDataSize();
+                    LoadComBoSize();
+                    cboSize.setSelectedIndex(-1);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Thuộc tính đã tồn tại");
+                }
+            }
+            if (rdThuongHieu.isSelected()==true) {
+                count =svTT.getListTH(tenTT).size();
+                if (count == 0) {
+                    svTT.addThuongHieu(getFormTh());
 //                cboTH.addItem(ms);
-                loadDataTH();
+                    loadDataTH();
+                    LoadComBoTH();
+                    cboTH.setSelectedIndex(-1);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Thuộc tính đã tồn tại");
+                }
+
             }
         }
     }//GEN-LAST:event_btThemThuocTinhActionPerformed
@@ -1093,6 +1141,24 @@ public class TrangSP extends javax.swing.JInternalFrame {
         String maSP = txtMaSP.getText();
         String ngayNhap = thoiGian;
         String maNV = TaiKhoanService.maNV;
+        String tenMS = (String) cboMauSac.getSelectedItem();
+        System.out.println("ten MS" + tenMS);
+        String tenCL = (String) cboChatLieu.getSelectedItem();
+        String tenTH = (String) cboTH.getSelectedItem();
+        String tenSize = (String) cboSize.getSelectedItem();
+        int idMS = 0;
+        int idCL = 0;
+        int idTH = 0;
+        int idSize = 0;
+        MauSac ms = svTT.getMS(tenMS);
+        idMS = ms.getIdMS();
+        ChatLieu cl = svTT.getCL(tenCL);
+        idCL = cl.getIdCL();
+        ThuongHieu th = svTT.getTH(tenTH);
+        idTH = th.getIdTH();
+        Size size = svTT.getSize(tenSize);
+        idSize = size.getIdSize();
+
         // add SanPham
         if (maSP.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Mã sản phẩm không trống");
@@ -1118,25 +1184,24 @@ public class TrangSP extends javax.swing.JInternalFrame {
                 hinhAnh = strHinhAnh;
             }
 
-            int idCL = cboChatLieu.getSelectedIndex() + 1;
             if (idCL == 0) {
                 JOptionPane.showMessageDialog(this, "Sản phẩm chưa chọn chất liệu");
                 return;
             }
             System.out.println(idCL);
-            int idMS = cboMauSac.getSelectedIndex() + 1;
+
             System.out.println(idMS);
             if (idMS == 0) {
                 JOptionPane.showMessageDialog(this, "Sản phẩm chưa chọn màu sắc");
                 return;
             }
-            int idTH = cboTH.getSelectedIndex() + 1;
+
             if (idTH == 0) {
                 JOptionPane.showMessageDialog(this, "Sản phẩm chưa chọn thương hiệu");
                 return;
             }
             System.out.println(idTH);
-            int idSize = cboSize.getSelectedIndex() + 1;
+
             System.out.println(idSize);
             if (idSize == 0) {
                 JOptionPane.showMessageDialog(this, "Sản phẩm chưa chọn size");
@@ -1357,7 +1422,108 @@ public class TrangSP extends javax.swing.JInternalFrame {
 
     private void btAnTTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAnTTActionPerformed
         // TODO add your handling code here:
+        int row = tbThuocTinh.getSelectedRow();
+        String trangThai = "Không hoạt động";
+        // mau sac
+        if (rdMauSac.isSelected() == true) {
+            if (row >= 0) {
+                MauSac ms = svTT.getRowMS(row);
+                int idMS = ms.getIdMS();
+                int option = JOptionPane.showConfirmDialog(null, "Bạn có muốn ẩn không?", "Thuộc tính sản phẩm", JOptionPane.YES_NO_OPTION);
+                if (option == JOptionPane.YES_OPTION) {
+                    JOptionPane.showMessageDialog(this, "Ẩn thành công");
+                    svTT.updateMS(idMS, trangThai);
+                    loadDataMS();
+                    LoadComBoMS();
+                    cboMauSac.setSelectedIndex(-1);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Chọn thuộc tính để ẩn");
+            }
+        }
+        //chat lieu
+        if (rdChatLieu.isSelected() == true) {
+            if (row >= 0) {
+                ChatLieu cl = svTT.getRowCL(row);
+                int idCL = cl.getIdCL();
+                int option = JOptionPane.showConfirmDialog(null, "Bạn có muốn ẩn không?", "Thuộc tính sản phẩm", JOptionPane.YES_NO_OPTION);
+                if (option == JOptionPane.YES_OPTION) {
+                    JOptionPane.showMessageDialog(this, "Ẩn thành công");
+                    svTT.updateCL(idCL, trangThai);
+                    loadDataCL();
+                    LoadComBoCL();
+                    cboChatLieu.setSelectedIndex(-1);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Chọn thuộc tính để ẩn");
+            }
+        }
+        //thuong hieu
+        if (rdThuongHieu.isSelected() == true) {
+            if (row >= 0) {
+                ThuongHieu th = svTT.getRowTH(row);
+                int idTH = th.getIdTH();
+                int option = JOptionPane.showConfirmDialog(null, "Bạn có muốn ẩn không?", "Thuộc tính sản phẩm", JOptionPane.YES_NO_OPTION);
+                if (option == JOptionPane.YES_OPTION) {
+                    JOptionPane.showMessageDialog(this, "Ẩn thành công");
+
+                    svTT.updateTH(idTH, trangThai);
+                    loadDataTH();
+                    LoadComBoTH();
+                    cboTH.setSelectedIndex(-1);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Chọn thuộc tính để ẩn");
+            }
+        }
+        //size
+        if (rdSize.isSelected() == true) {
+            if (row >= 0) {
+                Size size = svTT.getRowSize(row);
+                int idSize = size.getIdSize();
+                int option = JOptionPane.showConfirmDialog(null, "Bạn có muốn ẩn không?", "Thuộc tính sản phẩm", JOptionPane.YES_NO_OPTION);
+                if (option == JOptionPane.YES_OPTION) {
+                    JOptionPane.showMessageDialog(this, "Ẩn thành công");
+                    svTT.updateSize(idSize, trangThai);
+                    loadDataSize();
+                    LoadComBoSize();
+                    cboSize.setSelectedIndex(-1);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Chọn thuộc tính để ẩn");
+            }
+        }
+
+
     }//GEN-LAST:event_btAnTTActionPerformed
+
+    private void btnTTAnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTTAnActionPerformed
+        // TODO add your handling code here:
+        if (rdChatLieu.isSelected()==true) {
+            new ChatLieuAnDialog(null, true).setVisible(true);
+            
+        }
+        
+        else if (rdSize.isSelected()==true) {
+            new SizeAnDialog(null, true).setVisible(true);
+            
+        }
+        
+       else if (rdMauSac.isSelected()==true) {
+            new MauSacAnDialog(null, true).setVisible(true);
+            
+        }
+        
+       else if (rdThuongHieu.isSelected()==true) {
+            new ThuongHieuAnDialog(null, true).setVisible(true);
+            
+        }
+       else{
+           
+            JOptionPane.showMessageDialog(this, "Chọn loại thuộc tính");
+        
+       }
+    }//GEN-LAST:event_btnTTAnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1371,6 +1537,7 @@ public class TrangSP extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnAnSP;
     private javax.swing.JButton btnLSG;
     private javax.swing.JButton btnSPAn;
+    private javax.swing.JButton btnTTAn;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cboChatLieu;
     private javax.swing.JComboBox<String> cboMauSac;

@@ -6,10 +6,13 @@ package gui.admin;
 
 import Interface.SanPhamKMInterface;
 import Service.KhuyenMaiService;
+import Service.LichSuKMSevice;
 import Service.SanPhamCTService;
 import Service.SanPhamKMService;
 import Service.TaiKhoanService;
 import Service.VoucherService;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.text.ParseException;
@@ -32,8 +35,10 @@ import javax.swing.Icon;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
+import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 import model.KhuyenMai;
+import model.LichSuKM;
 import model.SanPhamCT;
 import model.SanPhamKM;
 import model.Voucher;
@@ -52,7 +57,8 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
     SanPhamCTService svCT = new SanPhamCTService();
     KhuyenMaiService svKM = new KhuyenMaiService();
     VoucherService svVC = new VoucherService();
-    LocalDateTime ngayQuyetDinh = LocalDateTime.now();
+    LichSuKMSevice svLsKM = new LichSuKMSevice();
+//    LocalDateTime ngayQuyetDinh = LocalDateTime.now();
     DateTimeFormatter dinhDang = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     public TrangKhuyenMai() {
@@ -64,9 +70,13 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
         loadDataKhuyenMai();
         loadDataSPCT();
         loadDataVoucher();
-        String thoiGianQD = ngayQuyetDinh.format(dinhDang);
-        svKM.updateTrangThaiCoupon3();
-        svKM.updateTrangThaiCoupon2(thoiGianQD);
+        new Timer(60000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                loadDataKhuyenMai();
+                loadDataVoucher();
+            }
+        }).start();
 
     }
 
@@ -177,6 +187,25 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
 
     }
 
+    LichSuKM getFormLS() {
+        LichSuKM ls = new LichSuKM();
+        ls.setMaKM(txtMaKM.getText());
+        Date ngayBatDauText = txtNgayBatDau.getDate();
+        Date ngayKetThucText = txtNgayKetThuc.getDate();
+        // chuyen doi tu date sang LocalDateTime
+        Instant instantNgayTao = ngayBatDauText.toInstant();
+        LocalDateTime ngayBatDau = instantNgayTao.atZone(ZoneId.systemDefault()).toLocalDateTime();
+        Instant instantKetThuc = ngayKetThucText.toInstant();
+        LocalDateTime ngayKetThuc = instantKetThuc.atZone(ZoneId.systemDefault()).toLocalDateTime();
+
+        String thoiGianBD = ngayBatDau.format(dinhDang);
+        String thoiGianKT = ngayKetThuc.format(dinhDang);
+        ls.setNgayBatDau(thoiGianBD);
+        ls.setNgayKetThuc(thoiGianKT);
+        ls.setPhanTramKM(Integer.parseInt(txtMucGiam.getText()));
+        return ls;
+    }
+
     KhuyenMai getForm() {
         KhuyenMai km = new KhuyenMai();
         Date ngayBatDauText = txtNgayBatDau.getDate();
@@ -275,6 +304,7 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
         jLabel26 = new javax.swing.JLabel();
         rdHetHan = new javax.swing.JRadioButton();
         btnSPKM = new javax.swing.JButton();
+        btnLS = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -480,11 +510,6 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
 
         buttonGroup1.add(rdChuaAD);
         rdChuaAD.setText("Chưa áp dụng");
-        rdChuaAD.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                rdChuaADMouseClicked(evt);
-            }
-        });
         rdChuaAD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rdChuaADActionPerformed(evt);
@@ -516,6 +541,13 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
             }
         });
 
+        btnLS.setText("Lịch sử khuyến mãi");
+        btnLS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLSActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout KhuyenMaiLayout = new javax.swing.GroupLayout(KhuyenMai);
         KhuyenMai.setLayout(KhuyenMaiLayout);
         KhuyenMaiLayout.setHorizontalGroup(
@@ -537,6 +569,8 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
                         .addGroup(KhuyenMaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(KhuyenMaiLayout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btnLS)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnSPKM))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, KhuyenMaiLayout.createSequentialGroup()
                                 .addGroup(KhuyenMaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -587,7 +621,9 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSPKM)
+                .addGroup(KhuyenMaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSPKM)
+                    .addComponent(btnLS))
                 .addGap(67, 67, 67))
         );
 
@@ -896,13 +932,15 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
                     return;
                 }
                 svKM.addKhuyenMai(getForm());
-
+                svLsKM.addLSKM(getFormLS());
             }
         }
         List<SanPhamKM> danhSachSPKM = svSPKM.searchIDSP(maKM);
+        
         int count2 = danhSachSPKM.size();
         System.out.println("count 2:" + count2);
         String trangThaiSPKM = "Hoạt động";
+        
         for (int row = 0; row < tblSPCT.getRowCount(); row++) {
             if (tblSPCT.getModel().getValueAt(row, 7) != null) {
                 Boolean trangThai = (Boolean) tblSPCT.getModel().getValueAt(row, 7);
@@ -910,11 +948,23 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
                     SanPhamCT spct = svCT.getRow(row);
                     System.out.println("row:" + row);
                     int idSP = spct.getIdSP();
+                    List<KhuyenMai> listTrungNgay =svKM.checkSPKM(idSP, ngayBatDau);                   
+                    int count3 =listTrungNgay.size();
+                    if (count3>0) {
+                        JOptionPane.showMessageDialog(this, "Sản phẩm "+idSP+" đã có khuyến mãi");
+                        tblSPCT.getModel().setValueAt(false, row, 7);
+                    }
                     System.out.println("idSP:" + idSP);
+                    
                     if (count2 == 0) {
-                        svSPKM.addSPKM(new SanPhamKM(idSP, maKM, trangThaiSPKM));
+//                        svSPKM.addSPKM(new SanPhamKM(idSP, maKM, trangThaiSPKM));
+                          svSPKM.addSPKM(idSP, maKM, trangThaiSPKM,ngayBatDau);
+                          tblSPCT.getModel().setValueAt(false, row, 7);
+                        
                     } else {
-                        svSPKM.addSPKMKT(idSP, maKM, trangThaiSPKM);
+//                        svSPKM.addSPKMKT(idSP, maKM, trangThaiSPKM);
+                        svSPKM.addSPKMKT(idSP, maKM, trangThaiSPKM,ngayBatDau);
+                        tblSPCT.getModel().setValueAt(false, row, 7);
                     }
                 }
             }
@@ -993,20 +1043,28 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         LocalDateTime now = LocalDateTime.now();
+        int phanTramKM = Integer.parseInt(txtMucGiam.getText());
         String thoiGianNow = dateFormat.format(Date.from(now.atZone(java.time.ZoneId.systemDefault()).toInstant()));
-        // Lấy ngày bắt đầu từ JDateChooser và chuyển đổi sang chuỗi  
+        // Lấy ngày bắt đầu từ JDateChooser và chuyển đổi sang chuỗi
+        // ngayBatDauNew
         String ngayBatDauRest = dateFormat.format(txtNgayBatDau.getDate());
+        // ngayKetThucNew
+        String ngayKetThucRest = dateFormat.format(txtNgayKetThuc.getDate());
         int row = tblKhuyenMai.getSelectedRow();
         if (row >= 0) {
             String maKM = svKM.getRow(row).getMaKM();
             String tenKM = svKM.getRow(row).getTenKM();
 //            String ngayBatDau = svKM.getRow(row).getNgayTao();
             Date ngayBatDauForm;
+            Date ngayKetThucForm;
             try {
                 ngayBatDauForm = dateFormat.parse(svKM.getRow(row).getNgayTao());
+                ngayKetThucForm = dateFormat.parse(svKM.getRow(row).getNgayKetThuc());
                 String ngayBatDau = dateFormat.format(ngayBatDauForm);
+                String ngayKetThuc = dateFormat.format(ngayKetThucForm);
                 System.out.println("ngayBatDau" + ngayBatDau);
                 KhuyenMai km = getForm();
+                LichSuKM ls =getFormLS();
                 km.setMaKM(maKM);
                 if (Valiform()) {
                     if (!txtMaKM.getText().equals(maKM)) {
@@ -1017,33 +1075,39 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
                         JOptionPane.showMessageDialog(this, "Tên khuyến mãi không được thay đổi");
                         return;
                     }
-                    if (ngayBatDau.compareTo(thoiGianNow) <= 0) {
+                    if (ngayBatDau.compareTo(thoiGianNow) <= 0 && ngayKetThuc.compareTo(thoiGianNow) > 0) {
                         System.out.println("ngayBatDauReset" + ngayBatDauRest);
                         if (ngayBatDau.compareTo(ngayBatDauRest) == 0) {
                             svKM.updateKhuyenMai(km);
+                            svLsKM.updateLSKM(ngayBatDauRest, ngayKetThucRest, phanTramKM, maKM, ngayBatDau, ngayKetThuc);
                             loadDataKhuyenMai();
 //                        chỗ này đúng rồi
 
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Ngày bắt đầu không được thay đổi");
+                            Date dateBatDau;
+                            try {
+                                dateBatDau = dateFormat.parse(ngayBatDau);
+                                txtNgayBatDau.setDate(dateBatDau);
+                            } catch (ParseException ex) {
+                                Logger.getLogger(TrangKhuyenMai.class.getName()).log(Level.SEVERE, null, ex);
+                            }
                         }
-                    else {
-                        JOptionPane.showMessageDialog(this, "Ngày bắt đầu không được thay đổi");
-                        Date dateBatDau;
-                        try {
-                            dateBatDau = dateFormat.parse(ngayBatDau);
-                            txtNgayBatDau.setDate(dateBatDau);
-                        } catch (ParseException ex) {
-                            Logger.getLogger(TrangKhuyenMai.class.getName()).log(Level.SEVERE, null, ex);
+                    } else if (ngayBatDau.compareTo(thoiGianNow) < 0 && ngayKetThuc.compareTo(thoiGianNow) < 0) {
+                        if (ngayBatDauRest.compareTo(thoiGianNow) < 0) {
+                            JOptionPane.showMessageDialog(this, "Ngày bắt đầu phải lớn hơn thời gian hiện tại");
+                            return;
                         }
-
-                    }
-
+                        svKM.updateKhuyenMai3(km);
+                        svLsKM.addLSKM(ls);
+                        loadDataKhuyenMai();
                     } else {
-
                         if (ngayBatDauRest.compareTo(thoiGianNow) < 0) {
                             JOptionPane.showMessageDialog(this, "Ngày bắt đầu phải lớn hơn thời gian hiện tại");
                             return;
                         }
                         svKM.updateKhuyenMai2(km);
+                        svLsKM.updateLSKM(ngayBatDauRest, ngayKetThucRest, phanTramKM, maKM, ngayBatDau, ngayKetThuc);
                         loadDataKhuyenMai();
                     }
 
@@ -1056,19 +1120,6 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Chọn 1 khuyến mãi để Update");
         }
     }//GEN-LAST:event_btnSaveMouseClicked
-
-    private void rdChuaADMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rdChuaADMouseClicked
-        // TODO add your handling code here:
-
-        int i = tblKhuyenMai.getSelectedRow();
-        if (i != -1 && rdChuaAD.isSelected()) {
-            model = (DefaultTableModel) tblKhuyenMai.getModel();
-
-            model.setValueAt("Hết khuyến mại", i, 6);
-            String maKM = (String) model.getValueAt(i, 0);
-            svKM.updateTrangThai(maKM, "Hết khuyến mại");
-        }
-    }//GEN-LAST:event_rdChuaADMouseClicked
 
     private void btnThemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMouseClicked
         // TODO add your handling code here:
@@ -1433,10 +1484,26 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
         txtNgayKetThuc.setDate(null);
     }//GEN-LAST:event_btnNewActionPerformed
 
+    private void btnLSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLSActionPerformed
+        // TODO add your handling code here:
+        int row = tblKhuyenMai.getSelectedRow();
+        if (row >= 0) {
+            System.out.println(row);
+            KhuyenMai km = svKM.getRow(row);
+            String maKM = km.getMaKM();
+            LichSuKMDialog kmdialog = new LichSuKMDialog(null, true);
+            kmdialog.setSelectedIndex(maKM);
+            kmdialog.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Bạn chưa chọn khuyến mãi");
+        }
+    }//GEN-LAST:event_btnLSActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel KhuyenMai;
     private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnLS;
     private javax.swing.JButton btnLuu;
     private javax.swing.JButton btnNew;
     private javax.swing.JButton btnSPKM;

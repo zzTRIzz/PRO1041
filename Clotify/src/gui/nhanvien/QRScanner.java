@@ -16,6 +16,12 @@ import com.google.zxing.NotFoundException;
 import com.google.zxing.Result;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.HybridBinarizer;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class QRScanner extends JPanel implements WebcamListener {
 
@@ -39,11 +45,8 @@ public class QRScanner extends JPanel implements WebcamListener {
         panel.setPreferredSize(size);
         panel.setFPSDisplayed(true);
 
-//        JButton toggleButton = new JButton("Mở / tắt");
-//        toggleButton.addActionListener(e -> toggleCamera());
-
         add(panel);
-//        add(toggleButton);
+
     }
 
     public void toggleCamera() {
@@ -87,6 +90,9 @@ public class QRScanner extends JPanel implements WebcamListener {
         System.out.println("Webcam disposed");
     }
 
+    private boolean scanningEnabled = true;
+    private Timer timer;
+
     @Override
     public void webcamImageObtained(WebcamEvent we) {
         BufferedImage image = we.getImage();
@@ -95,13 +101,50 @@ public class QRScanner extends JPanel implements WebcamListener {
 
         try {
             Result result = new MultiFormatReader().decode(bitmap);
-            if (result != null) {
+            if (result != null && scanningEnabled) {
                 String scannedQR = result.getText();
                 lastScannedQR = scannedQR;
-                System.out.println("QR Code detected: " + scannedQR);
+                notifyListeners(scannedQR);
+                scanningEnabled = false; // Tạm dừng quét
+                startTimer(); // Bắt đầu đếm ngược
             }
         } catch (NotFoundException e) {
             // QR Code not found in the image
+        }
+    }
+
+    // Phương thức để bắt đầu đếm ngược
+    private void startTimer() {
+        if (timer != null) {
+            timer.cancel();
+        }
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                // Kích hoạt quét sau 3 giây
+                scanningEnabled = true;
+            }
+        }, 3000); // 3 giây
+    }
+
+    // Khai báo một list các listener
+    private List<QRCodeListener> listeners = new ArrayList<>();
+
+    // Thêm phương thức để đăng ký listener
+    public void addQRCodeListener(QRCodeListener listener) {
+        listeners.add(listener);
+    }
+
+    // Thêm phương thức để gỡ bỏ listener
+    public void removeQRCodeListener(QRCodeListener listener) {
+        listeners.remove(listener);
+    }
+
+    // Phương thức để thông báo cho tất cả các listener
+    private void notifyListeners(String qrCode) {
+        for (QRCodeListener listener : listeners) {
+            listener.onQRCodeScanned(qrCode);
         }
     }
 
@@ -119,7 +162,7 @@ public class QRScanner extends JPanel implements WebcamListener {
     public Webcam getWebcam() {
         return webcam;
     }
-    
+
     public boolean isCameraOpened() {
         return cameraOpened;
     }
