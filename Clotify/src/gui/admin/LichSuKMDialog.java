@@ -4,6 +4,10 @@
  */
 package gui.admin;
 
+import Service.LichSuKMSevice;
+import javax.swing.table.DefaultTableModel;
+import model.LichSuKM;
+
 /**
  *
  * @author Ngo Nhan
@@ -13,9 +17,31 @@ public class LichSuKMDialog extends javax.swing.JDialog {
     /**
      * Creates new form LichSuKMDialog
      */
+    private String checkmaKM;
+    DefaultTableModel defaultTableModel;
+    LichSuKMSevice svLSKM = new LichSuKMSevice();
+    public void setSelectedIndex(String maKM) {
+      checkmaKM = maKM;
+      loadDataLSKM();
+    }
+    void loadDataLSKM(){
+        defaultTableModel =(DefaultTableModel) tblLSKM.getModel();
+        defaultTableModel.setRowCount(0);
+        for (LichSuKM lichSuKM : svLSKM.getLSKM(checkmaKM)) {
+            defaultTableModel.addRow(new Object[]{
+                lichSuKM.getIdLS(),
+                lichSuKM.getMaKM(),
+                lichSuKM.getNgayBatDau(),
+                lichSuKM.getNgayKetThuc(),
+                lichSuKM.getPhanTramKM()
+            });
+        }
+    }
     public LichSuKMDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        loadDataLSKM();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -29,27 +55,22 @@ public class LichSuKMDialog extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        tblLSKM = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(850, 360));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Lịch sử khuyến mãi", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Noto Sans", 1, 12), new java.awt.Color(20, 70, 128))); // NOI18N
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblLSKM.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "STT", "Mã KM", "Title 3", "Title 4"
+                "STT", "Mã KM", "Ngày BĐ", "Ngày KT", "% KM"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblLSKM);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -64,44 +85,28 @@ public class LichSuKMDialog extends javax.swing.JDialog {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 256, Short.MAX_VALUE)
+            .addGap(0, 309, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
                     .addContainerGap()))
         );
-
-        jLabel1.setText("Tìm kiếm:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(233, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(312, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(59, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap()))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -133,6 +138,7 @@ public class LichSuKMDialog extends javax.swing.JDialog {
             java.util.logging.Logger.getLogger(LichSuKMDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -150,10 +156,8 @@ public class LichSuKMDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTable tblLSKM;
     // End of variables declaration//GEN-END:variables
 }

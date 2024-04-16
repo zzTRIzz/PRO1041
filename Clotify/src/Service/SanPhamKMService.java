@@ -14,55 +14,62 @@ import java.util.List;
 import model.SanPhamKM;
 import java.sql.*;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author Dell
  */
-public class SanPhamKMService implements SanPhamKMInterface{
+public class SanPhamKMService implements SanPhamKMInterface {
+
     List<SanPhamKM> list = new ArrayList<>();
-    
 
     @Override
     public List<SanPhamKM> getSanPhamKM() {
-          list.clear();
-        try{
-        String sql = "SELECT KhuyenMai.maKM, KhuyenMai.tenKM, KhuyenMai.ngayTao, KhuyenMai.ngayKetThuc, SanPhamCT.loaiSP, KhuyenMai.giamTheoPT, KhuyenMai.trangThai\n" +
-"FROM   KhuyenMai INNER JOIN\n" +
-"             SanPhamKM ON KhuyenMai.maKM = SanPhamKM.maKM INNER JOIN\n" +
-"             SanPhamCT ON SanPhamKM.idSP = SanPhamCT.idSP";
-        Connection conn = DBconnect.getConnection();
-        Statement stm = conn.createStatement();
-        ResultSet rs = stm.executeQuery(sql);
-        while(rs.next()){
-            SanPhamKM spKM = new SanPhamKM();
-            spKM.setMaKM(rs.getString(1));
-            spKM.setTenKM(rs.getString(2));
-            spKM.setNgayTao(rs.getString(3));
-           spKM.setNgayKetThuc(rs.getString(4));
-            spKM.setLoaiSP(rs.getString(5));
+        list.clear();
+        try {
+            String sql = "SELECT KhuyenMai.maKM, KhuyenMai.tenKM, KhuyenMai.ngayTao, KhuyenMai.ngayKetThuc, SanPhamCT.loaiSP, KhuyenMai.giamTheoPT, KhuyenMai.trangThai\n"
+                    + "FROM   KhuyenMai INNER JOIN\n"
+                    + "             SanPhamKM ON KhuyenMai.maKM = SanPhamKM.maKM INNER JOIN\n"
+                    + "             SanPhamCT ON SanPhamKM.idSP = SanPhamCT.idSP";
+            Connection conn = DBconnect.getConnection();
+            Statement stm = conn.createStatement();
+            ResultSet rs = stm.executeQuery(sql);
+            while (rs.next()) {
+                SanPhamKM spKM = new SanPhamKM();
+                spKM.setMaKM(rs.getString(1));
+                spKM.setTenKM(rs.getString(2));
+                spKM.setNgayTao(rs.getString(3));
+                spKM.setNgayKetThuc(rs.getString(4));
+                spKM.setLoaiSP(rs.getString(5));
 
-            spKM.setGiamTheoPT(rs.getInt(6));
-            spKM.setTrangThai(rs.getString(7));
-            list.add(spKM);
+                spKM.setGiamTheoPT(rs.getInt(6));
+                spKM.setTrangThai(rs.getString(7));
+                list.add(spKM);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-    }catch(Exception e){
-        e.printStackTrace();
-    }
         return list;
     }
 
     @Override
-    public void addSPKM(SanPhamKM spkm) {
-        String sql = "INSERT INTO SanPhamKM\n"
-                + "             (maKM, idSP, trangThai)\n"
-                + "VALUES (?,?,?)";
+    public void addSPKM(int idSP, String maKM, String trangThai, String ngayBatDau) {
+        String sql = "INSERT INTO SanPhamKM (maKM, idSP, trangThai)\n"
+                + "SELECT ?, ?, ?\n"
+                + "Where NOT EXISTS (\n"
+                + "    SELECT 1 FROM KhuyenMai \n"
+                + "    INNER JOIN SanPhamKM ON KhuyenMai.maKM = SanPhamKM.maKM \n"
+                + "    WHERE SanPhamKM.idSP = ? \n"
+                + "    AND KhuyenMai.ngayTao = ?\n"
+                + ");";
         try {
             Connection conn = DBconnect.getConnection();
             PreparedStatement stm = conn.prepareStatement(sql);
-            stm.setString(1, spkm.getMaKM());
-            stm.setInt(2, spkm.getIdSP());
-            stm.setString(3, spkm.getTrangThaiSPKM());
-
+            stm.setString(1, maKM);
+            stm.setInt(2, idSP);
+            stm.setString(3, trangThai);
+            stm.setInt(4,idSP);
+            stm.setString(5,ngayBatDau);
             stm.executeUpdate();
             conn.close();
         } catch (Exception e) {
@@ -77,7 +84,7 @@ public class SanPhamKMService implements SanPhamKMInterface{
 
     @Override
     public List<SanPhamKM> searchIDSP(String maKM) {
-    String sql = "select idSPKM from SanPhamKM where  trangThai =N'Hoạt động'and maKM=?";
+        String sql = "select idSPKM from SanPhamKM where  trangThai =N'Hoạt động'and maKM=?";
         try {
             Connection conn = DBconnect.getConnection();
             PreparedStatement stm = conn.prepareStatement(sql);
@@ -140,13 +147,41 @@ public class SanPhamKMService implements SanPhamKMInterface{
     }
 
     @Override
-    public void addSPKMKT(int idSP, String maKM, String trangThai) {
+//    public void addSPKMKT(int idSP, String maKM, String trangThai) {
+//        String sql = "INSERT INTO SanPhamKM (maKM, idSP, trangThai)\n"
+//                + "SELECT ?, ?, ?\n"
+//                + "WHERE NOT EXISTS (\n"
+//                + "    SELECT 1 FROM SanPhamKM \n"
+//                + "    WHERE maKM = ? \n"
+//                + "    AND idSP = ?\n"
+//                + ");";
+//        try {
+//            Connection conn = DBconnect.getConnection();
+//            PreparedStatement stm = conn.prepareStatement(sql);
+//            stm.setString(1, maKM);
+//            stm.setInt(2, idSP);
+//            stm.setString(3, trangThai);
+//            stm.setString(4, maKM);
+//            stm.setInt(5, idSP);
+//            stm.executeUpdate();
+//            conn.close();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+    public void addSPKMKT(int idSP, String maKM, String trangThai, String ngayBatDau) {
         String sql = "INSERT INTO SanPhamKM (maKM, idSP, trangThai)\n"
                 + "SELECT ?, ?, ?\n"
                 + "WHERE NOT EXISTS (\n"
                 + "    SELECT 1 FROM SanPhamKM \n"
                 + "    WHERE maKM = ? \n"
                 + "    AND idSP = ?\n"
+                + ")\n"
+                + "AND NOT EXISTS (\n"
+                + "    SELECT 1 FROM KhuyenMai \n"
+                + "    INNER JOIN SanPhamKM ON KhuyenMai.maKM = SanPhamKM.maKM \n"
+                + "    WHERE SanPhamKM.idSP = ? \n"
+                + "    AND KhuyenMai.ngayTao = ?\n"
                 + ");";
         try {
             Connection conn = DBconnect.getConnection();
@@ -156,6 +191,8 @@ public class SanPhamKMService implements SanPhamKMInterface{
             stm.setString(3, trangThai);
             stm.setString(4, maKM);
             stm.setInt(5, idSP);
+            stm.setInt(6, idSP);
+            stm.setString(7, ngayBatDau);
             stm.executeUpdate();
             conn.close();
         } catch (Exception e) {
@@ -165,19 +202,19 @@ public class SanPhamKMService implements SanPhamKMInterface{
 
     @Override
     public void update(int idSPKM, String trangThai) {
-         try {
-        String sql = "UPDATE SanPhamKM SET trangThai = ? WHERE idSPKM = ?";
-        Connection conn = DBconnect.getConnection();
+        try {
+            String sql = "UPDATE SanPhamKM SET trangThai = ? WHERE idSPKM = ?";
+            Connection conn = DBconnect.getConnection();
 
-        try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, trangThai);
-            ps.setInt(2, idSPKM);
-            ps.executeUpdate(); 
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setString(1, trangThai);
+                ps.setInt(2, idSPKM);
+                ps.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Cập nhật thất bại");
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
-        JOptionPane.showMessageDialog(null, "Cập nhật thất bại");
     }
-    }
-    
+
 }

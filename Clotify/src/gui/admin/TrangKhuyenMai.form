@@ -124,6 +124,8 @@
                                   <Group type="103" groupAlignment="1" attributes="0">
                                       <Group type="102" attributes="0">
                                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                          <Component id="btnLS" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
                                           <Component id="btnSPKM" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
@@ -189,7 +191,10 @@
                           <EmptySpace pref="14" max="32767" attributes="0"/>
                           <Component id="jScrollPane7" min="-2" pref="231" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="btnSPKM" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="btnSPKM" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnLS" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                           <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -591,6 +596,14 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSPKMActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JButton" name="btnLS">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="L&#x1ecb;ch s&#x1eed; khuy&#x1ebf;n m&#xe3;i"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLSActionPerformed"/>
                   </Events>
                 </Component>
               </SubComponents>
