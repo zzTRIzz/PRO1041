@@ -9,15 +9,29 @@ import Interface.HoaDonService;
 import Interface.SanPhamCTImpl;
 import Service.HoaDonCTImpl;
 import Service.HoaDonImpl;
+import static Service.HoaDonImpl.diachi;
+import static Service.HoaDonImpl.giaList;
+import static Service.HoaDonImpl.sdt;
+import static Service.HoaDonImpl.soluongList;
+import static Service.HoaDonImpl.ten;
+import static Service.HoaDonImpl.tenSPList;
+import static Service.HoaDonImpl.tienHang;
+import static Service.HoaDonImpl.tientra;
+import static Service.HoaDonImpl.voucher;
+import static Service.HoaDonImpl.ngayTaoHD;
 import Service.KhachHangService;
 import Service.SanPhamCTService;
 import Service.TaiKhoanService;
 import Service.VoucherService;
 
 import gui.admin.*;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,17 +39,22 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.Document;
 import model.HoaDon;
 import model.HoaDonCT;
 import model.KhachHang;
 import model.SanPhamCT;
 import model.Voucher;
 
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.*;
+import java.text.DecimalFormat;
+
 /**
  *
  * @author ADMIN
  */
-public class TrangBanHang extends javax.swing.JInternalFrame implements  QRCodeListener{
+public class TrangBanHang extends javax.swing.JInternalFrame implements QRCodeListener {
 
     LocalDate thoiGian = LocalDate.now();
     DefaultTableModel defaultTableModel;
@@ -49,6 +68,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame implements  QRCodeL
      * Creates new form Trang0
      */
     private QRScanner qr = new QRScanner();
+
     public TrangBanHang() {
         initComponents();
         ui_custom.deleteTitle(this);
@@ -66,7 +86,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame implements  QRCodeL
                 loadVoucher();
             }
         }).start();
-        
+
     }
 
     void reSet() {
@@ -140,7 +160,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame implements  QRCodeL
     }
 
     private static final long serialVersionUID = 1L;
-    
+
     private void initWebcam() {
         System.out.println("Run camera");
         Thread loadQR = new Thread(() -> {
@@ -152,7 +172,6 @@ public class TrangBanHang extends javax.swing.JInternalFrame implements  QRCodeL
         });
         loadQR.start();
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -647,23 +666,23 @@ public class TrangBanHang extends javax.swing.JInternalFrame implements  QRCodeL
             }
 //                            System.out.println(tongTienTra);
             String tien = String.valueOf(tongTienTra);
-                            lblTongTien.setText(tien);
-                            lblCanTra.setText(tien);
-                            String maVC = (String) cboVoucher.getSelectedItem();
-                            System.out.println("ma KM" + maVC);
-                            if (maVC != null) {
-                                Voucher vC = svVC.timVC(maVC);
-                                double tienGiam = vC.getGiamTheoGia();
-                                double dkGiam = vC.getDkAD();
-                                System.out.println("dk giam" + dkGiam);
-                                if (tongTienTra >= dkGiam) {
-                                    double tienCanTra = tongTienTra - tienGiam;
-                                    lblCanTra.setText(String.valueOf(tienCanTra));
-                                    JOptionPane.showMessageDialog(this, "Áp dụng thành công");
-                                }
+            lblTongTien.setText(tien);
+            lblCanTra.setText(tien);
+            String maVC = (String) cboVoucher.getSelectedItem();
+            System.out.println("ma KM" + maVC);
+            if (maVC != null) {
+                Voucher vC = svVC.timVC(maVC);
+                double tienGiam = vC.getGiamTheoGia();
+                double dkGiam = vC.getDkAD();
+                System.out.println("dk giam" + dkGiam);
+                if (tongTienTra >= dkGiam) {
+                    double tienCanTra = tongTienTra - tienGiam;
+                    lblCanTra.setText(String.valueOf(tienCanTra));
+                    JOptionPane.showMessageDialog(this, "Áp dụng thành công");
+                }
 
-                            }
-            
+            }
+
             for (SanPhamCT sanPhamCT : svSP.getAll()) {
                 if (sanPhamCT.getIdSP().equals(idSP)) {
                     int soLuongTon = sanPhamCT.getSoLuong();
@@ -874,7 +893,6 @@ public class TrangBanHang extends javax.swing.JInternalFrame implements  QRCodeL
                                 }
 
                             }
-                            
 
                         } catch (NumberFormatException e) {
                             JOptionPane.showMessageDialog(null, "Nhập số nguyên hợp lệ!");
@@ -1010,7 +1028,11 @@ public class TrangBanHang extends javax.swing.JInternalFrame implements  QRCodeL
                     JOptionPane.showMessageDialog(this, "Chưa nhập tiền khách đưa");
                     return;
                 }
+                
                 if (tienThua >= 0) {
+                    khachTra = Double.valueOf(txttienKhachDua.getText());
+                    traLai = Double.valueOf(lblTienThua.getText());
+                    
                     svHd.upDateHoaDon(new HoaDon(trangThai, maNV, maVoucher, tienCanTra, idHD));
                     txtSDT.setText("");
                     lblTenKH.setText("");
@@ -1018,6 +1040,11 @@ public class TrangBanHang extends javax.swing.JInternalFrame implements  QRCodeL
 
                     JOptionPane.showMessageDialog(this, "Thanh toán hóa đơn " + maHD + " thành công");
                     loadHoaDon();
+                    int choise = JOptionPane.showConfirmDialog(this, "Bạn muốn thực hiện in hóa đơn không");
+                    if (choise == JOptionPane.YES_OPTION) {
+                        maInHD = maHD;
+                        InHoaDon();
+                    }
                     defaultTableModel = (DefaultTableModel) tblGioHang.getModel();
                     defaultTableModel.setRowCount(0);
                 } else {
@@ -1030,6 +1057,112 @@ public class TrangBanHang extends javax.swing.JInternalFrame implements  QRCodeL
 
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
+    public Integer maInHD;
+    public double khachTra, traLai;
+
+    void InHoaDon() {
+        svHd.DataInHoaDon(maInHD);
+
+        String filePath = "bill/" +maInHD+ ".pdf";
+
+        com.itextpdf.text.Document document = new com.itextpdf.text.Document();
+        try {
+            PdfWriter.getInstance(document, new FileOutputStream(filePath));
+            document.open();
+
+            // Sử dụng font Consolas
+            BaseFont bf = BaseFont.createFont("C:\\Windows\\Fonts\\consola.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+            com.itextpdf.text.Font font = new com.itextpdf.text.Font(bf, 16);
+            com.itextpdf.text.Font fonts = new com.itextpdf.text.Font(bf, 13);
+
+            // Vẽ bố cục tùy chỉnh
+            // Tiêu đề
+            Paragraph title = new Paragraph("HÓA ĐƠN", font);
+            title.setAlignment(Element.ALIGN_CENTER); // Căn giữa
+            document.add(title);
+
+            Paragraph tenSHOP = new Paragraph("SHOP BÁN QUẦN ÁO CLOTIFY", font);
+            tenSHOP.setAlignment(Element.ALIGN_CENTER); // Căn giữa
+            document.add(tenSHOP);
+            Paragraph address = new Paragraph("Địa chỉ: Phúc Diễn, Bắc Từ Liêm, Hà Nội ", font);
+            address.setAlignment(Element.ALIGN_CENTER); // Căn giữa
+            document.add(address);
+            Paragraph SDT = new Paragraph("SĐT : 0358168699", fonts);
+            SDT.setAlignment(Element.ALIGN_CENTER); // Căn giữa
+            document.add(SDT);
+            
+            document.add(new Paragraph("                                                           "));
+            document.add(new Paragraph("                                                           "));
+            document.add(new Paragraph("Mã hóa đơn     : " +"#"+1234566 +  String.format("%45s", "Ngày tạo : " +ngayTaoHD) , fonts));
+            document.add(new Paragraph("Tên khách hàng : " +ten , fonts));
+            document.add(new Paragraph("Số điện thoại  : " +sdt + String.format("%43s", "Địa chỉ  : " +diachi), fonts));
+            document.add(new Paragraph("                                                           "));
+            
+
+            document.add(new Paragraph("-----------------------------------------------------------", font));
+            // Tiêu đề cột
+            Paragraph columnTitle = new Paragraph("Sản phẩm           SL         Giá bán        Thành tiền", font);
+            columnTitle.setAlignment(Element.ALIGN_CENTER); // Căn giữa
+            document.add(columnTitle);
+            document.add(new Paragraph("-----------------------------------------------------------", font));
+
+            DecimalFormat formatter = new DecimalFormat("###,###.###");
+            // Duyệt qua danh sách tên sản phẩm và số lượng tương ứng và thêm chúng vào tài liệu PDF
+            for (int i = 0; i < tenSPList.size(); i++) {
+                String tenSP = tenSPList.get(i);
+                int soLuong = soluongList.get(i);
+                Double gia = giaList.get(i);
+                document.add(new Paragraph(String.format("%-22s", tenSP) + String.format("%-10s", soLuong) + formatter.format(gia) + String.format("%18s", formatter.format(gia * soLuong)), font));
+            }
+            document.add(new Paragraph("                                                           "));
+            document.add(new Paragraph("-----------------------------------------------------------", font));
+
+            // Tổng cộng
+            Paragraph TongTien = new Paragraph("Tổng tiền      :" + String.format("%41s", formatter.format(tienHang)), font);
+            Paragraph Voucher = new Paragraph ("Giảm giá       :" + String.format("%41s", "-" + formatter.format(voucher)), font);
+            Paragraph Total = new Paragraph("Tiền phải trả  :" + String.format("%41s", formatter.format(tientra)), font);
+            document.add(TongTien);
+            document.add(Voucher);
+            document.add(Total);
+            document.add(new Paragraph("                                                           "));
+            Paragraph KhachTra = new Paragraph("Khách trả      :" + String.format("%41s", formatter.format(khachTra)), font);
+            Paragraph TienThua = new Paragraph("Trả lại        :" + String.format("%41s", formatter.format(traLai)), font);
+            document.add(KhachTra);
+            document.add(TienThua);
+            
+
+            // Dòng cuối cùng
+            document.add(new Paragraph("                                                           "));
+            document.add(new Paragraph("                                                           "));
+            document.add(new Paragraph("                                                           "));
+            
+            
+            document.add(new Paragraph("**********************************************************", font));
+            Paragraph thanks = new Paragraph("Cảm ơn quý khách đã tin dùng sản phẩm Clotify", fonts);
+            thanks.setAlignment(Element.ALIGN_CENTER); // Căn giữa
+            document.add(thanks);
+            Paragraph nhom = new Paragraph("Phát triển bởi nhóm 5", fonts);
+            nhom.setAlignment(Element.ALIGN_CENTER); // Căn giữa
+            document.add(nhom);
+            document.add(new Paragraph("**********************************************************", font));
+            
+            
+            Paragraph luuy = new Paragraph("Lưu ý : Quý khách có thể đổi trả hàng trong 7 ngày nếu sản phẩm bị lỗi", fonts);
+            luuy.setAlignment(Element.ALIGN_CENTER); // Căn giữa
+            document.add(luuy);
+
+            document.close();
+
+            System.out.println("In xong");
+            System.out.println("In xong");
+
+            JOptionPane.showMessageDialog(this, "Hóa đơn được tạo thành công: " + filePath);
+        } catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(this, "Không tìm thấy tệp: " + e.getMessage());
+        } catch (DocumentException | IOException e) {
+            JOptionPane.showMessageDialog(this, "Lỗi tạo PDF: " + e.getMessage());
+        }
+    }
     private void btnDoiSLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDoiSLActionPerformed
         // TODO add your handling code here:
         int row = tblGioHang.getSelectedRow();
@@ -1101,22 +1234,22 @@ public class TrangBanHang extends javax.swing.JInternalFrame implements  QRCodeL
             }
 //                            System.out.println(tongTienTra);
             String tien = String.valueOf(tongTienTra);
-                            lblTongTien.setText(tien);
-                            lblCanTra.setText(tien);
-                            String maVC = (String) cboVoucher.getSelectedItem();
-                            System.out.println("ma KM" + maVC);
-                            if (maVC != null) {
-                                Voucher vC = svVC.timVC(maVC);
-                                double tienGiam = vC.getGiamTheoGia();
-                                double dkGiam = vC.getDkAD();
-                                System.out.println("dk giam" + dkGiam);
-                                if (tongTienTra >= dkGiam) {
-                                    double tienCanTra = tongTienTra - tienGiam;
-                                    lblCanTra.setText(String.valueOf(tienCanTra));
-                                    JOptionPane.showMessageDialog(this, "Áp dụng thành công");
-                                }
+            lblTongTien.setText(tien);
+            lblCanTra.setText(tien);
+            String maVC = (String) cboVoucher.getSelectedItem();
+            System.out.println("ma KM" + maVC);
+            if (maVC != null) {
+                Voucher vC = svVC.timVC(maVC);
+                double tienGiam = vC.getGiamTheoGia();
+                double dkGiam = vC.getDkAD();
+                System.out.println("dk giam" + dkGiam);
+                if (tongTienTra >= dkGiam) {
+                    double tienCanTra = tongTienTra - tienGiam;
+                    lblCanTra.setText(String.valueOf(tienCanTra));
+                    JOptionPane.showMessageDialog(this, "Áp dụng thành công");
+                }
 
-                            }
+            }
         }
 
         loadSanPham();
@@ -1169,13 +1302,13 @@ public class TrangBanHang extends javax.swing.JInternalFrame implements  QRCodeL
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_formInternalFrameOpened
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
         // TODO add your handling code here:
         qr.closeCamera();
-        
+
     }//GEN-LAST:event_formInternalFrameClosed
 
 
@@ -1219,14 +1352,14 @@ public class TrangBanHang extends javax.swing.JInternalFrame implements  QRCodeL
 
     @Override
     public void onQRCodeScanned(String qrCode) {
-        
-        int idSP =Integer.parseInt(qrCode);
+
+        int idSP = Integer.parseInt(qrCode);
         SanPhamCT sp = svSP.timSP(idSP);
         int rowHoaDon = tblHoaDon.getSelectedRow();
         if (rowHoaDon >= 0) {
 //            int rowSanPham = tblSP.getSelectedRow();
 //            SanPhamCT sp = svSP.getRow(rowSanPham);
-            int soLuongTonTai = sp.getSoLuong();                       
+            int soLuongTonTai = sp.getSoLuong();
 //            int idSP = sp.getIdSP();
             double giaSP = sp.getGiaBan();
             int soLuong;
@@ -1243,175 +1376,172 @@ public class TrangBanHang extends javax.swing.JInternalFrame implements  QRCodeL
             double phanTramDouble;
             //
             double tongTien;
-                // Hiển thị hộp thoại yêu cầu nhập số lượng
-                int option = JOptionPane.showConfirmDialog(null, "Bạn có muốn nhập số lượng không?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+            // Hiển thị hộp thoại yêu cầu nhập số lượng
+            int option = JOptionPane.showConfirmDialog(null, "Bạn có muốn nhập số lượng không?", "Xác nhận", JOptionPane.YES_NO_OPTION);
 
-                // Nếu người dùng chọn Yes
-                if (option == JOptionPane.YES_OPTION) {
-                    String input = JOptionPane.showInputDialog(null, "Nhập số lượng:", "Thêm sản phẩm vào giỏ hàng", HEIGHT);
-                    if (input != null && !input.isEmpty()) {
+            // Nếu người dùng chọn Yes
+            if (option == JOptionPane.YES_OPTION) {
+                String input = JOptionPane.showInputDialog(null, "Nhập số lượng:", "Thêm sản phẩm vào giỏ hàng", HEIGHT);
+                if (input != null && !input.isEmpty()) {
 
-                        try {
-                            soLuong = Integer.parseInt(input);
-                            if (soLuong <= soLuongTonTai && soLuong > 0) {
+                    try {
+                        soLuong = Integer.parseInt(input);
+                        if (soLuong <= soLuongTonTai && soLuong > 0) {
 //                            System.out.println("Số lượng đã nhập: " + soLuong);
-                            } else {
-                                do {
-                                    String input2 = JOptionPane.showInputDialog(null, "Số lượng không hợp lệ, mời nhập lại:", "Thêm sản phẩm vào giỏ hàng", HEIGHT);
-                                    soLuong = Integer.parseInt(input2);
+                        } else {
+                            do {
+                                String input2 = JOptionPane.showInputDialog(null, "Số lượng không hợp lệ, mời nhập lại:", "Thêm sản phẩm vào giỏ hàng", HEIGHT);
+                                soLuong = Integer.parseInt(input2);
 
-                                } while (soLuong <= 0 || soLuong > soLuongTonTai);
+                            } while (soLuong <= 0 || soLuong > soLuongTonTai);
 
-                            }
-                            System.out.println("Số lượng đã nhập: " + soLuong);
-                            soLuongCon = soLuongTonTai - soLuong;
-                            System.out.println("So luong con:" + soLuongCon);
-                            svSP.updateSanPhamCT(idSP, soLuongCon);
+                        }
+                        System.out.println("Số lượng đã nhập: " + soLuong);
+                        soLuongCon = soLuongTonTai - soLuong;
+                        System.out.println("So luong con:" + soLuongCon);
+                        svSP.updateSanPhamCT(idSP, soLuongCon);
 //
 //                            phanTramDouble = Double.valueOf(phanTramKM);
 //                            tongTien = soLuong * giaSP * (1 - phanTramDouble / 100);
 //                            System.out.println(tongTien);
 //                            // them id =SPKM de check
-                            int count = svHDCT.getSanPhamTonTai(idHD, idSP).size();
+                        int count = svHDCT.getSanPhamTonTai(idHD, idSP).size();
 
-                            System.out.println("count" + count);
-                            if (count == 1) {
+                        System.out.println("count" + count);
+                        if (count == 1) {
 
-                                HoaDonCT hdct = svHDCT.getSanPhamTonTai(idHD, idSP).get(0);
-                                phanTramKM = hdct.phanTramKM();
-                                phanTramDouble = Double.valueOf(phanTramKM);
-                                int idHDCT = hdct.getIdHoaDonCT();
+                            HoaDonCT hdct = svHDCT.getSanPhamTonTai(idHD, idSP).get(0);
+                            phanTramKM = hdct.phanTramKM();
+                            phanTramDouble = Double.valueOf(phanTramKM);
+                            int idHDCT = hdct.getIdHoaDonCT();
 //                                System.out.println(idHDCT);
-                                tongSoLuong = hdct.getSoLuongMua() + soLuong;
+                            tongSoLuong = hdct.getSoLuongMua() + soLuong;
 //                                System.out.println(tongSoLuong);
-                                thanhTien = tongSoLuong * giaSP * (1 - phanTramDouble / 100);
+                            thanhTien = tongSoLuong * giaSP * (1 - phanTramDouble / 100);
 //                                System.out.println(thanhTien);
 
 //                              gop sp cung 
-                                svHDCT.gopSanPhamTonTai(idHDCT, tongSoLuong, thanhTien);
-                                loadHoaDonCT(idHD);
+                            svHDCT.gopSanPhamTonTai(idHDCT, tongSoLuong, thanhTien);
+                            loadHoaDonCT(idHD);
 
-                            } else {
-                                // tach luong san pham co khuyen mai
-                                int countSPKM = svSP.getCheckKM(idSP).size();
-                                String trangThai;
-                                //sp ko co km
-                                switch (countSPKM) {
-                                    case 0:
+                        } else {
+                            // tach luong san pham co khuyen mai
+                            int countSPKM = svSP.getCheckKM(idSP).size();
+                            String trangThai;
+                            //sp ko co km
+                            switch (countSPKM) {
+                                case 0:
+                                    phanTramKM = 0;
+                                    phanTramDouble = Double.valueOf(phanTramKM);
+                                    tongTien = soLuong * giaSP * (1 - phanTramDouble / 100);
+                                    svHDCT.addHoaDonCT(new HoaDonCT(idSP, idHD, tongTien, soLuong));
+                                    loadHoaDonCT(idHD);
+                                    break;
+                                //ok
+                                case 1:
+                                    SanPhamCT spct = svSP.getCheckKM(idSP).get(0);
+                                    trangThai = spct.getTrangThaiKM();
+                                    if (trangThai.equals("Đang áp dụng")) {
+                                        // add san pham co km
+                                        phanTramKM = spct.getPhanTramKM();
+                                        phanTramDouble = Double.valueOf(phanTramKM);
+                                        tongTien = soLuong * giaSP * (1 - phanTramDouble / 100);
+                                        svHDCT.addHoaDonCT(new HoaDonCT(idSP, idHD, tongTien, soLuong));
+                                        loadHoaDonCT(idHD);
+                                        //ok
+                                    } else if (trangThai.equals("Hết hạn")) {
+                                        // add san pham ko km
                                         phanTramKM = 0;
                                         phanTramDouble = Double.valueOf(phanTramKM);
                                         tongTien = soLuong * giaSP * (1 - phanTramDouble / 100);
                                         svHDCT.addHoaDonCT(new HoaDonCT(idSP, idHD, tongTien, soLuong));
                                         loadHoaDonCT(idHD);
-                                        break;
-                                    //ok
-                                    case 1:
-                                        SanPhamCT spct = svSP.getCheckKM(idSP).get(0);
-                                        trangThai = spct.getTrangThaiKM();
-                                        if (trangThai.equals("Đang áp dụng")) {
-                                            // add san pham co km
-                                            phanTramKM = spct.getPhanTramKM();
+                                        //ok
+                                    }
+                                    break;
+                                default:
+                                    List<SanPhamCT> listSPKM = svSP.getCheckKM(idSP);
+
+                                    String maxNgayQuyetDinh = null;
+                                    SanPhamCT spct2 = null;
+                                    String maKM = null;
+
+                                    boolean daCapNhatMaxNgayQuyetDinh = false;
+                                    for (int i = 0; i < listSPKM.size(); i++) {
+                                        if (maxNgayQuyetDinh == null || listSPKM.get(i).getNgayQuyetDinh().compareTo(maxNgayQuyetDinh) > 0) {
+                                            maxNgayQuyetDinh = listSPKM.get(i).getNgayQuyetDinh();
+                                            spct2 = listSPKM.get(i);
+                                            maKM = spct2.getMaKM();
+                                            daCapNhatMaxNgayQuyetDinh = true;
+                                            System.out.println("ngay quyet dinh" + maxNgayQuyetDinh);
+                                            spct2.getTrangThaiKM();
+                                        }
+                                    }
+                                    System.out.println("ngay quyet dinh" + maxNgayQuyetDinh);
+                                    System.out.println("ma KM " + maKM);
+                                    System.out.println("Trang thai " + spct2.getTrangThaiKM());
+                                    if (daCapNhatMaxNgayQuyetDinh) {
+
+                                        if (spct2 != null && spct2.getTrangThaiKM().equals("Đang áp dụng")) {
+                                            phanTramKM = spct2.getPhanTramKM();
                                             phanTramDouble = Double.valueOf(phanTramKM);
                                             tongTien = soLuong * giaSP * (1 - phanTramDouble / 100);
-                                            svHDCT.addHoaDonCT(new HoaDonCT(idSP, idHD, tongTien, soLuong));
+                                            svHDCT.addHoaDonCTKM(idHD, soLuong, idSP, tongTien);
                                             loadHoaDonCT(idHD);
-                                            //ok
-                                        } else if (trangThai.equals("Hết hạn")) {
-                                            // add san pham ko km
+                                        } else if (spct2 != null && spct2.getTrangThaiKM().equals("Hết hạn")) {
                                             phanTramKM = 0;
                                             phanTramDouble = Double.valueOf(phanTramKM);
                                             tongTien = soLuong * giaSP * (1 - phanTramDouble / 100);
-                                            svHDCT.addHoaDonCT(new HoaDonCT(idSP, idHD, tongTien, soLuong));
+                                            svHDCT.addHoaDonCTKM(idHD, soLuong, idSP, tongTien);
                                             loadHoaDonCT(idHD);
-                                            //ok
                                         }
-                                        break;
-                                    default:
-                                        List<SanPhamCT> listSPKM = svSP.getCheckKM(idSP);
+                                    }
 
-                                        String maxNgayQuyetDinh = null;
-                                        SanPhamCT spct2 = null;
-                                        String maKM = null;
-
-                                        boolean daCapNhatMaxNgayQuyetDinh = false;
-                                        for (int i = 0; i < listSPKM.size(); i++) {
-                                            if (maxNgayQuyetDinh == null || listSPKM.get(i).getNgayQuyetDinh().compareTo(maxNgayQuyetDinh) > 0) {
-                                                maxNgayQuyetDinh = listSPKM.get(i).getNgayQuyetDinh();
-                                                spct2 = listSPKM.get(i);
-                                                maKM = spct2.getMaKM();
-                                                daCapNhatMaxNgayQuyetDinh = true;
-                                                System.out.println("ngay quyet dinh" + maxNgayQuyetDinh);
-                                                spct2.getTrangThaiKM();
-                                            }
-                                        }
-                                        System.out.println("ngay quyet dinh" + maxNgayQuyetDinh);
-                                        System.out.println("ma KM " + maKM);
-                                        System.out.println("Trang thai " + spct2.getTrangThaiKM());
-                                        if (daCapNhatMaxNgayQuyetDinh) {
-
-                                            if (spct2 != null && spct2.getTrangThaiKM().equals("Đang áp dụng")) {
-                                                phanTramKM = spct2.getPhanTramKM();
-                                                phanTramDouble = Double.valueOf(phanTramKM);
-                                                tongTien = soLuong * giaSP * (1 - phanTramDouble / 100);
-                                                svHDCT.addHoaDonCTKM(idHD, soLuong, idSP, tongTien);
-                                                loadHoaDonCT(idHD);
-                                            } else if (spct2 != null && spct2.getTrangThaiKM().equals("Hết hạn")) {
-                                                phanTramKM = 0;
-                                                phanTramDouble = Double.valueOf(phanTramKM);
-                                                tongTien = soLuong * giaSP * (1 - phanTramDouble / 100);
-                                                svHDCT.addHoaDonCTKM(idHD, soLuong, idSP, tongTien);
-                                                loadHoaDonCT(idHD);
-                                            }
-                                        }
-
-                                        break;
-
-                                }
+                                    break;
 
                             }
 
-                            double tongTienTra = 0;
-                            for (HoaDonCT hoaDonCT : svHDCT.getHoaDonCTAll(idHD)) {
-                                if (hoaDonCT.getIdHD() == idHD) {
-                                    tongTienTra += hoaDonCT.getTongTien();
-                                }
-                            }
-//                            System.out.println(tongTienTra);
-                            String tien = String.valueOf(tongTienTra);
-                            lblTongTien.setText(tien);
-                            lblCanTra.setText(tien);
-                            String maVC = (String) cboVoucher.getSelectedItem();
-                            System.out.println("ma KM" + maVC);
-                            if (maVC != null) {
-                                Voucher vC = svVC.timVC(maVC);
-                                double tienGiam = vC.getGiamTheoGia();
-                                double dkGiam = vC.getDkAD();
-                                System.out.println("dk giam" + dkGiam);
-                                if (tongTienTra >= dkGiam) {
-                                    double tienCanTra = tongTienTra - tienGiam;
-                                    lblCanTra.setText(String.valueOf(tienCanTra));
-                                    JOptionPane.showMessageDialog(this, "Áp dụng thành công");
-                                }
-
-                            }
-                            
-
-                        } catch (NumberFormatException e) {
-                            JOptionPane.showMessageDialog(null, "Nhập số nguyên hợp lệ!");
                         }
 
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Bạn chưa nhập số lượng!");
+                        double tongTienTra = 0;
+                        for (HoaDonCT hoaDonCT : svHDCT.getHoaDonCTAll(idHD)) {
+                            if (hoaDonCT.getIdHD() == idHD) {
+                                tongTienTra += hoaDonCT.getTongTien();
+                            }
+                        }
+//                            System.out.println(tongTienTra);
+                        String tien = String.valueOf(tongTienTra);
+                        lblTongTien.setText(tien);
+                        lblCanTra.setText(tien);
+                        String maVC = (String) cboVoucher.getSelectedItem();
+                        System.out.println("ma KM" + maVC);
+                        if (maVC != null) {
+                            Voucher vC = svVC.timVC(maVC);
+                            double tienGiam = vC.getGiamTheoGia();
+                            double dkGiam = vC.getDkAD();
+                            System.out.println("dk giam" + dkGiam);
+                            if (tongTienTra >= dkGiam) {
+                                double tienCanTra = tongTienTra - tienGiam;
+                                lblCanTra.setText(String.valueOf(tienCanTra));
+                                JOptionPane.showMessageDialog(this, "Áp dụng thành công");
+                            }
+
+                        }
+
+                    } catch (NumberFormatException e) {
+                        JOptionPane.showMessageDialog(null, "Nhập số nguyên hợp lệ!");
                     }
+
                 } else {
+                    JOptionPane.showMessageDialog(null, "Bạn chưa nhập số lượng!");
                 }
+            } else {
+            }
 
-            
-
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "Chon hoa don");
         }
         loadSanPham();
-        
+
     }
 }

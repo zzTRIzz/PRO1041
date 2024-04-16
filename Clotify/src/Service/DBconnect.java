@@ -14,7 +14,7 @@ import java.sql.SQLException;
  * @author THE PC
  */
 public class DBconnect {
-        static String url = "jdbc:sqlserver://;serverName=localhost;databaseName=PRO1041;encrypt=true;trustServerCertificate=true";
+        static String url = "jdbc:sqlserver://;serverName=localhost;databaseName=PRO10411;encrypt=true;trustServerCertificate=true";
     static  String username = "sa5";
     static String password = "1";
     

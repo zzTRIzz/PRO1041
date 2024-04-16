@@ -19,4 +19,5 @@ public interface HoaDonService {
     List<HoaDon> getAllHoaDonAdmin();
     List<HoaDon> Search(String key);
     List<HoaDon> SearchTime(java.util.Date batDau, java.util.Date ketThuc);
+    void DataInHoaDon(Integer mahoadon);
 }
