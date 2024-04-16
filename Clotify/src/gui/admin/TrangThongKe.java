@@ -37,7 +37,6 @@ public class TrangThongKe extends javax.swing.JInternalFrame {
         initComponents();
         ui_custom.deleteTitle(this);
         loadDataSPBC();
-        
 
     }
 
@@ -205,7 +204,7 @@ public class TrangThongKe extends javax.swing.JInternalFrame {
         jPanel7 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        lblSanPham = new javax.swing.JLabel();
+        lblLoiNhuan = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         cboThoiGian = new javax.swing.JComboBox<>();
         jTabbedPane1 = new javax.swing.JTabbedPane();
@@ -349,11 +348,11 @@ public class TrangThongKe extends javax.swing.JInternalFrame {
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/icons8-clothes-32.png"))); // NOI18N
         jPanel7.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, 50, 30));
 
-        lblSanPham.setFont(new java.awt.Font("Roboto Slab ExtraBold", 0, 18)); // NOI18N
-        lblSanPham.setForeground(new java.awt.Color(67, 68, 79));
-        lblSanPham.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblSanPham.setText(" 450.000.000");
-        jPanel7.add(lblSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 150, 49));
+        lblLoiNhuan.setFont(new java.awt.Font("Roboto Slab ExtraBold", 0, 18)); // NOI18N
+        lblLoiNhuan.setForeground(new java.awt.Color(67, 68, 79));
+        lblLoiNhuan.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLoiNhuan.setText(" 450.000.000");
+        jPanel7.add(lblLoiNhuan, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 150, 49));
 
         jLabel19.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(255, 255, 255));
@@ -486,11 +485,13 @@ public class TrangThongKe extends javax.swing.JInternalFrame {
     private void cboThoiGianMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cboThoiGianMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_cboThoiGianMouseClicked
+    DecimalFormat formatter = new DecimalFormat("#,###");
 
     void ThongKe_TatCa() {
         lblDoanhThu.setText(ThongKeService.doanhThu_TatCa().toString());
         lblKhachHang.setText(ThongKeService.TongKhachHang_Theo(36500).toString());
         lblHoaDon.setText(ThongKeService.TongHoaDon_Theo(36500).toString());
+        lblLoiNhuan.setText(formatter.format(thongKeService.loinhuan_all()));
         PanelThongKe_LineChart.removeAll(); // Xóa tất cả các thành phần trong Panel trước khi vẽ lại
         LineChart_DoanhThu_Nam();
         PanelThongKe_LineChart.revalidate(); // Cập nhật giao diện
@@ -502,6 +503,7 @@ public class TrangThongKe extends javax.swing.JInternalFrame {
         lblDoanhThu.setText(ThongKeService.doanhThu_TheoNam().toString());
         lblKhachHang.setText(ThongKeService.TongKhachHang_Theo(365).toString());
         lblHoaDon.setText(ThongKeService.TongHoaDon_Theo(365).toString());
+        lblLoiNhuan.setText(formatter.format(thongKeService.loinhuan_nam()));
         PanelThongKe_LineChart.removeAll(); // Xóa tất cả các thành phần trong Panel trước khi vẽ lại
         LineChart_DoanhThu_Nam();
         PanelThongKe_LineChart.revalidate(); // Cập nhật giao diện
@@ -513,7 +515,7 @@ public class TrangThongKe extends javax.swing.JInternalFrame {
         lblDoanhThu.setText(ThongKeService.doanhThu_TheoThang().toString());
         lblKhachHang.setText(ThongKeService.TongKhachHang_Theo(30).toString());
         lblHoaDon.setText(ThongKeService.TongHoaDon_Theo(30).toString());
-
+        lblLoiNhuan.setText(formatter.format(thongKeService.loinhuan_thang()));
         PanelThongKe_LineChart.removeAll(); // Xóa tất cả các thành phần trong Panel trước khi vẽ lại
         LineChart_DoanhThu_Thang();
         PanelThongKe_LineChart.revalidate(); // Cập nhật giao diện
@@ -524,6 +526,7 @@ public class TrangThongKe extends javax.swing.JInternalFrame {
         lblDoanhThu.setText(ThongKeService.doanhThu_Theo7ngay().toString());
         lblKhachHang.setText(ThongKeService.TongKhachHang_Theo(7).toString());
         lblHoaDon.setText(ThongKeService.TongHoaDon_Theo(7).toString());
+        lblLoiNhuan.setText(formatter.format(thongKeService.loinhuan_7ngay()));
         PanelThongKe_LineChart.removeAll(); // Xóa tất cả các thành phần trong Panel trước khi vẽ lại
         LineChart_DoanhThu_7Day();
 
@@ -533,6 +536,7 @@ public class TrangThongKe extends javax.swing.JInternalFrame {
         lblDoanhThu.setText(ThongKeService.doanhThu_TheoNgay().toString());
         lblKhachHang.setText(ThongKeService.TongKhachHang_Theo(1).toString());
         lblHoaDon.setText(ThongKeService.TongHoaDon_Theo(1).toString());
+        lblLoiNhuan.setText(formatter.format(thongKeService.loinhuan_ngay()));
         PanelThongKe_LineChart.removeAll(); // Xóa tất cả các thành phần trong Panel trước khi vẽ lại
         LineChart_DoanhThu_Day();
     }
@@ -600,7 +604,7 @@ public class TrangThongKe extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblHoaDon;
     private javax.swing.JLabel lblKhachHang;
     private javax.swing.JLabel lblKieuDoanhThu;
-    private javax.swing.JLabel lblSanPham;
+    private javax.swing.JLabel lblLoiNhuan;
     private javax.swing.JTable tblSanPham;
     // End of variables declaration//GEN-END:variables
 }
