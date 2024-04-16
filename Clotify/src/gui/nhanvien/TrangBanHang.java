@@ -1059,7 +1059,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame implements QRCodeLi
     void InHoaDon() {
         svHd.DataInHoaDon(maInHD);
 
-        String filePath = "invoice1.pdf";
+        String filePath = "bill/" +maInHD+ ".pdf";
 
         com.itextpdf.text.Document document = new com.itextpdf.text.Document();
         try {
