@@ -510,11 +510,6 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
 
         buttonGroup1.add(rdChuaAD);
         rdChuaAD.setText("Chưa áp dụng");
-        rdChuaAD.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                rdChuaADMouseClicked(evt);
-            }
-        });
         rdChuaAD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rdChuaADActionPerformed(evt);
@@ -1125,19 +1120,6 @@ public class TrangKhuyenMai extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Chọn 1 khuyến mãi để Update");
         }
     }//GEN-LAST:event_btnSaveMouseClicked
-
-    private void rdChuaADMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rdChuaADMouseClicked
-        // TODO add your handling code here:
-
-        int i = tblKhuyenMai.getSelectedRow();
-        if (i != -1 && rdChuaAD.isSelected()) {
-            model = (DefaultTableModel) tblKhuyenMai.getModel();
-
-            model.setValueAt("Hết khuyến mại", i, 6);
-            String maKM = (String) model.getValueAt(i, 0);
-            svKM.updateTrangThai(maKM, "Hết khuyến mại");
-        }
-    }//GEN-LAST:event_rdChuaADMouseClicked
 
     private void btnThemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMouseClicked
         // TODO add your handling code here:
