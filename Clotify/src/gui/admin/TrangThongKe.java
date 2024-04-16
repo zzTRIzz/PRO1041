@@ -5,8 +5,11 @@
 package gui.admin;
 
 import Service.ThongKeService;
+import static Service.ThongKeService.mauList;
+import static Service.ThongKeService.muaList;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Panel;
 import java.text.DecimalFormat;
@@ -15,6 +18,8 @@ import java.util.Collections;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import model.ThongKe;
+import org.knowm.xchart.PieChart;
+import org.knowm.xchart.PieChartBuilder;
 import org.knowm.xchart.XChartPanel;
 import org.knowm.xchart.XYChart;
 import org.knowm.xchart.XYChartBuilder;
@@ -45,6 +50,94 @@ public class TrangThongKe extends javax.swing.JInternalFrame {
         model = (DefaultTableModel) tblSanPham.getModel();
         model.setRowCount(0);
         for (ThongKe t : thongKeService.getAllBanChay()) {
+            model.addRow(new Object[]{
+                stt,
+                t.getMa(),
+                t.getTen(),
+                t.getLoai(),
+                t.getSo(),
+                t.getGia(),
+                t.getChatlieu(),
+                t.getMau(),
+                t.getSize(),
+                t.getThuonghieu(),
+                t.getSoluongban()
+            });
+            stt++;
+        }
+    }
+
+    void loadDataSPBC1() {
+        int stt = 1;
+        model = (DefaultTableModel) tblSanPham.getModel();
+        model.setRowCount(0);
+        for (ThongKe t : thongKeService.getAllBanChayTheoTime(1)) {
+            model.addRow(new Object[]{
+                stt,
+                t.getMa(),
+                t.getTen(),
+                t.getLoai(),
+                t.getSo(),
+                t.getGia(),
+                t.getChatlieu(),
+                t.getMau(),
+                t.getSize(),
+                t.getThuonghieu(),
+                t.getSoluongban()
+            });
+            stt++;
+        }
+    }
+
+    void loadDataSPBC30() {
+        int stt = 1;
+        model = (DefaultTableModel) tblSanPham.getModel();
+        model.setRowCount(0);
+        for (ThongKe t : thongKeService.getAllBanChayTheoTime(30)) {
+            model.addRow(new Object[]{
+                stt,
+                t.getMa(),
+                t.getTen(),
+                t.getLoai(),
+                t.getSo(),
+                t.getGia(),
+                t.getChatlieu(),
+                t.getMau(),
+                t.getSize(),
+                t.getThuonghieu(),
+                t.getSoluongban()
+            });
+            stt++;
+        }
+    }
+
+    void loadDataSPBC7() {
+        int stt = 1;
+        model = (DefaultTableModel) tblSanPham.getModel();
+        model.setRowCount(0);
+        for (ThongKe t : thongKeService.getAllBanChayTheoTime(7)) {
+            model.addRow(new Object[]{
+                stt,
+                t.getMa(),
+                t.getTen(),
+                t.getLoai(),
+                t.getSo(),
+                t.getGia(),
+                t.getChatlieu(),
+                t.getMau(),
+                t.getSize(),
+                t.getThuonghieu(),
+                t.getSoluongban()
+            });
+            stt++;
+        }
+    }
+
+    void loadDataSPBC365() {
+        int stt = 1;
+        model = (DefaultTableModel) tblSanPham.getModel();
+        model.setRowCount(0);
+        for (ThongKe t : thongKeService.getAllBanChayTheoTime(365)) {
             model.addRow(new Object[]{
                 stt,
                 t.getMa(),
@@ -175,6 +268,63 @@ public class TrangThongKe extends javax.swing.JInternalFrame {
         PanelThongKe_LineChart.add(chartPanel);
     }
 
+    void pie_mausac() {
+        // Create Pie Chart
+        PieChart chart = new PieChartBuilder().width(panelMauSac.getWidth()).height(panelMauSac.getHeight()).title("Màu sắc được ưa chuộng").build();
+
+        for (int i = 0; i < mauList.size(); i++) {
+            String mau = mauList.get(i);
+            Integer mua = muaList.get(i);
+            chart.addSeries(mau, mua);
+        }
+
+        chart.getStyler().setChartBackgroundColor(new Color(246, 246, 249));
+        // Tạo XChartPanel từ biểu đồ
+        XChartPanel<PieChart> chartPanel = new XChartPanel<>(chart);
+
+        // Đặt layout của JPanel là GridBagLayout
+        panelMauSac.setLayout(new GridBagLayout());
+        // Đặt cấu hình của GridBagConstraints
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 1;
+        gbc.weighty = 1;
+        gbc.fill = GridBagConstraints.BOTH;
+
+        panelMauSac.add(chartPanel,gbc);
+        revalidate();
+        repaint();
+    }
+    void pie_size() {
+        // Create Pie Chart
+        PieChart chart = new PieChartBuilder().width(panelSize.getWidth()).height(panelSize.getHeight()).title("Size được ưa chuộng").build();
+
+        for (int i = 0; i < ThongKeService.sizeList.size(); i++) {
+            String mau = ThongKeService.sizeList.get(i);
+            Integer mua = ThongKeService.muasizeList.get(i);
+            chart.addSeries(mau, mua);
+        }
+
+        chart.getStyler().setChartBackgroundColor(new Color(246, 246, 249));
+        // Tạo XChartPanel từ biểu đồ
+        XChartPanel<PieChart> chartPanel = new XChartPanel<>(chart);
+
+        // Đặt layout của JPanel là GridBagLayout
+        panelSize.setLayout(new GridBagLayout());
+        // Đặt cấu hình của GridBagConstraints
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 1;
+        gbc.weighty = 1;
+        gbc.fill = GridBagConstraints.BOTH;
+
+        panelSize.add(chartPanel,gbc);
+        revalidate();
+        repaint();
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -214,6 +364,9 @@ public class TrangThongKe extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblSanPham = new javax.swing.JTable();
         jPanel9 = new javax.swing.JPanel();
+        panelMauSac = new javax.swing.JPanel();
+        jPanel10 = new javax.swing.JPanel();
+        panelSize = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(153, 255, 153));
         setBorder(null);
@@ -424,18 +577,67 @@ public class TrangThongKe extends javax.swing.JInternalFrame {
 
         jTabbedPane1.addTab("Sản phẩm bán chạy", jPanel5);
 
+        panelMauSac.setMaximumSize(new java.awt.Dimension(1105, 510));
+        panelMauSac.setMinimumSize(new java.awt.Dimension(1105, 510));
+
+        javax.swing.GroupLayout panelMauSacLayout = new javax.swing.GroupLayout(panelMauSac);
+        panelMauSac.setLayout(panelMauSacLayout);
+        panelMauSacLayout.setHorizontalGroup(
+            panelMauSacLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        panelMauSacLayout.setVerticalGroup(
+            panelMauSacLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1105, Short.MAX_VALUE)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addComponent(panelMauSac, javax.swing.GroupLayout.PREFERRED_SIZE, 1091, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 14, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 510, Short.MAX_VALUE)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addComponent(panelMauSac, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 18, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Màu sắc được ưa chuộng", jPanel9);
+
+        panelSize.setMaximumSize(new java.awt.Dimension(1105, 510));
+        panelSize.setMinimumSize(new java.awt.Dimension(1105, 510));
+
+        javax.swing.GroupLayout panelSizeLayout = new javax.swing.GroupLayout(panelSize);
+        panelSize.setLayout(panelSizeLayout);
+        panelSizeLayout.setHorizontalGroup(
+            panelSizeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        panelSizeLayout.setVerticalGroup(
+            panelSizeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addComponent(panelSize, javax.swing.GroupLayout.PREFERRED_SIZE, 1091, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 14, Short.MAX_VALUE))
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addComponent(panelSize, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 18, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Size được ưa chuộng", jPanel10);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -479,7 +681,8 @@ public class TrangThongKe extends javax.swing.JInternalFrame {
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
         // TODO add your handling code here:
         cboThoiGian.setSelectedIndex(0);
-
+//        thongKeService.mauSacChuong();
+//        pie_mausac();
     }//GEN-LAST:event_formInternalFrameOpened
 
     private void cboThoiGianMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cboThoiGianMouseClicked
@@ -496,7 +699,16 @@ public class TrangThongKe extends javax.swing.JInternalFrame {
         LineChart_DoanhThu_Nam();
         PanelThongKe_LineChart.revalidate(); // Cập nhật giao diện
         PanelThongKe_LineChart.repaint(); // Vẽ lại Panel
+        thongKeService.getAllBanChay();
+        loadDataSPBC();
 
+        panelMauSac.removeAll();
+        thongKeService.mauSacChuong();
+        pie_mausac();
+        
+        panelSize.removeAll();
+        thongKeService.sizeChuong();
+        pie_size();
     }
 
     void ThongKe_TheoNam() {
@@ -508,6 +720,16 @@ public class TrangThongKe extends javax.swing.JInternalFrame {
         LineChart_DoanhThu_Nam();
         PanelThongKe_LineChart.revalidate(); // Cập nhật giao diện
         PanelThongKe_LineChart.repaint(); // Vẽ lại Panel
+
+        loadDataSPBC365();
+        
+        panelMauSac.removeAll();
+        thongKeService.mauSacChuong365();
+        pie_mausac();
+        
+        panelSize.removeAll();
+        thongKeService.sizeChuong365();
+        pie_size();
     }
 
     void ThongKe_TheoThang() {
@@ -520,6 +742,16 @@ public class TrangThongKe extends javax.swing.JInternalFrame {
         LineChart_DoanhThu_Thang();
         PanelThongKe_LineChart.revalidate(); // Cập nhật giao diện
         PanelThongKe_LineChart.repaint(); // Vẽ lại Panel
+
+        loadDataSPBC30();
+        
+        panelMauSac.removeAll();
+        thongKeService.mauSacChuong30();
+        pie_mausac();
+        
+        panelSize.removeAll();
+        thongKeService.sizeChuong30();
+        pie_size();
     }
 
     void ThongKe_Theo7ngay() {
@@ -530,6 +762,15 @@ public class TrangThongKe extends javax.swing.JInternalFrame {
         PanelThongKe_LineChart.removeAll(); // Xóa tất cả các thành phần trong Panel trước khi vẽ lại
         LineChart_DoanhThu_7Day();
 
+        loadDataSPBC7();
+        
+        panelMauSac.removeAll();
+        thongKeService.mauSacChuong7();
+        pie_mausac();
+        
+        panelSize.removeAll();
+        thongKeService.sizeChuong7();
+        pie_size();
     }
 
     void ThongKe_theoNgay() {
@@ -539,6 +780,16 @@ public class TrangThongKe extends javax.swing.JInternalFrame {
         lblLoiNhuan.setText(formatter.format(thongKeService.loinhuan_ngay()));
         PanelThongKe_LineChart.removeAll(); // Xóa tất cả các thành phần trong Panel trước khi vẽ lại
         LineChart_DoanhThu_Day();
+
+        loadDataSPBC1();
+        
+        panelMauSac.removeAll();
+        thongKeService.mauSacChuong1();
+        pie_mausac();
+        
+        panelSize.removeAll();
+        thongKeService.sizeChuong1();
+        pie_size();
     }
     private void cboThoiGianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboThoiGianActionPerformed
         // TODO add your handling code here:
@@ -590,6 +841,7 @@ public class TrangThongKe extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -605,6 +857,8 @@ public class TrangThongKe extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblKhachHang;
     private javax.swing.JLabel lblKieuDoanhThu;
     private javax.swing.JLabel lblLoiNhuan;
+    private javax.swing.JPanel panelMauSac;
+    private javax.swing.JPanel panelSize;
     private javax.swing.JTable tblSanPham;
     // End of variables declaration//GEN-END:variables
 }

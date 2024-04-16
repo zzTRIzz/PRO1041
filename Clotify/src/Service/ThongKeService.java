@@ -354,6 +354,48 @@ public class ThongKeService {
         return listBanChay;
     }
 
+    public List<ThongKe> getAllBanChayTheoTime(Integer thoigian) {
+        listBanChay.clear();
+        try {
+            String sql = "SELECT SanPham.maSP, SanPham.tenSP, SanPhamCT.loaiSP, SanPhamCT.soLuong, SanPhamCT.giaNhap, ChatLieu.tenChatLieu, MauSac.tenMauSac, Size.tenSize, ThuongHieu.tenThuongHieu, SUM(HoaDonChiTiet.soLuongMua) \n"
+                    + "                  AS SoLuongDaBan\n"
+                    + "FROM     HoaDonChiTiet INNER JOIN\n"
+                    + "                  SanPhamCT ON HoaDonChiTiet.idSP = SanPhamCT.idSP INNER JOIN\n"
+                    + "                  SanPham ON SanPhamCT.maSP = SanPham.maSP INNER JOIN\n"
+                    + "                  ChatLieu ON SanPhamCT.idChatLieu = ChatLieu.idChatLieu INNER JOIN\n"
+                    + "                  MauSac ON SanPhamCT.idMauSac = MauSac.idMauSac INNER JOIN\n"
+                    + "                  Size ON SanPhamCT.idSize = Size.idSize INNER JOIN\n"
+                    + "                  ThuongHieu ON SanPhamCT.idThuongHieu = ThuongHieu.idThuongHieu INNER JOIN\n"
+                    + "                  HoaDon ON HoaDonChiTiet.idHD = HoaDon.idHD\n"
+                    + "				  WHERE  HoaDon.NgayTao >= DATEADD(DAY, - ?, GETDATE())\n"
+                    + "GROUP BY SanPham.maSP, SanPham.tenSP, SanPhamCT.loaiSP, SanPhamCT.soLuong, SanPhamCT.giaNhap, ChatLieu.tenChatLieu, MauSac.tenMauSac, Size.tenSize, ThuongHieu.tenThuongHieu\n"
+                    + "ORDER BY SUM(HoaDonChiTiet.soLuongMua) DESC";
+            Connection conn = DBconnect.getConnection();
+            PreparedStatement stm = conn.prepareStatement(sql);
+            stm.setInt(1, thoigian);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                ThongKe k = new ThongKe();
+                k.setMa(rs.getString(1));
+                k.setTen(rs.getString(2));
+                k.setLoai(rs.getString(3));
+                k.setSo(rs.getString(4));
+                k.setGia(rs.getString(5));
+                k.setChatlieu(rs.getString(6));
+                k.setMau(rs.getString(7));
+                k.setSize(rs.getString(8));
+                k.setThuonghieu(rs.getString(9));
+                k.setSoluongban(rs.getString(10));
+                listBanChay.add(k);
+            }
+            conn.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listBanChay;
+    }
+
     public static Double loinhuan_ngay() {
         String sql = "SELECT \n"
                 + "       SUM(((HoaDonChiTiet.soLuongMua * LichSuGia.gia) -COALESCE(Voucher.giamTheoGia, 0)- (HoaDonChiTiet.soLuongMua * SanPhamCT.giaNhap))) AS LoiNhuan,\n"
@@ -439,6 +481,7 @@ public class ThongKeService {
         }
         return null;
     }
+
     public static Double loinhuan_nam() {
         String sql = "SELECT \n"
                 + "       SUM(((HoaDonChiTiet.soLuongMua * LichSuGia.gia) -COALESCE(Voucher.giamTheoGia, 0)- (HoaDonChiTiet.soLuongMua * SanPhamCT.giaNhap))) AS LoiNhuan\n"
@@ -466,6 +509,7 @@ public class ThongKeService {
         }
         return null;
     }
+
     public static Double loinhuan_all() {
         String sql = "SELECT \n"
                 + "       SUM(((HoaDonChiTiet.soLuongMua * LichSuGia.gia) -COALESCE(Voucher.giamTheoGia, 0)- (HoaDonChiTiet.soLuongMua * SanPhamCT.giaNhap))) AS LoiNhuan\n"
@@ -494,15 +538,438 @@ public class ThongKeService {
         return null;
     }
 
+    public static ArrayList<String> mauList = new ArrayList<>();
+    public static ArrayList<Integer> muaList = new ArrayList<>();
+
+    public void mauSacChuong() {
+        mauList.clear();
+        muaList.clear();
+        String sql = "SELECT \n"
+                + "    MauSac.tenMauSac,\n"
+                + "    SUM(HoaDonChiTiet.soLuongMua) AS SoLuongDaBan\n"
+                + "FROM     \n"
+                + "    HoaDonChiTiet \n"
+                + "INNER JOIN\n"
+                + "    SanPhamCT ON HoaDonChiTiet.idSP = SanPhamCT.idSP \n"
+                + "INNER JOIN\n"
+                + "    SanPham ON SanPhamCT.maSP = SanPham.maSP \n"
+                + "INNER JOIN\n"
+                + "    ChatLieu ON SanPhamCT.idChatLieu = ChatLieu.idChatLieu \n"
+                + "INNER JOIN\n"
+                + "    MauSac ON SanPhamCT.idMauSac = MauSac.idMauSac \n"
+                + "INNER JOIN\n"
+                + "    Size ON SanPhamCT.idSize = Size.idSize \n"
+                + "INNER JOIN\n"
+                + "    ThuongHieu ON SanPhamCT.idThuongHieu = ThuongHieu.idThuongHieu \n"
+                + "INNER JOIN\n"
+                + "    HoaDon ON HoaDonChiTiet.idHD = HoaDon.idHD\n"
+                + "GROUP BY \n"
+                + "    MauSac.tenMauSac\n"
+                + "ORDER BY \n"
+                + "    SUM(HoaDonChiTiet.soLuongMua) DESC";
+        try {
+            Connection conn = DBconnect.getConnection();
+            PreparedStatement stm = conn.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                String mau = rs.getString("tenMauSac");
+                mauList.add(mau);
+                Integer soluong = rs.getInt("SoLuongDaBan");
+                muaList.add(soluong);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void mauSacChuong1() {
+        mauList.clear();
+        muaList.clear();
+        String sql = "SELECT \n"
+                + "    MauSac.tenMauSac,\n"
+                + "    SUM(HoaDonChiTiet.soLuongMua) AS SoLuongDaBan\n"
+                + "FROM     \n"
+                + "    HoaDonChiTiet \n"
+                + "INNER JOIN\n"
+                + "    SanPhamCT ON HoaDonChiTiet.idSP = SanPhamCT.idSP \n"
+                + "INNER JOIN\n"
+                + "    SanPham ON SanPhamCT.maSP = SanPham.maSP \n"
+                + "INNER JOIN\n"
+                + "    ChatLieu ON SanPhamCT.idChatLieu = ChatLieu.idChatLieu \n"
+                + "INNER JOIN\n"
+                + "    MauSac ON SanPhamCT.idMauSac = MauSac.idMauSac \n"
+                + "INNER JOIN\n"
+                + "    Size ON SanPhamCT.idSize = Size.idSize \n"
+                + "INNER JOIN\n"
+                + "    ThuongHieu ON SanPhamCT.idThuongHieu = ThuongHieu.idThuongHieu \n"
+                + "INNER JOIN\n"
+                + "    HoaDon ON HoaDonChiTiet.idHD = HoaDon.idHD\n"
+                + " WHERE HoaDon.NgayTao >= DATEADD(DAY, -1, GETDATE()) \n"
+                + "GROUP BY \n"
+                + "    MauSac.tenMauSac\n"
+                + "ORDER BY \n"
+                + "    SUM(HoaDonChiTiet.soLuongMua) DESC";
+        try {
+            Connection conn = DBconnect.getConnection();
+            PreparedStatement stm = conn.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                String mau = rs.getString("tenMauSac");
+                mauList.add(mau);
+                Integer soluong = rs.getInt("SoLuongDaBan");
+                muaList.add(soluong);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void mauSacChuong7() {
+        mauList.clear();
+        muaList.clear();
+        String sql = "SELECT \n"
+                + "    MauSac.tenMauSac,\n"
+                + "    SUM(HoaDonChiTiet.soLuongMua) AS SoLuongDaBan\n"
+                + "FROM     \n"
+                + "    HoaDonChiTiet \n"
+                + "INNER JOIN\n"
+                + "    SanPhamCT ON HoaDonChiTiet.idSP = SanPhamCT.idSP \n"
+                + "INNER JOIN\n"
+                + "    SanPham ON SanPhamCT.maSP = SanPham.maSP \n"
+                + "INNER JOIN\n"
+                + "    ChatLieu ON SanPhamCT.idChatLieu = ChatLieu.idChatLieu \n"
+                + "INNER JOIN\n"
+                + "    MauSac ON SanPhamCT.idMauSac = MauSac.idMauSac \n"
+                + "INNER JOIN\n"
+                + "    Size ON SanPhamCT.idSize = Size.idSize \n"
+                + "INNER JOIN\n"
+                + "    ThuongHieu ON SanPhamCT.idThuongHieu = ThuongHieu.idThuongHieu \n"
+                + "INNER JOIN\n"
+                + "    HoaDon ON HoaDonChiTiet.idHD = HoaDon.idHD\n"
+                + " WHERE HoaDon.NgayTao >= DATEADD(DAY, -7, GETDATE()) \n"
+                + "GROUP BY \n"
+                + "    MauSac.tenMauSac\n"
+                + "ORDER BY \n"
+                + "    SUM(HoaDonChiTiet.soLuongMua) DESC";
+        try {
+            Connection conn = DBconnect.getConnection();
+            PreparedStatement stm = conn.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                String mau = rs.getString("tenMauSac");
+                mauList.add(mau);
+                Integer soluong = rs.getInt("SoLuongDaBan");
+                muaList.add(soluong);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void mauSacChuong30() {
+        mauList.clear();
+        muaList.clear();
+        String sql = "SELECT \n"
+                + "    MauSac.tenMauSac,\n"
+                + "    SUM(HoaDonChiTiet.soLuongMua) AS SoLuongDaBan\n"
+                + "FROM     \n"
+                + "    HoaDonChiTiet \n"
+                + "INNER JOIN\n"
+                + "    SanPhamCT ON HoaDonChiTiet.idSP = SanPhamCT.idSP \n"
+                + "INNER JOIN\n"
+                + "    SanPham ON SanPhamCT.maSP = SanPham.maSP \n"
+                + "INNER JOIN\n"
+                + "    ChatLieu ON SanPhamCT.idChatLieu = ChatLieu.idChatLieu \n"
+                + "INNER JOIN\n"
+                + "    MauSac ON SanPhamCT.idMauSac = MauSac.idMauSac \n"
+                + "INNER JOIN\n"
+                + "    Size ON SanPhamCT.idSize = Size.idSize \n"
+                + "INNER JOIN\n"
+                + "    ThuongHieu ON SanPhamCT.idThuongHieu = ThuongHieu.idThuongHieu \n"
+                + "INNER JOIN\n"
+                + "    HoaDon ON HoaDonChiTiet.idHD = HoaDon.idHD\n"
+                + " WHERE HoaDon.NgayTao >= DATEADD(DAY, -30, GETDATE()) \n"
+                + "GROUP BY \n"
+                + "    MauSac.tenMauSac\n"
+                + "ORDER BY \n"
+                + "    SUM(HoaDonChiTiet.soLuongMua) DESC";
+        try {
+            Connection conn = DBconnect.getConnection();
+            PreparedStatement stm = conn.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                String mau = rs.getString("tenMauSac");
+                mauList.add(mau);
+                Integer soluong = rs.getInt("SoLuongDaBan");
+                muaList.add(soluong);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void mauSacChuong365() {
+        mauList.clear();
+        muaList.clear();
+        String sql = "SELECT \n"
+                + "    MauSac.tenMauSac,\n"
+                + "    SUM(HoaDonChiTiet.soLuongMua) AS SoLuongDaBan\n"
+                + "FROM     \n"
+                + "    HoaDonChiTiet \n"
+                + "INNER JOIN\n"
+                + "    SanPhamCT ON HoaDonChiTiet.idSP = SanPhamCT.idSP \n"
+                + "INNER JOIN\n"
+                + "    SanPham ON SanPhamCT.maSP = SanPham.maSP \n"
+                + "INNER JOIN\n"
+                + "    ChatLieu ON SanPhamCT.idChatLieu = ChatLieu.idChatLieu \n"
+                + "INNER JOIN\n"
+                + "    MauSac ON SanPhamCT.idMauSac = MauSac.idMauSac \n"
+                + "INNER JOIN\n"
+                + "    Size ON SanPhamCT.idSize = Size.idSize \n"
+                + "INNER JOIN\n"
+                + "    ThuongHieu ON SanPhamCT.idThuongHieu = ThuongHieu.idThuongHieu \n"
+                + "INNER JOIN\n"
+                + "    HoaDon ON HoaDonChiTiet.idHD = HoaDon.idHD\n"
+                + " WHERE HoaDon.NgayTao >= DATEADD(DAY, -365, GETDATE()) \n"
+                + "GROUP BY \n"
+                + "    MauSac.tenMauSac\n"
+                + "ORDER BY \n"
+                + "    SUM(HoaDonChiTiet.soLuongMua) DESC";
+        try {
+            Connection conn = DBconnect.getConnection();
+            PreparedStatement stm = conn.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                String mau = rs.getString("tenMauSac");
+                mauList.add(mau);
+                Integer soluong = rs.getInt("SoLuongDaBan");
+                muaList.add(soluong);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public static ArrayList<String> sizeList = new ArrayList<>();
+    public static ArrayList<Integer> muasizeList = new ArrayList<>();
+    public void sizeChuong() {
+        sizeList.clear();
+        muasizeList.clear();
+        String sql = "SELECT \n"
+                + "    Size.tenSize,\n"
+                + "    SUM(HoaDonChiTiet.soLuongMua) AS SoLuongDaBan\n"
+                + "FROM     \n"
+                + "    HoaDonChiTiet \n"
+                + "INNER JOIN\n"
+                + "    SanPhamCT ON HoaDonChiTiet.idSP = SanPhamCT.idSP \n"
+                + "INNER JOIN\n"
+                + "    SanPham ON SanPhamCT.maSP = SanPham.maSP \n"
+                + "INNER JOIN\n"
+                + "    ChatLieu ON SanPhamCT.idChatLieu = ChatLieu.idChatLieu \n"
+                + "INNER JOIN\n"
+                + "    MauSac ON SanPhamCT.idMauSac = MauSac.idMauSac \n"
+                + "INNER JOIN\n"
+                + "    Size ON SanPhamCT.idSize = Size.idSize \n"
+                + "INNER JOIN\n"
+                + "    ThuongHieu ON SanPhamCT.idThuongHieu = ThuongHieu.idThuongHieu \n"
+                + "INNER JOIN\n"
+                + "    HoaDon ON HoaDonChiTiet.idHD = HoaDon.idHD\n"
+                + "GROUP BY \n"
+                + "     Size.tenSize\n"
+                + "ORDER BY \n"
+                + "    SUM(HoaDonChiTiet.soLuongMua) DESC";
+        try {
+            Connection conn = DBconnect.getConnection();
+            PreparedStatement stm = conn.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                String mau = rs.getString("tenSize");
+                sizeList.add(mau);
+                Integer soluong = rs.getInt("SoLuongDaBan");
+                muasizeList.add(soluong);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void sizeChuong1() {
+        sizeList.clear();
+        muasizeList.clear();
+        String sql = "SELECT \n"
+                + "    Size.tenSize,\n"
+                + "    SUM(HoaDonChiTiet.soLuongMua) AS SoLuongDaBan\n"
+                + "FROM     \n"
+                + "    HoaDonChiTiet \n"
+                + "INNER JOIN\n"
+                + "    SanPhamCT ON HoaDonChiTiet.idSP = SanPhamCT.idSP \n"
+                + "INNER JOIN\n"
+                + "    SanPham ON SanPhamCT.maSP = SanPham.maSP \n"
+                + "INNER JOIN\n"
+                + "    ChatLieu ON SanPhamCT.idChatLieu = ChatLieu.idChatLieu \n"
+                + "INNER JOIN\n"
+                + "    MauSac ON SanPhamCT.idMauSac = MauSac.idMauSac \n"
+                + "INNER JOIN\n"
+                + "    Size ON SanPhamCT.idSize = Size.idSize \n"
+                + "INNER JOIN\n"
+                + "    ThuongHieu ON SanPhamCT.idThuongHieu = ThuongHieu.idThuongHieu \n"
+                + "INNER JOIN\n"
+                + "    HoaDon ON HoaDonChiTiet.idHD = HoaDon.idHD\n"
+                + "	WHERE HoaDon.NgayTao >= DATEADD(DAY, -1, GETDATE())\n"
+                + "GROUP BY \n"
+                + "     Size.tenSize\n"
+                + "ORDER BY \n"
+                + "    SUM(HoaDonChiTiet.soLuongMua) DESC";
+        try {
+            Connection conn = DBconnect.getConnection();
+            PreparedStatement stm = conn.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                String mau = rs.getString("tenSize");
+                sizeList.add(mau);
+                Integer soluong = rs.getInt("SoLuongDaBan");
+                muasizeList.add(soluong);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void sizeChuong7() {
+        sizeList.clear();
+        muasizeList.clear();
+        String sql = "SELECT \n"
+                + "    Size.tenSize,\n"
+                + "    SUM(HoaDonChiTiet.soLuongMua) AS SoLuongDaBan\n"
+                + "FROM     \n"
+                + "    HoaDonChiTiet \n"
+                + "INNER JOIN\n"
+                + "    SanPhamCT ON HoaDonChiTiet.idSP = SanPhamCT.idSP \n"
+                + "INNER JOIN\n"
+                + "    SanPham ON SanPhamCT.maSP = SanPham.maSP \n"
+                + "INNER JOIN\n"
+                + "    ChatLieu ON SanPhamCT.idChatLieu = ChatLieu.idChatLieu \n"
+                + "INNER JOIN\n"
+                + "    MauSac ON SanPhamCT.idMauSac = MauSac.idMauSac \n"
+                + "INNER JOIN\n"
+                + "    Size ON SanPhamCT.idSize = Size.idSize \n"
+                + "INNER JOIN\n"
+                + "    ThuongHieu ON SanPhamCT.idThuongHieu = ThuongHieu.idThuongHieu \n"
+                + "INNER JOIN\n"
+                + "    HoaDon ON HoaDonChiTiet.idHD = HoaDon.idHD\n"
+                + "	WHERE HoaDon.NgayTao >= DATEADD(DAY, -7, GETDATE())\n"
+                + "GROUP BY \n"
+                + "     Size.tenSize\n"
+                + "ORDER BY \n"
+                + "    SUM(HoaDonChiTiet.soLuongMua) DESC";
+        try {
+            Connection conn = DBconnect.getConnection();
+            PreparedStatement stm = conn.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                String mau = rs.getString("tenSize");
+                sizeList.add(mau);
+                Integer soluong = rs.getInt("SoLuongDaBan");
+                muasizeList.add(soluong);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void sizeChuong30() {
+        sizeList.clear();
+        muasizeList.clear();
+        String sql = "SELECT \n"
+                + "    Size.tenSize,\n"
+                + "    SUM(HoaDonChiTiet.soLuongMua) AS SoLuongDaBan\n"
+                + "FROM     \n"
+                + "    HoaDonChiTiet \n"
+                + "INNER JOIN\n"
+                + "    SanPhamCT ON HoaDonChiTiet.idSP = SanPhamCT.idSP \n"
+                + "INNER JOIN\n"
+                + "    SanPham ON SanPhamCT.maSP = SanPham.maSP \n"
+                + "INNER JOIN\n"
+                + "    ChatLieu ON SanPhamCT.idChatLieu = ChatLieu.idChatLieu \n"
+                + "INNER JOIN\n"
+                + "    MauSac ON SanPhamCT.idMauSac = MauSac.idMauSac \n"
+                + "INNER JOIN\n"
+                + "    Size ON SanPhamCT.idSize = Size.idSize \n"
+                + "INNER JOIN\n"
+                + "    ThuongHieu ON SanPhamCT.idThuongHieu = ThuongHieu.idThuongHieu \n"
+                + "INNER JOIN\n"
+                + "    HoaDon ON HoaDonChiTiet.idHD = HoaDon.idHD\n"
+                + "	WHERE HoaDon.NgayTao >= DATEADD(DAY, -30, GETDATE())\n"
+                + "GROUP BY \n"
+                + "     Size.tenSize\n"
+                + "ORDER BY \n"
+                + "    SUM(HoaDonChiTiet.soLuongMua) DESC";
+        try {
+            Connection conn = DBconnect.getConnection();
+            PreparedStatement stm = conn.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                String mau = rs.getString("tenSize");
+                sizeList.add(mau);
+                Integer soluong = rs.getInt("SoLuongDaBan");
+                muasizeList.add(soluong);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void sizeChuong365() {
+        sizeList.clear();
+        muasizeList.clear();
+        String sql = "SELECT \n"
+                + "    Size.tenSize,\n"
+                + "    SUM(HoaDonChiTiet.soLuongMua) AS SoLuongDaBan\n"
+                + "FROM     \n"
+                + "    HoaDonChiTiet \n"
+                + "INNER JOIN\n"
+                + "    SanPhamCT ON HoaDonChiTiet.idSP = SanPhamCT.idSP \n"
+                + "INNER JOIN\n"
+                + "    SanPham ON SanPhamCT.maSP = SanPham.maSP \n"
+                + "INNER JOIN\n"
+                + "    ChatLieu ON SanPhamCT.idChatLieu = ChatLieu.idChatLieu \n"
+                + "INNER JOIN\n"
+                + "    MauSac ON SanPhamCT.idMauSac = MauSac.idMauSac \n"
+                + "INNER JOIN\n"
+                + "    Size ON SanPhamCT.idSize = Size.idSize \n"
+                + "INNER JOIN\n"
+                + "    ThuongHieu ON SanPhamCT.idThuongHieu = ThuongHieu.idThuongHieu \n"
+                + "INNER JOIN\n"
+                + "    HoaDon ON HoaDonChiTiet.idHD = HoaDon.idHD\n"
+                + "	WHERE HoaDon.NgayTao >= DATEADD(DAY, -365, GETDATE())\n"
+                + "GROUP BY \n"
+                + "     Size.tenSize\n"
+                + "ORDER BY \n"
+                + "    SUM(HoaDonChiTiet.soLuongMua) DESC";
+        try {
+            Connection conn = DBconnect.getConnection();
+            PreparedStatement stm = conn.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                String mau = rs.getString("tenSize");
+                sizeList.add(mau);
+                Integer soluong = rs.getInt("SoLuongDaBan");
+                muasizeList.add(soluong);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) {
-        ThongKeService.layDoanhThu_TheoNgay_LineChart();
-        System.out.println(ThongKeService.ngay);
-        ThongKeService.layDoanhThu_TheoThang_LineChart();
-        System.out.println(ThongKeService.thang);
-        System.out.println(ThongKeService.doanhthuthang);
+//        ThongKeService.layDoanhThu_TheoNgay_LineChart();
+//        System.out.println(ThongKeService.ngay);
+//        ThongKeService.layDoanhThu_TheoThang_LineChart();
+//        System.out.println(ThongKeService.thang);
+//        System.out.println(ThongKeService.doanhthuthang);
 
 //        ThongKeService.layDoanhThu_Theo7Ngay_LineChart();
 //        System.out.println(ThongKeService.ngay7);
 //        System.out.println(ThongKeService.doanhthu7);
+        ThongKeService thongKeService = new ThongKeService();
+        thongKeService.mauSacChuong();
+        System.out.println(mauList);
+        System.out.println(muaList);
     }
 }
