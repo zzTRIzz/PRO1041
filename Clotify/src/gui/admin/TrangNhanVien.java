@@ -12,6 +12,16 @@ import javax.swing.table.DefaultTableModel;
 import model.NhanVien;
 import nhanvienValidate.Validation;
 import Interface.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  *
@@ -168,6 +178,7 @@ public class TrangNhanVien extends javax.swing.JInternalFrame {
         btnXoa = new javax.swing.JButton();
         btnTimKiem = new javax.swing.JButton();
         btnDSVH = new javax.swing.JButton();
+        btnIn = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(153, 255, 153));
         setBorder(null);
@@ -387,7 +398,7 @@ public class TrangNhanVien extends javax.swing.JInternalFrame {
             jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel20Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane11, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
+                .addComponent(jScrollPane11, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -451,6 +462,19 @@ public class TrangNhanVien extends javax.swing.JInternalFrame {
         });
         jPanel21.add(btnDSVH);
 
+        btnIn.setText("In");
+        btnIn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnInMouseClicked(evt);
+            }
+        });
+        btnIn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInActionPerformed(evt);
+            }
+        });
+        jPanel21.add(btnIn);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -462,17 +486,17 @@ public class TrangNhanVien extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(45, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(47, 47, 47))
         );
@@ -592,6 +616,93 @@ public class TrangNhanVien extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
+    private void btnInMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnInMouseClicked
+
+    private void btnInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInActionPerformed
+        // TODO add your handling code here:
+        try {
+            XSSFWorkbook workbook = new XSSFWorkbook();
+            XSSFSheet sheet = workbook.createSheet("Danhsach");
+            XSSFRow row = null;
+            Cell cell = null;
+            row = sheet.createRow(3);
+            cell = row.createCell(0, CellType.STRING);
+            cell.setCellValue("Mã NV");
+            cell = row.createCell(1, CellType.STRING);
+            cell.setCellValue("Họ và tên");
+            cell = row.createCell(2, CellType.STRING);
+            cell.setCellValue("Giới Tính");
+            cell = row.createCell(3, CellType.STRING);
+            cell.setCellValue("Năm Sinh");
+            cell = row.createCell(4, CellType.STRING);
+            cell.setCellValue("Quê Quán");
+            cell = row.createCell(5, CellType.STRING);
+            cell.setCellValue("Tài Khoản");
+            cell = row.createCell(6, CellType.STRING);
+            cell.setCellValue("Mật Khẩu");
+            cell = row.createCell(7, CellType.STRING);
+            cell.setCellValue("Vai trò");
+            cell = row.createCell(7, CellType.STRING);
+            cell.setCellValue("SDT");
+            cell = row.createCell(7, CellType.STRING);
+            cell.setCellValue("Email");
+            cell = row.createCell(8, CellType.STRING);
+            cell.setCellValue("Trạng thái");
+            for (int i = 0; i < service.getAll().size(); i++) {
+                row = sheet.createRow(4 + i);
+                cell = row.createCell(0, CellType.STRING);
+                cell.setCellValue(service.getAll().get(i).getMaNV());
+
+                cell = row.createCell(1, CellType.STRING);
+                cell.setCellValue(service.getAll().get(i).getTenNV());
+
+                cell = row.createCell(2, CellType.STRING);
+                cell.setCellValue(service.getAll().get(i).getGioiTinh());
+
+                cell = row.createCell(3, CellType.STRING);
+                cell.setCellValue(service.getAll().get(i).getNgaySinh());
+
+                cell = row.createCell(4, CellType.STRING);
+                cell.setCellValue(service.getAll().get(i).getDiaChi());
+
+                cell = row.createCell(5, CellType.STRING);
+                cell.setCellValue(service.getAll().get(i).getTaiKhoan());
+
+                cell = row.createCell(6, CellType.STRING);
+                cell.setCellValue(service.getAll().get(i).getMatKhau());
+
+                cell = row.createCell(7, CellType.STRING);
+                cell.setCellValue(service.getAll().get(i).getVaiTro());
+
+                cell = row.createCell(7, CellType.STRING);
+                cell.setCellValue(service.getAll().get(i).getSdt());
+
+                cell = row.createCell(7, CellType.STRING);
+                cell.setCellValue(service.getAll().get(i).getEmail());
+
+                cell = row.createCell(8, CellType.STRING);
+                cell.setCellValue(service.getAll().get(i).getTrangThai());
+
+            }
+            File f = new File("danhsach.xlsx");
+            try {
+                FileOutputStream fis = new FileOutputStream(f);
+                workbook.write(fis);
+                fis.close();
+
+            } catch (FileNotFoundException ex) {
+                ex.printStackTrace();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            JOptionPane.showMessageDialog(this, "In thành công");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnInActionPerformed
+
     private boolean valiFrom() {
         if (Validation.isEmpty(txtMa, "Ma nhan vien khong duoc de trong")) {
             return false;
@@ -630,6 +741,7 @@ public class TrangNhanVien extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDSVH;
+    private javax.swing.JButton btnIn;
     private javax.swing.JButton btnLamMoi;
     private javax.swing.JButton btnTimKiem;
     private javax.swing.JButton btnUpdate;

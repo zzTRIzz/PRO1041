@@ -406,7 +406,7 @@ public class ThongKeService {
                 + "INNER JOIN SanPham ON SanPhamCT.maSP = SanPham.maSP\n"
                 + "INNER JOIN LichSuGia ON LichSuGia.idSP = SanPhamCT.idSP\n"
                 + "LEFT JOIN Voucher ON Voucher.maVoucher = HoaDon.maVoucher\n"
-                + "WHERE HoaDon.trangThai = N'Đã thanh toán' AND HoaDon.NgayTao >= DATEADD(DAY, -1, GETDATE())\n"
+                + "WHERE HoaDon.trangThai = N'Đã thanh toán' AND HoaDon.NgayTao >= DATEADD(DAY, -1, GETDATE())  AND LichSuGia.NgayKetThuc IS NULL\n"
                 + "GROUP BY HoaDon.ngayTao";
         try {
             Connection conn = DBconnect.getConnection();
@@ -435,7 +435,7 @@ public class ThongKeService {
                 + "INNER JOIN SanPham ON SanPhamCT.maSP = SanPham.maSP\n"
                 + "INNER JOIN LichSuGia ON LichSuGia.idSP = SanPhamCT.idSP\n"
                 + "LEFT JOIN Voucher ON Voucher.maVoucher = HoaDon.maVoucher\n"
-                + "WHERE HoaDon.trangThai = N'Đã thanh toán' AND HoaDon.NgayTao >= DATEADD(DAY, -7, GETDATE())";
+                + "WHERE HoaDon.trangThai = N'Đã thanh toán' AND HoaDon.NgayTao >= DATEADD(DAY, -7, GETDATE())  AND LichSuGia.NgayKetThuc IS NULL";
         try {
             Connection conn = DBconnect.getConnection();
             PreparedStatement stm = conn.prepareStatement(sql);
@@ -463,7 +463,7 @@ public class ThongKeService {
                 + "INNER JOIN SanPham ON SanPhamCT.maSP = SanPham.maSP\n"
                 + "INNER JOIN LichSuGia ON LichSuGia.idSP = SanPhamCT.idSP\n"
                 + "LEFT JOIN Voucher ON Voucher.maVoucher = HoaDon.maVoucher\n"
-                + "WHERE HoaDon.trangThai = N'Đã thanh toán' AND HoaDon.NgayTao >= DATEADD(MONTH, -1, GETDATE())";
+                + "WHERE HoaDon.trangThai = N'Đã thanh toán' AND HoaDon.NgayTao >= DATEADD(MONTH, -1, GETDATE())  AND LichSuGia.NgayKetThuc IS NULL";
         try {
             Connection conn = DBconnect.getConnection();
             PreparedStatement stm = conn.prepareStatement(sql);
@@ -491,7 +491,7 @@ public class ThongKeService {
                 + "INNER JOIN SanPham ON SanPhamCT.maSP = SanPham.maSP\n"
                 + "INNER JOIN LichSuGia ON LichSuGia.idSP = SanPhamCT.idSP\n"
                 + "LEFT JOIN Voucher ON Voucher.maVoucher = HoaDon.maVoucher\n"
-                + "WHERE HoaDon.trangThai = N'Đã thanh toán' AND HoaDon.NgayTao >= DATEADD(YEAR, -1, GETDATE())";
+                + "WHERE HoaDon.trangThai = N'Đã thanh toán' AND HoaDon.NgayTao >= DATEADD(YEAR, -1, GETDATE())  AND LichSuGia.NgayKetThuc IS NULL";
         try {
             Connection conn = DBconnect.getConnection();
             PreparedStatement stm = conn.prepareStatement(sql);
@@ -519,7 +519,7 @@ public class ThongKeService {
                 + "INNER JOIN SanPham ON SanPhamCT.maSP = SanPham.maSP\n"
                 + "INNER JOIN LichSuGia ON LichSuGia.idSP = SanPhamCT.idSP\n"
                 + "LEFT JOIN Voucher ON Voucher.maVoucher = HoaDon.maVoucher\n"
-                + "WHERE HoaDon.trangThai = N'Đã thanh toán'";
+                + "WHERE HoaDon.trangThai = N'Đã thanh toán' AND LichSuGia.NgayKetThuc IS NULL";
         try {
             Connection conn = DBconnect.getConnection();
             PreparedStatement stm = conn.prepareStatement(sql);
