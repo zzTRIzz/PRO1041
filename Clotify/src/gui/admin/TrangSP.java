@@ -1011,9 +1011,9 @@ public class TrangSP extends javax.swing.JInternalFrame {
             return;
         } else {
             String tenTT = txtTenTT.getText();
-            
-            if (rdMauSac.isSelected()==true) {
-                count =svTT.getListMS(tenTT).size();
+
+            if (rdMauSac.isSelected() == true) {
+                count = svTT.getListMS(tenTT).size();
                 if (count == 0) {
                     svTT.addMauSac(getFormMs());
                     loadDataMS();
@@ -1023,9 +1023,9 @@ public class TrangSP extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(this, "Thuộc tính đã tồn tại");
                 }
 
-            } 
-            if (rdChatLieu.isSelected()==true) {
-                count =svTT.getListCL(tenTT).size();
+            }
+            if (rdChatLieu.isSelected() == true) {
+                count = svTT.getListCL(tenTT).size();
                 if (count == 0) {
                     svTT.addChatLieu(getFormCl());
 //                cboChatLieu.addItem(ms);
@@ -1036,9 +1036,9 @@ public class TrangSP extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(this, "Thuộc tính đã tồn tại");
                 }
 
-            } 
-            if (rdSize.isSelected()==true) {
-                count =svTT.getListSize(tenTT).size();
+            }
+            if (rdSize.isSelected() == true) {
+                count = svTT.getListSize(tenTT).size();
                 if (count == 0) {
                     svTT.addSize(getFormSize());
 //                cboSize.addItem(ms);
@@ -1049,8 +1049,8 @@ public class TrangSP extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(this, "Thuộc tính đã tồn tại");
                 }
             }
-            if (rdThuongHieu.isSelected()==true) {
-                count =svTT.getListTH(tenTT).size();
+            if (rdThuongHieu.isSelected() == true) {
+                count = svTT.getListTH(tenTT).size();
                 if (count == 0) {
                     svTT.addThuongHieu(getFormTh());
 //                cboTH.addItem(ms);
@@ -1138,6 +1138,7 @@ public class TrangSP extends javax.swing.JInternalFrame {
         String tenCL = (String) cboChatLieu.getSelectedItem();
         String tenTH = (String) cboTH.getSelectedItem();
         String tenSize = (String) cboSize.getSelectedItem();
+        String loaiSP = txtLoai.getText();
         int idMS = 0;
         int idCL = 0;
         int idTH = 0;
@@ -1168,6 +1169,7 @@ public class TrangSP extends javax.swing.JInternalFrame {
             loadDataSPCTByMa(maSP);
             return;
         } else {
+
             String hinhAnh;
             if (strHinhAnh == null) {
                 hinhAnh = "No img";
@@ -1199,7 +1201,7 @@ public class TrangSP extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Sản phẩm chưa chọn size");
                 return;
             }
-            String loaiSP = txtLoai.getText();
+
             if (loaiSP.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Loại sản phẩm ko trống");
                 return;
@@ -1208,6 +1210,18 @@ public class TrangSP extends javax.swing.JInternalFrame {
             double giaBan;
             double giaNhap;
             String trangThai = "Hoạt động";
+            try {
+                giaBan = Double.parseDouble(txtGiaBan.getText());
+                System.out.println("gia ban" + giaBan);
+                if (giaBan <= 0) {
+                    JOptionPane.showMessageDialog(this, "Giá bán >0");
+                    return;
+                }
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Giá bán ko hợp lệ");
+                return;
+            }
             try {
                 soLuong = Integer.parseInt(txtSoLuong.getText());
                 giaNhap = Double.parseDouble(txtGiaNhap.getText());
@@ -1219,36 +1233,31 @@ public class TrangSP extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(this, "Gia nhập >0");
                     return;
                 }
-                svSPCT.addSanPhamCT(new SanPhamCT(soLuong, idMS, idSize, idTH, idCL, maSP, loaiSP, trangThai, giaNhap, hinhAnh));
-                loadDataSPCTByMa(maSP);
+                int count3 = svSPCT.searchID(maSP, loaiSP, idTH, idMS, idSize, idCL).size();
+                if (count3 == 0) {
+                    JOptionPane.showMessageDialog(this, "Thêm thành công");
+                    svSPCT.addSanPhamCT(new SanPhamCT(soLuong, idMS, idSize, idTH, idCL, maSP, loaiSP, trangThai, giaNhap, hinhAnh));
+                    loadDataSPCTByMa(maSP);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Sản phẩm tồn tại");
+                    return;
+                }
+
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Số lượng hoặc giá nhập phù hợp");
                 return;
             }
 //            String ngayKetThuc = "NULL";
-            try {
-                giaBan = Double.parseDouble(txtGiaBan.getText());
-                System.out.println("gia ban" + giaBan);
-                if (giaBan <= 0) {
-                    JOptionPane.showMessageDialog(this, "Giá bán >0");
-                    return;
-                }
-                List<SanPhamCT> listIdSP = svSPCT.searchID(maSP, loaiSP, idTH, idMS, idSize, idCL);
-                int count2 = svSPCT.searchID(maSP, loaiSP, idTH, idMS, idSize, idCL).size();
-                if (count2 == 1) {
-                    for (SanPhamCT sanPhamCT : listIdSP) {
-                        int idSP = sanPhamCT.getIdSP();
-                        System.out.println(idSP);
-                        lsg.addLSGia(new LichSuGia(idSP, giaBan, ngayNhap));
 
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(this, "Sản phẩm đã tồn tại");
-                    return;
+            List<SanPhamCT> listIdSP = svSPCT.searchID(maSP, loaiSP, idTH, idMS, idSize, idCL);
+            int count2 = svSPCT.searchID(maSP, loaiSP, idTH, idMS, idSize, idCL).size();
+            if (count2 == 1) {
+                for (SanPhamCT sanPhamCT : listIdSP) {
+                    int idSP = sanPhamCT.getIdSP();
+                    System.out.println(idSP);
+                    lsg.addLSGia(new LichSuGia(idSP, giaBan, ngayNhap));
+
                 }
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Giá bán ko hợp lệ");
-                return;
             }
 
         }
@@ -1491,30 +1500,23 @@ public class TrangSP extends javax.swing.JInternalFrame {
 
     private void btnTTAnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTTAnActionPerformed
         // TODO add your handling code here:
-        if (rdChatLieu.isSelected()==true) {
+        if (rdChatLieu.isSelected() == true) {
             new ChatLieuAnDialog(null, true).setVisible(true);
-            
-        }
-        
-        else if (rdSize.isSelected()==true) {
+
+        } else if (rdSize.isSelected() == true) {
             new SizeAnDialog(null, true).setVisible(true);
-            
-        }
-        
-       else if (rdMauSac.isSelected()==true) {
+
+        } else if (rdMauSac.isSelected() == true) {
             new MauSacAnDialog(null, true).setVisible(true);
-            
-        }
-        
-       else if (rdThuongHieu.isSelected()==true) {
+
+        } else if (rdThuongHieu.isSelected() == true) {
             new ThuongHieuAnDialog(null, true).setVisible(true);
-            
-        }
-       else{
-           
+
+        } else {
+
             JOptionPane.showMessageDialog(this, "Chọn loại thuộc tính");
-        
-       }
+
+        }
     }//GEN-LAST:event_btnTTAnActionPerformed
 
 

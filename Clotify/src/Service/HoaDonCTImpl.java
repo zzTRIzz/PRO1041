@@ -193,10 +193,10 @@ public class HoaDonCTImpl implements HoaDonCTService {
                 + "             HoaDonChiTiet ON HoaDon.idHD = HoaDonChiTiet.idHD INNER JOIN\n"
                 + "             SanPhamCT ON HoaDonChiTiet.idSP = SanPhamCT.idSP INNER JOIN\n"
                 + "             LichSuGia ON SanPhamCT.idSP = LichSuGia.idSP INNER JOIN\n"
-                + "             SanPham ON SanPhamCT.maSP = SanPham.maSP INNER JOIN\n"
-                + "             SanPhamKM ON SanPhamCT.idSP = SanPhamKM.idSP INNER JOIN\n"
-                + "             KhuyenMai ON SanPhamKM.maKM = KhuyenMai.maKM INNER JOIN\n"
-                + "             KhachHang ON KhachHang.idKH = HoaDon.idKH \n "
+                + "             SanPham ON SanPhamCT.maSP = SanPham.maSP left JOIN\n"
+                + "             SanPhamKM ON SanPhamCT.idSP = SanPhamKM.idSP left JOIN\n"
+                + "             KhuyenMai ON SanPhamKM.maKM = KhuyenMai.maKM inner JOIN\n"
+                + "             KhachHang ON KhachHang.idKH = HoaDon.idKH and LichSuGia.ngayKetThuc is null\n "
                 + "where HoaDon.idHD =?";
         
         Connection conn = (Connection) DBconnect.getConnection();
