@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
-package gui.admin;
+package gui.nhanvien;
 
+import gui.admin.*;
 import Interface.HoaDonCTService;
 import Interface.HoaDonService;
 import Service.HoaDonCTImpl;
@@ -21,7 +22,7 @@ import Interface.*;
  *
  * @author ADMIN
  */
-public class TrangHoaDon extends javax.swing.JInternalFrame {
+public class TrangHoaDonNhanVien extends javax.swing.JInternalFrame {
 
     DefaultTableModel model;
     HoaDonService svHD = new HoaDonImpl();
@@ -30,7 +31,7 @@ public class TrangHoaDon extends javax.swing.JInternalFrame {
     /**
      * Creates new form Trang0
      */
-    public TrangHoaDon() {
+    public TrangHoaDonNhanVien() {
         initComponents();
         ui_custom.deleteTitle(this);
         model = (DefaultTableModel) tbHoaDon.getModel();
@@ -39,7 +40,7 @@ public class TrangHoaDon extends javax.swing.JInternalFrame {
 
     void loadDataHD() {
         model.setRowCount(0);
-        for (HoaDon hd : svHD.getAllHoaDonAdmin()) {
+        for (HoaDon hd : svHD.getHoaDon7Ngay()) {
             Object[] row = new Object[]{
                 hd.getIdHD(),
                 hd.getMaHD(),
@@ -71,7 +72,7 @@ public class TrangHoaDon extends javax.swing.JInternalFrame {
 
     void setForm(HoaDon hd) {
         String tt = hd.getTrangThai().trim();
-        if ("Đã thanh toán".equals(tt)) {
+        if (tt.equals("Đã thanh toán")) {
             rdDaThanhToan.setSelected(true);
         } else {
             rdChuaThanhToan.setSelected(true);
@@ -101,15 +102,10 @@ public class TrangHoaDon extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         rdDaThanhToan = new javax.swing.JRadioButton();
         rdChuaThanhToan = new javax.swing.JRadioButton();
-        jButton1 = new javax.swing.JButton();
+        btnTraHang = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         txtTimKiem = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        txtNgayBatDau = new com.toedter.calendar.JDateChooser();
-        txtNgayKetThuc = new com.toedter.calendar.JDateChooser();
-        btSearchNgay = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tbHdct = new javax.swing.JTable();
@@ -153,14 +149,19 @@ public class TrangHoaDon extends javax.swing.JInternalFrame {
         rdDaThanhToan.setText("Đã thanh toán");
 
         buttonGroup1.add(rdChuaThanhToan);
-        rdChuaThanhToan.setText("Chưa thanh toán");
+        rdChuaThanhToan.setText("Đã hủy");
         rdChuaThanhToan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rdChuaThanhToanActionPerformed(evt);
             }
         });
 
-        jButton1.setText("Trả hàng");
+        btnTraHang.setText("Trả hàng");
+        btnTraHang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnTraHangMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -180,7 +181,7 @@ public class TrangHoaDon extends javax.swing.JInternalFrame {
                                 .addComponent(rdChuaThanhToan))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(941, 941, 941)
-                        .addComponent(jButton1)))
+                        .addComponent(btnTraHang)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -195,7 +196,7 @@ public class TrangHoaDon extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
-                .addComponent(jButton1))
+                .addComponent(btnTraHang))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -215,25 +216,6 @@ public class TrangHoaDon extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel1.setText("Bắt đầu");
-
-        jLabel2.setText("Kết thúc");
-
-        btSearchNgay.setBackground(new java.awt.Color(0, 51, 153));
-        btSearchNgay.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btSearchNgay.setForeground(new java.awt.Color(251, 251, 251));
-        btSearchNgay.setText("Tìm kiếm");
-        btSearchNgay.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btSearchNgayMouseClicked(evt);
-            }
-        });
-        btSearchNgay.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btSearchNgayActionPerformed(evt);
-            }
-        });
-
         jLabel5.setText("Tìm kiếm theo mã Hóa đơn , Nhân viên, ngày tạo : ");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -245,37 +227,16 @@ public class TrangHoaDon extends javax.swing.JInternalFrame {
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(69, 69, 69)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtNgayBatDau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtNgayKetThuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(130, 130, 130)
-                .addComponent(btSearchNgay, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(btSearchNgay)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNgayKetThuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtNgayBatDau, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(13, Short.MAX_VALUE))))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         tbHdct.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -360,43 +321,12 @@ public class TrangHoaDon extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_tbHoaDonMouseClicked
 
-    private void btSearchNgayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btSearchNgayMouseClicked
-        // TODO add your handling code here:
-        Date batDau = txtNgayBatDau.getDate();
-        Date ketThuc = txtNgayKetThuc.getDate();
-
-        if (batDau == null) {
-            JOptionPane.showMessageDialog(null, "Vui lòng chọn ngày bắt đầu ", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return;
-        } else if (ketThuc == null) {
-            JOptionPane.showMessageDialog(null, "Vui lòng chọn ngày kết thúc ", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        if (ketThuc.before(batDau)) {
-            JOptionPane.showMessageDialog(null, "Ngày kết thúc không thể trước ngày bắt đầu.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        DefaultTableModel modelSearch = (DefaultTableModel) tbHoaDon.getModel();
-        modelSearch.setRowCount(0);
-        for (HoaDon hoaDon : svHD.SearchTime(batDau, ketThuc)) {
-            modelSearch.addRow(new Object[]{
-                hoaDon.getIdHD(),
-                hoaDon.getMaHD(),
-                hoaDon.getNgayTao(),
-                hoaDon.getMaNV(),
-                hoaDon.getTrangThai()
-            });
-        }
-    }//GEN-LAST:event_btSearchNgayMouseClicked
-
     private void txtTimKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemKeyReleased
         // TODO add your handling code here:
         String key = txtTimKiem.getText();
         DefaultTableModel modelsearch = (DefaultTableModel) tbHoaDon.getModel();
         modelsearch.setRowCount(0);
-        for (HoaDon hoaDon : svHD.Search(key)) {
+        for (HoaDon hoaDon : svHD.Search7Ngay(key)) {
             modelsearch.addRow(new Object[]{
                 hoaDon.getIdHD(),
                 hoaDon.getMaHD(),
@@ -407,17 +337,25 @@ public class TrangHoaDon extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_txtTimKiemKeyReleased
 
-    private void btSearchNgayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSearchNgayActionPerformed
+    private void btnTraHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTraHangMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_btSearchNgayActionPerformed
+       int kiemTra = JOptionPane.showConfirmDialog(this, "Bạn có muốn trả hàng không", "Bạn có muốn trả hàng không?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        int i = tbHoaDon.getSelectedRow();
+        if(kiemTra == JOptionPane.YES_OPTION){
+        if(i>=0){
+            HoaDon hd = svHD.getRowHD(i) ;
+           svHD.updateTrangThai(hd);
+           loadDataHD();
+        }
+        }else{
+            
+        }
+    }//GEN-LAST:event_btnTraHangMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btSearchNgay;
+    private javax.swing.JButton btnTraHang;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -431,8 +369,6 @@ public class TrangHoaDon extends javax.swing.JInternalFrame {
     private javax.swing.JRadioButton rdDaThanhToan;
     private javax.swing.JTable tbHdct;
     private javax.swing.JTable tbHoaDon;
-    private com.toedter.calendar.JDateChooser txtNgayBatDau;
-    private com.toedter.calendar.JDateChooser txtNgayKetThuc;
     private javax.swing.JTextField txtTimKiem;
     // End of variables declaration//GEN-END:variables
 }

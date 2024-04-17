@@ -60,7 +60,7 @@ public class Main_NhanVien extends javax.swing.JFrame {
     void trang1() {
         System.out.println("Truy cap menu : 1");
         ui_custom.disposeAllFrame(DesktopPane);
-        TrangSP_nv trang1 = new TrangSP_nv();
+        TrangHoaDonNhanVien trang1 = new TrangHoaDonNhanVien();
         trang1.setSize(DesktopPane.getSize());
         DesktopPane.add(trang1).setVisible(true);
         

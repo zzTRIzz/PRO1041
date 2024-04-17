@@ -347,4 +347,80 @@ public class HoaDonImpl implements HoaDonService {
         hoaDonImpl.InHoaDon();
     }
 
+    @Override
+    public List<HoaDon> getHoaDon7Ngay() {
+         listHoaDon.clear();
+        try {
+            String sql = "	SELECT HoaDon.idHD, HoaDon.maHD, HoaDon.ngayTao, NhanVien.tenNV, KhachHang.tenKH, HoaDon.trangThai,KhachHang.idKH\n"
+                    + "FROM   HoaDon INNER JOIN\n"
+                    + "             KhachHang ON HoaDon.idKH = KhachHang.idKH INNER JOIN\n"
+                    + "             NhanVien ON HoaDon.maNV = NhanVien.maNV\n"
+                    + "WHERE HoaDon.NgayTao >= DATEADD(DAY, -7, GETDATE()) and HoaDon.trangThai != N'Chưa thanh toán' ";
+            Connection conn = (Connection) DBconnect.getConnection();
+            Statement stm = conn.createStatement();
+            ResultSet rs = stm.executeQuery(sql);
+            while (rs.next()) {
+                HoaDon hd = new HoaDon();
+                hd.setIdHD(rs.getInt(1));
+                hd.setMaHD(rs.getInt(2));
+                hd.setNgayTao(rs.getString(3));
+                hd.setTenNV(rs.getString(4));
+                hd.setTenKH(rs.getString(5));
+                hd.setTrangThai(rs.getString(6));
+                hd.setIdKH(7);
+                listHoaDon.add(hd);
+            }
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listHoaDon;
+    }
+
+    @Override
+    public List<HoaDon> Search7Ngay(String keyword) {
+       String sql = "SELECT idHD, maHD, ngayTao, maNV, trangThai \n" +
+"FROM HoaDon \n" +
+"WHERE NgayTao >= DATEADD(DAY, -7, GETDATE()) \n" +
+"AND (maHD LIKE ? OR maNV LIKE ? OR CONVERT(nvarchar, ngayTao, 103) LIKE ?) and HoaDon.trangThai != N'Chưa thanh toán'";
+        listHoaDon.clear();
+        try {
+            Connection conn = DBconnect.getConnection();
+            PreparedStatement psm = conn.prepareStatement(sql);
+            psm.setString(1, "%" + keyword + "%");
+            psm.setString(2, "%" + keyword + "%");
+            psm.setString(3, "%" + keyword + "%");
+            ResultSet rs = psm.executeQuery();
+            while (rs.next()) {
+                HoaDon hd = new HoaDon();
+                hd.setIdHD(rs.getInt(1));
+                hd.setMaHD(rs.getInt(2));
+                hd.setNgayTao(rs.getString(3));
+                hd.setMaNV(rs.getString(4));
+                hd.setTrangThai(rs.getString(5));
+                listHoaDon.add(hd);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return listHoaDon;
+
+    }
+
+    @Override
+    public void updateTrangThai(HoaDon hd) {
+        String sql = "Update HoaDon set trangThai = ? where idHD = ?";
+        try{
+            Connection conn = DBconnect.getConnection();
+            PreparedStatement stm = conn.prepareStatement(sql);
+            stm.setString(1, "Trả hàng");
+            stm.setInt(2, hd.getIdHD());
+            stm.executeUpdate();
+            conn.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
 }

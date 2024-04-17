@@ -20,4 +20,7 @@ public interface HoaDonService {
     List<HoaDon> Search(String key);
     List<HoaDon> SearchTime(java.util.Date batDau, java.util.Date ketThuc);
     void DataInHoaDon(Integer mahoadon);
+    List<HoaDon> getHoaDon7Ngay();
+    List<HoaDon> Search7Ngay(String keyword);
+    void updateTrangThai(HoaDon hd);
 }
