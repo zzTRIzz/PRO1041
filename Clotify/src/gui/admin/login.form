@@ -109,9 +109,6 @@
           <Color blue="ef" green="ef" red="ef" type="rgb"/>
         </Property>
       </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="txtNewPassword.setBorder(null);&#xa;getContentPane().add(txtNewPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 340, 40));"/>
-      </AuxValues>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="40" y="160" width="300" height="40"/>
@@ -169,9 +166,6 @@
           <Color blue="ef" green="ef" red="ef" type="rgb"/>
         </Property>
       </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="txtNewPasswordAgain.setBorder(null);&#xa;getContentPane().add(txtNewPasswordAgain, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 340, 40));"/>
-      </AuxValues>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="40" y="230" width="300" height="40"/>

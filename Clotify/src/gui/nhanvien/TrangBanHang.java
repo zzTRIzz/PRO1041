@@ -654,7 +654,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame implements QRCodeLi
             int option = JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa sản phẩm: " + tenSP + " không?", "Xóa sản phẩm trong giỏ hàng", JOptionPane.YES_NO_OPTION);
             if (option == JOptionPane.YES_OPTION) {
                 svHDCT.deleteHDCT(idHDCT);
-                JOptionPane.showMessageDialog(this, "Bạn xóa thành công");
+                JOptionPane.showMessageDialog(null, "Bạn xóa thành công");
             } else {
             }
             loadHoaDonCT(idHD);
@@ -678,7 +678,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame implements QRCodeLi
                 if (tongTienTra >= dkGiam) {
                     double tienCanTra = tongTienTra - tienGiam;
                     lblCanTra.setText(String.valueOf(tienCanTra));
-                    JOptionPane.showMessageDialog(this, "Áp dụng thành công");
+                    JOptionPane.showMessageDialog(null, "Áp dụng thành công");
                 }
 
             }
@@ -889,7 +889,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame implements QRCodeLi
                                 if (tongTienTra >= dkGiam) {
                                     double tienCanTra = tongTienTra - tienGiam;
                                     lblCanTra.setText(String.valueOf(tienCanTra));
-                                    JOptionPane.showMessageDialog(this, "Áp dụng thành công");
+                                    JOptionPane.showMessageDialog(null, "Áp dụng thành công");
                                 }
 
                             }
@@ -981,14 +981,14 @@ public class TrangBanHang extends javax.swing.JInternalFrame implements QRCodeLi
                 txtSDT.setText("");
                 lblTenKH.setText("");
                 reSet();
-                JOptionPane.showMessageDialog(this, "Hủy hóa đơn " + maHD + " thành công");
+                JOptionPane.showMessageDialog(null, "Hủy hóa đơn " + maHD + " thành công");
                 loadHoaDon();
                 defaultTableModel = (DefaultTableModel) tblGioHang.getModel();
                 defaultTableModel.setRowCount(0);
             } else {
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Mời bạn chọn hóa đơn");
+            JOptionPane.showMessageDialog(null, "Mời bạn chọn hóa đơn");
         }
 
     }//GEN-LAST:event_btnHuyActionPerformed
@@ -1025,7 +1025,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame implements QRCodeLi
             int option = JOptionPane.showConfirmDialog(null, "Bạn có muốn thanh hóa đơn: " + maHD + " không?", "Thanh toán hóa đơn", JOptionPane.YES_NO_OPTION);
             if (option == JOptionPane.YES_OPTION) {
                 if (txttienKhachDua.getText().isEmpty()) {
-                    JOptionPane.showMessageDialog(this, "Chưa nhập tiền khách đưa");
+                    JOptionPane.showMessageDialog(null, "Chưa nhập tiền khách đưa");
                     return;
                 }
                 
@@ -1038,9 +1038,9 @@ public class TrangBanHang extends javax.swing.JInternalFrame implements QRCodeLi
                     lblTenKH.setText("");
                     reSet();
 
-                    JOptionPane.showMessageDialog(this, "Thanh toán hóa đơn " + maHD + " thành công");
+                    JOptionPane.showMessageDialog(null, "Thanh toán hóa đơn " + maHD + " thành công");
                     loadHoaDon();
-                    int choise = JOptionPane.showConfirmDialog(this, "Bạn muốn thực hiện in hóa đơn không");
+                    int choise = JOptionPane.showConfirmDialog(null, "Bạn muốn thực hiện in hóa đơn không");
                     if (choise == JOptionPane.YES_OPTION) {
                         maInHD = maHD;
                         InHoaDon();
@@ -1048,7 +1048,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame implements QRCodeLi
                     defaultTableModel = (DefaultTableModel) tblGioHang.getModel();
                     defaultTableModel.setRowCount(0);
                 } else {
-                    JOptionPane.showMessageDialog(this, "Tiền khách trả còn thiếu");
+                    JOptionPane.showMessageDialog(null, "Tiền khách trả còn thiếu");
                 }
 
             } else {
@@ -1156,11 +1156,11 @@ public class TrangBanHang extends javax.swing.JInternalFrame implements QRCodeLi
             System.out.println("In xong");
             System.out.println("In xong");
 
-            JOptionPane.showMessageDialog(this, "Hóa đơn được tạo thành công: " + filePath);
+            JOptionPane.showMessageDialog(null, "Hóa đơn được tạo thành công: " + filePath);
         } catch (FileNotFoundException e) {
-            JOptionPane.showMessageDialog(this, "Không tìm thấy tệp: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Không tìm thấy tệp: " + e.getMessage());
         } catch (DocumentException | IOException e) {
-            JOptionPane.showMessageDialog(this, "Lỗi tạo PDF: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Lỗi tạo PDF: " + e.getMessage());
         }
     }
     private void btnDoiSLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDoiSLActionPerformed
@@ -1246,7 +1246,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame implements QRCodeLi
                 if (tongTienTra >= dkGiam) {
                     double tienCanTra = tongTienTra - tienGiam;
                     lblCanTra.setText(String.valueOf(tienCanTra));
-                    JOptionPane.showMessageDialog(this, "Áp dụng thành công");
+                    JOptionPane.showMessageDialog(null, "Áp dụng thành công");
                 }
 
             }
@@ -1290,7 +1290,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame implements QRCodeLi
             if (tongTien >= dkGiam) {
                 double tienCanTra = tongTien - tienGiam;
                 lblCanTra.setText(String.valueOf(tienCanTra));
-                JOptionPane.showMessageDialog(this, "Áp dụng thành công");
+                JOptionPane.showMessageDialog(null, "Áp dụng thành công");
             } else {
                 lblCanTra.setText(String.valueOf(tongTien));
             }
@@ -1523,7 +1523,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame implements QRCodeLi
                             if (tongTienTra >= dkGiam) {
                                 double tienCanTra = tongTienTra - tienGiam;
                                 lblCanTra.setText(String.valueOf(tienCanTra));
-                                JOptionPane.showMessageDialog(this, "Áp dụng thành công");
+                                JOptionPane.showMessageDialog(null, "Áp dụng thành công");
                             }
 
                         }
@@ -1539,7 +1539,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame implements QRCodeLi
             }
 
         } else {
-            JOptionPane.showMessageDialog(this, "Chon hoa don");
+            JOptionPane.showMessageDialog(null, "Chọn hoá đơn");
         }
         loadSanPham();
 

@@ -162,6 +162,11 @@ public class TrangHoaDonNhanVien extends javax.swing.JInternalFrame {
                 btnTraHangMouseClicked(evt);
             }
         });
+        btnTraHang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTraHangActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -339,7 +344,7 @@ public class TrangHoaDonNhanVien extends javax.swing.JInternalFrame {
 
     private void btnTraHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTraHangMouseClicked
         // TODO add your handling code here:
-       int kiemTra = JOptionPane.showConfirmDialog(this, "Bạn có muốn trả hàng không", "Bạn có muốn trả hàng không?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+       int kiemTra = JOptionPane.showConfirmDialog(null, "Bạn có muốn trả hàng không", "Bạn có muốn trả hàng không?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         int i = tbHoaDon.getSelectedRow();
         if(kiemTra == JOptionPane.YES_OPTION){
         if(i>=0){
@@ -351,6 +356,10 @@ public class TrangHoaDonNhanVien extends javax.swing.JInternalFrame {
             
         }
     }//GEN-LAST:event_btnTraHangMouseClicked
+
+    private void btnTraHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTraHangActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnTraHangActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

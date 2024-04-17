@@ -208,8 +208,6 @@ public class login extends javax.swing.JFrame {
 
         txtNewPassword.setBackground(new java.awt.Color(239, 239, 239));
         getContentPane().add(txtNewPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 300, 40));
-        txtNewPassword.setBorder(null);
-        getContentPane().add(txtNewPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 340, 40));
 
         txtPassword.setBackground(new java.awt.Color(239, 239, 239));
         txtPassword.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -250,8 +248,6 @@ public class login extends javax.swing.JFrame {
 
         txtNewPasswordAgain.setBackground(new java.awt.Color(239, 239, 239));
         getContentPane().add(txtNewPasswordAgain, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 300, 40));
-        txtNewPasswordAgain.setBorder(null);
-        getContentPane().add(txtNewPasswordAgain, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 340, 40));
 
         lblNhapGmail.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         getContentPane().add(lblNhapGmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, -1, -1));
@@ -553,10 +549,11 @@ public class login extends javax.swing.JFrame {
 
         txtGmail.setVisible(false);
         txtUser.setVisible(false);
-        txtNewPassword.setVisible(true);
+        
 
         txtOTP.setVisible(false);
         txtPassword.setVisible(false);
+        txtNewPassword.setVisible(true);
         txtNewPasswordAgain.setVisible(true);
 
         btnGuiOPTtoGmail.setVisible(false);

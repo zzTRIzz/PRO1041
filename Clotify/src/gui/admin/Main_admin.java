@@ -32,7 +32,6 @@ VoucherService svVC = new VoucherService();
     public Main_admin() {
         initComponents();
         init();
-        trang1();
     }
 
     private void init() {
@@ -55,7 +54,7 @@ VoucherService svVC = new VoucherService();
 
     void trang1() {
         System.out.println("Truy cap menu : 1");
-        DesktopPane.removeAll();
+        ui_custom.disposeAllFrame(DesktopPane);
         TrangSP trang1 = new TrangSP();
         trang1.setSize(DesktopPane.getSize());
         DesktopPane.add(trang1).setVisible(true);
@@ -112,6 +111,7 @@ VoucherService svVC = new VoucherService();
         lblTen = new javax.swing.JLabel();
         menu3 = new javax.swing.JLabel();
         DesktopPane = new javax.swing.JDesktopPane();
+        jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -234,15 +234,23 @@ VoucherService svVC = new VoucherService();
         DesktopPane.setMaximumSize(new java.awt.Dimension(1140, 700));
         DesktopPane.setMinimumSize(new java.awt.Dimension(1140, 700));
 
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/e2d7f667501241.5b3bf25ae01ed.png"))); // NOI18N
+
+        DesktopPane.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout DesktopPaneLayout = new javax.swing.GroupLayout(DesktopPane);
         DesktopPane.setLayout(DesktopPaneLayout);
         DesktopPaneLayout.setHorizontalGroup(
             DesktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1140, Short.MAX_VALUE)
+            .addGroup(DesktopPaneLayout.createSequentialGroup()
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 30, Short.MAX_VALUE))
         );
         DesktopPaneLayout.setVerticalGroup(
             DesktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 700, Short.MAX_VALUE)
+            .addGroup(DesktopPaneLayout.createSequentialGroup()
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 702, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         background.add(DesktopPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 0, -1, -1));
@@ -314,6 +322,7 @@ VoucherService svVC = new VoucherService();
     private javax.swing.JDesktopPane DesktopPane;
     private javax.swing.JPanel background;
     private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
