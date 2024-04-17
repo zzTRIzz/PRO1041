@@ -80,7 +80,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame implements QRCodeLi
         cboVoucher.setSelectedIndex(-1);
         initWebcam();
         qr.addQRCodeListener(this);
-        new Timer(60000, new ActionListener() {
+        new Timer(45000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 loadVoucher();
@@ -1047,11 +1047,11 @@ public class TrangBanHang extends javax.swing.JInternalFrame implements QRCodeLi
                     JOptionPane.showMessageDialog(null, "Chưa nhập tiền khách đưa");
                     return;
                 }
-                
+
                 if (tienThua >= 0) {
                     khachTra = Double.valueOf(txttienKhachDua.getText());
                     traLai = Double.valueOf(lblTienThua.getText());
-                    
+
                     svHd.upDateHoaDon(new HoaDon(trangThai, maNV, maVoucher, tienCanTra, idHD));
                     txtSDT.setText("");
                     lblTenKH.setText("");
@@ -1082,7 +1082,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame implements QRCodeLi
     void InHoaDon() {
         svHd.DataInHoaDon(maInHD);
 
-        String filePath = "bill/" +maInHD+ ".pdf";
+        String filePath = "bill/" + maInHD + ".pdf";
 
         com.itextpdf.text.Document document = new com.itextpdf.text.Document();
         try {
@@ -1109,14 +1109,13 @@ public class TrangBanHang extends javax.swing.JInternalFrame implements QRCodeLi
             Paragraph SDT = new Paragraph("SĐT : 0358168699", fonts);
             SDT.setAlignment(Element.ALIGN_CENTER); // Căn giữa
             document.add(SDT);
-            
+
             document.add(new Paragraph("                                                           "));
             document.add(new Paragraph("                                                           "));
-            document.add(new Paragraph("Mã hóa đơn     : " +"#"+1234566 +  String.format("%45s", "Ngày tạo : " +ngayTaoHD) , fonts));
-            document.add(new Paragraph("Tên khách hàng : " +ten , fonts));
-            document.add(new Paragraph("Số điện thoại  : " +sdt + String.format("%43s", "Địa chỉ  : " +diachi), fonts));
+            document.add(new Paragraph("Mã hóa đơn     : " + "#" + 1234566 + String.format("%45s", "Ngày tạo : " + ngayTaoHD), fonts));
+            document.add(new Paragraph("Tên khách hàng : " + ten, fonts));
+            document.add(new Paragraph("Số điện thoại  : " + sdt + String.format("%43s", "Địa chỉ  : " + diachi), fonts));
             document.add(new Paragraph("                                                           "));
-            
 
             document.add(new Paragraph("-----------------------------------------------------------", font));
             // Tiêu đề cột
@@ -1138,7 +1137,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame implements QRCodeLi
 
             // Tổng cộng
             Paragraph TongTien = new Paragraph("Tổng tiền      :" + String.format("%41s", formatter.format(tienHang)), font);
-            Paragraph Voucher = new Paragraph ("Giảm giá       :" + String.format("%41s", "-" + formatter.format(voucher)), font);
+            Paragraph Voucher = new Paragraph("Giảm giá       :" + String.format("%41s", "-" + formatter.format(voucher)), font);
             Paragraph Total = new Paragraph("Tiền phải trả  :" + String.format("%41s", formatter.format(tientra)), font);
             document.add(TongTien);
             document.add(Voucher);
@@ -1148,14 +1147,12 @@ public class TrangBanHang extends javax.swing.JInternalFrame implements QRCodeLi
             Paragraph TienThua = new Paragraph("Trả lại        :" + String.format("%41s", formatter.format(traLai)), font);
             document.add(KhachTra);
             document.add(TienThua);
-            
 
             // Dòng cuối cùng
             document.add(new Paragraph("                                                           "));
             document.add(new Paragraph("                                                           "));
             document.add(new Paragraph("                                                           "));
-            
-            
+
             document.add(new Paragraph("**********************************************************", font));
             Paragraph thanks = new Paragraph("Cảm ơn quý khách đã tin dùng sản phẩm Clotify", fonts);
             thanks.setAlignment(Element.ALIGN_CENTER); // Căn giữa
@@ -1164,8 +1161,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame implements QRCodeLi
             nhom.setAlignment(Element.ALIGN_CENTER); // Căn giữa
             document.add(nhom);
             document.add(new Paragraph("**********************************************************", font));
-            
-            
+
             Paragraph luuy = new Paragraph("Lưu ý : Quý khách có thể đổi trả hàng trong 7 ngày nếu sản phẩm bị lỗi", fonts);
             luuy.setAlignment(Element.ALIGN_CENTER); // Căn giữa
             document.add(luuy);
@@ -1322,6 +1318,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame implements QRCodeLi
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
         // TODO add your handling code here:
 
+        loadVoucher();
     }//GEN-LAST:event_formInternalFrameOpened
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed

@@ -40,7 +40,7 @@ VoucherService svVC = new VoucherService();
     private void init() {
         setLocationRelativeTo(null);
         lblTen.setText(TaiKhoanService.layThongTin_tenNV());
-        new Timer(60000, new ActionListener() {
+        new Timer(20000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
