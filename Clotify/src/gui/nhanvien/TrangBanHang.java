@@ -404,7 +404,7 @@ public class TrangBanHang extends javax.swing.JInternalFrame implements QRCodeLi
 
         jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(20, 70, 128), 1, true), "Tạo hóa đơn", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12), new java.awt.Color(20, 70, 128))); // NOI18N
 
-        jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin khách hàng"));
+        jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin khách hàng", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 3, 12))); // NOI18N
 
         txtSDT.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -412,8 +412,10 @@ public class TrangBanHang extends javax.swing.JInternalFrame implements QRCodeLi
             }
         });
 
+        jLabel18.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel18.setText("Số ĐT");
 
+        jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel17.setText("Tên KH");
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
@@ -445,12 +447,18 @@ public class TrangBanHang extends javax.swing.JInternalFrame implements QRCodeLi
                 .addContainerGap(9, Short.MAX_VALUE))
         );
 
+        jLabel19.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel19.setText("Tổng tiền");
 
+        jLabel20.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel20.setText("Khách đưa");
 
+        jLabel21.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel21.setText("Tiền thừa");
 
+        btnThanhToan.setBackground(new java.awt.Color(51, 153, 0));
+        btnThanhToan.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnThanhToan.setForeground(new java.awt.Color(255, 255, 255));
         btnThanhToan.setText("Thanh toán");
         btnThanhToan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -458,6 +466,8 @@ public class TrangBanHang extends javax.swing.JInternalFrame implements QRCodeLi
             }
         });
 
+        btnTaoHD.setBackground(new java.awt.Color(204, 235, 215));
+        btnTaoHD.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnTaoHD.setText("Tạo HĐ");
         btnTaoHD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -465,6 +475,9 @@ public class TrangBanHang extends javax.swing.JInternalFrame implements QRCodeLi
             }
         });
 
+        btnHuy.setBackground(new java.awt.Color(204, 235, 215));
+        btnHuy.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnHuy.setForeground(new java.awt.Color(204, 0, 51));
         btnHuy.setText("Hủy");
         btnHuy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -487,20 +500,29 @@ public class TrangBanHang extends javax.swing.JInternalFrame implements QRCodeLi
             }
         });
 
+        jLabel52.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel52.setText("Mã voucher");
 
+        jLabel53.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel53.setText("Tên NV");
 
+        lblTenNV.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
         lblTenNV.setText("Nguyễn Văn A");
 
+        lblTongTien.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
         lblTongTien.setText("0");
 
+        lblCanTra.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
         lblCanTra.setText("0");
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel2.setText("Cần trả");
 
+        lblTienThua.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
         lblTienThua.setText("0");
 
+        lblBangVoucher.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblBangVoucher.setForeground(new java.awt.Color(0, 0, 204));
         lblBangVoucher.setText("Xem");
         lblBangVoucher.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -512,10 +534,11 @@ public class TrangBanHang extends javax.swing.JInternalFrame implements QRCodeLi
         jPanel12.setLayout(jPanel12Layout);
         jPanel12Layout.setHorizontalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel12Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel12Layout.createSequentialGroup()
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnThanhToan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel12Layout.createSequentialGroup()
                         .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel52)
                             .addComponent(jLabel53))
@@ -523,16 +546,15 @@ public class TrangBanHang extends javax.swing.JInternalFrame implements QRCodeLi
                         .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblTenNV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel12Layout.createSequentialGroup()
-                                .addComponent(cboVoucher, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(lblBangVoucher, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addComponent(btnTaoHD, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(22, 22, 22)
-                        .addComponent(btnHuy, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE))
-                    .addGroup(jPanel12Layout.createSequentialGroup()
+                                .addComponent(cboVoucher, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblBangVoucher))))
+                    .addComponent(jPanel13, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel12Layout.createSequentialGroup()
+                        .addComponent(btnTaoHD, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel12Layout.createSequentialGroup()
                         .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel20)
                             .addComponent(jLabel21)
@@ -545,10 +567,6 @@ public class TrangBanHang extends javax.swing.JInternalFrame implements QRCodeLi
                             .addComponent(lblCanTra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblTienThua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
-            .addGroup(jPanel12Layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(btnThanhToan, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -564,10 +582,11 @@ public class TrangBanHang extends javax.swing.JInternalFrame implements QRCodeLi
                     .addComponent(jLabel19)
                     .addComponent(lblTongTien))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel52)
-                    .addComponent(cboVoucher)
-                    .addComponent(lblBangVoucher, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cboVoucher, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblBangVoucher, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCanTra)

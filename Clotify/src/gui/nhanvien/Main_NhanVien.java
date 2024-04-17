@@ -14,10 +14,12 @@ import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.intellijthemes.FlatLightFlatIJTheme;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.Locale;
 import javax.swing.*;
 /**
@@ -36,6 +38,7 @@ public class Main_NhanVien extends javax.swing.JFrame {
     public Main_NhanVien() {
         initComponents();
         init();
+        addLabel_HashMap_Menu();
     }
 
     private void init() {
@@ -79,6 +82,20 @@ public class Main_NhanVien extends javax.swing.JFrame {
         ui_custom.disposeAllFrame(DesktopPane);
         TrangKhachHang trang3 =  new TrangKhachHang();
         DesktopPane.add(trang3).setVisible(true);
+    }
+    
+    private HashMap<String, JLabel> menuLabel;
+    void addLabel_HashMap_Menu(){
+        menuLabel =  new HashMap<>();
+        menuLabel.put("trang1", trang1);
+        menuLabel.put("trang2", trang2);
+        menuLabel.put("trang3", trang3);
+    }
+    
+    void ResetFont(){
+        for (JLabel lbl : menuLabel.values()) {
+            lbl.setFont(lbl.getFont().deriveFont(Font.PLAIN));
+        }
     }
 
 
@@ -145,7 +162,7 @@ public class Main_NhanVien extends javax.swing.JFrame {
         trang1.setForeground(new java.awt.Color(255, 255, 255));
         trang1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         trang1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/icons8-t-shirt-24 (2).png"))); // NOI18N
-        trang1.setText("     Sản phẩm");
+        trang1.setText("     Hóa đơn");
         trang1.setToolTipText("");
         trang1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -245,16 +262,22 @@ public class Main_NhanVien extends javax.swing.JFrame {
     private void trang2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_trang2MouseClicked
         // TODO add your handling code here:
         trang2();
+        ResetFont();
+        trang2.setFont(new java.awt.Font("Noto Sans", 1, 13));
     }//GEN-LAST:event_trang2MouseClicked
 
     private void trang1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_trang1MouseClicked
         // TODO add your handling code here:
         trang1();
+        ResetFont();
+        trang1.setFont(new java.awt.Font("Noto Sans", 1, 13));
     }//GEN-LAST:event_trang1MouseClicked
 
     private void trang3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_trang3MouseClicked
         // TODO add your handling code here:
         trang3();
+        ResetFont();
+        trang3.setFont(new java.awt.Font("Noto Sans", 1, 13));
     }//GEN-LAST:event_trang3MouseClicked
 
     /**

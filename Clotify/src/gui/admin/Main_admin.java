@@ -11,10 +11,12 @@ import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.intellijthemes.FlatLightFlatIJTheme;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.Locale;
 import javax.swing.*;
 
@@ -32,6 +34,7 @@ VoucherService svVC = new VoucherService();
     public Main_admin() {
         initComponents();
         init();
+        addLabel_HashMap_Menu();
     }
 
     private void init() {
@@ -87,6 +90,22 @@ VoucherService svVC = new VoucherService();
         ui_custom.disposeAllFrame(DesktopPane);
         TrangThongKe trang5 = new TrangThongKe();
         DesktopPane.add(trang5).setVisible(true);
+    }
+    
+    private HashMap<String, JLabel> menuLabel;
+    void addLabel_HashMap_Menu(){
+        menuLabel =  new HashMap<>();
+        menuLabel.put("trang1", trang1);
+        menuLabel.put("trang2", trang2);
+        menuLabel.put("trang3", trang3);
+        menuLabel.put("trang4", trang4);
+        menuLabel.put("trang5", trang5);
+    }
+    
+    void ResetFont(){
+        for (JLabel lbl : menuLabel.values()) {
+            lbl.setFont(lbl.getFont().deriveFont(Font.PLAIN));
+        }
     }
 
     /**
@@ -272,26 +291,36 @@ VoucherService svVC = new VoucherService();
     private void trang2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_trang2MouseClicked
         // TODO add your handling code here:
         trang2();
+        ResetFont();
+        trang2.setFont(new java.awt.Font("Noto Sans", 1, 13));
     }//GEN-LAST:event_trang2MouseClicked
 
     private void trang1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_trang1MouseClicked
         // TODO add your handling code here:
         trang1();
+        ResetFont();
+        trang1.setFont(new java.awt.Font("Noto Sans", 1, 13));
     }//GEN-LAST:event_trang1MouseClicked
 
     private void trang3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_trang3MouseClicked
         // TODO add your handling code here:
         trang3();
+        ResetFont();
+        trang3.setFont(new java.awt.Font("Noto Sans", 1, 13));
     }//GEN-LAST:event_trang3MouseClicked
 
     private void trang5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_trang5MouseClicked
         // TODO add your handling code here:
         trang5();
+        ResetFont();
+        trang5.setFont(new java.awt.Font("Noto Sans", 1, 13));
     }//GEN-LAST:event_trang5MouseClicked
 
     private void trang4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_trang4MouseClicked
         // TODO add your handling code here:
         trang4();
+        ResetFont();
+        trang4.setFont(new java.awt.Font("Noto Sans", 1, 13));
     }//GEN-LAST:event_trang4MouseClicked
 
     /**

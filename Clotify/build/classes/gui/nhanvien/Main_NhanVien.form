@@ -135,7 +135,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/resource/icons8-t-shirt-24 (2).png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="     S&#x1ea3;n ph&#x1ea9;m"/>
+                <Property name="text" type="java.lang.String" value="     H&#xf3;a &#x111;&#x1a1;n"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
               </Properties>
               <Events>

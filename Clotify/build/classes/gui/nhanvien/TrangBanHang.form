@@ -343,9 +343,10 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="btnThanhToan" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel52" min="-2" max="-2" attributes="0"/>
@@ -354,19 +355,18 @@
                               <EmptySpace min="9" pref="9" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="lblTenNV" max="32767" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="cboVoucher" min="-2" pref="95" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="lblBangVoucher" min="-2" pref="34" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Component id="cboVoucher" max="32767" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="lblBangVoucher" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
                           <Component id="jPanel13" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="btnTaoHD" min="-2" pref="100" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                              <Component id="btnHuy" pref="113" max="32767" attributes="0"/>
+                              <Component id="btnTaoHD" pref="117" max="32767" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="btnHuy" min="-2" pref="110" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -386,11 +386,6 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-                      <Component id="btnThanhToan" min="-2" pref="154" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                  </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -409,10 +404,12 @@
                           <Component id="lblTongTien" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel52" min="-2" max="-2" attributes="0"/>
-                          <Component id="cboVoucher" max="32767" attributes="0"/>
-                          <Component id="lblBangVoucher" alignment="1" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="cboVoucher" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblBangVoucher" alignment="3" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -446,7 +443,9 @@
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                    <TitledBorder title="Th&#xf4;ng tin kh&#xe1;ch h&#xe0;ng"/>
+                    <TitledBorder title="Th&#xf4;ng tin kh&#xe1;ch h&#xe0;ng">
+                      <Font PropertyName="font" name="Segoe UI" size="12" style="3"/>
+                    </TitledBorder>
                   </Border>
                 </Property>
               </Properties>
@@ -495,11 +494,17 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel18">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="12" style="1"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="S&#x1ed1; &#x110;T"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel17">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="12" style="1"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="T&#xea;n KH"/>
                   </Properties>
                 </Component>
@@ -509,21 +514,39 @@
             </Container>
             <Component class="javax.swing.JLabel" name="jLabel19">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="12" style="1"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="T&#x1ed5;ng ti&#x1ec1;n"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel20">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="12" style="1"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Kh&#xe1;ch &#x111;&#x1b0;a"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel21">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="12" style="1"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Ti&#x1ec1;n th&#x1eeb;a"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="btnThanhToan">
               <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="99" red="33" type="rgb"/>
+                </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="1"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Thanh to&#xe1;n"/>
               </Properties>
               <Events>
@@ -532,6 +555,12 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnTaoHD">
               <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="d7" green="eb" red="cc" type="rgb"/>
+                </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="12" style="1"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="T&#x1ea1;o H&#x110;"/>
               </Properties>
               <Events>
@@ -540,6 +569,15 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnHuy">
               <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="d7" green="eb" red="cc" type="rgb"/>
+                </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="12" style="1"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="33" green="0" red="cc" type="rgb"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="H&#x1ee7;y"/>
               </Properties>
               <Events>
@@ -567,41 +605,68 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel52">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="12" style="1"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="M&#xe3; voucher"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel53">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="12" style="1"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="T&#xea;n NV"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblTenNV">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="12" style="3"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Nguy&#x1ec5;n V&#x103;n A"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblTongTien">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Consolas" size="12" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="0"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblCanTra">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Consolas" size="12" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="0"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel2">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="12" style="1"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="C&#x1ea7;n tr&#x1ea3;"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblTienThua">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Consolas" size="12" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="0"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblBangVoucher">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="12" style="1"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="cc" green="0" red="0" type="rgb"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Xem"/>
               </Properties>
               <Events>
