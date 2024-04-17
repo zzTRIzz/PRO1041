@@ -1015,6 +1015,7 @@ public class TrangSP extends javax.swing.JInternalFrame {
             if (rdMauSac.isSelected() == true) {
                 count = svTT.getListMS(tenTT).size();
                 if (count == 0) {
+                    JOptionPane.showMessageDialog(this, "Thêm thành công");
                     svTT.addMauSac(getFormMs());
                     loadDataMS();
                     LoadComBoMS();
@@ -1027,6 +1028,7 @@ public class TrangSP extends javax.swing.JInternalFrame {
             if (rdChatLieu.isSelected() == true) {
                 count = svTT.getListCL(tenTT).size();
                 if (count == 0) {
+                    JOptionPane.showMessageDialog(this, "Thêm thành công");
                     svTT.addChatLieu(getFormCl());
 //                cboChatLieu.addItem(ms);
                     loadDataCL();
@@ -1040,6 +1042,7 @@ public class TrangSP extends javax.swing.JInternalFrame {
             if (rdSize.isSelected() == true) {
                 count = svTT.getListSize(tenTT).size();
                 if (count == 0) {
+                    JOptionPane.showMessageDialog(this, "Thêm thành công");
                     svTT.addSize(getFormSize());
 //                cboSize.addItem(ms);
                     loadDataSize();
@@ -1052,6 +1055,7 @@ public class TrangSP extends javax.swing.JInternalFrame {
             if (rdThuongHieu.isSelected() == true) {
                 count = svTT.getListTH(tenTT).size();
                 if (count == 0) {
+                    JOptionPane.showMessageDialog(this, "Thêm thành công");
                     svTT.addThuongHieu(getFormTh());
 //                cboTH.addItem(ms);
                     loadDataTH();
@@ -1164,6 +1168,7 @@ public class TrangSP extends javax.swing.JInternalFrame {
         }
         int count = svSP.searchSanPham(maSP).size();
         if (count == 0) {
+            JOptionPane.showMessageDialog(this, "Thêm sản phẩm thành công");
             svSP.addSanPham(new SanPham(maSP, tenSP, ngayNhap, maNV));
             loadDataSP();
             loadDataSPCTByMa(maSP);
@@ -1235,7 +1240,7 @@ public class TrangSP extends javax.swing.JInternalFrame {
                 }
                 int count3 = svSPCT.searchID(maSP, loaiSP, idTH, idMS, idSize, idCL).size();
                 if (count3 == 0) {
-                    JOptionPane.showMessageDialog(this, "Thêm thành công");
+                    JOptionPane.showMessageDialog(this, "Thêm sản phẩm chi tiết thành công");
                     svSPCT.addSanPhamCT(new SanPhamCT(soLuong, idMS, idSize, idTH, idCL, maSP, loaiSP, trangThai, giaNhap, hinhAnh));
                     loadDataSPCTByMa(maSP);
                 } else {
@@ -1329,6 +1334,8 @@ public class TrangSP extends javax.swing.JInternalFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Chọn sản phẩm trong bảng");
         }
+        loadDataSP();
+        loadDataSPCTByMa(maSP);
     }//GEN-LAST:event_btUpdateActionPerformed
 
     private void tblSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSanPhamMouseClicked
