@@ -68,7 +68,7 @@ Trong bối cảnh ngày nay, nhu cầu mua sắm và tiêu dùng các sản ph�
 |2|SRS|Tài liệu đặc tả yêu cầu SRS là từ viết tắt của Software Requirement Specification.|
 |3|PTPM|Phát triển phần mềm.|
 |4|<p></p><p></p><p>CSDL</p>|Cơ sở dữ liệu (thường được viết tắt là CSDL), hay tiếng anh là Database,một tập hợp các dữ liệu có tổ chức, thường được lưu trữ và truy cập điện tử từ hệ thống máy tính.|
-|5|JAVA|Một ngôn ngữ lập trình hướng đối tượng đa năng, mạnh mẽ được phát triển bởi Microsoft.|
+|5|JAVA|Một ngôn ngữ lập trình hướng đối tượng đa năng, mạnh mẽ được phát triển bởi Oracle.|
 |6|SQL|SQL là viết tắt của Structured Query Language, là ngôn ngữ truy vấn có cấu trúc, cho phép bạn truy cập và thao tác với các cơ sở dữ liệu để tạo, xóa, sửa đổi, trích xuất dữ liệu.|
 |7|PK|Khóa chính của bảng|
 |8|FK|Khóa ngoại của bảng|
