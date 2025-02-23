@@ -1,6 +1,6 @@
 **Mục Lục**
 
-[**XÂY DỰNG PHẦN MỀM QUẢN LÍ CỬA HÀNG BÁN QUẦN ÁO CLOTIFY	1****](#_toc164257624)**
+[**XÂY DỰNG PHẦN MỀM QUẢN LÍ CỬA HÀNG BÁN QUẦN ÁO CLOTIFY	1****](#_toc164257624)
 
 [**PHẦN 1: GIỚI THIỆU ĐỀ TÀI – HỆ THỐNG	6****](#_toc164257625)
 
